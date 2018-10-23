@@ -23,14 +23,19 @@ public class ArcherGroupBehaviour : MonoBehaviour {
     public float maxShootTime;
     bool canShoot = true;
     public float shootCooldown;
+    public float arrowSpeed;
+    public GameObject arrow;
+    public float aimLead;
 
     [Header("References")]
     public Transform target;
     public NavMeshAgent nav;
+    internal Rigidbody targetRb;
 
     void Start()
     {
         moveCor = StartCoroutine(IUpdateTargetPosition());
+        targetRb = target.GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -50,7 +55,8 @@ public class ArcherGroupBehaviour : MonoBehaviour {
         if (Vector3.Distance(target.position, transform.position) < aimRange)
         {
             state = ArcherGroupState.Shooting;
-            EventOnStateChanged(state);
+            if (EventOnStateChanged != null)
+                EventOnStateChanged(state);
             StopCoroutine(moveCor);
             nav.ResetPath();
             StartCoroutine(IAimAndShoot());
@@ -60,7 +66,8 @@ public class ArcherGroupBehaviour : MonoBehaviour {
     void StartMoving()
     {
         state = ArcherGroupState.Moving;
-        EventOnStateChanged(state);
+        if (EventOnStateChanged != null)
+            EventOnStateChanged(state);
         moveCor = StartCoroutine(IUpdateTargetPosition());
     }
 

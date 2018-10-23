@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour {
     public PlayerStates playerState;
     [Header("Flying")]
     public float flySpeed;
+    float speed;
     internal Vector3 desiredDir = Vector3.forward;
     Vector3 lastDesiredDir = Vector3.forward;
     float hinput;
@@ -18,18 +19,29 @@ public class PlayerController : MonoBehaviour {
     Quaternion targetRot;
     public float maxSteerRot;
     Vector3 dirDiff;
-    public bool isSprinting;
+    internal bool isSprinting;
     public float sprintSpeed;
-    public float sprintCooldown;
     float sprintTime;
+    internal bool isSlowing; 
+    public float slowSpeed;
+    float slowTime;
 
     [Header("Stamina")]
     public float maxStamina;
     float stamina;
     public float sprintCostPerSecond;
+    public float sprintCooldown;
+    public float slowCostPerSecond;
+    public float slowCooldown;
     public float regenPerSecond;
     public float regenCooldown;
     float regenTime;
+
+    [Header("Aiming")]
+    public float cursorSpeed;
+    float rhinput;
+    float rvinput;
+    public Vector3 originCursorPos;
 
     [Header("Shooting")]
     public float timeBetweenCols;
@@ -47,6 +59,7 @@ public class PlayerController : MonoBehaviour {
     public float dodgeCooldown;
 
     [Header("References")]
+    public Transform aimCursor;
     public ParticleSystem firePartSys;
     public Transform fireOrigin;
     public Rigidbody rb;
@@ -59,6 +72,7 @@ public class PlayerController : MonoBehaviour {
     {
         stamina = maxStamina;
         sprintTime = sprintCooldown;
+        slowTime = slowCooldown;
     }
 
     private void FixedUpdate()
@@ -71,7 +85,15 @@ public class PlayerController : MonoBehaviour {
         { 
             case PlayerStates.FLYING:
                 //Going forward at all times
-                rb.velocity = transform.forward * (isSprinting ? sprintSpeed : flySpeed);
+
+                if (isSprinting && !isSlowing)
+                    speed = sprintSpeed;
+                else if (isSlowing && !isSprinting)
+                    speed = slowSpeed;
+                else
+                    speed = flySpeed;
+
+                rb.velocity = transform.forward * speed;
 
                 //Don't change the desired direction if there is no input
                 if (hinput != 0 || vinput != 0)
@@ -105,13 +127,16 @@ public class PlayerController : MonoBehaviour {
         switch (playerState)
         {
             case PlayerStates.FLYING:
+
+                Aim();
                 Shoot();
 
                 //Sprinting
                 if (Input.GetAxis("Sprint") > .1f && stamina > 0 && sprintTime >= sprintCooldown)
                 {
                     isSprinting = true;
-                    UseStamina(sprintCostPerSecond);
+                    if (!isSlowing)
+                        UseStamina(sprintCostPerSecond);
                 }
                 else if (isSprinting)
                 {
@@ -120,16 +145,46 @@ public class PlayerController : MonoBehaviour {
                         sprintTime = 0;
                 }
 
+                //Slowing 
+                if (Input.GetButton("SlowDown") && stamina > 0 && slowTime >= slowCooldown)
+                {
+                    isSlowing = true;
+                    if (!isSprinting)
+                        UseStamina(slowCostPerSecond);
+                }
+                
+                if (isSlowing && (Input.GetButtonUp("SlowDown") || stamina == 0))
+                {
+                    isSlowing = false;
+                    if (stamina == 0)
+                        slowTime = 0;
+                }
+
                 //Dodge
                 if (Input.GetAxis("Dodge") > .1f && canDodge)
                     Dodge();
+
                 break;
 
             case PlayerStates.DODGING:
+                Aim();
                 break;
         }
 
         UpdateUI();
+    }
+
+    void Aim()
+    {
+        rhinput = Input.GetAxis("Horizontal_R");
+        rvinput = Input.GetAxis("Vertical_R");
+
+        if (rhinput != 0 || rvinput != 0)
+        {
+            //Direction based on input
+            //aimCursor.Translate(new Vector3(hinput, 0f, vinput) * cursorSpeed);
+            aimCursor.localPosition = originCursorPos + new Vector3(rhinput, aimCursor.localPosition.y, rvinput) * cursorSpeed; //range
+        }
     }
 
     void Shoot()
@@ -197,6 +252,9 @@ public class PlayerController : MonoBehaviour {
 
         if (sprintTime < sprintCooldown)
             sprintTime += Time.deltaTime;
+
+        if (slowTime < slowCooldown)
+            slowTime += Time.deltaTime;
     }
 
     void Dodge()

@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 52827924}
   m_Layer: 10
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Dragon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -162,13 +162,17 @@ MonoBehaviour:
   flySpeed: 25
   rotationLerp: 0.1
   maxSteerRot: 75
-  isSprinting: 0
   sprintSpeed: 60
-  sprintCooldown: 2.5
+  slowSpeed: 10
   maxStamina: 100
   sprintCostPerSecond: 50
+  sprintCooldown: 2.5
+  slowCostPerSecond: 25
+  slowCooldown: 1.5
   regenPerSecond: 10
   regenCooldown: 0.5
+  cursorSpeed: 5
+  originCursorPos: {x: 0, y: 0, z: 7}
   timeBetweenCols: 0.025
   fireColSpeed: 100
   shootTarget: {fileID: 1242435765}
@@ -176,6 +180,7 @@ MonoBehaviour:
   megaDodgeSpeed: 80
   dodgeTime: 0.2
   dodgeCooldown: 0.7
+  aimCursor: {fileID: 170000127}
   firePartSys: {fileID: 931150301}
   fireOrigin: {fileID: 198766568}
   rb: {fileID: 52827925}
@@ -194,7 +199,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 116
@@ -681,7 +686,7 @@ GameObject:
   - component: {fileID: 223987322}
   m_Layer: 10
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: Dragon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1100,6 +1105,7 @@ MonoBehaviour:
   aimOffset: 6
   fireZoom: {x: 0, y: -4, z: 4}
   sprintDezoom: {x: 0, y: 5, z: -5}
+  slowZoom: {x: 0, y: -3, z: 3}
   player: {fileID: 52827924}
   shakeGen: {fileID: 534669907}
 --- !u!114 &534669907
@@ -1530,6 +1536,73 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1059006476
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4793756302785420, guid: e32a50ec43a3a914884a26cd08f4fa05, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 52.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4793756302785420, guid: e32a50ec43a3a914884a26cd08f4fa05, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4793756302785420, guid: e32a50ec43a3a914884a26cd08f4fa05, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -6.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4793756302785420, guid: e32a50ec43a3a914884a26cd08f4fa05, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4793756302785420, guid: e32a50ec43a3a914884a26cd08f4fa05, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4793756302785420, guid: e32a50ec43a3a914884a26cd08f4fa05, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4793756302785420, guid: e32a50ec43a3a914884a26cd08f4fa05, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4793756302785420, guid: e32a50ec43a3a914884a26cd08f4fa05, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114690655368564356, guid: e32a50ec43a3a914884a26cd08f4fa05,
+        type: 2}
+      propertyPath: debugSphere
+      value: 
+      objectReference: {fileID: 391981020}
+    - target: {fileID: 114690655368564356, guid: e32a50ec43a3a914884a26cd08f4fa05,
+        type: 2}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 52827923}
+    - target: {fileID: 114690655368564356, guid: e32a50ec43a3a914884a26cd08f4fa05,
+        type: 2}
+      propertyPath: aimRange
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 114690655368564356, guid: e32a50ec43a3a914884a26cd08f4fa05,
+        type: 2}
+      propertyPath: maxShootTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114690655368564356, guid: e32a50ec43a3a914884a26cd08f4fa05,
+        type: 2}
+      propertyPath: aimLead
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e32a50ec43a3a914884a26cd08f4fa05, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &1122822382
 Prefab:
   m_ObjectHideFlags: 0
@@ -1682,7 +1755,7 @@ GameObject:
   - component: {fileID: 1367750947}
   m_Layer: 10
   m_Name: Capsule (4)
-  m_TagString: Untagged
+  m_TagString: Dragon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1853,7 +1926,7 @@ GameObject:
   - component: {fileID: 1506814574}
   m_Layer: 10
   m_Name: Capsule (3)
-  m_TagString: Untagged
+  m_TagString: Dragon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1926,58 +1999,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1506814572}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1001 &1715996129
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4793756302785420, guid: e32a50ec43a3a914884a26cd08f4fa05, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 52.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4793756302785420, guid: e32a50ec43a3a914884a26cd08f4fa05, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 4793756302785420, guid: e32a50ec43a3a914884a26cd08f4fa05, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -6.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4793756302785420, guid: e32a50ec43a3a914884a26cd08f4fa05, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4793756302785420, guid: e32a50ec43a3a914884a26cd08f4fa05, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4793756302785420, guid: e32a50ec43a3a914884a26cd08f4fa05, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4793756302785420, guid: e32a50ec43a3a914884a26cd08f4fa05, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4793756302785420, guid: e32a50ec43a3a914884a26cd08f4fa05, type: 2}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 114690655368564356, guid: e32a50ec43a3a914884a26cd08f4fa05,
-        type: 2}
-      propertyPath: debugSphere
-      value: 
-      objectReference: {fileID: 391981020}
-    - target: {fileID: 114690655368564356, guid: e32a50ec43a3a914884a26cd08f4fa05,
-        type: 2}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 52827923}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e32a50ec43a3a914884a26cd08f4fa05, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1 &1777422138
 GameObject:
   m_ObjectHideFlags: 0
@@ -1991,7 +2012,7 @@ GameObject:
   - component: {fileID: 1777422140}
   m_Layer: 10
   m_Name: Capsule (2)
-  m_TagString: Untagged
+  m_TagString: Dragon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2077,7 +2098,7 @@ GameObject:
   - component: {fileID: 1804521853}
   m_Layer: 10
   m_Name: Capsule (1)
-  m_TagString: Untagged
+  m_TagString: Dragon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

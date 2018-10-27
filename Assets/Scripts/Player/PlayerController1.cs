@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum PlayerStates { FLYING, DODGING, LANDING };
-public class PlayerController : MonoBehaviour {
+public class PlayerControllerkk : MonoBehaviour {
 
+    public enum PlayerStates { FLYING, DODGING, LANDING };
 
     [HideInInspector]
     public int dragonPopup;
     public int level;
+
+    public EggManager eggManager;
     public PlayerStates playerState;
-
-
     [Header("Flying")]
     public float flySpeed;
-    float speed;
     internal Vector3 desiredDir = Vector3.forward;
     Vector3 lastDesiredDir = Vector3.forward;
     float hinput;
@@ -25,31 +24,20 @@ public class PlayerController : MonoBehaviour {
     Quaternion targetRot;
     public float maxSteerRot;
     Vector3 dirDiff;
-    internal bool isSprinting;
+    public bool isSprinting;
     public float sprintSpeed;
-    float sprintTime;
-    internal bool isSlowing; 
-    public float slowSpeed;
-    float slowTime;
+    public float sprintCooldown;
     public float landSpeed;
 
+    float sprintTime;
 
     [Header("Stamina")]
     public float maxStamina;
     float stamina;
     public float sprintCostPerSecond;
-    public float sprintCooldown;
-    public float slowCostPerSecond;
-    public float slowCooldown;
     public float regenPerSecond;
     public float regenCooldown;
     float regenTime;
-
-    [Header("Aiming")]
-    public float cursorSpeed;
-    float rhinput;
-    float rvinput;
-    Vector3 originCursorPos;
 
     [Header("Shooting")]
     public float timeBetweenCols;
@@ -67,7 +55,6 @@ public class PlayerController : MonoBehaviour {
     public float dodgeCooldown;
 
     [Header("References")]
-    public Transform aimCursor;
     public ParticleSystem firePartSys;
     public Transform fireOrigin;
     public Rigidbody rb;
@@ -75,20 +62,11 @@ public class PlayerController : MonoBehaviour {
     public Animator anim;
     public Slider staminaBar;
     public BabyDragonManager babyDragonMan;
-    public EggManager eggManager;
-    public GameObject egg;
-    public Transform toDropegg;
-    
-    [Header("Landing")]
-
-    [System.NonSerialized]
-    public bool canLand;
 
     void Start()
     {
         stamina = maxStamina;
         sprintTime = sprintCooldown;
-        slowTime = slowCooldown;
     }
 
     private void FixedUpdate()
@@ -101,15 +79,7 @@ public class PlayerController : MonoBehaviour {
         { 
             case PlayerStates.FLYING:
                 //Going forward at all times
-
-                if (isSprinting && !isSlowing)
-                    speed = sprintSpeed;
-                else if (isSlowing && !isSprinting)
-                    speed = slowSpeed;
-                else
-                    speed = flySpeed;
-
-                rb.velocity = transform.forward * speed;
+                rb.velocity = transform.forward * (isSprinting ? sprintSpeed : flySpeed);
 
                 //Don't change the desired direction if there is no input
                 if (hinput != 0 || vinput != 0)
@@ -133,7 +103,7 @@ public class PlayerController : MonoBehaviour {
 
             case PlayerStates.DODGING:
                 break;
-            
+
             case PlayerStates.LANDING:
                 // Decrease speed and stop 
                 if(rb.velocity != new Vector3 (0,0,0))
@@ -153,21 +123,13 @@ public class PlayerController : MonoBehaviour {
         switch (playerState)
         {
             case PlayerStates.FLYING:
-
-                Aim();
                 Shoot();
-                //Landing
-                if (Input.GetButtonDown("Fire2") /* && canLand*/ && eggManager.eggSlider.value >=1)
-                {
-                    eggManager.eggSlider.value = 0;
-                    Landing();
-                }
+
                 //Sprinting
                 if (Input.GetAxis("Sprint") > .1f && stamina > 0 && sprintTime >= sprintCooldown)
                 {
                     isSprinting = true;
-                    if (!isSlowing)
-                        UseStamina(sprintCostPerSecond);
+                    UseStamina(sprintCostPerSecond);
                 }
                 else if (isSprinting)
                 {
@@ -176,49 +138,19 @@ public class PlayerController : MonoBehaviour {
                         sprintTime = 0;
                 }
 
-                //Slowing 
-                if (Input.GetButton("SlowDown") && stamina > 0 && slowTime >= slowCooldown)
-                {
-                    isSlowing = true;
-                    if (!isSprinting)
-                        UseStamina(slowCostPerSecond);
-                }
-                
-                if (isSlowing && (Input.GetButtonUp("SlowDown") || stamina == 0))
-                {
-                    isSlowing = false;
-                    if (stamina == 0)
-                        slowTime = 0;
-                }
-
                 //Dodge
                 if (Input.GetAxis("Dodge") > .1f && canDodge)
                     Dodge();
-
                 break;
 
             case PlayerStates.DODGING:
-                Aim();
                 break;
-            
+
             case PlayerStates.LANDING:
                 break;
         }
 
         UpdateUI();
-    }
-
-    void Aim()
-    {
-        rhinput = Input.GetAxis("Horizontal_R");
-        rvinput = Input.GetAxis("Vertical_R");
-
-        if (rhinput != 0 || rvinput != 0)
-        {
-            //Direction based on input
-            //aimCursor.Translate(new Vector3(hinput, 0f, vinput) * cursorSpeed);
-            aimCursor.localPosition = new Vector3(hinput, aimCursor.localPosition.y, vinput) * cursorSpeed; //range
-        }
     }
 
     void Shoot()
@@ -240,6 +172,11 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetButtonUp("Fire1"))
         {
             StopShooting();
+        }
+
+        if (Input.GetButtonDown("Fire2"))
+        {
+            Landing();
         }
 
         //While the player is shooting
@@ -286,9 +223,6 @@ public class PlayerController : MonoBehaviour {
 
         if (sprintTime < sprintCooldown)
             sprintTime += Time.deltaTime;
-
-        if (slowTime < slowCooldown)
-            slowTime += Time.deltaTime;
     }
 
     void Dodge()
@@ -339,7 +273,7 @@ public class PlayerController : MonoBehaviour {
         yield return new WaitForSeconds(dodgeCooldown);
         canDodge = true;
     }
-    
+
     IEnumerator ILand()
     {
         StopShooting();
@@ -348,10 +282,7 @@ public class PlayerController : MonoBehaviour {
         yield return new WaitForSeconds(0.5f);
         playerState = PlayerStates.LANDING;
 
-        yield return new WaitForSeconds(2.0f);
-        Instantiate(egg,toDropegg.position,Quaternion.identity);
-
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(3f);
         playerState = PlayerStates.FLYING;
 
         yield break;

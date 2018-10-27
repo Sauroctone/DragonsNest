@@ -31,11 +31,9 @@ public class PlayerController : MonoBehaviour {
     internal bool isSlowing; 
     public float slowSpeed;
     float slowTime;
-<<<<<<< HEAD
+
     public float landSpeed;
 
-=======
->>>>>>> master
 
     [Header("Stamina")]
     public float maxStamina;
@@ -52,11 +50,7 @@ public class PlayerController : MonoBehaviour {
     public float cursorSpeed;
     float rhinput;
     float rvinput;
-<<<<<<< HEAD
-    Vector3 originCursorPos;
-=======
     public Vector3 originCursorPos;
->>>>>>> master
 
     [Header("Shooting")]
     public float timeBetweenCols;
@@ -160,12 +154,6 @@ public class PlayerController : MonoBehaviour {
         switch (playerState)
         {
             case PlayerStates.FLYING:
-<<<<<<< HEAD
-=======
-
-                Aim();
-                Shoot();
->>>>>>> master
 
                 Aim();
                 Shoot();
@@ -212,12 +200,9 @@ public class PlayerController : MonoBehaviour {
 
             case PlayerStates.DODGING:
                 Aim();
-<<<<<<< HEAD
                 break;
             
             case PlayerStates.LANDING:
-=======
->>>>>>> master
                 break;
         }
 
@@ -233,11 +218,8 @@ public class PlayerController : MonoBehaviour {
         {
             //Direction based on input
             //aimCursor.Translate(new Vector3(hinput, 0f, vinput) * cursorSpeed);
-<<<<<<< HEAD
-            aimCursor.localPosition = new Vector3(hinput, aimCursor.localPosition.y, vinput) * cursorSpeed; //range
-=======
             aimCursor.localPosition = originCursorPos + new Vector3(rhinput, aimCursor.localPosition.y, rvinput) * cursorSpeed; //range
->>>>>>> master
+
         }
     }
 

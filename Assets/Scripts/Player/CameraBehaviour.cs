@@ -11,6 +11,7 @@ public class CameraBehaviour : MonoBehaviour {
     Vector3 baseOffset;
     public Vector3 fireZoom;
     public Vector3 sprintDezoom;
+    public Vector3 slowZoom;
     Vector3 zoom;
     Vector3 lastPos;
 
@@ -27,8 +28,10 @@ public class CameraBehaviour : MonoBehaviour {
     {
         if (player.isShooting)
             zoom = fireZoom;
-        else if (player.isSprinting)
+        else if (player.isSprinting && !player.isSlowing)
             zoom = sprintDezoom;
+        else if (player.isSlowing && !player.isSprinting)
+            zoom = slowZoom;
         else
             zoom = Vector3.zero;
 

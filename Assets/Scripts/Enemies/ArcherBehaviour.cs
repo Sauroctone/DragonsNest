@@ -6,11 +6,14 @@ public class ArcherBehaviour : MonoBehaviour {
 
     public float speed;
     public float maxWanderRadius;
+    public float aimRotLerp;
+
     Vector3 destination;
     Vector2 randomPoint;
     Vector3 originPos;
     ArcherGroupBehaviour group;
     ArcherGroupState groupState;
+
 
     void Start()
     {
@@ -55,7 +58,18 @@ public class ArcherBehaviour : MonoBehaviour {
 
     IEnumerator IAimAndShoot()
     {
-        yield return null;
+        float time = 0f;
+        while (time < group.aimTime)
+        {
+            time += Time.deltaTime;
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.LookRotation((Vector3.ProjectOnPlane(group.target.position, Vector3.up) - transform.position).normalized), aimRotLerp);
+            yield return null;
+        }
+        Vector3 aimDir = ((group.target.position + group.targetRb.velocity * group.aimLead) - group.transform.position).normalized;
+        yield return new WaitForSeconds(Random.Range(group.minShootTime, group.maxShootTime));
+        GameObject proj = Instantiate(group.arrow, transform.position, Quaternion.identity);
+        proj.transform.rotation = Quaternion.LookRotation(aimDir);
+        proj.GetComponent<Rigidbody>().velocity = aimDir * group.arrowSpeed;
     }
 
     private void OnDisable()

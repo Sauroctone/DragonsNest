@@ -2391,6 +2391,9 @@ MonoBehaviour:
   speed: 0.2
   maxWanderRadius: 0.05
   aimRotLerp: 1
+  aimDir: {x: 0, y: 0, z: 0}
+  group: {fileID: 0}
+  debugIntercept: {fileID: 0}
 --- !u!114 &114022530210764932
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2405,6 +2408,9 @@ MonoBehaviour:
   speed: 0.2
   maxWanderRadius: 0.05
   aimRotLerp: 1
+  aimDir: {x: 0, y: 0, z: 0}
+  group: {fileID: 0}
+  debugIntercept: {fileID: 0}
 --- !u!114 &114047502800639978
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2419,6 +2425,9 @@ MonoBehaviour:
   speed: 0.2
   maxWanderRadius: 0.05
   aimRotLerp: 1
+  aimDir: {x: 0, y: 0, z: 0}
+  group: {fileID: 0}
+  debugIntercept: {fileID: 0}
 --- !u!114 &114053754674668856
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2433,6 +2442,9 @@ MonoBehaviour:
   speed: 0.2
   maxWanderRadius: 0.05
   aimRotLerp: 1
+  aimDir: {x: 0, y: 0, z: 0}
+  group: {fileID: 0}
+  debugIntercept: {fileID: 0}
 --- !u!114 &114077520140962378
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2447,6 +2459,9 @@ MonoBehaviour:
   speed: 0.2
   maxWanderRadius: 0.05
   aimRotLerp: 1
+  aimDir: {x: 0, y: 0, z: 0}
+  group: {fileID: 0}
+  debugIntercept: {fileID: 0}
 --- !u!114 &114115942020957704
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2461,6 +2476,9 @@ MonoBehaviour:
   speed: 0.2
   maxWanderRadius: 0.05
   aimRotLerp: 1
+  aimDir: {x: 0, y: 0, z: 0}
+  group: {fileID: 0}
+  debugIntercept: {fileID: 0}
 --- !u!114 &114193121142692004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2475,6 +2493,9 @@ MonoBehaviour:
   speed: 0.2
   maxWanderRadius: 0.05
   aimRotLerp: 1
+  aimDir: {x: 0, y: 0, z: 0}
+  group: {fileID: 0}
+  debugIntercept: {fileID: 0}
 --- !u!114 &114271416114489154
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2489,6 +2510,9 @@ MonoBehaviour:
   speed: 0.2
   maxWanderRadius: 0.05
   aimRotLerp: 1
+  aimDir: {x: 0, y: 0, z: 0}
+  group: {fileID: 0}
+  debugIntercept: {fileID: 0}
 --- !u!114 &114342843268828910
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2503,6 +2527,9 @@ MonoBehaviour:
   speed: 0.2
   maxWanderRadius: 0.05
   aimRotLerp: 1
+  aimDir: {x: 0, y: 0, z: 0}
+  group: {fileID: 0}
+  debugIntercept: {fileID: 0}
 --- !u!114 &114427204167828738
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2517,6 +2544,9 @@ MonoBehaviour:
   speed: 0.2
   maxWanderRadius: 0.05
   aimRotLerp: 1
+  aimDir: {x: 0, y: 0, z: 0}
+  group: {fileID: 0}
+  debugIntercept: {fileID: 0}
 --- !u!114 &114455695152913238
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2531,6 +2561,9 @@ MonoBehaviour:
   speed: 0.2
   maxWanderRadius: 0.05
   aimRotLerp: 1
+  aimDir: {x: 0, y: 0, z: 0}
+  group: {fileID: 0}
+  debugIntercept: {fileID: 0}
 --- !u!114 &114461027994088254
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2545,6 +2578,9 @@ MonoBehaviour:
   speed: 0.2
   maxWanderRadius: 0.05
   aimRotLerp: 1
+  aimDir: {x: 0, y: 0, z: 0}
+  group: {fileID: 0}
+  debugIntercept: {fileID: 0}
 --- !u!114 &114510515609182988
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2559,6 +2595,9 @@ MonoBehaviour:
   speed: 0.2
   maxWanderRadius: 0.05
   aimRotLerp: 1
+  aimDir: {x: 0, y: 0, z: 0}
+  group: {fileID: 0}
+  debugIntercept: {fileID: 0}
 --- !u!114 &114520128505783296
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2573,6 +2612,9 @@ MonoBehaviour:
   speed: 0.2
   maxWanderRadius: 0.05
   aimRotLerp: 1
+  aimDir: {x: 0, y: 0, z: 0}
+  group: {fileID: 0}
+  debugIntercept: {fileID: 0}
 --- !u!114 &114558807284300750
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2587,6 +2629,9 @@ MonoBehaviour:
   speed: 0.2
   maxWanderRadius: 0.05
   aimRotLerp: 1
+  aimDir: {x: 0, y: 0, z: 0}
+  group: {fileID: 0}
+  debugIntercept: {fileID: 0}
 --- !u!114 &114561485964034252
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2601,6 +2646,9 @@ MonoBehaviour:
   speed: 0.2
   maxWanderRadius: 0.05
   aimRotLerp: 1
+  aimDir: {x: 0, y: 0, z: 0}
+  group: {fileID: 0}
+  debugIntercept: {fileID: 0}
 --- !u!114 &114598324451638624
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2615,6 +2663,9 @@ MonoBehaviour:
   speed: 0.2
   maxWanderRadius: 0.05
   aimRotLerp: 1
+  aimDir: {x: 0, y: 0, z: 0}
+  group: {fileID: 0}
+  debugIntercept: {fileID: 0}
 --- !u!114 &114608110859454182
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2629,6 +2680,9 @@ MonoBehaviour:
   speed: 0.2
   maxWanderRadius: 0.05
   aimRotLerp: 1
+  aimDir: {x: 0, y: 0, z: 0}
+  group: {fileID: 0}
+  debugIntercept: {fileID: 0}
 --- !u!114 &114625653026726362
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2643,6 +2697,9 @@ MonoBehaviour:
   speed: 0.2
   maxWanderRadius: 0.05
   aimRotLerp: 1
+  aimDir: {x: 0, y: 0, z: 0}
+  group: {fileID: 0}
+  debugIntercept: {fileID: 0}
 --- !u!114 &114626352592744042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2657,6 +2714,9 @@ MonoBehaviour:
   speed: 0.2
   maxWanderRadius: 0.05
   aimRotLerp: 1
+  aimDir: {x: 0, y: 0, z: 0}
+  group: {fileID: 0}
+  debugIntercept: {fileID: 0}
 --- !u!114 &114626534293165978
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2671,6 +2731,9 @@ MonoBehaviour:
   speed: 0.2
   maxWanderRadius: 0.05
   aimRotLerp: 1
+  aimDir: {x: 0, y: 0, z: 0}
+  group: {fileID: 0}
+  debugIntercept: {fileID: 0}
 --- !u!114 &114636904826744842
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2685,6 +2748,9 @@ MonoBehaviour:
   speed: 0.2
   maxWanderRadius: 0.05
   aimRotLerp: 1
+  aimDir: {x: 0, y: 0, z: 0}
+  group: {fileID: 0}
+  debugIntercept: {fileID: 0}
 --- !u!114 &114669823741552152
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2699,6 +2765,9 @@ MonoBehaviour:
   speed: 0.2
   maxWanderRadius: 0.05
   aimRotLerp: 1
+  aimDir: {x: 0, y: 0, z: 0}
+  group: {fileID: 0}
+  debugIntercept: {fileID: 0}
 --- !u!114 &114690655368564356
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2712,13 +2781,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   updatePathFrequency: 0.2
   debugSphere: {fileID: 0}
-  aimRange: 40
+  aimRange: 100
   aimTime: 1
   minShootTime: 0
-  maxShootTime: 0.2
+  maxShootTime: 0.1
   shootCooldown: 2
   arrowSpeed: 40
-  arrow: {fileID: 1847254297553356, guid: 581584a28c16aad428be86005bd58d23, type: 2}
+  arrow: {fileID: 1737514496264914, guid: 235608be6731cea4faafea349538a6a6, type: 2}
+  aimLead: 1
   target: {fileID: 0}
   nav: {fileID: 195031232302732186}
 --- !u!114 &114714578679151942
@@ -2735,6 +2805,9 @@ MonoBehaviour:
   speed: 0.2
   maxWanderRadius: 0.05
   aimRotLerp: 1
+  aimDir: {x: 0, y: 0, z: 0}
+  group: {fileID: 0}
+  debugIntercept: {fileID: 0}
 --- !u!114 &114765651888533328
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2749,6 +2822,9 @@ MonoBehaviour:
   speed: 0.2
   maxWanderRadius: 0.05
   aimRotLerp: 1
+  aimDir: {x: 0, y: 0, z: 0}
+  group: {fileID: 0}
+  debugIntercept: {fileID: 0}
 --- !u!114 &114782064041409846
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2763,6 +2839,9 @@ MonoBehaviour:
   speed: 0.2
   maxWanderRadius: 0.05
   aimRotLerp: 1
+  aimDir: {x: 0, y: 0, z: 0}
+  group: {fileID: 0}
+  debugIntercept: {fileID: 0}
 --- !u!114 &114804093325528760
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2777,6 +2856,9 @@ MonoBehaviour:
   speed: 0.2
   maxWanderRadius: 0.05
   aimRotLerp: 1
+  aimDir: {x: 0, y: 0, z: 0}
+  group: {fileID: 0}
+  debugIntercept: {fileID: 0}
 --- !u!114 &114891279057800082
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2791,6 +2873,9 @@ MonoBehaviour:
   speed: 0.2
   maxWanderRadius: 0.05
   aimRotLerp: 1
+  aimDir: {x: 0, y: 0, z: 0}
+  group: {fileID: 0}
+  debugIntercept: {fileID: 0}
 --- !u!114 &114980606591436044
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2805,6 +2890,9 @@ MonoBehaviour:
   speed: 0.2
   maxWanderRadius: 0.05
   aimRotLerp: 1
+  aimDir: {x: 0, y: 0, z: 0}
+  group: {fileID: 0}
+  debugIntercept: {fileID: 0}
 --- !u!114 &114994053878531390
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2819,6 +2907,9 @@ MonoBehaviour:
   speed: 0.2
   maxWanderRadius: 0.05
   aimRotLerp: 1
+  aimDir: {x: 0, y: 0, z: 0}
+  group: {fileID: 0}
+  debugIntercept: {fileID: 0}
 --- !u!136 &136035368281671982
 CapsuleCollider:
   m_ObjectHideFlags: 1

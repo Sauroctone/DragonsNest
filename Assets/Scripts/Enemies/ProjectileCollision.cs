@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour {
+public class ProjectileCollision : MonoBehaviour {
 
-	void Start ()
-    {
-        Destroy(gameObject, 3);
-    }
+    public GameObject visualCounterpart;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -15,6 +12,7 @@ public class Projectile : MonoBehaviour {
         {
             print("touché");
             Destroy(gameObject);
+            Destroy(visualCounterpart);
         }
     }
 }

@@ -388,3 +388,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visualRb: {fileID: 54753397724214548}
   colliderRb: {fileID: 54483594891520956}
+  firePower: 1

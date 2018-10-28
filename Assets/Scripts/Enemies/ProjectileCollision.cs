@@ -5,6 +5,12 @@ using UnityEngine;
 public class ProjectileCollision : MonoBehaviour {
 
     public GameObject visualCounterpart;
+    public int firePower = 10; 
+
+	void Start ()
+    {
+        Destroy(gameObject, 3);
+    }
 
     private void OnTriggerEnter(Collider other)
     {

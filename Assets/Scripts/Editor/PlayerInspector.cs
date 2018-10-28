@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 
 
+/* 
 public enum PIStates
 {
 	Classic,
@@ -71,3 +72,5 @@ public class PlayerInspector : Editor {
 
 
 }
+
+*/

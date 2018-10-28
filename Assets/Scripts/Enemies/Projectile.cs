@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour {
 
+    public int firePower = 10; 
+
 	void Start ()
     {
         Destroy(gameObject, 3);

@@ -7,11 +7,12 @@ public class EggManager : MonoBehaviour {
 
 
 	public float eggTimefactor = 1;
-	public PlayerController playerController;
 
 
 	[Header("Refereces")]
+	public PlayerController playerController;
 	public Slider eggSlider;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -20,6 +21,7 @@ public class EggManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		UpdateEggByTime();
+		//Debug.Log(this.name);
 	}
 
 	void UpdateEggByTime ()

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public enum PlayerStates { FLYING, DODGING, LANDING };
+
 public class PlayerController : MonoBehaviour {
 
 
@@ -311,6 +312,7 @@ public class PlayerController : MonoBehaviour {
     private void Landing()
     {
         StartCoroutine (ILand());
+        Debug.Log("LandTameredetoi");
     }
 
     IEnumerator IDodge()

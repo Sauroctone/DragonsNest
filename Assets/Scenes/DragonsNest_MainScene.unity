@@ -368,7 +368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeMax: 100
-  lifeBar: {fileID: 0}
+  lifeBar: {fileID: 538801188}
 --- !u!1 &73858319
 GameObject:
   m_ObjectHideFlags: 0

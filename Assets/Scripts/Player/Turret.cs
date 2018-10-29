@@ -35,7 +35,14 @@ public class Turret : MonoBehaviour {
     private void Update()
     {
         //CheckShoot();
-		Shoot (target);
+        if(Input.GetKeyDown(KeyCode.Y))
+        {
+		    Shoot (target);
+        }
+        if(Input.GetKeyUp(KeyCode.Y))
+        {
+            StopShooting();
+        }
     }
 
     void CheckShoot()

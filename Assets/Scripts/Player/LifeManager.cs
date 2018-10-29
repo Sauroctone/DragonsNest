@@ -4,7 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class LifeManager : MonoBehaviour {
-
+	public enum TypeOfLifeMan
+	{
+		Player,
+		Turret
+	}
+	public TypeOfLifeMan typeOfObject;
 	public int lifeMax = 100; 
 	int life = 100; 
 	public Image lifeBar;
@@ -18,6 +23,7 @@ public class LifeManager : MonoBehaviour {
 		var proj = col.gameObject.GetComponent<ProjectileCollision>();
 		if(proj)
 		{
+
 			LifeUpdate(proj.firePower);
 			//Change with the pool die 
 			Destroy(proj.gameObject);
@@ -28,7 +34,15 @@ public class LifeManager : MonoBehaviour {
 	void LifeUpdate(int damage) 
 	{	
 		life -= damage;
-		LifeBarUpdate();
+			switch(typeOfObject)
+			{
+				case TypeOfLifeMan.Player:
+					LifeBarUpdate();
+					break;
+					
+				case TypeOfLifeMan.Turret:
+					break;
+			}
 		if(life-damage <= 0)
 		{
 			life = 0;
@@ -44,6 +58,15 @@ public class LifeManager : MonoBehaviour {
 
 	void LifeNull()
 	{
-		Debug.Log("You Die");
+		switch(typeOfObject)
+		{
+			case TypeOfLifeMan.Player:
+				Debug.Log("You Die");
+				break;
+
+			case TypeOfLifeMan.Turret:
+				Debug.Log("You turret die");
+				break;
+		}
 	}
 }

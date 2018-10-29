@@ -12,6 +12,7 @@ public class Eggs : MonoBehaviour {
 	public MeshRenderer rend;
 	private Material material;
 	public ParticleSystem particle;
+	public GameObject turret;
 
 	// Use this for initialization
 	void Start () {
@@ -29,13 +30,19 @@ public class Eggs : MonoBehaviour {
 	{
 		if (hatchingTime >= 30)
 		{
-			
+			TransformTurret();
 		}
 		else
 		{
 			hatchingTime += Time.deltaTime;
 		}
 
+	}
+
+	void TransformTurret()
+	{
+		turret.SetActive(true);
+		this.gameObject.SetActive(false);
 	}
 	void LifeUpdate ()
 	{

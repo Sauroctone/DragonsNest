@@ -50,7 +50,7 @@ public class ArrowBehaviour : MonoBehaviour {
         float o = visualCurve.Evaluate(newFrame) - visualCurve.Evaluate(lastFrame);
         float a = newFrame - lastFrame;
         float angle = Mathf.Atan2(o, a) * Mathf.Rad2Deg;
-        print(angle);
+        visualRb.transform.rotation = Quaternion.LookRotation(velocity.normalized);
         visualRb.transform.eulerAngles = new Vector3(-angle, transform.rotation.y, transform.rotation.z);
     }
 }

@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour {
+public class ProjectileCollision : MonoBehaviour {
 
+    public GameObject visualCounterpart;
     public int firePower = 10; 
 
 	void Start ()
@@ -17,6 +18,7 @@ public class Projectile : MonoBehaviour {
         {
             print("touché");
             Destroy(gameObject);
+            Destroy(visualCounterpart);
         }
     }
 }

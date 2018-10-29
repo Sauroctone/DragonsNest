@@ -16,7 +16,6 @@ public class ProjectileCollision : MonoBehaviour {
     {
         if (other.tag == "Dragon")
         {
-            print("touché");
             Destroy(gameObject);
             Destroy(visualCounterpart);
         }

@@ -5,11 +5,13 @@ using UnityEngine.UI;
 
 public enum PlayerStates { FLYING, DODGING, LANDING };
 
-public class PlayerController : MonoBehaviour {
-
+public class PlayerController : LivingBeing {
 
     [HideInInspector]
     public int dragonPopup;
+
+    [Space]
+    [Space]
     public int level;
     public PlayerStates playerState;
 
@@ -34,7 +36,6 @@ public class PlayerController : MonoBehaviour {
     float slowTime;
 
     public float landSpeed;
-
 
     [Header("Stamina")]
     public float maxStamina;
@@ -77,9 +78,10 @@ public class PlayerController : MonoBehaviour {
     public Animator anim;
     public Slider staminaBar;
     public BabyDragonManager babyDragonMan;
-    public EggManager eggManager;
+    public EggManager eggMan;
     public GameObject egg;
     public Transform toDropegg;
+    GameManager gameMan;
     
     [Header("Landing")]
 
@@ -91,6 +93,7 @@ public class PlayerController : MonoBehaviour {
         stamina = maxStamina;
         sprintTime = sprintCooldown;
         slowTime = slowCooldown;
+        gameMan = GameManager.Instance;
     }
 
     private void FixedUpdate()
@@ -150,6 +153,8 @@ public class PlayerController : MonoBehaviour {
 
     private void Update()
     {
+        Debug.LogError("Finis l'appel de l'incrémentation de la vignette quand on prend du dégât");
+
         RegenStamina();
 
         switch (playerState)
@@ -159,9 +164,9 @@ public class PlayerController : MonoBehaviour {
                 Aim();
                 Shoot();
                 //Landing
-                if (Input.GetButtonDown("Fire2") /* && canLand*/ && eggManager.eggSlider.value >=1)
+                if (Input.GetButtonDown("Fire2") /* && canLand*/ && eggMan.eggSlider.value >=1)
                 {
-                    eggManager.eggSlider.value = 0;
+                    eggMan.eggSlider.value = 0;
                     Landing();
                 }
                 //Sprinting
@@ -207,7 +212,7 @@ public class PlayerController : MonoBehaviour {
                 break;
         }
 
-        UpdateUI();
+        UpdateStaminaUI();
     }
 
     void Aim()
@@ -260,7 +265,7 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    void UpdateUI()
+    public void UpdateStaminaUI()
     {
         staminaBar.value = stamina / maxStamina;
     }
@@ -292,6 +297,16 @@ public class PlayerController : MonoBehaviour {
 
         if (slowTime < slowCooldown)
             slowTime += Time.deltaTime;
+    }
+
+    public override void UpdateHealthUI(int _damage)
+    {
+        base.UpdateHealthUI(_damage);
+
+        if (gameMan.vignetteMan.CurrentPreset != gameMan.vignetteMan.hurtVignette)
+            gameMan.vignetteMan.ChangeVignette(gameMan.vignetteMan.hurtVignette);
+        else
+            gameMan.vignetteMan.IncrementSmoothness(gameMan.vignetteMan.hurtVignette, lostLifeBeforeDecay);
     }
 
     void Dodge()

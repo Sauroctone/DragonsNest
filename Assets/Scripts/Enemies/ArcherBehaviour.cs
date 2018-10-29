@@ -74,7 +74,7 @@ public class ArcherBehaviour : MonoBehaviour {
         aimDir = (interceptPoint - group.transform.position).normalized;
         //aimDir = ((group.target.position + group.targetRb.velocity * group.aimLead) - group.transform.position).normalized;
         yield return new WaitForSeconds(Random.Range(group.minShootTime, group.maxShootTime));
-        GameObject proj = Instantiate(group.arrow, transform.position, Quaternion.LookRotation(aimDir));
+        GameObject proj = Instantiate(group.arrow, transform.position, Quaternion.identity);
         proj.GetComponent<ArrowBehaviour>().Init(this);
         if (debugIntercept != null)
             debugIntercept.position = interceptPoint;

@@ -9,8 +9,6 @@ public class ArrowBehaviour : MonoBehaviour {
     AnimationCurve visualCurve;
     public Rigidbody visualRb;
     public Rigidbody colliderRb;
-    Vector3 startPos;
-    Vector3 endPos;
     Vector3 velocity;
     float arrowMaxHeight;
     Vector3 lastPos;
@@ -22,10 +20,9 @@ public class ArrowBehaviour : MonoBehaviour {
         //Visual
         velocity = Vector3.ProjectOnPlane(_owner.aimDir, Vector3.up) * _owner.group.arrowSpeed;
         visualRb.velocity = velocity;
-        startPos = _owner.group.transform.position;
-        endPos = velocity * lifetime;
         arrowMaxHeight = _owner.group.arrowMaxHeight;
         visualCurve = _owner.group.visualTrajectory;
+        transform.rotation = Quaternion.LookRotation(velocity.normalized);
 
         //Collider
         colliderRb.transform.parent = null;
@@ -47,10 +44,11 @@ public class ArrowBehaviour : MonoBehaviour {
         time += Time.deltaTime;
         float newFrame = time;
         transform.position = new Vector3(transform.position.x, visualCurve.Evaluate(time/lifetime) * arrowMaxHeight, transform.position.z);
-        float o = visualCurve.Evaluate(newFrame) - visualCurve.Evaluate(lastFrame);
-        float a = newFrame - lastFrame;
+        float o = visualCurve.Evaluate(newFrame/lifetime) - visualCurve.Evaluate(lastFrame/lifetime);
+        float a = newFrame/lifetime - lastFrame/lifetime;
         float angle = Mathf.Atan2(o, a) * Mathf.Rad2Deg;
-        visualRb.transform.rotation = Quaternion.LookRotation(velocity.normalized);
-        visualRb.transform.eulerAngles = new Vector3(-angle, transform.rotation.y, transform.rotation.z);
+        //Debug.Log(angle);
+        if (visualRb != null)
+            visualRb.transform.localEulerAngles = new Vector3(-angle / 3, 0, 0);
     }
 }

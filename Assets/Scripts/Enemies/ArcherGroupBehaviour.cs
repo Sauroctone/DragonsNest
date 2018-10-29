@@ -54,7 +54,7 @@ public class ArcherGroupBehaviour : MonoBehaviour {
 
     void CheckDistanceToTarget()
     {
-        if (Vector3.Distance(target.position, transform.position) < aimRange)
+        if (Vector3.Distance(target.position, transform.position) < aimRange && canShoot)
         {
             state = ArcherGroupState.Shooting;
             if (EventOnStateChanged != null)

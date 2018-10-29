@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class LifeManager : MonoBehaviour {
-	public enum TpeOfLm
+	public enum TypeOfLifeMan
 	{
 		Player,
 		Turret
 	}
-	public TpeOfLm typeOfObjec;
+	public TypeOfLifeMan typeOfObject;
 	public int lifeMax = 100; 
 	int life = 100; 
 	public Image lifeBar;
@@ -34,13 +34,13 @@ public class LifeManager : MonoBehaviour {
 	void LifeUpdate(int damage) 
 	{	
 		life -= damage;
-			switch(typeOfObjec)
+			switch(typeOfObject)
 			{
-				case TpeOfLm.Player:
+				case TypeOfLifeMan.Player:
 					LifeBarUpdate();
 					break;
 					
-				case TpeOfLm.Turret:
+				case TypeOfLifeMan.Turret:
 					break;
 			}
 		if(life-damage <= 0)
@@ -58,13 +58,13 @@ public class LifeManager : MonoBehaviour {
 
 	void LifeNull()
 	{
-		switch(typeOfObjec)
+		switch(typeOfObject)
 		{
-			case TpeOfLm.Player:
+			case TypeOfLifeMan.Player:
 				Debug.Log("You Die");
 				break;
 
-			case TpeOfLm.Turret:
+			case TypeOfLifeMan.Turret:
 				Debug.Log("You turret die");
 				break;
 		}

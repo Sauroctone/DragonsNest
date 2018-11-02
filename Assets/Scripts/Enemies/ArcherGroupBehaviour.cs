@@ -9,6 +9,8 @@ public class ArcherGroupBehaviour : MonoBehaviour {
     public delegate void OnStateChanged(ArcherGroupState _state);
     public event OnStateChanged EventOnStateChanged;
 
+    public List<ArcherBehaviour> archers = new List<ArcherBehaviour>();
+
     [Header("Movement")]
     public float updatePathFrequency;
     public Transform debugSphere;
@@ -50,6 +52,9 @@ public class ArcherGroupBehaviour : MonoBehaviour {
             case ArcherGroupState.Shooting:
                 break;
         }
+
+        if (archers.Count == 0)
+            Destroy(gameObject);
     }
 
     void CheckDistanceToTarget()

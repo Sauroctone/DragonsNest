@@ -27,7 +27,7 @@ public class LivingBeing : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col)
 	{
-		var proj = col.gameObject.GetComponent<ProjectileCollision>();
+		var proj = col.gameObject.GetComponent<Projectile>();
 
 		if (proj)
 		{

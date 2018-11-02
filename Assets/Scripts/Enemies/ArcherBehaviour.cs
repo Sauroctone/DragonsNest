@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArcherBehaviour : MonoBehaviour {
+public class ArcherBehaviour : LivingBeing {
+
+    [Header("Movement")]
 
     public float speed;
     public float maxWanderRadius;
@@ -18,12 +20,13 @@ public class ArcherBehaviour : MonoBehaviour {
     ArcherGroupState groupState;
     public Transform debugIntercept;
 
-
     void Start()
     {
         originPos = transform.localPosition;
+        destination = transform.localPosition;
         group = GetComponentInParent<ArcherGroupBehaviour>();
         group.EventOnStateChanged += OnGroupStateChanged;
+        group.archers.Add(this);
     }
 
     void Update ()
@@ -83,6 +86,16 @@ public class ArcherBehaviour : MonoBehaviour {
     private void OnDisable()
     {
         group.EventOnStateChanged -= OnGroupStateChanged;
+    }
+
+    public override void Die()
+    {
+        group.archers.Remove(this);
+    }
+
+    public override void UpdateHealthUI(int _damage)
+    {
+        // NO HEALTHBAR (yet)
     }
 
     //first-order intercept using absolute target position

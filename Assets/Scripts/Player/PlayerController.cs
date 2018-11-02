@@ -7,6 +7,8 @@ public enum PlayerStates { FLYING, DODGING, LANDING };
 
 public class PlayerController : LivingBeing {
 
+    public float vignetteFactor;
+
     [HideInInspector]
     public int dragonPopup;
 
@@ -34,6 +36,9 @@ public class PlayerController : LivingBeing {
     internal bool isSlowing; 
     public float slowSpeed;
     float slowTime;
+    float timeOutOfSlow;
+    public float minSlowTime;
+    public float boostTimeOutOfSlow;
 
     public float landSpeed;
 
@@ -103,11 +108,11 @@ public class PlayerController : LivingBeing {
         vinput = Input.GetAxis("Vertical");
 
         switch (playerState)
-        { 
+        {
             case PlayerStates.FLYING:
                 //Going forward at all times
 
-                if (isSprinting && !isSlowing)
+                if (timeOutOfSlow > 0 || isSprinting && !isSlowing)
                     speed = sprintSpeed;
                 else if (isSlowing && !isSprinting)
                     speed = slowSpeed;
@@ -153,15 +158,13 @@ public class PlayerController : LivingBeing {
 
     private void Update()
     {
-        Debug.LogError("Finis l'appel de l'incrémentation de la vignette quand on prend du dégât");
-
         RegenStamina();
 
         switch (playerState)
         {
             case PlayerStates.FLYING:
 
-                Aim();
+                //Aim();
                 Shoot();
                 //Landing
                 if (Input.GetButtonDown("Fire2") /* && canLand*/ && eggMan.eggSlider.value >=1)
@@ -184,9 +187,14 @@ public class PlayerController : LivingBeing {
                 }
 
                 //Slowing 
+
+                if (Input.GetButtonDown("SlowDown"))
+                    timeOutOfSlow = 0; 
+
                 if (Input.GetButton("SlowDown") && stamina > 0 && slowTime >= slowCooldown)
                 {
                     isSlowing = true;
+                    
                     if (!isSprinting)
                         UseStamina(slowCostPerSecond);
                 }
@@ -194,6 +202,8 @@ public class PlayerController : LivingBeing {
                 if (isSlowing && (Input.GetButtonUp("SlowDown") || stamina == 0))
                 {
                     isSlowing = false;
+                    if (timeOutOfSlow < -minSlowTime)
+                        timeOutOfSlow = boostTimeOutOfSlow;
                     if (stamina == 0)
                         slowTime = 0;
                 }
@@ -205,12 +215,14 @@ public class PlayerController : LivingBeing {
                 break;
 
             case PlayerStates.DODGING:
-                Aim();
+                //Aim();
                 break;
             
             case PlayerStates.LANDING:
                 break;
         }
+
+        timeOutOfSlow -= Time.deltaTime;
 
         UpdateStaminaUI();
     }
@@ -306,7 +318,10 @@ public class PlayerController : LivingBeing {
         if (gameMan.vignetteMan.CurrentPreset != gameMan.vignetteMan.hurtVignette)
             gameMan.vignetteMan.ChangeVignette(gameMan.vignetteMan.hurtVignette);
         else
-            gameMan.vignetteMan.IncrementSmoothness(gameMan.vignetteMan.hurtVignette, lostLifeBeforeDecay);
+        {
+            VignettePreset toSwitchAfterDecay = life / maxLife < .25 ? gameMan.vignetteMan.hurtVignette : gameMan.vignetteMan.basicVignette;
+            gameMan.vignetteMan.IncrementSmoothness(gameMan.vignetteMan.hurtVignette, _damage * vignetteFactor, toSwitchAfterDecay);
+        }
     }
 
     void Dodge()

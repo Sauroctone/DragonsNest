@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireCollision : MonoBehaviour {
+public class FireCollision : Projectile {
 
     public GameObject groundOnFire;
     public LayerMask groundMask;
@@ -26,11 +26,6 @@ public class FireCollision : MonoBehaviour {
                 fire.transform.localScale = transform.localScale;
             }
             Destroy(gameObject);
-        }
-
-        if (other.tag == "Archer")
-        {
-            Destroy(other.gameObject);
         }
     }
 }

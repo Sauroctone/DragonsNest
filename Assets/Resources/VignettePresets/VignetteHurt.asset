@@ -14,7 +14,7 @@ MonoBehaviour:
   transitionTime: 0.1
   color: {r: 1, g: 0, b: 0, a: 1}
   intensity: 0.35
-  smoothness: 0.2
+  smoothness: 0.35
   roundness: 1
   incrementSmoothness: 1
   maxSmoothness: 0.7

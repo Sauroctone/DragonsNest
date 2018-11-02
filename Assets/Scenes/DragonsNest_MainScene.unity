@@ -695,7 +695,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2085,7 +2085,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 40, y: -50.80005}
+  m_AnchoredPosition: {x: 40, y: -50.800293}
   m_SizeDelta: {x: 480, y: 60}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1227050556
@@ -2169,7 +2169,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 39.99994, y: -81}
+  m_AnchoredPosition: {x: 40, y: -81}
   m_SizeDelta: {x: 430, y: 60}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1297790522
@@ -2594,6 +2594,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9465bbd31213dc44381ba7f74c42224d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  smoothnessIsDecaying: 0
   basicVignette: {fileID: 11400000, guid: 3fb1af1a7340c94488662cb37421f44a, type: 2}
   hurtVignette: {fileID: 11400000, guid: 4e1086864d47882479b93259f7723e47, type: 2}
   profile: {fileID: 11400000, guid: bcedd0b6a46856d44bfdfecd35a9caf3, type: 2}
@@ -2676,7 +2677,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 479, y: -95.7}
+  m_AnchoredPosition: {x: 479, y: -95.700195}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1618212057
@@ -2778,7 +2779,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3114,10 +3115,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLife: 100
   life: 100
+  lostLifeBeforeDecay: 0
   timeToUpdateFeedbackBar: 1
   feedbackDecayTime: 1.5
   lifeBar: {fileID: 2041986852}
   lifeBarFeedback: {fileID: 1758636243}
+  vignetteFactor: 0.015
   dragonPopup: 0
   level: 0
   playerState: 0
@@ -3126,12 +3129,14 @@ MonoBehaviour:
   maxSteerRot: 75
   sprintSpeed: 60
   slowSpeed: 10
+  minSlowTime: 0.75
+  boostTimeOutOfSlow: 0.35
   landSpeed: 0
   maxStamina: 100
   sprintCostPerSecond: 50
   sprintCooldown: 2.5
   slowCostPerSecond: 25
-  slowCooldown: 1.5
+  slowCooldown: 3
   regenPerSecond: 10
   regenCooldown: 0.5
   cursorSpeed: 5
@@ -3152,7 +3157,7 @@ MonoBehaviour:
   anim: {fileID: 855592104}
   staminaBar: {fileID: 1227050556}
   babyDragonMan: {fileID: 273772590}
-  eggManager: {fileID: 2063086581}
+  eggMan: {fileID: 0}
   egg: {fileID: 1189923540006814, guid: 2ec8f4d1b33383d49a6eb0245abd3e5f, type: 2}
   toDropegg: {fileID: 585933990}
 --- !u!54 &2063086584

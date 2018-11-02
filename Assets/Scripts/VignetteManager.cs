@@ -16,10 +16,14 @@ public class VignetteManager : MonoBehaviour {
     }
 
     float timeBeforeSmoothnessDecay;
-    bool smoothnessIsDecaying;
+    [HideInInspector]
+    public bool smoothnessIsDecaying;
+    VignettePreset toSwitchAfterDecay;
+
     [Header("Presets")]
     public VignettePreset basicVignette;
     public VignettePreset hurtVignette;
+
     [Header("References")]
     public PostProcessingProfile profile;
     VignetteModel.Settings settings;
@@ -28,10 +32,10 @@ public class VignetteManager : MonoBehaviour {
 
     private void Start()
     {
-        currentPreset = basicVignette;
+        ChangeVignette(basicVignette);
 
         //Set the "original value" variables - there should be a better way to maintain this
-        hurtVignette.originalSmoothness = basicVignette.smoothness;
+        hurtVignette.originalSmoothness = hurtVignette.smoothness;
     }
 
     public void ChangeVignette(VignettePreset _preset)
@@ -45,8 +49,10 @@ public class VignetteManager : MonoBehaviour {
         currentPreset = _preset;
     }
 
-    public void IncrementSmoothness(VignettePreset _preset, float _increment)
+    public void IncrementSmoothness(VignettePreset _preset, float _increment, VignettePreset _toSwitchAfterDecay = null)
     {
+        settings = profile.vignette.settings;
+
         if (!_preset.incrementSmoothness)
         {
             Debug.LogWarning("[" + _preset.name + "]'s smoothness cannot be incremented. Try flagging the appropriate boolean as 'true' in the VignettePreset asset.");
@@ -54,6 +60,7 @@ public class VignetteManager : MonoBehaviour {
         }
 
         timeBeforeSmoothnessDecay = 0;
+        toSwitchAfterDecay = _toSwitchAfterDecay;
 
         if (_preset.smoothness + _increment > _preset.maxSmoothness)
             return;
@@ -64,6 +71,8 @@ public class VignetteManager : MonoBehaviour {
             {
                 smoothnessIsDecaying = false;
                 _preset.smoothness = _preset.originalSmoothness;
+                settings.smoothness = _preset.smoothness;
+                profile.vignette.settings = settings;
             }
             if (smoothnessDecayCor != null)
                 StopCoroutine(smoothnessDecayCor);
@@ -71,6 +80,8 @@ public class VignetteManager : MonoBehaviour {
         }
         _preset.smoothness += _increment;
         _preset.smoothness = Mathf.Clamp(_preset.smoothness, 0f, _preset.maxSmoothness);
+        settings.smoothness = _preset.smoothness;
+        profile.vignette.settings = settings;
     }
 
     IEnumerator IDecaySmoothness(VignettePreset _preset)
@@ -80,14 +91,27 @@ public class VignetteManager : MonoBehaviour {
             timeBeforeSmoothnessDecay += Time.deltaTime;
             yield return null;
         }
-        smoothnessIsDecaying = true;
-        while (_preset.smoothness > _preset.originalSmoothness)
+        if (toSwitchAfterDecay != null && toSwitchAfterDecay != currentPreset)
         {
-            _preset.smoothness -= _preset.smoothnessDecayPerSecond * Time.deltaTime;
-            yield return null;
+            ChangeVignette(toSwitchAfterDecay);
+            toSwitchAfterDecay = null;
+            _preset.smoothness = _preset.originalSmoothness;
         }
-        _preset.smoothness = _preset.originalSmoothness;
-        smoothnessIsDecaying = false;
+        else
+        {
+            smoothnessIsDecaying = true;
+            while (_preset.smoothness > _preset.originalSmoothness)
+            {
+                _preset.smoothness -= _preset.smoothnessDecayPerSecond * Time.deltaTime;
+                settings.smoothness = _preset.smoothness;
+                profile.vignette.settings = settings;
+                yield return null;
+            }
+            _preset.smoothness = _preset.originalSmoothness;
+            settings.smoothness = _preset.smoothness;
+            profile.vignette.settings = settings;
+            smoothnessIsDecaying = false;
+        }
     }
 
     IEnumerator ILerpValues(VignettePreset _preset)

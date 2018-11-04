@@ -7,9 +7,10 @@ public class Nest : MonoBehaviour {
 	public PlayerController playerController;
 	public void OnTriggerEnter(Collider col)
 	{
-		if(col.gameObject.tag == "Dragon")// && //!playerController.canLand
+		if(col.gameObject.tag == "Dragon" && !playerController.canLand)
 		{
-			//playerController.canLand = true;
+			playerController.canLand = true;
+			Debug.Log("CanLand");
 		}
 	}
 }

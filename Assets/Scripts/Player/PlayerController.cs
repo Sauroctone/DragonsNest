@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum PlayerStates { FLYING, DODGING, LANDING };
+public enum PlayerStates { FLYING, DODGING, LANDING, SLOWING };
 
 public class PlayerController : MonoBehaviour {
 
 
+#region Var
     [HideInInspector]
     public int dragonPopup;
     public int level;
@@ -68,6 +69,11 @@ public class PlayerController : MonoBehaviour {
     bool canDodge = true;
     public float dodgeCooldown;
 
+    [Header("Landing")]
+
+    [System.NonSerialized]
+    public bool canLand;
+
     [Header("References")]
     public Transform aimCursor;
     public ParticleSystem firePartSys;
@@ -80,11 +86,7 @@ public class PlayerController : MonoBehaviour {
     public EggManager eggManager;
     public GameObject egg;
     public Transform toDropegg;
-    
-    [Header("Landing")]
-
-    [System.NonSerialized]
-    public bool canLand;
+#endregion
 
     void Start()
     {
@@ -136,14 +138,13 @@ public class PlayerController : MonoBehaviour {
             case PlayerStates.DODGING:
                 break;
             
-            case PlayerStates.LANDING:
-                // Decrease speed and stop 
-                if(rb.velocity != new Vector3 (0,0,0))
+            case PlayerStates.SLOWING:
+                if (tempDecel <1)
                 {
-                    rb.velocity = Vector3.Lerp(rb.velocity,new Vector3(0,0,0),Time.deltaTime*landSpeed);
+                    Debug.Log(tempDecel);
+                    rb.velocity = Vector3.Lerp(targOne,targTwos,tempDecel);
+                    tempDecel+=Time.deltaTime;
                 }
-
-
                 break;
         }
     }
@@ -159,7 +160,7 @@ public class PlayerController : MonoBehaviour {
                 Aim();
                 Shoot();
                 //Landing
-                if (Input.GetButtonDown("Fire2") /* && canLand*/ && eggManager.eggSlider.value >=1)
+                if (Input.GetButtonDown("Fire2") && canLand && eggManager.eggSlider.value >=1)
                 {
                     eggManager.eggSlider.value = 0;
                     Landing();
@@ -312,7 +313,20 @@ public class PlayerController : MonoBehaviour {
     private void Landing()
     {
         StartCoroutine (ILand());
-        Debug.Log("LandTameredetoi");
+    }
+
+    public void Slowing()
+    {
+        tempDecel = 0.0f; 
+        targOne = rb.velocity;
+        targTwos = Vector3.zero;
+    }
+    public void Acceleration()
+    {
+        
+        tempDecel = 0.0f;
+        targOne =  Vector3.zero;
+        targTwos = rb.velocity;
     }
 
     IEnumerator IDodge()
@@ -344,18 +358,26 @@ public class PlayerController : MonoBehaviour {
         canDodge = true;
     }
     
+    Vector3 targOne;
+    Vector3 targTwos;
+    float tempDecel = 0.0f; 
     IEnumerator ILand()
     {
         StopShooting();
-        anim.SetTrigger("land");
 
-        yield return new WaitForSeconds(0.5f);
+        rb.velocity = Vector3.zero;
         playerState = PlayerStates.LANDING;
 
-        yield return new WaitForSeconds(2.0f);
-        Instantiate(egg,toDropegg.position,Quaternion.identity);
 
-        yield return new WaitForSeconds(1.0f);
+        anim.SetTrigger("land");
+        yield return new WaitForSeconds(2.0f);
+        
+        Instantiate(egg,toDropegg.position,Quaternion.identity);
+        
+        yield return new WaitForSeconds(0.1f);
+        anim.SetTrigger("lift");
+
+        yield return new WaitForSeconds(1.30f);
         playerState = PlayerStates.FLYING;
 
         yield break;

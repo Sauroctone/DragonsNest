@@ -20,7 +20,7 @@ public class LifeManager : MonoBehaviour {
 	}
 	void OnTriggerEnter(Collider col)
 	{
-		var proj = col.gameObject.GetComponent<Projectile>();
+		var proj = col.gameObject.GetComponent<ProjectileCollision>();
 		if(proj)
 		{
 

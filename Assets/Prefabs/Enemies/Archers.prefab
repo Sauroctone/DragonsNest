@@ -896,7 +896,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1096279583823314}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 52.3, y: 0.25, z: -6.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2781,14 +2781,48 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   updatePathFrequency: 0.2
   debugSphere: {fileID: 0}
-  aimRange: 100
+  aimRange: 40
   aimTime: 1
   minShootTime: 0
   maxShootTime: 0.1
   shootCooldown: 2
-  arrowSpeed: 40
   arrow: {fileID: 1737514496264914, guid: 235608be6731cea4faafea349538a6a6, type: 2}
-  aimLead: 1
+  arrowSpeed: 40
+  arrowLifetime: 2
+  arrowMaxHeight: 5
+  visualTrajectory:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 6.2727265
+      outSlope: 6.2727265
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.09203575
+    - serializedVersion: 3
+      time: 0.49799493
+      value: 1.0083035
+      inSlope: -0.00801657
+      outSlope: -0.00801657
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.51029706
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -6.2500052
+      outSlope: -6.2500052
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.049800243
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   target: {fileID: 0}
   nav: {fileID: 195031232302732186}
 --- !u!114 &114714578679151942

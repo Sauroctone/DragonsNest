@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -325,6 +325,8 @@ MonoBehaviour:
   staminaBar: {fileID: 1931171159}
   babyDragonMan: {fileID: 273772590}
   eggManager: {fileID: 52827926}
+  egg: {fileID: 1189923540006814, guid: 2ec8f4d1b33383d49a6eb0245abd3e5f, type: 2}
+  toDropegg: {fileID: 1560547715}
 --- !u!54 &52827925
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -365,7 +367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddfe4434c704d8143b3eabbdec892534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typeOfObject: 0
+  typeOfObjec: 0
   lifeMax: 100
   lifeBar: {fileID: 538801188}
 --- !u!1 &73858319
@@ -2167,7 +2169,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2333,7 +2335,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

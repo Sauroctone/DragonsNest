@@ -83,7 +83,8 @@ public class ArcherGroupBehaviour : MonoBehaviour {
         if (NavMesh.SamplePosition(target.position, out hit, 100f, NavMesh.AllAreas))
         {
             targetPosOnNav = hit.position;
-            nav.SetDestination(targetPosOnNav);
+            if (nav != null)
+                nav.SetDestination(targetPosOnNav);
             //debugSphere.position = targetPosOnNav;
         }
         yield return new WaitForSeconds(updatePathFrequency);

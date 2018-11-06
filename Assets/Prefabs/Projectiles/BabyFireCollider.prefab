@@ -24,7 +24,8 @@ GameObject:
   - component: {fileID: 33729448205737880}
   - component: {fileID: 54848778579867650}
   - component: {fileID: 114043701902266638}
-  m_Layer: 9
+  - component: {fileID: 114656384549024028}
+  m_Layer: 12
   m_Name: BabyFireCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,6 +118,19 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 2048
+--- !u!114 &114656384549024028
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1089961876240342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ded50339a52b13540bd7ca65b3c0e4db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firePower: 10
+  destroyOnContact: 0
 --- !u!135 &135886879710998776
 SphereCollider:
   m_ObjectHideFlags: 1

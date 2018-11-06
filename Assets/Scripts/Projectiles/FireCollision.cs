@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireCollision : Projectile {
+public class FireCollision : MonoBehaviour {
 
     public GameObject groundOnFire;
     public LayerMask groundMask;

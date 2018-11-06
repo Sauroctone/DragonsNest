@@ -25,15 +25,17 @@ public class LivingBeing : MonoBehaviour {
 		life = maxLife;
 	}
 
-	void OnTriggerEnter(Collider col)
+	void OnTriggerStay(Collider col)
 	{
 		var proj = col.gameObject.GetComponent<Projectile>();
 
 		if (proj)
 		{
 			UpdateLife(proj.firePower);
-			//Change with the pool die 
-			Destroy(proj.gameObject);
+            
+            //Change with the pool die 
+            if (proj.destroyOnContact)
+                Destroy(proj.gameObject);
 		} 
 	}
 
@@ -48,6 +50,7 @@ public class LivingBeing : MonoBehaviour {
 		}
 
         UpdateHealthUI(damage);
+        print(life);
 	}
 
 	public virtual void UpdateHealthUI(int _damage)

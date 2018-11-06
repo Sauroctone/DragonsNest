@@ -91,6 +91,7 @@ public class ArcherBehaviour : LivingBeing {
     public override void Die()
     {
         group.archers.Remove(this);
+        Destroy(gameObject);
     }
 
     public override void UpdateHealthUI(int _damage)

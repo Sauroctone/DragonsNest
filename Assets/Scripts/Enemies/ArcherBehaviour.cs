@@ -9,6 +9,7 @@ public class ArcherBehaviour : LivingBeing {
     public float speed;
     public float maxWanderRadius;
     public float aimRotLerp;
+    public float moveRotLerp;
 
     [HideInInspector]
     public Vector3 aimDir;
@@ -34,7 +35,9 @@ public class ArcherBehaviour : LivingBeing {
        if (groupState == ArcherGroupState.Moving)
        {
             MoveRandomly();
-       }
+            if (transform.localEulerAngles != Vector3.zero)
+                transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(Vector3.zero), moveRotLerp);
+        }
     }
 
     void MoveRandomly()

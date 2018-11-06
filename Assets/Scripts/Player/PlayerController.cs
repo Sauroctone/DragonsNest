@@ -320,6 +320,7 @@ public class PlayerController : LivingBeing {
         else
         {
             VignettePreset toSwitchAfterDecay = life / maxLife < .25 ? gameMan.vignetteMan.hurtVignette : gameMan.vignetteMan.basicVignette;
+            print(toSwitchAfterDecay.name);
             gameMan.vignetteMan.IncrementSmoothness(gameMan.vignetteMan.hurtVignette, _damage * vignetteFactor, toSwitchAfterDecay);
         }
     }

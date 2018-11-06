@@ -17,12 +17,14 @@ public class ArcherGroupBehaviour : MonoBehaviour {
     Vector3 targetPosOnNav;
     NavMeshHit hit;
     Coroutine moveCor;
-    
+    public float moveRotLerp;
+
     [Header("Shooting")]
     public float aimRange;
     public float aimTime;
     public float minShootTime;
     public float maxShootTime;
+    public float postShootIdleTime;
     bool canShoot = true;
     public float shootCooldown;
     public GameObject arrow;
@@ -48,6 +50,8 @@ public class ArcherGroupBehaviour : MonoBehaviour {
         {
             case ArcherGroupState.Moving:
                 CheckDistanceToTarget();
+                if (nav.velocity != Vector3.zero)
+                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(nav.velocity.normalized), moveRotLerp);
                 break;
             case ArcherGroupState.Shooting:
                 break;
@@ -95,7 +99,7 @@ public class ArcherGroupBehaviour : MonoBehaviour {
     {
         yield return new WaitForSeconds(aimTime);
         canShoot = false;
-        yield return new WaitForSeconds(maxShootTime);
+        yield return new WaitForSeconds(maxShootTime + postShootIdleTime);
         StartMoving();
         yield return new WaitForSeconds(shootCooldown);
         canShoot = true;

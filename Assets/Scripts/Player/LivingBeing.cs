@@ -50,7 +50,6 @@ public class LivingBeing : MonoBehaviour {
 		}
 
         UpdateHealthUI(damage);
-        print(life);
 	}
 
 	public virtual void UpdateHealthUI(int _damage)

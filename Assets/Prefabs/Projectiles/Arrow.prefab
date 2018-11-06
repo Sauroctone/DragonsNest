@@ -71,9 +71,9 @@ GameObject:
   - component: {fileID: 4842657073991158}
   - component: {fileID: 65633911875330332}
   - component: {fileID: 54483594891520956}
-  - component: {fileID: 114068570949920094}
   - component: {fileID: 33388320433754876}
   - component: {fileID: 23436351708200652}
+  - component: {fileID: 114312677765567836}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
@@ -363,19 +363,6 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
---- !u!114 &114068570949920094
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1987040592590368}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c5d4e2b18b3661489972800c7c55c15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firePower: 1
-  destroyOnContact: 0
 --- !u!114 &114179855875924952
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -389,3 +376,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visualRb: {fileID: 54753397724214548}
   colliderRb: {fileID: 54483594891520956}
+--- !u!114 &114312677765567836
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1987040592590368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da81f5dc163cf2242bff1868a7d9b928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firePower: 2
+  destroyOnContact: 1
+  visualCounterpart: {fileID: 1471345273632862}

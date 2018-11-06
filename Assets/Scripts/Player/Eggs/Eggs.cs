@@ -5,7 +5,9 @@ using UnityEngine;
 public class Eggs : MonoBehaviour {
 	
 	[Range(0.0f,1.0f)]
-	public float life = 1.0f;
+	public float lifeRate = 1.0f;
+	public int lifeMax;
+	int life;
 	public float hatchingTimeMax = 30.0f;
 	public float hatchingTime = 0.0f;
 
@@ -13,10 +15,13 @@ public class Eggs : MonoBehaviour {
 	private Material material;
 	public ParticleSystem particle;
 	public GameObject turret;
+	public bool canBeADrone;
 
 	// Use this for initialization
-	void Start () {
+	public void Start () {
 		material = rend.material;
+		hatchingTime =0;
+		life = lifeMax;
 	}
 	
 	// Update is called once per frame
@@ -28,15 +33,22 @@ public class Eggs : MonoBehaviour {
 
 	void HatchUpdate()
 	{
-		if (hatchingTime >= 30)
+		if (hatchingTime >= hatchingTimeMax)
 		{
-			TransformTurret();
+			//TransformTurret();
+			canBeADrone = true;
 		}
 		else
 		{
 			hatchingTime += Time.deltaTime;
 		}
 
+	}
+
+	public void TransformDrone(PlayerController pc)
+	{
+		pc.babyDragonMan.SpawnNewBabyDragon();
+		gameObject.SetActive(false);
 	}
 
 	void TransformTurret()
@@ -46,14 +58,12 @@ public class Eggs : MonoBehaviour {
 	}
 	void LifeUpdate ()
 	{
-		material.color = new Color (1-life,life,0,1);
+		material.color = new Color (1-lifeRate,lifeRate,0,1);
 	}
 
 	void ParticleUpdate()
 	{
 		var em = particle.emission;
 		em.rateOverTime = 500*(hatchingTime/hatchingTimeMax);
-
-
 	}
 }

@@ -14,6 +14,9 @@ public class PlayerController : MonoBehaviour {
     public int level;
     public PlayerStates playerState;
 
+    [System.NonSerialized]
+    public Nest  nest;
+
 
     [Header("Flying")]
     public float flySpeed;
@@ -84,8 +87,6 @@ public class PlayerController : MonoBehaviour {
     public Slider staminaBar;
     public BabyDragonManager babyDragonMan;
     public EggManager eggManager;
-    public GameObject egg;
-    public Transform toDropegg;
 #endregion
 
     void Start()
@@ -372,12 +373,24 @@ public class PlayerController : MonoBehaviour {
         anim.SetTrigger("land");
         yield return new WaitForSeconds(2.0f);
         
-        Instantiate(egg,toDropegg.position,Quaternion.identity);
-        
+        nest.Action();
+
         yield return new WaitForSeconds(0.1f);
         anim.SetTrigger("lift");
 
         yield return new WaitForSeconds(1.30f);
+        if (isSlowing)
+        {
+            isSlowing = false;
+            if (stamina == 0)
+                slowTime = 0;
+        }
+        if (isSprinting)
+        {
+            isSprinting = false;
+            if (stamina == 0)
+                sprintTime = 0;
+        }
         playerState = PlayerStates.FLYING;
 
         yield break;

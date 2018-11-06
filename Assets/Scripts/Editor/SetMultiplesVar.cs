@@ -20,6 +20,7 @@ public class SetMultiplesVar : Editor {
 		if(GUILayout.Button("SetPlayerController"))
 		{
 			nest.playerController = FindObjectOfType<PlayerController>();
+			EditorUtility.SetDirty(nest);
 		}
 
 	}

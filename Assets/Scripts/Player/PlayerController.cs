@@ -5,12 +5,16 @@ using UnityEngine.UI;
 
 public enum PlayerStates { FLYING, DODGING, LANDING, SLOWING };
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : LivingBeing {
 
+    public float vignetteFactor;
 
 #region Var
     [HideInInspector]
     public int dragonPopup;
+
+    [Space]
+    [Space]
     public int level;
     public PlayerStates playerState;
 
@@ -36,9 +40,11 @@ public class PlayerController : MonoBehaviour {
     internal bool isSlowing; 
     public float slowSpeed;
     float slowTime;
+    float timeOutOfSlow;
+    public float minSlowTime;
+    public float boostTimeOutOfSlow;
 
     public float landSpeed;
-
 
     [Header("Stamina")]
     public float maxStamina;
@@ -86,14 +92,27 @@ public class PlayerController : MonoBehaviour {
     public Animator anim;
     public Slider staminaBar;
     public BabyDragonManager babyDragonMan;
+<<<<<<< HEAD
     public EggManager eggManager;
 #endregion
+=======
+    public EggManager eggMan;
+    public GameObject egg;
+    public Transform toDropegg;
+    GameManager gameMan;
+    
+    [Header("Landing")]
+
+    [System.NonSerialized]
+    public bool canLand;
+>>>>>>> master
 
     void Start()
     {
         stamina = maxStamina;
         sprintTime = sprintCooldown;
         slowTime = slowCooldown;
+        gameMan = GameManager.Instance;
     }
 
     private void FixedUpdate()
@@ -103,11 +122,11 @@ public class PlayerController : MonoBehaviour {
         vinput = Input.GetAxis("Vertical");
 
         switch (playerState)
-        { 
+        {
             case PlayerStates.FLYING:
                 //Going forward at all times
 
-                if (isSprinting && !isSlowing)
+                if (timeOutOfSlow > 0 || isSprinting && !isSlowing)
                     speed = sprintSpeed;
                 else if (isSlowing && !isSprinting)
                     speed = slowSpeed;
@@ -158,12 +177,16 @@ public class PlayerController : MonoBehaviour {
         {
             case PlayerStates.FLYING:
 
-                Aim();
+                //Aim();
                 Shoot();
                 //Landing
+<<<<<<< HEAD
                 if (Input.GetButtonDown("Fire2") && canLand && eggManager.eggSlider.value >=1)
+=======
+                if (Input.GetButtonDown("Fire2") /* && canLand*/ && eggMan.eggSlider.value >=1)
+>>>>>>> master
                 {
-                    eggManager.eggSlider.value = 0;
+                    eggMan.eggSlider.value = 0;
                     Landing();
                 }
                 //Sprinting
@@ -181,9 +204,14 @@ public class PlayerController : MonoBehaviour {
                 }
 
                 //Slowing 
+
+                if (Input.GetButtonDown("SlowDown"))
+                    timeOutOfSlow = 0; 
+
                 if (Input.GetButton("SlowDown") && stamina > 0 && slowTime >= slowCooldown)
                 {
                     isSlowing = true;
+                    
                     if (!isSprinting)
                         UseStamina(slowCostPerSecond);
                 }
@@ -191,6 +219,8 @@ public class PlayerController : MonoBehaviour {
                 if (isSlowing && (Input.GetButtonUp("SlowDown") || stamina == 0))
                 {
                     isSlowing = false;
+                    if (timeOutOfSlow < -minSlowTime)
+                        timeOutOfSlow = boostTimeOutOfSlow;
                     if (stamina == 0)
                         slowTime = 0;
                 }
@@ -202,14 +232,16 @@ public class PlayerController : MonoBehaviour {
                 break;
 
             case PlayerStates.DODGING:
-                Aim();
+                //Aim();
                 break;
             
             case PlayerStates.LANDING:
                 break;
         }
 
-        UpdateUI();
+        timeOutOfSlow -= Time.deltaTime;
+
+        UpdateStaminaUI();
     }
 
     void Aim()
@@ -262,7 +294,7 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    void UpdateUI()
+    public void UpdateStaminaUI()
     {
         staminaBar.value = stamina / maxStamina;
     }
@@ -294,6 +326,19 @@ public class PlayerController : MonoBehaviour {
 
         if (slowTime < slowCooldown)
             slowTime += Time.deltaTime;
+    }
+
+    public override void UpdateHealthUI(int _damage)
+    {
+        base.UpdateHealthUI(_damage);
+
+        if (gameMan.vignetteMan.CurrentPreset != gameMan.vignetteMan.hurtVignette)
+            gameMan.vignetteMan.ChangeVignette(gameMan.vignetteMan.hurtVignette);
+        else
+        {
+            VignettePreset toSwitchAfterDecay = life / maxLife < .25 ? gameMan.vignetteMan.hurtVignette : gameMan.vignetteMan.basicVignette;
+            gameMan.vignetteMan.IncrementSmoothness(gameMan.vignetteMan.hurtVignette, _damage * vignetteFactor, toSwitchAfterDecay);
+        }
     }
 
     void Dodge()

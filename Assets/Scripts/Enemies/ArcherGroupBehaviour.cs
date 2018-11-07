@@ -9,6 +9,8 @@ public class ArcherGroupBehaviour : MonoBehaviour {
     public delegate void OnStateChanged(ArcherGroupState _state);
     public event OnStateChanged EventOnStateChanged;
 
+    public List<ArcherBehaviour> archers = new List<ArcherBehaviour>();
+
     [Header("Movement")]
     public float updatePathFrequency;
     public Transform debugSphere;
@@ -48,11 +50,14 @@ public class ArcherGroupBehaviour : MonoBehaviour {
             case ArcherGroupState.Shooting:
                 break;
         }
+
+        if (archers.Count == 0)
+            Destroy(gameObject);
     }
 
     void CheckDistanceToTarget()
     {
-        if (Vector3.Distance(target.position, transform.position) < aimRange)
+        if (Vector3.Distance(target.position, transform.position) < aimRange && canShoot)
         {
             state = ArcherGroupState.Shooting;
             if (EventOnStateChanged != null)
@@ -76,8 +81,14 @@ public class ArcherGroupBehaviour : MonoBehaviour {
         if (NavMesh.SamplePosition(target.position, out hit, 100f, NavMesh.AllAreas))
         {
             targetPosOnNav = hit.position;
+<<<<<<< HEAD
             nav.SetDestination(targetPosOnNav);
             debugSphere.position = targetPosOnNav;
+=======
+            if (nav != null)
+                nav.SetDestination(targetPosOnNav);
+            //debugSphere.position = targetPosOnNav;
+>>>>>>> master
         }
         yield return new WaitForSeconds(updatePathFrequency);
         moveCor = StartCoroutine(IUpdateTargetPosition());

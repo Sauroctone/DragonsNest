@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public enum PlayerStates { FLYING, DODGING, LANDING, SLOWING };
@@ -95,7 +96,10 @@ public class PlayerController : LivingBeing {
     public EggManager eggMan;
     public GameObject egg;
     public Transform toDropegg;
+    public Scene goScene;
     GameManager gameMan;
+
+
 
     #endregion
     
@@ -348,6 +352,8 @@ public class PlayerController : LivingBeing {
 
     private void Landing()
     {
+        if(nest ==null) return;
+        if(nest.eggs.activeInHierarchy && !nest.eggs.GetComponent<Eggs>().canBeADrone) return;
         StartCoroutine (ILand());
     }
 
@@ -363,6 +369,25 @@ public class PlayerController : LivingBeing {
         tempDecel = 0.0f;
         targOne =  Vector3.zero;
         targTwos = rb.velocity;
+    }
+
+    public override void Die()
+    {
+        if(babyDragonMan.babyDragons.Count<=0)
+        {
+            SceneManager.LoadScene(1);
+        }
+        
+        if(babyDragonMan.babyDragons.Count>0)
+        {
+            babyDragonMan.babyDragons.RemoveAt(0);
+            life = maxLife;
+        }
+    }
+
+    public void GameOver()
+    {
+        SceneManager.LoadScene(goScene.name);
     }
 
     IEnumerator IDodge()

@@ -64,6 +64,7 @@ public class Eggs : MonoBehaviour {
 	void ParticleUpdate()
 	{
 		var em = particle.emission;
-		em.rateOverTime = 500*(hatchingTime/hatchingTimeMax);
+		em.rateOverTime = 200*(hatchingTime/hatchingTimeMax);
+		
 	}
 }

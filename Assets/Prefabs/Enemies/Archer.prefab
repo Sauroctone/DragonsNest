@@ -96,9 +96,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f11d39607b6ad74ba7a80b354137b46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxLife: 100
+  life: 100
+  lostLifeBeforeDecay: 0
+  timeToUpdateFeedbackBar: 0
+  feedbackDecayTime: 0
+  lifeBar: {fileID: 0}
+  lifeBarFeedback: {fileID: 0}
   speed: 0.2
   maxWanderRadius: 0.05
   aimRotLerp: 1
+  aimDir: {x: 0, y: 0, z: 0}
+  group: {fileID: 114690655368564356, guid: d29ca2a04b668284ebe320f70f53e751, type: 2}
+  debugIntercept: {fileID: 0}
 --- !u!136 &136931250100949106
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -27,6 +27,7 @@ public class ArcherGroupBehaviour : MonoBehaviour {
     public float shootCooldown;
     public float arrowSpeed;
     public float arrowMaxHeight;
+    public AnimationCurve visualTrajectory;
 
     public GameObject arrow;
     public float aimLead;

@@ -12,6 +12,8 @@ public class ArrowBehaviour : MonoBehaviour {
     float time;
     Vector3 lastPos;
 
+    AnimationCurve visualCurve;
+
     public void Init(ArcherBehaviour _owner)
     {
         lifetime = 3; //temp

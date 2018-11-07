@@ -26,6 +26,8 @@ public class ArcherGroupBehaviour : MonoBehaviour {
     bool canShoot = true;
     public float shootCooldown;
     public float arrowSpeed;
+    public float arrowMaxHeight;
+
     public GameObject arrow;
     public float aimLead;
 
@@ -81,14 +83,9 @@ public class ArcherGroupBehaviour : MonoBehaviour {
         if (NavMesh.SamplePosition(target.position, out hit, 100f, NavMesh.AllAreas))
         {
             targetPosOnNav = hit.position;
-<<<<<<< HEAD
-            nav.SetDestination(targetPosOnNav);
-            debugSphere.position = targetPosOnNav;
-=======
             if (nav != null)
                 nav.SetDestination(targetPosOnNav);
             //debugSphere.position = targetPosOnNav;
->>>>>>> master
         }
         yield return new WaitForSeconds(updatePathFrequency);
         moveCor = StartCoroutine(IUpdateTargetPosition());

@@ -92,20 +92,14 @@ public class PlayerController : LivingBeing {
     public Animator anim;
     public Slider staminaBar;
     public BabyDragonManager babyDragonMan;
-<<<<<<< HEAD
-    public EggManager eggManager;
-#endregion
-=======
     public EggManager eggMan;
     public GameObject egg;
     public Transform toDropegg;
     GameManager gameMan;
-    
-    [Header("Landing")]
 
-    [System.NonSerialized]
-    public bool canLand;
->>>>>>> master
+    #endregion
+    
+
 
     void Start()
     {
@@ -180,11 +174,7 @@ public class PlayerController : LivingBeing {
                 //Aim();
                 Shoot();
                 //Landing
-<<<<<<< HEAD
-                if (Input.GetButtonDown("Fire2") && canLand && eggManager.eggSlider.value >=1)
-=======
-                if (Input.GetButtonDown("Fire2") /* && canLand*/ && eggMan.eggSlider.value >=1)
->>>>>>> master
+                if (Input.GetButtonDown("Fire2") && canLand && eggMan.eggSlider.value >=1)
                 {
                     eggMan.eggSlider.value = 0;
                     Landing();

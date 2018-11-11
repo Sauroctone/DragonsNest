@@ -116,7 +116,7 @@ public class VignetteManager : MonoBehaviour {
 
     IEnumerator ILerpValues(VignettePreset _preset)
     {
-        print(_preset.name);
+        //print(_preset.name);
 
         if (_preset.incrementSmoothness)
             _preset.smoothness = _preset.originalSmoothness;

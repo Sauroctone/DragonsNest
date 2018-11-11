@@ -20,6 +20,8 @@ public class ArcherBehaviour : LivingBeing {
     public ArcherGroupBehaviour group;
     ArcherGroupState groupState;
     public Transform debugIntercept;
+    public Transform currentTarget;
+    Renderer rend;
 
     void Start()
     {
@@ -28,6 +30,9 @@ public class ArcherBehaviour : LivingBeing {
         group = GetComponentInParent<ArcherGroupBehaviour>();
         group.EventOnStateChanged += OnGroupStateChanged;
         group.archers.Add(this);
+
+        //Placeholder feedback
+        rend = GetComponent<Renderer>();
     }
 
     void Update ()
@@ -68,22 +73,29 @@ public class ArcherBehaviour : LivingBeing {
 
     IEnumerator IAimAndShoot()
     {
+        //Placeholder feedback
+        rend.material = group.aimMat;
+        
+        currentTarget = group.currentTarget;
         float time = 0f;
-        while (time < group.aimTime)
+        float rand = Random.Range(group.minShootTime, group.maxShootTime);
+
+        while (time < group.aimTime + rand)
         {
             time += Time.deltaTime;
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.LookRotation((Vector3.ProjectOnPlane(group.target.position, Vector3.up) - transform.position).normalized), aimRotLerp);
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.LookRotation((Vector3.ProjectOnPlane(currentTarget.position, Vector3.up) - transform.position).normalized), aimRotLerp);
             yield return null;
         }
 
-        Vector3 interceptPoint = FirstOrderIntercept(group.transform.position, Vector3.zero, group.arrowSpeed, group.target.position, group.targetRb.velocity);
+        Vector3 interceptPoint = FirstOrderIntercept(group.transform.position, Vector3.zero, group.arrowSpeed, currentTarget.position, currentTarget == group.player ? group.playerRb.velocity : Vector3.zero);
         aimDir = (interceptPoint - group.transform.position).normalized;
-        //aimDir = ((group.target.position + group.targetRb.velocity * group.aimLead) - group.transform.position).normalized;
-        yield return new WaitForSeconds(Random.Range(group.minShootTime, group.maxShootTime));
         GameObject proj = Instantiate(group.arrow, transform.position, Quaternion.identity);
         proj.GetComponent<ArrowBehaviour>().Init(this);
         if (debugIntercept != null)
             debugIntercept.position = interceptPoint;
+        
+        //Placeholder feedback
+        rend.material = group.normalMat;
     }
 
     private void OnDisable()
@@ -103,14 +115,7 @@ public class ArcherBehaviour : LivingBeing {
     }
 
     //first-order intercept using absolute target position
-    public static Vector3 FirstOrderIntercept
-    (
-        Vector3 shooterPosition,
-        Vector3 shooterVelocity,
-        float shotSpeed,
-        Vector3 targetPosition,
-        Vector3 targetVelocity
-    )
+    public static Vector3 FirstOrderIntercept (Vector3 shooterPosition, Vector3 shooterVelocity, float shotSpeed, Vector3 targetPosition, Vector3 targetVelocity)
     {
         Vector3 targetRelativePosition = targetPosition - shooterPosition;
         Vector3 targetRelativeVelocity = targetVelocity - shooterVelocity;
@@ -122,13 +127,9 @@ public class ArcherBehaviour : LivingBeing {
         );
         return targetPosition + t * (targetRelativeVelocity);
     }
+
     //first-order intercept using relative target position
-    public static float FirstOrderInterceptTime
-    (
-        float shotSpeed,
-        Vector3 targetRelativePosition,
-        Vector3 targetRelativeVelocity
-    )
+    public static float FirstOrderInterceptTime (float shotSpeed, Vector3 targetRelativePosition, Vector3 targetRelativeVelocity)
     {
         float velocitySquared = targetRelativeVelocity.sqrMagnitude;
         if (velocitySquared < 0.001f)

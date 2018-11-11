@@ -11,4 +11,10 @@ public class ArrowCollision : Projectile {
         if (visualCounterpart != null)
             Destroy(visualCounterpart);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (destroyOnContact)
+            Destroy(gameObject);
+    }
 }

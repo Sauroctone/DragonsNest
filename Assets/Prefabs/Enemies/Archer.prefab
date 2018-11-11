@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23262098550973386}
   - component: {fileID: 136395629268399804}
   - component: {fileID: 114042746657027990}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Archer
   m_TagString: Archer
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 33589185710766900}
   - component: {fileID: 23467655672585726}
   - component: {fileID: 65443040904217378}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -196,6 +196,7 @@ MonoBehaviour:
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
   debugIntercept: {fileID: 0}
+  currentTarget: {fileID: 0}
 --- !u!136 &136395629268399804
 CapsuleCollider:
   m_ObjectHideFlags: 1

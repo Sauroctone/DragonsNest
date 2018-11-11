@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23246833128375496}
   - component: {fileID: 136560647051422158}
   - component: {fileID: 114415813493956282}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Archer (10)
   m_TagString: Archer
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 23928018075920592}
   - component: {fileID: 136076566216519432}
   - component: {fileID: 114790795218559708}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Archer
   m_TagString: Archer
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 4793756302785420}
   - component: {fileID: 195031232302732186}
   - component: {fileID: 114690655368564356}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Archers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,7 +77,7 @@ GameObject:
   - component: {fileID: 33450340719097376}
   - component: {fileID: 23510768638929548}
   - component: {fileID: 65788059576087366}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 33457550191824230}
   - component: {fileID: 23474007070036852}
   - component: {fileID: 65310411925747470}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 33460590598603558}
   - component: {fileID: 23034241873163328}
   - component: {fileID: 65478027399424336}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 33055696254300828}
   - component: {fileID: 23090807545577160}
   - component: {fileID: 65052438303562132}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 33911707810523424}
   - component: {fileID: 23945533762456336}
   - component: {fileID: 65743164025399650}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 33347813471524004}
   - component: {fileID: 23065661902102966}
   - component: {fileID: 65452018464942770}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 23344931172846710}
   - component: {fileID: 136647979889823372}
   - component: {fileID: 114676908615153880}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Archer (4)
   m_TagString: Archer
   m_Icon: {fileID: 0}
@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 33290227047183916}
   - component: {fileID: 23833463756871496}
   - component: {fileID: 65666412370162210}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 23851193069854980}
   - component: {fileID: 136330282824896028}
   - component: {fileID: 114271269411183370}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Archer (11)
   m_TagString: Archer
   m_Icon: {fileID: 0}
@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 33183367686512834}
   - component: {fileID: 23394900319019438}
   - component: {fileID: 65958346469888250}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 23978321655614446}
   - component: {fileID: 136714371323011170}
   - component: {fileID: 114292032242049590}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Archer (18)
   m_TagString: Archer
   m_Icon: {fileID: 0}
@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 23023180849172730}
   - component: {fileID: 136168092722665332}
   - component: {fileID: 114898199778865642}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Archer (7)
   m_TagString: Archer
   m_Icon: {fileID: 0}
@@ -297,7 +297,7 @@ GameObject:
   - component: {fileID: 33347191835674934}
   - component: {fileID: 23691596464025552}
   - component: {fileID: 65083374576467050}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ GameObject:
   - component: {fileID: 23190983889707484}
   - component: {fileID: 136215930594797060}
   - component: {fileID: 114662789803989894}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Archer (2)
   m_TagString: Archer
   m_Icon: {fileID: 0}
@@ -335,7 +335,7 @@ GameObject:
   - component: {fileID: 23802762955015110}
   - component: {fileID: 136251578214795160}
   - component: {fileID: 114679343650839306}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Archer (9)
   m_TagString: Archer
   m_Icon: {fileID: 0}
@@ -353,7 +353,7 @@ GameObject:
   - component: {fileID: 33419341847464154}
   - component: {fileID: 23421208364903596}
   - component: {fileID: 65431836203866576}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372,7 +372,7 @@ GameObject:
   - component: {fileID: 23897901903654538}
   - component: {fileID: 136160703572079048}
   - component: {fileID: 114791509093903820}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Archer (16)
   m_TagString: Archer
   m_Icon: {fileID: 0}
@@ -391,7 +391,7 @@ GameObject:
   - component: {fileID: 23800833767574272}
   - component: {fileID: 136133573341319592}
   - component: {fileID: 114718976811534496}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Archer (8)
   m_TagString: Archer
   m_Icon: {fileID: 0}
@@ -409,7 +409,7 @@ GameObject:
   - component: {fileID: 33847489193646912}
   - component: {fileID: 23639114027099600}
   - component: {fileID: 65757948168164772}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -427,7 +427,7 @@ GameObject:
   - component: {fileID: 33126527858822900}
   - component: {fileID: 23604531388335140}
   - component: {fileID: 65022531559499132}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -446,7 +446,7 @@ GameObject:
   - component: {fileID: 23363149570829824}
   - component: {fileID: 136422521722120258}
   - component: {fileID: 114218871499252300}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Archer (6)
   m_TagString: Archer
   m_Icon: {fileID: 0}
@@ -464,7 +464,7 @@ GameObject:
   - component: {fileID: 33860392847901592}
   - component: {fileID: 23808523103848268}
   - component: {fileID: 65797842071477732}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -483,7 +483,7 @@ GameObject:
   - component: {fileID: 23503887097154194}
   - component: {fileID: 136864959188852846}
   - component: {fileID: 114406010924426944}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Archer (1)
   m_TagString: Archer
   m_Icon: {fileID: 0}
@@ -501,7 +501,7 @@ GameObject:
   - component: {fileID: 33952004834202058}
   - component: {fileID: 23898103180452066}
   - component: {fileID: 65148169780744384}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -519,7 +519,7 @@ GameObject:
   - component: {fileID: 33200139067887374}
   - component: {fileID: 23075222732730354}
   - component: {fileID: 65081559656955136}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -538,7 +538,7 @@ GameObject:
   - component: {fileID: 23575648832431396}
   - component: {fileID: 136559806743445324}
   - component: {fileID: 114255295458481230}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Archer (14)
   m_TagString: Archer
   m_Icon: {fileID: 0}
@@ -556,7 +556,7 @@ GameObject:
   - component: {fileID: 33962407206398490}
   - component: {fileID: 23051996991599442}
   - component: {fileID: 65969601961954290}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -575,7 +575,7 @@ GameObject:
   - component: {fileID: 23501050514170942}
   - component: {fileID: 136115397754602426}
   - component: {fileID: 114200948823151680}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Archer (3)
   m_TagString: Archer
   m_Icon: {fileID: 0}
@@ -594,7 +594,7 @@ GameObject:
   - component: {fileID: 23076225715441650}
   - component: {fileID: 136476213934104994}
   - component: {fileID: 114496172132083898}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Archer (17)
   m_TagString: Archer
   m_Icon: {fileID: 0}
@@ -612,7 +612,7 @@ GameObject:
   - component: {fileID: 33416342818677044}
   - component: {fileID: 23961826837719708}
   - component: {fileID: 65356406293005262}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -630,7 +630,7 @@ GameObject:
   - component: {fileID: 33039052088762684}
   - component: {fileID: 23318469104979546}
   - component: {fileID: 65508737509629102}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -649,7 +649,7 @@ GameObject:
   - component: {fileID: 23391428036890254}
   - component: {fileID: 136179677725410048}
   - component: {fileID: 114301093777805180}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Archer (13)
   m_TagString: Archer
   m_Icon: {fileID: 0}
@@ -668,7 +668,7 @@ GameObject:
   - component: {fileID: 23217336219314714}
   - component: {fileID: 136217113336195232}
   - component: {fileID: 114926651528821700}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Archer (15)
   m_TagString: Archer
   m_Icon: {fileID: 0}
@@ -687,7 +687,7 @@ GameObject:
   - component: {fileID: 23651738632350644}
   - component: {fileID: 136532358442591474}
   - component: {fileID: 114053754674668856}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Archer (19)
   m_TagString: Archer
   m_Icon: {fileID: 0}
@@ -705,7 +705,7 @@ GameObject:
   - component: {fileID: 33711476968296476}
   - component: {fileID: 23826189831307704}
   - component: {fileID: 65403850092881380}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -723,7 +723,7 @@ GameObject:
   - component: {fileID: 33641720049154188}
   - component: {fileID: 23097145576042760}
   - component: {fileID: 65925843868248688}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -742,7 +742,7 @@ GameObject:
   - component: {fileID: 23370708303344762}
   - component: {fileID: 136365231334407050}
   - component: {fileID: 114906369307338082}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Archer (12)
   m_TagString: Archer
   m_Icon: {fileID: 0}
@@ -761,7 +761,7 @@ GameObject:
   - component: {fileID: 23115038858000022}
   - component: {fileID: 136040081761079410}
   - component: {fileID: 114461605046797958}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Archer (5)
   m_TagString: Archer
   m_Icon: {fileID: 0}
@@ -779,7 +779,7 @@ GameObject:
   - component: {fileID: 33045292241095610}
   - component: {fileID: 23846819171449060}
   - component: {fileID: 65613528879574184}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -798,7 +798,7 @@ GameObject:
   - component: {fileID: 23147983026421506}
   - component: {fileID: 136595657877771974}
   - component: {fileID: 114255161234018464}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Archer (20)
   m_TagString: Archer
   m_Icon: {fileID: 0}
@@ -813,7 +813,7 @@ Transform:
   m_GameObject: {fileID: 1589490185298864}
   m_LocalRotation: {x: -0.41418764, y: -0, z: -0, w: 0.91019154}
   m_LocalPosition: {x: 0, y: 0.607, z: 0.601}
-  m_LocalScale: {x: 0.2225, y: 0.30941, z: 16.865536}
+  m_LocalScale: {x: 0.2225, y: 0.30941, z: 1.19}
   m_Children: []
   m_Father: {fileID: 4743743981821784}
   m_RootOrder: 0
@@ -3447,6 +3447,7 @@ MonoBehaviour:
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
   debugIntercept: {fileID: 0}
+  currentTarget: {fileID: 0}
 --- !u!114 &114200948823151680
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3472,6 +3473,7 @@ MonoBehaviour:
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
   debugIntercept: {fileID: 0}
+  currentTarget: {fileID: 0}
 --- !u!114 &114218871499252300
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3497,6 +3499,7 @@ MonoBehaviour:
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
   debugIntercept: {fileID: 0}
+  currentTarget: {fileID: 0}
 --- !u!114 &114255161234018464
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3522,6 +3525,7 @@ MonoBehaviour:
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
   debugIntercept: {fileID: 0}
+  currentTarget: {fileID: 0}
 --- !u!114 &114255295458481230
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3547,6 +3551,7 @@ MonoBehaviour:
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
   debugIntercept: {fileID: 0}
+  currentTarget: {fileID: 0}
 --- !u!114 &114271269411183370
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3572,6 +3577,7 @@ MonoBehaviour:
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
   debugIntercept: {fileID: 0}
+  currentTarget: {fileID: 0}
 --- !u!114 &114292032242049590
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3597,6 +3603,7 @@ MonoBehaviour:
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
   debugIntercept: {fileID: 0}
+  currentTarget: {fileID: 0}
 --- !u!114 &114301093777805180
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3622,6 +3629,7 @@ MonoBehaviour:
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
   debugIntercept: {fileID: 0}
+  currentTarget: {fileID: 0}
 --- !u!114 &114406010924426944
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3647,6 +3655,7 @@ MonoBehaviour:
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
   debugIntercept: {fileID: 0}
+  currentTarget: {fileID: 0}
 --- !u!114 &114415813493956282
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3672,6 +3681,7 @@ MonoBehaviour:
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
   debugIntercept: {fileID: 0}
+  currentTarget: {fileID: 0}
 --- !u!114 &114461605046797958
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3697,6 +3707,7 @@ MonoBehaviour:
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
   debugIntercept: {fileID: 0}
+  currentTarget: {fileID: 0}
 --- !u!114 &114496172132083898
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3722,6 +3733,7 @@ MonoBehaviour:
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
   debugIntercept: {fileID: 0}
+  currentTarget: {fileID: 0}
 --- !u!114 &114662789803989894
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3747,6 +3759,7 @@ MonoBehaviour:
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
   debugIntercept: {fileID: 0}
+  currentTarget: {fileID: 0}
 --- !u!114 &114676908615153880
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3772,6 +3785,7 @@ MonoBehaviour:
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
   debugIntercept: {fileID: 0}
+  currentTarget: {fileID: 0}
 --- !u!114 &114679343650839306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3797,6 +3811,7 @@ MonoBehaviour:
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
   debugIntercept: {fileID: 0}
+  currentTarget: {fileID: 0}
 --- !u!114 &114690655368564356
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3808,10 +3823,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6d4ef07e48195d4eb4047a24ae0312f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distanceToAggroPlayer: 20
+  ultimateTarget: {fileID: 0}
+  currentTarget: {fileID: 0}
+  spawnMan: {fileID: 0}
+  player: {fileID: 0}
   archers: []
   updatePathFrequency: 0.2
   debugSphere: {fileID: 0}
   moveRotLerp: 0.1
+  aimObstacleLayer:
+    serializedVersion: 2
+    m_Bits: 2048
   aimRange: 40
   aimTime: 1
   minShootTime: 0
@@ -3855,8 +3878,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  target: {fileID: 0}
   nav: {fileID: 195031232302732186}
+  playerRb: {fileID: 0}
+  normalMat: {fileID: 2100000, guid: 5a9f70f0b5a12c3489e1142f1db87559, type: 2}
+  aimMat: {fileID: 2100000, guid: 3e4738cc171cb5346a51e375ceb04d08, type: 2}
 --- !u!114 &114718976811534496
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3882,6 +3907,7 @@ MonoBehaviour:
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
   debugIntercept: {fileID: 0}
+  currentTarget: {fileID: 0}
 --- !u!114 &114790795218559708
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3907,6 +3933,7 @@ MonoBehaviour:
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
   debugIntercept: {fileID: 0}
+  currentTarget: {fileID: 0}
 --- !u!114 &114791509093903820
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3932,6 +3959,7 @@ MonoBehaviour:
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
   debugIntercept: {fileID: 0}
+  currentTarget: {fileID: 0}
 --- !u!114 &114898199778865642
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3957,6 +3985,7 @@ MonoBehaviour:
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
   debugIntercept: {fileID: 0}
+  currentTarget: {fileID: 0}
 --- !u!114 &114906369307338082
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3982,6 +4011,7 @@ MonoBehaviour:
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
   debugIntercept: {fileID: 0}
+  currentTarget: {fileID: 0}
 --- !u!114 &114926651528821700
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4007,6 +4037,7 @@ MonoBehaviour:
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
   debugIntercept: {fileID: 0}
+  currentTarget: {fileID: 0}
 --- !u!136 &136040081761079410
 CapsuleCollider:
   m_ObjectHideFlags: 1

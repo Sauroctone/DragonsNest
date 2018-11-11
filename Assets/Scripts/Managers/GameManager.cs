@@ -6,7 +6,9 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager Instance;
     public PlayerController player;
+    public Rigidbody playerRb;
     public VignetteManager vignetteMan;
+    public SpawnManager spawnMan;
 
     private void Awake()
     {
@@ -14,6 +16,13 @@ public class GameManager : MonoBehaviour {
             Instance = this;
         else
             Destroy(this);
+
+        InitManagers();
+    }
+
+    void InitManagers()
+    {
+        spawnMan.Init();
     }
 
     private void Update()
@@ -21,7 +30,6 @@ public class GameManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.E))
         {
             vignetteMan.ChangeVignette(vignetteMan.hurtVignette);
-
         }
 
         if (Input.GetKeyDown(KeyCode.Z))

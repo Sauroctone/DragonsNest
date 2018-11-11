@@ -311,19 +311,6 @@ public class PlayerController : LivingBeing {
             slowTime += Time.deltaTime;
     }
 
-    public override void UpdateHealthUI(int _damage)
-    {
-        base.UpdateHealthUI(_damage);
-
-        if (gameMan.vignetteMan.CurrentPreset != gameMan.vignetteMan.hurtVignette)
-            gameMan.vignetteMan.ChangeVignette(gameMan.vignetteMan.hurtVignette);
-        else
-        {
-            VignettePreset toSwitchAfterDecay = life / maxLife < .25 ? gameMan.vignetteMan.hurtVignette : gameMan.vignetteMan.basicVignette;
-            print(toSwitchAfterDecay.name);
-            gameMan.vignetteMan.IncrementSmoothness(gameMan.vignetteMan.hurtVignette, _damage * vignetteFactor, toSwitchAfterDecay);
-        }
-    }
 
     void Dodge()
     {
@@ -391,4 +378,27 @@ public class PlayerController : LivingBeing {
 
         yield break;
     }
+
+    //Overrides
+
+    public override void Die()
+    {
+        base.Die();
+        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+    }
+
+    public override void UpdateHealthUI(int _damage)
+    {
+        base.UpdateHealthUI(_damage);
+
+        if (gameMan.vignetteMan.CurrentPreset != gameMan.vignetteMan.hurtVignette)
+            gameMan.vignetteMan.ChangeVignette(gameMan.vignetteMan.hurtVignette);
+        else
+        {
+            VignettePreset toSwitchAfterDecay = life / maxLife < .25 ? gameMan.vignetteMan.hurtVignette : gameMan.vignetteMan.basicVignette;
+            print(toSwitchAfterDecay.name);
+            gameMan.vignetteMan.IncrementSmoothness(gameMan.vignetteMan.hurtVignette, _damage * vignetteFactor, toSwitchAfterDecay);
+        }
+    }
+
 }

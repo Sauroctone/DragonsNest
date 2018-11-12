@@ -402,5 +402,4 @@ public class PlayerController : LivingBeing {
             gameMan.vignetteMan.IncrementSmoothness(gameMan.vignetteMan.hurtVignette, _damage * vignetteFactor, toSwitchAfterDecay);
         }
     }
-
 }

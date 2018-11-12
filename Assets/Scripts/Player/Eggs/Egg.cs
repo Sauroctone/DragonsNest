@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Eggs : LivingBeing {
+public class Egg : LivingBeing {
 	
 	//[Range(0.0f,1.0f)]
 	//public float life = 1.0f;
@@ -13,6 +13,7 @@ public class Eggs : LivingBeing {
 	private Material material;
 	public ParticleSystem particle;
 	public GameObject turret;
+    public GameObject pickupCol;
     SpawnManager spawnMan;
    
 	public override void Start ()
@@ -34,7 +35,8 @@ public class Eggs : LivingBeing {
 	{
 		if (hatchingTime >= hatchingTimeMax)
 		{
-			TransformTurret();
+            //TransformTurret();
+            pickupCol.SetActive(true);
 		}
 		else
 		{
@@ -42,11 +44,11 @@ public class Eggs : LivingBeing {
 		}
 	}
 
-	void TransformTurret()
-	{
-		turret.SetActive(true);
-		this.gameObject.SetActive(false);
-	}
+	//void TransformTurret()
+	//{
+	//	turret.SetActive(true);
+	//	this.gameObject.SetActive(false);
+	//}
 
     //void LifeUpdate ()
     //{
@@ -58,6 +60,12 @@ public class Eggs : LivingBeing {
 		var em = particle.emission;
 		em.rateOverTime = 500*(hatchingTime/hatchingTimeMax);
 	}
+
+    public void Hatch()
+    {
+        spawnMan.eggs.Remove(transform);
+        Destroy(gameObject);
+    }
 
     // Overrides
 

@@ -10,13 +10,13 @@ public class EnemySpawner : MonoBehaviour {
     public float spawnTimeDecrement;
     public float timeToDecrementSpawnTime;
     float timeToSpawn;
-
-    [Header("References")]
-    public SpawnManager spawnMan;
+    SpawnManager spawnMan;
 
     private void Start()
     {
         timeToSpawn = baseTimeToSpawn;
+        spawnMan = GameManager.Instance.spawnMan;
+
         StartCoroutine(IDecrementSpawnTime());
         StartCoroutine(ISpawnEnemy());
     }

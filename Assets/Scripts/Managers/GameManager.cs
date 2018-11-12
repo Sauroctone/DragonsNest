@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
     public Rigidbody playerRb;
     public VignetteManager vignetteMan;
     public SpawnManager spawnMan;
+    public BabyDragonManager babyDragonMan;
 
     private void Awake()
     {

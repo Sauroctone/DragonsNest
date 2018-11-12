@@ -22,7 +22,6 @@ public class EnemyBehaviour : MonoBehaviour {
     public virtual void AskForNewTarget()
     {
         currentTarget = spawnMan.GetNewTarget(transform.position);
-        print(currentTarget.name);
     }
 
     public virtual void Update()
@@ -38,7 +37,6 @@ public class EnemyBehaviour : MonoBehaviour {
             {
                 prevTarget = currentTarget;
                 currentTarget = player;
-                print(currentTarget.name);
             }
         }
         else
@@ -46,7 +44,6 @@ public class EnemyBehaviour : MonoBehaviour {
             if (currentTarget == player)
             {
                 currentTarget = prevTarget;
-                print(currentTarget.name);
             }
         }
     }

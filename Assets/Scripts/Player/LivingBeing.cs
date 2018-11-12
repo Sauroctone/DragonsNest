@@ -20,7 +20,7 @@ public class LivingBeing : MonoBehaviour {
     public Image lifeBarFeedback;
 
 	
-	void Start()
+	public virtual void Start()
 	{
 		life = maxLife;
 	}

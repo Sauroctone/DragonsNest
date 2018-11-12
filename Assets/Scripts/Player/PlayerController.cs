@@ -93,8 +93,10 @@ public class PlayerController : LivingBeing {
     [System.NonSerialized]
     public bool canLand;
 
-    void Start()
+    public override void Start()
     {
+        base.Start();
+
         stamina = maxStamina;
         sprintTime = sprintCooldown;
         slowTime = slowCooldown;

@@ -8,7 +8,6 @@ public class EnemyBehaviour : MonoBehaviour {
     public float distanceToAggroPlayer;
 
     [Header("References")]
-    public Transform ultimateTarget;
     public Transform currentTarget;
     Transform prevTarget;
     public SpawnManager spawnMan;
@@ -18,26 +17,19 @@ public class EnemyBehaviour : MonoBehaviour {
     public virtual void Init()
     {
         AskForNewTarget();
-        print(player.name);
     }
 
     public virtual void AskForNewTarget()
     {
-        ultimateTarget = spawnMan.GetRandomTarget();
-        currentTarget = ultimateTarget;
+        currentTarget = spawnMan.GetNewTarget(transform.position);
         print(currentTarget.name);
     }
 
     public virtual void Update()
     {
         //Get new target when it's dead
-        if (ultimateTarget == null)
+        if (currentTarget == null)
             AskForNewTarget();
-        else if (currentTarget == null)
-        {
-            currentTarget = ultimateTarget;
-            print(currentTarget.name);
-        }
 
         //Aggro player on proximity
         if (Vector3.Distance(transform.position, player.position) < distanceToAggroPlayer)
@@ -56,13 +48,6 @@ public class EnemyBehaviour : MonoBehaviour {
                 currentTarget = prevTarget;
                 print(currentTarget.name);
             }
-
-            //foreach(Transform egg in spawnMan.eggs)
-            //{
-            //    if (Vector3.Distance(egg.position, transform.position) > )
-            //}
-
-        //AGGRO DES OEUFS A PROXIMITE - A CONFIRMER
         }
     }
 

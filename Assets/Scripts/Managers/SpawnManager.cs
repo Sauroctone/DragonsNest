@@ -29,10 +29,14 @@ public class SpawnManager : MonoBehaviour {
         enemy.Init();
     }
 
-    public Transform GetRandomTarget()
+    public Transform GetNewTarget(Vector3 _position)
     {
-        Transform target = null;
-        target = eggs[Mathf.FloorToInt(Random.Range(0, eggs.Count))];
+        Transform target = eggs[0];
+        foreach (Transform egg in eggs)
+        {
+            if (Vector3.Distance(egg.position, _position) < Vector3.Distance(target.position, _position))
+                target = egg;
+        }
         return target;
     }
 }

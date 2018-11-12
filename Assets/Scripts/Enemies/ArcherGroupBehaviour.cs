@@ -27,7 +27,7 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
     public float minShootTime;
     public float maxShootTime;
     public float postShootIdleTime;
-    bool canShoot = true;
+    public bool canShoot = true;
     public float shootCooldown;
     public GameObject arrow;
     public float arrowSpeed;

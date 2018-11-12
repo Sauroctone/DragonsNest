@@ -87,6 +87,7 @@ public class PlayerController : LivingBeing {
     public GameObject egg;
     public Transform toDropegg;
     GameManager gameMan;
+    public GameObject placeholderFeedback;
     
     [Header("Landing")]
 
@@ -386,7 +387,18 @@ public class PlayerController : LivingBeing {
     public override void Die()
     {
         base.Die();
-        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        if (babyDragonMan.babyDragons.Count > 0)
+        {
+            Instantiate(placeholderFeedback, babyDragonMan.babyDragons[0].transform.position, Quaternion.identity);
+            Instantiate(placeholderFeedback, transform.position, Quaternion.identity);
+
+            babyDragonMan.RemoveBabyDragon();
+
+            ResetLife(100f); //WTF
+            MakeInvincible(2f);
+        }
+        else
+            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 
     public override void UpdateHealthUI(int _damage)
@@ -401,5 +413,12 @@ public class PlayerController : LivingBeing {
             print(toSwitchAfterDecay.name);
             gameMan.vignetteMan.IncrementSmoothness(gameMan.vignetteMan.hurtVignette, _damage * vignetteFactor, toSwitchAfterDecay);
         }
+    }
+
+    public override void ResetHealthUI(float _timeToRegen)
+    {
+        base.ResetHealthUI(_timeToRegen);
+
+        gameMan.vignetteMan.ChangeVignette(gameMan.vignetteMan.basicVignette);
     }
 }

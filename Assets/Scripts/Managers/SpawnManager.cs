@@ -31,7 +31,9 @@ public class SpawnManager : MonoBehaviour {
 
     public Transform GetNewTarget(Vector3 _position)
     {
-        Transform target = eggs[0];
+        Transform target = null;
+        if (eggs.Count > 0)
+            target = eggs[0];
         foreach (Transform egg in eggs)
         {
             if (Vector3.Distance(egg.position, _position) < Vector3.Distance(target.position, _position))

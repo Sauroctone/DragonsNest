@@ -67,7 +67,7 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
 
     void CheckDistanceToTarget()
     {
-        if (Vector3.Distance(currentTarget.position, transform.position) < aimRange 
+        if (currentTarget != null && Vector3.Distance(currentTarget.position, transform.position) < aimRange 
             && canShoot
             && !Physics.Raycast(transform.position, (currentTarget.position - transform.position).normalized, aimRange, aimObstacleLayer))
         {
@@ -92,7 +92,7 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
 
     IEnumerator IUpdateTargetPosition()
     {
-        if (NavMesh.SamplePosition(currentTarget.position, out hit, 100f, NavMesh.AllAreas))
+        if (currentTarget != null && NavMesh.SamplePosition(currentTarget.position, out hit, 100f, NavMesh.AllAreas))
         {
             targetPosOnNav = hit.position;
             if (nav != null)

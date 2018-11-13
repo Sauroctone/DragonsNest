@@ -1038,10 +1038,19 @@ MonoBehaviour:
   timeBetweenCols: 0.025
   fireColSpeed: 100
   shootTarget: {fileID: 4766982967134030}
+  scrShakeTimer: 0.1
+  scrShakeAmount: 0.075
   dodgeSpeed: 80
   megaDodgeSpeed: 80
   dodgeTime: 0.2
   dodgeCooldown: 0.7
+  playerIndex: 0
+  fireVibrationDebug: 1
+  leftFireContinuous: 0.1
+  rightFireContinuous: 0.2
+  fireBurstVibrateTime: 0.15
+  leftFireBurst: 0.3
+  rightFireBurst: 0.75
   aimCursor: {fileID: 4311013367071178}
   firePartSys: {fileID: 198701787969807136}
   fireOrigin: {fileID: 4184973252353998}

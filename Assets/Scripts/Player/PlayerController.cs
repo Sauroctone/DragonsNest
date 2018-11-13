@@ -63,6 +63,8 @@ public class PlayerController : LivingBeing {
     float fireTime;
     public float fireColSpeed;
     public Transform shootTarget;
+    public float scrShakeTimer;
+    public float scrShakeAmount;
 
     [Header("Dodging")]
     public float dodgeSpeed;
@@ -79,6 +81,13 @@ public class PlayerController : LivingBeing {
 
     [Header("Vibration")]
     public int playerIndex = 0;
+    public enum FireVibrationDebug { Continous, Burst};
+    public FireVibrationDebug fireVibrationDebug;
+    public float leftFireContinuous;
+    public float rightFireContinuous;
+    public float fireBurstVibrateTime;
+    public float leftFireBurst;
+    public float rightFireBurst;
 
     [Header("References")]
     public Transform aimCursor;
@@ -162,6 +171,14 @@ public class PlayerController : LivingBeing {
 
     private void Update()
     {
+        //DEBUG FIRE MODES
+        /////////////////////////////////////////////////
+        if (Input.GetKeyDown(KeyCode.Keypad1))
+            fireVibrationDebug = FireVibrationDebug.Continous;
+        if (Input.GetKeyDown(KeyCode.Keypad2))
+            fireVibrationDebug = FireVibrationDebug.Burst;
+        /////////////////////////////////////////////////
+
         RegenStamina();
 
         switch (playerState)
@@ -260,6 +277,17 @@ public class PlayerController : LivingBeing {
             {
                 babyDragon.Shoot(shootTarget, rb);
             }
+
+            switch (fireVibrationDebug)
+            {
+                case FireVibrationDebug.Continous:
+                    gameMan.vibrationMan.StartVibrating(playerIndex, leftFireContinuous, rightFireContinuous);
+                    break;
+                case FireVibrationDebug.Burst:
+                    gameMan.vibrationMan.VibrateFor(fireBurstVibrateTime, playerIndex, leftFireBurst, rightFireBurst);
+                    break;
+            }
+
         }
 
         //End shooting
@@ -296,6 +324,9 @@ public class PlayerController : LivingBeing {
         {
             babyDragon.StopShooting();
         }
+
+        if (fireVibrationDebug == FireVibrationDebug.Continous)
+            gameMan.vibrationMan.StopVibrating(playerIndex);
     }
 
     private void Landing()

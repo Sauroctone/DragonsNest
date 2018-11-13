@@ -39,6 +39,6 @@ public class CameraBehaviour : MonoBehaviour {
         transform.position = Vector3.Lerp(transform.position, targetPos , followLerp);
 
         if (player.isShooting)
-            shakeGen.ShakeScreen(.1f, .075f);
+            shakeGen.ShakeScreen(player.scrShakeTimer, player.scrShakeAmount);
     }
 }

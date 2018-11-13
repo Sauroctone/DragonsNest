@@ -93,11 +93,11 @@ public class VignetteManager : MonoBehaviour {
             ChangeVignette(toSwitchAfterDecay);
             toSwitchAfterDecay = null;
             _preset.smoothness = _preset.originalSmoothness;
-            print("switch != null et différent du preset actuel");
+            //print("switch != null et différent du preset actuel");
         }
         else
         {
-            print("decay");
+            //print("decay");
             smoothnessIsDecaying = true;
             while (_preset.smoothness > _preset.originalSmoothness)
             {

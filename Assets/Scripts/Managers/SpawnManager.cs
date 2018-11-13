@@ -34,11 +34,15 @@ public class SpawnManager : MonoBehaviour {
         Transform target = null;
         if (eggs.Count > 0)
             target = eggs[0];
+        else
+            target = player;
+
         foreach (Transform egg in eggs)
         {
             if (Vector3.Distance(egg.position, _position) < Vector3.Distance(target.position, _position))
                 target = egg;
         }
+
         return target;
     }
 }

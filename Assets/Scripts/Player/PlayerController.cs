@@ -387,14 +387,16 @@ public class PlayerController : LivingBeing {
     public override void Die()
     {
         base.Die();
+
         if (babyDragonMan.babyDragons.Count > 0)
         {
             Instantiate(placeholderFeedback, babyDragonMan.babyDragons[0].transform.position, Quaternion.identity);
             Instantiate(placeholderFeedback, transform.position, Quaternion.identity);
+            StartCoroutine(IPlaceholderNewMother());
 
             babyDragonMan.RemoveBabyDragon();
 
-            ResetLife(100f); //WTF
+            ResetLife(2f);
             MakeInvincible(2f);
         }
         else
@@ -410,7 +412,7 @@ public class PlayerController : LivingBeing {
         else
         {
             VignettePreset toSwitchAfterDecay = life / maxLife < .25 ? gameMan.vignetteMan.hurtVignette : gameMan.vignetteMan.basicVignette;
-            print(toSwitchAfterDecay.name);
+            //print(toSwitchAfterDecay.name);
             gameMan.vignetteMan.IncrementSmoothness(gameMan.vignetteMan.hurtVignette, _damage * vignetteFactor, toSwitchAfterDecay);
         }
     }
@@ -420,5 +422,17 @@ public class PlayerController : LivingBeing {
         base.ResetHealthUI(_timeToRegen);
 
         gameMan.vignetteMan.ChangeVignette(gameMan.vignetteMan.basicVignette);
+    }
+
+    IEnumerator IPlaceholderNewMother()
+    {
+        float time = 0f;
+        float growTime = 2f;
+        while (time < growTime)
+        {
+            time += Time.deltaTime;
+            transform.localScale = Vector3.Lerp(new Vector3(.3f, .3f, .3f), Vector3.one, time / growTime);
+            yield return null;
+        }
     }
 }

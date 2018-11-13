@@ -6,12 +6,12 @@ using UnityEngine.UI;
 public class LivingBeing : MonoBehaviour {
 
     [Header("Life")]
-
 	public float maxLife = 100;
     public float life = 100;
     [HideInInspector]
     public float lostLifeBeforeDecay;
     float timeSinceLastDamage;
+    bool isAlive = true;
 
     //Conditional hiiiide
     public float timeToUpdateFeedbackBar;
@@ -46,17 +46,18 @@ public class LivingBeing : MonoBehaviour {
 
 	public virtual void UpdateLife(int damage) 
 	{	
-        if (!isInvincible)
+        if (!isInvincible && isAlive)
         {
 		    life -= damage;
 
-		    if (life <= 0)
+            UpdateHealthUI(damage);
+
+            if (life <= 0)
 		    {
 			    life = 0;
 			    Die();
 		    }
 
-            UpdateHealthUI(damage);
         }
 	}
 
@@ -83,13 +84,14 @@ public class LivingBeing : MonoBehaviour {
 
 	public virtual void Die()
 	{
-
+        isAlive = false;
 	}
 
     public virtual void ResetLife(float _timeToRegenUI)
     {
         life = maxLife;
         ResetHealthUI(_timeToRegenUI);
+        isAlive = true;
     }
 
     public virtual void ResetHealthUI(float _timeToRegen)
@@ -132,12 +134,15 @@ public class LivingBeing : MonoBehaviour {
 
     IEnumerator IHealthBarRegen(float _timeToRegen)
     {
+        yield return new WaitForSeconds(1f);
+
         float time = 0;
+        lifeBarFeedback.fillAmount = lifeBar.fillAmount;
         while (time < _timeToRegen)
         {
             time += Time.deltaTime;
-            lifeBar.fillAmount = Mathf.Lerp(lifeBar.fillAmount, life / maxLife, time / _timeToRegen);
-            lifeBarFeedback.fillAmount = Mathf.Lerp(lifeBarFeedback.fillAmount, life / maxLife, time / _timeToRegen);
+            lifeBar.fillAmount = Mathf.Lerp(lifeBar.fillAmount, 1, time / _timeToRegen);
+            lifeBarFeedback.fillAmount = Mathf.Lerp(lifeBarFeedback.fillAmount, 1, time / _timeToRegen);
             yield return null;
         }
         lifeBar.fillAmount = 1;

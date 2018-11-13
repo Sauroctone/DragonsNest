@@ -332,6 +332,11 @@ Prefab:
       propertyPath: player
       value: 
       objectReference: {fileID: 2063086582}
+    - target: {fileID: 114206224224018144, guid: 8c07c3166d2c527409cb8e607de56fca,
+        type: 2}
+      propertyPath: followLerp
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c07c3166d2c527409cb8e607de56fca, type: 2}
   m_IsPrefabAsset: 0

@@ -54,8 +54,6 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
         {
             case ArcherGroupState.Moving:
                 CheckDistanceToTarget();
-                if (nav.velocity != Vector3.zero)
-                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(nav.velocity.normalized), moveRotLerp);
                 break;
             case ArcherGroupState.Shooting:
                 break;

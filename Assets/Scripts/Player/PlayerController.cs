@@ -17,7 +17,6 @@ public class PlayerController : LivingBeing {
     public int level;
     public PlayerStates playerState;
 
-
     [Header("Flying")]
     public float flySpeed;
     float speed;
@@ -39,7 +38,6 @@ public class PlayerController : LivingBeing {
     float timeOutOfSlow;
     public float minSlowTime;
     public float boostTimeOutOfSlow;
-
     public float landSpeed;
 
     [Header("Stamina")]
@@ -73,6 +71,14 @@ public class PlayerController : LivingBeing {
     Coroutine dodgeCor;
     bool canDodge = true;
     public float dodgeCooldown;
+    
+    [Header("Landing")]
+
+    [System.NonSerialized]
+    public bool canLand;
+
+    [Header("Vibration")]
+    public int playerIndex = 0;
 
     [Header("References")]
     public Transform aimCursor;
@@ -88,11 +94,6 @@ public class PlayerController : LivingBeing {
     public Transform toDropegg;
     GameManager gameMan;
     public GameObject placeholderFeedback;
-    
-    [Header("Landing")]
-
-    [System.NonSerialized]
-    public bool canLand;
 
     public override void Start()
     {
@@ -230,6 +231,8 @@ public class PlayerController : LivingBeing {
         UpdateStaminaUI();
     }
 
+    //Actions
+
     void Aim()
     {
         rhinput = Input.GetAxis("Horizontal_R");
@@ -280,6 +283,29 @@ public class PlayerController : LivingBeing {
 
     }
 
+    void Dodge()
+    {
+        dodgeCor = StartCoroutine(IDodge());
+    }
+
+    void StopShooting()
+    {
+        firePartSys.Stop();
+        isShooting = false;
+        foreach (BabyDragonBehaviour babyDragon in babyDragonMan.babyDragons)
+        {
+            babyDragon.StopShooting();
+        }
+    }
+
+    private void Landing()
+    {
+        StartCoroutine (ILand());
+        Debug.Log("LandTameredetoi");
+    }
+
+    //Stamina
+
     public void UpdateStaminaUI()
     {
         staminaBar.value = stamina / maxStamina;
@@ -314,27 +340,49 @@ public class PlayerController : LivingBeing {
             slowTime += Time.deltaTime;
     }
 
+    //Overrides
 
-    void Dodge()
+    public override void Die()
     {
-        dodgeCor = StartCoroutine(IDodge());
+        base.Die();
+
+        if (babyDragonMan.babyDragons.Count > 0)
+        {
+            Instantiate(placeholderFeedback, babyDragonMan.babyDragons[0].transform.position, Quaternion.identity);
+            Instantiate(placeholderFeedback, transform.position, Quaternion.identity);
+            StartCoroutine(IPlaceholderNewMother());
+
+            babyDragonMan.RemoveBabyDragon();
+
+            ResetLife(2f);
+            MakeInvincible(2f);
+        }
+        else
+            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 
-    void StopShooting()
+    public override void UpdateHealthUI(int _damage)
     {
-        firePartSys.Stop();
-        isShooting = false;
-        foreach (BabyDragonBehaviour babyDragon in babyDragonMan.babyDragons)
+        base.UpdateHealthUI(_damage);
+
+        if (gameMan.vignetteMan.CurrentPreset != gameMan.vignetteMan.hurtVignette)
+            gameMan.vignetteMan.ChangeVignette(gameMan.vignetteMan.hurtVignette);
+        else
         {
-            babyDragon.StopShooting();
+            VignettePreset toSwitchAfterDecay = life / maxLife < .25 ? gameMan.vignetteMan.hurtVignette : gameMan.vignetteMan.basicVignette;
+            //print(toSwitchAfterDecay.name);
+            gameMan.vignetteMan.IncrementSmoothness(gameMan.vignetteMan.hurtVignette, _damage * vignetteFactor, toSwitchAfterDecay);
         }
     }
 
-    private void Landing()
+    public override void ResetHealthUI(float _timeToRegen)
     {
-        StartCoroutine (ILand());
-        Debug.Log("LandTameredetoi");
+        base.ResetHealthUI(_timeToRegen);
+
+        gameMan.vignetteMan.ChangeVignette(gameMan.vignetteMan.basicVignette);
     }
+   
+    //Coroutines
 
     IEnumerator IDodge()
     {
@@ -380,48 +428,6 @@ public class PlayerController : LivingBeing {
         playerState = PlayerStates.FLYING;
 
         yield break;
-    }
-
-    //Overrides
-
-    public override void Die()
-    {
-        base.Die();
-
-        if (babyDragonMan.babyDragons.Count > 0)
-        {
-            Instantiate(placeholderFeedback, babyDragonMan.babyDragons[0].transform.position, Quaternion.identity);
-            Instantiate(placeholderFeedback, transform.position, Quaternion.identity);
-            StartCoroutine(IPlaceholderNewMother());
-
-            babyDragonMan.RemoveBabyDragon();
-
-            ResetLife(2f);
-            MakeInvincible(2f);
-        }
-        else
-            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
-    }
-
-    public override void UpdateHealthUI(int _damage)
-    {
-        base.UpdateHealthUI(_damage);
-
-        if (gameMan.vignetteMan.CurrentPreset != gameMan.vignetteMan.hurtVignette)
-            gameMan.vignetteMan.ChangeVignette(gameMan.vignetteMan.hurtVignette);
-        else
-        {
-            VignettePreset toSwitchAfterDecay = life / maxLife < .25 ? gameMan.vignetteMan.hurtVignette : gameMan.vignetteMan.basicVignette;
-            //print(toSwitchAfterDecay.name);
-            gameMan.vignetteMan.IncrementSmoothness(gameMan.vignetteMan.hurtVignette, _damage * vignetteFactor, toSwitchAfterDecay);
-        }
-    }
-
-    public override void ResetHealthUI(float _timeToRegen)
-    {
-        base.ResetHealthUI(_timeToRegen);
-
-        gameMan.vignetteMan.ChangeVignette(gameMan.vignetteMan.basicVignette);
     }
 
     IEnumerator IPlaceholderNewMother()

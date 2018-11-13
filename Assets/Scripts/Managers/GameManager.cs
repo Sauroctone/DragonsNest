@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
     public VignetteManager vignetteMan;
     public SpawnManager spawnMan;
     public BabyDragonManager babyDragonMan;
+    public VibrationManager vibrationMan;
 
     private void Awake()
     {
@@ -24,18 +25,5 @@ public class GameManager : MonoBehaviour {
     void InitManagers()
     {
         spawnMan.Init();
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            vignetteMan.ChangeVignette(vignetteMan.hurtVignette);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            vignetteMan.ChangeVignette(vignetteMan.basicVignette);
-        }
     }
 }

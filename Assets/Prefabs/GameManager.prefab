@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 114991777532292108}
   - component: {fileID: 114574732768770378}
   - component: {fileID: 114882257413169298}
+  - component: {fileID: 114654065036448118}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -57,6 +58,17 @@ MonoBehaviour:
   basicVignette: {fileID: 11400000, guid: 3fb1af1a7340c94488662cb37421f44a, type: 2}
   hurtVignette: {fileID: 11400000, guid: 4e1086864d47882479b93259f7723e47, type: 2}
   profile: {fileID: 11400000, guid: bcedd0b6a46856d44bfdfecd35a9caf3, type: 2}
+--- !u!114 &114654065036448118
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1719427262841552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57a00fa855306914e943a2ef079bf9e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114882257413169298
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -92,3 +104,4 @@ MonoBehaviour:
   vignetteMan: {fileID: 114574732768770378}
   spawnMan: {fileID: 114882257413169298}
   babyDragonMan: {fileID: 0}
+  vibrationMan: {fileID: 114654065036448118}

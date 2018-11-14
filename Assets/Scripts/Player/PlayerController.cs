@@ -75,6 +75,7 @@ public class PlayerController : LivingBeing {
     public float dodgeCooldown;
     
     [Header("Landing")]
+    private Vector3 nestPosition;
 
     [System.NonSerialized]
     public bool canLand;
@@ -103,6 +104,7 @@ public class PlayerController : LivingBeing {
     public Transform toDropegg;
     GameManager gameMan;
     public GameObject placeholderFeedback;
+    Nest nestScript;
 
     public override void Start()
     {
@@ -159,11 +161,15 @@ public class PlayerController : LivingBeing {
             
             case PlayerStates.LANDING:
                 // Decrease speed and stop 
-                if(rb.velocity != new Vector3 (0,0,0))
+                /*  if(rb.velocity != new Vector3 (0,0,0))
+                  {
+                      rb.velocity = Vector3.Lerp(rb.velocity,new Vector3(0,0,0),Time.deltaTime*landSpeed);
+                  }*/
+                rb.velocity = new Vector3(0f, 0f, 0f);
+                if (nestPosition != null)
                 {
-                    rb.velocity = Vector3.Lerp(rb.velocity,new Vector3(0,0,0),Time.deltaTime*landSpeed);
+                    transform.position = Vector3.Lerp(transform.position, nestPosition, Time.deltaTime * landSpeed);
                 }
-
 
                 break;
         }
@@ -188,7 +194,7 @@ public class PlayerController : LivingBeing {
                 //Aim();
                 Shoot();
                 //Landing
-                if (Input.GetButtonDown("Fire2") /* && canLand*/ && eggMan.eggSlider.value >=1)
+                if (Input.GetButtonDown("Fire2")  && canLand && eggMan.eggSlider.value >=1)
                 {
                     eggMan.eggSlider.value = 0;
                     Landing();
@@ -447,15 +453,17 @@ public class PlayerController : LivingBeing {
     IEnumerator ILand()
     {
         StopShooting();
-        anim.SetTrigger("land");
+        //anim.SetTrigger("land");
 
         yield return new WaitForSeconds(0.5f);
         playerState = PlayerStates.LANDING;
 
-        yield return new WaitForSeconds(2.0f);
-        Instantiate(egg,toDropegg.position,Quaternion.identity);
-
         yield return new WaitForSeconds(1.0f);
+        GameObject instanceEgg;
+        instanceEgg = Instantiate(egg, new Vector3(nestPosition.x, nestPosition.y + 0.5f, nestPosition.z), Quaternion.identity) as GameObject;
+        nestScript.content = instanceEgg;
+
+        yield return new WaitForSeconds(0.5f);
         playerState = PlayerStates.FLYING;
 
         yield break;
@@ -470,6 +478,30 @@ public class PlayerController : LivingBeing {
             time += Time.deltaTime;
             transform.localScale = Vector3.Lerp(new Vector3(.3f, .3f, .3f), Vector3.one, time / growTime);
             yield return null;
+        }
+    }
+
+    private void OnTriggerEnter(Collider colNest)
+    {
+        if (colNest.gameObject.tag == "Nest")
+        {
+            nestScript = colNest.gameObject.GetComponent<Nest>();
+            if (nestScript.content == null)
+            {
+                nestScript.active = true;
+                nestPosition = colNest.transform.position;
+                canLand = true;
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider colNest)
+    {
+        if (colNest.gameObject.tag == "Nest")
+        {
+            nestScript = colNest.gameObject.GetComponent<Nest>();
+            nestScript.active = false;
+            canLand = false;
         }
     }
 }

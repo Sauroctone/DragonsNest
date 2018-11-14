@@ -23,11 +23,10 @@ public class EnemySpawner : MonoBehaviour {
 
     IEnumerator ISpawnEnemy()
     {
-        while (spawnMan.enemies.Count < spawnMan.maxEnemyCount)
-        {
+        if (spawnMan.enemies.Count < spawnMan.maxEnemyCount)
             spawnMan.SpawnEnemy(enemyPrefab, transform);
-            yield return new WaitForSeconds(timeToSpawn);
-        }
+        yield return new WaitForSeconds(timeToSpawn);
+        StartCoroutine(ISpawnEnemy());
     }
 
     IEnumerator IDecrementSpawnTime()

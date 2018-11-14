@@ -40,7 +40,7 @@ public class ArcherBehaviour : LivingBeing {
        if (groupState == ArcherGroupState.Moving)
        {
             MoveRandomly();
-            if (transform.localEulerAngles != Vector3.zero)
+            if (transform.localEulerAngles != Vector3.zero && group.nav.velocity != Vector3.zero)
                 transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.LookRotation(group.nav.velocity), moveRotLerp);
         }
     }

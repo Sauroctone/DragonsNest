@@ -6,19 +6,25 @@ public class ScreenShakeGenerator : MonoBehaviour {
 
     float shakeTimer;
     float shakeAmount;
-    Vector3 originPos;
     Coroutine shakeCor;
 
-    void Start()
-    {
-        originPos = transform.position;
-    }
-
-    public void ShakeScreen(float shakeTmr, float shakeAmt)
+    public void ShakeScreenFor(float shakeTmr, float shakeAmt)
     {
         shakeTimer = shakeTmr;
         shakeAmount = shakeAmt;
+        if (shakeCor != null)
+            StopCoroutine(shakeCor);
         shakeCor = StartCoroutine(ShakeCor());
+    }
+
+    public void ShakeScreen(float shakeAmt)
+    {
+        if (shakeCor != null)
+            StopCoroutine(shakeCor);
+
+        shakeAmount = shakeAmt;
+        Vector2 shakeVector = Random.insideUnitCircle * shakeAmount;
+        transform.position = new Vector3(transform.position.x + shakeVector.x, transform.position.y + shakeVector.y, transform.position.z);
     }
 
     IEnumerator ShakeCor()
@@ -30,7 +36,5 @@ public class ScreenShakeGenerator : MonoBehaviour {
             shakeTimer -= Time.deltaTime;
             yield return null;
         }
-
-       // transform.position = originPos;
     }
 }

@@ -12,7 +12,6 @@ public class Egg : LivingBeing {
 	public MeshRenderer rend;
 	private Material material;
 	public ParticleSystem particle;
-	public GameObject turret;
     public GameObject pickupCol;
     SpawnManager spawnMan;
    

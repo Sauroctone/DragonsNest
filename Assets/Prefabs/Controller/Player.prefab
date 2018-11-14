@@ -1039,7 +1039,7 @@ MonoBehaviour:
   fireColSpeed: 100
   shootTarget: {fileID: 4766982967134030}
   scrShakeTimer: 0.1
-  scrShakeAmount: 0.075
+  scrShakeAmount: 0.15
   dodgeSpeed: 80
   megaDodgeSpeed: 80
   dodgeTime: 0.2
@@ -1061,7 +1061,7 @@ MonoBehaviour:
   staminaBar: {fileID: 0}
   babyDragonMan: {fileID: 0}
   eggMan: {fileID: 114838063966722996}
-  egg: {fileID: 1189923540006814, guid: 2ec8f4d1b33383d49a6eb0245abd3e5f, type: 2}
+  egg: {fileID: 1472904794707518, guid: c73497195adb49e41bf21937d8073bcf, type: 2}
   toDropegg: {fileID: 4360153387413066}
   placeholderFeedback: {fileID: 1890502599676748, guid: b2419bf1e4c519c4abdeb78806b9f78d,
     type: 2}

@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4382284482923402}
   - component: {fileID: 33778066143568562}
   - component: {fileID: 23236242468205806}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: EggVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4531193308233794}
   - component: {fileID: 114485223214567632}
   - component: {fileID: 135416155835575264}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: Egg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4300586458942838}
   - component: {fileID: 198113043190778186}
   - component: {fileID: 199028618669914740}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4656599155480686}
   - component: {fileID: 136421270972651640}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: PickupCollider
   m_TagString: Egg
   m_Icon: {fileID: 0}
@@ -193,11 +193,10 @@ MonoBehaviour:
   feedbackDecayTime: 0
   lifeBar: {fileID: 0}
   lifeBarFeedback: {fileID: 0}
-  hatchingTimeMax: 50000
+  hatchingTimeMax: 1
   hatchingTime: 0
   rend: {fileID: 23236242468205806}
   particle: {fileID: 198113043190778186}
-  turret: {fileID: 0}
   pickupCol: {fileID: 1672294053986652}
 --- !u!135 &135416155835575264
 SphereCollider:

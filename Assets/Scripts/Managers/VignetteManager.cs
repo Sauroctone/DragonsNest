@@ -62,9 +62,6 @@ public class VignetteManager : MonoBehaviour {
         timeBeforeSmoothnessDecay = 0;
         toSwitchAfterDecay = _toSwitchAfterDecay;
 
-        if (_preset.smoothness + _increment > _preset.maxSmoothness)
-            return;
-
         if (_preset.smoothness == _preset.originalSmoothness || smoothnessIsDecaying) 
         {
             if (smoothnessIsDecaying)
@@ -96,9 +93,11 @@ public class VignetteManager : MonoBehaviour {
             ChangeVignette(toSwitchAfterDecay);
             toSwitchAfterDecay = null;
             _preset.smoothness = _preset.originalSmoothness;
+            print("switch != null et différent du preset actuel");
         }
         else
         {
+            print("decay");
             smoothnessIsDecaying = true;
             while (_preset.smoothness > _preset.originalSmoothness)
             {
@@ -116,6 +115,8 @@ public class VignetteManager : MonoBehaviour {
 
     IEnumerator ILerpValues(VignettePreset _preset)
     {
+        //print(_preset.name);
+
         if (_preset.incrementSmoothness)
             _preset.smoothness = _preset.originalSmoothness;
 

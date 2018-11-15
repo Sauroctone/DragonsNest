@@ -5,9 +5,11 @@ using UnityEngine;
 public class Turret : MonoBehaviour {
 
     public float maxWanderRadius;
+    public List<Transform> targets;
     Vector3 destination;
     Vector2 randomPoint;
     bool isShooting;
+    bool canShoot;
 
     [Header("Shooting")]
     public float timeBetweenCols;
@@ -28,6 +30,7 @@ public class Turret : MonoBehaviour {
 
     private void Start()
     {
+        targets = new List<Transform>();
         randomPoint = Random.insideUnitCircle * maxWanderRadius;
         destination = new Vector3(randomPoint.x, 0f, randomPoint.y);
     }
@@ -37,7 +40,7 @@ public class Turret : MonoBehaviour {
         //CheckShoot();
         if(Input.GetKeyDown(KeyCode.Y))
         {
-		    Shoot (target);
+    Shoot (target);
         }
         if(Input.GetKeyUp(KeyCode.Y))
         {
@@ -76,6 +79,22 @@ public class Turret : MonoBehaviour {
         if (startShootingCor != null)
             StopCoroutine(startShootingCor);
         startShootingCor = StartCoroutine(IStartShooting());
+    }
+
+    public void AddToTargetList (Transform targ)
+    {
+        if(targets.Count<=0) canShoot = true;
+        targets.Add(targ);
+    }
+
+    public void ChangeTarget(Transform targ)
+    {
+        targets.Remove(targ);
+        if(targets.Count > 0)
+        {
+        target = targets[0];
+        } else canShoot = false;
+
     }
 
     public void StopShooting()

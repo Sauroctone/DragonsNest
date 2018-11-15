@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ArcherGroupBehaviour : MonoBehaviour {
+public class ArcherGroupBehaviour : EnemyBehaviour {
 
     ArcherGroupState state;
     public delegate void OnStateChanged(ArcherGroupState _state);
     public event OnStateChanged EventOnStateChanged;
 
+    [Header("Archers")]
     public List<ArcherBehaviour> archers = new List<ArcherBehaviour>();
 
     [Header("Movement")]
@@ -17,13 +18,16 @@ public class ArcherGroupBehaviour : MonoBehaviour {
     Vector3 targetPosOnNav;
     NavMeshHit hit;
     Coroutine moveCor;
-    
+    public float moveRotLerp;
+
     [Header("Shooting")]
+    public LayerMask aimObstacleLayer;
     public float aimRange;
     public float aimTime;
     public float minShootTime;
     public float maxShootTime;
-    bool canShoot = true;
+    public float postShootIdleTime;
+    public bool canShoot = true;
     public float shootCooldown;
     public float arrowSpeed;
     public float arrowMaxHeight;
@@ -33,34 +37,40 @@ public class ArcherGroupBehaviour : MonoBehaviour {
     public float aimLead;
 
     [Header("References")]
-    public Transform target;
     public NavMeshAgent nav;
-    internal Rigidbody targetRb;
+    public Material normalMat;
+    public Material aimMat;
 
-    void Start()
+    public override void Init()
     {
+        base.Init();
         moveCor = StartCoroutine(IUpdateTargetPosition());
-        targetRb = target.GetComponent<Rigidbody>();
     }
 
-    void Update()
+    public override void Update()
     {
+        base.Update();
+
         switch(state)
         {
             case ArcherGroupState.Moving:
                 CheckDistanceToTarget();
+                if (nav.velocity != Vector3.zero)
+                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(nav.velocity.normalized), moveRotLerp);
                 break;
             case ArcherGroupState.Shooting:
                 break;
         }
 
         if (archers.Count == 0)
-            Destroy(gameObject);
+            Die();
     }
 
     void CheckDistanceToTarget()
     {
-        if (Vector3.Distance(target.position, transform.position) < aimRange && canShoot)
+        if (currentTarget != null && Vector3.Distance(currentTarget.position, transform.position) < aimRange 
+            && canShoot
+            && !Physics.Raycast(transform.position, (currentTarget.position - transform.position).normalized, aimRange, aimObstacleLayer))
         {
             state = ArcherGroupState.Shooting;
             if (EventOnStateChanged != null)
@@ -68,6 +78,8 @@ public class ArcherGroupBehaviour : MonoBehaviour {
             StopCoroutine(moveCor);
             nav.ResetPath();
             StartCoroutine(IAimAndShoot());
+
+            Debug.DrawLine(transform.position, currentTarget.position, Color.red, 2f);
         }
     }
 
@@ -81,7 +93,7 @@ public class ArcherGroupBehaviour : MonoBehaviour {
 
     IEnumerator IUpdateTargetPosition()
     {
-        if (NavMesh.SamplePosition(target.position, out hit, 100f, NavMesh.AllAreas))
+        if (currentTarget != null && NavMesh.SamplePosition(currentTarget.position, out hit, 100f, NavMesh.AllAreas))
         {
             targetPosOnNav = hit.position;
             if (nav != null)
@@ -96,7 +108,7 @@ public class ArcherGroupBehaviour : MonoBehaviour {
     {
         yield return new WaitForSeconds(aimTime);
         canShoot = false;
-        yield return new WaitForSeconds(maxShootTime);
+        yield return new WaitForSeconds(maxShootTime + postShootIdleTime);
         StartMoving();
         yield return new WaitForSeconds(shootCooldown);
         canShoot = true;

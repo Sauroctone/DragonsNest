@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33745291575211160}
   - component: {fileID: 23526904181904230}
   - component: {fileID: 54753397724214548}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4231548636476786}
   - component: {fileID: 114179855875924952}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4145311165777984}
   - component: {fileID: 96747017333294890}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,10 +71,10 @@ GameObject:
   - component: {fileID: 4842657073991158}
   - component: {fileID: 65633911875330332}
   - component: {fileID: 54483594891520956}
-  - component: {fileID: 114068570949920094}
   - component: {fileID: 33388320433754876}
   - component: {fileID: 23436351708200652}
-  m_Layer: 0
+  - component: {fileID: 114312677765567836}
+  m_Layer: 13
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1987040592590368}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -363,23 +363,6 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
---- !u!114 &114068570949920094
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1987040592590368}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c5d4e2b18b3661489972800c7c55c15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-<<<<<<< HEAD:Assets/Prefabs/Enemies/Arrow.prefab
-  visualCounterpart: {fileID: 1471345273632862}
-=======
-  firePower: 1
-  destroyOnContact: 0
->>>>>>> master:Assets/Prefabs/Projectiles/Arrow.prefab
 --- !u!114 &114179855875924952
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -391,6 +374,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f50362e30672bcd4295bf58978d6c6bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
+<<<<<<< HEAD:Assets/Prefabs/Enemies/Arrow.prefab
+  visualCounterpart: {fileID: 1471345273632862}
+=======
+  firePower: 1
+  destroyOnContact: 0
+>>>>>>> master:Assets/Prefabs/Projectiles/Arrow.prefab
+--- !u!114 &114179855875924952
+=======
+  visualRb: {fileID: 54753397724214548}
+  colliderRb: {fileID: 54483594891520956}
+--- !u!114 &114312677765567836
+>>>>>>> master
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1987040592590368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da81f5dc163cf2242bff1868a7d9b928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+<<<<<<< HEAD
   visualRb: {fileID: 54753397724214548}
   colliderRb: {fileID: 54483594891520956}
   firePower: 1
+=======
+  firePower: 2
+  destroyOnContact: 1
+  visualCounterpart: {fileID: 1471345273632862}
+>>>>>>> master

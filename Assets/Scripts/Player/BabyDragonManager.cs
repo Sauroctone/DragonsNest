@@ -38,6 +38,13 @@ public class BabyDragonManager : MonoBehaviour {
         GiveNewPositions();
     }
 
+    public void RemoveBabyDragon()
+    {
+        Destroy(babyDragons[0].gameObject);
+        babyDragons.RemoveAt(0);
+        GiveNewPositions();
+    }
+
     void GiveNewPositions()
     {
         for (int i = 0; i < babyDragons.Count; i++)

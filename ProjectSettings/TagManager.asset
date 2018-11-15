@@ -8,6 +8,7 @@ TagManager:
   - Fire
   - Archer
   - Dragon
+  - Egg
   layers:
   - Default
   - TransparentFX
@@ -22,9 +23,9 @@ TagManager:
   - Dragon
   - Ground
   - FireSpawner
-  - 
-  - 
-  - 
+  - EnemyAttack
+  - Enemy
+  - Egg
   - 
   - 
   - 

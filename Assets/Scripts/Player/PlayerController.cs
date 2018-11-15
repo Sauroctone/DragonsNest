@@ -98,15 +98,14 @@ public class PlayerController : LivingBeing {
     public Transform toDropegg;
     public Scene goScene;
     GameManager gameMan;
-
-
-
-    #endregion
+    public GameObject placeholderFeedback;
     
+#endregion
 
-
-    void Start()
+    public override void Start()
     {
+        base.Start();
+
         stamina = maxStamina;
         sprintTime = sprintCooldown;
         slowTime = slowCooldown;
@@ -322,18 +321,6 @@ public class PlayerController : LivingBeing {
             slowTime += Time.deltaTime;
     }
 
-    public override void UpdateHealthUI(int _damage)
-    {
-        base.UpdateHealthUI(_damage);
-
-        if (gameMan.vignetteMan.CurrentPreset != gameMan.vignetteMan.hurtVignette)
-            gameMan.vignetteMan.ChangeVignette(gameMan.vignetteMan.hurtVignette);
-        else
-        {
-            VignettePreset toSwitchAfterDecay = life / maxLife < .25 ? gameMan.vignetteMan.hurtVignette : gameMan.vignetteMan.basicVignette;
-            gameMan.vignetteMan.IncrementSmoothness(gameMan.vignetteMan.hurtVignette, _damage * vignetteFactor, toSwitchAfterDecay);
-        }
-    }
 
     void Dodge()
     {
@@ -369,20 +356,6 @@ public class PlayerController : LivingBeing {
         tempDecel = 0.0f;
         targOne =  Vector3.zero;
         targTwos = rb.velocity;
-    }
-
-    public override void Die()
-    {
-        if(babyDragonMan.babyDragons.Count<=0)
-        {
-            SceneManager.LoadScene(1);
-        }
-        
-        if(babyDragonMan.babyDragons.Count>0)
-        {
-            babyDragonMan.babyDragons.RemoveAt(0);
-            life = maxLife;
-        }
     }
 
     public void GameOver()
@@ -454,5 +427,45 @@ public class PlayerController : LivingBeing {
         playerState = PlayerStates.FLYING;
 
         yield break;
+    }
+
+    //Overrides
+
+    public override void Die()
+    {
+        base.Die();
+        if (babyDragonMan.babyDragons.Count > 0)
+        {
+            Instantiate(placeholderFeedback, babyDragonMan.babyDragons[0].transform.position, Quaternion.identity);
+            Instantiate(placeholderFeedback, transform.position, Quaternion.identity);
+
+            babyDragonMan.RemoveBabyDragon();
+
+            ResetLife(100f); //WTF
+            MakeInvincible(2f);
+        }
+        else
+            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+    }
+
+    public override void UpdateHealthUI(int _damage)
+    {
+        base.UpdateHealthUI(_damage);
+
+        if (gameMan.vignetteMan.CurrentPreset != gameMan.vignetteMan.hurtVignette)
+            gameMan.vignetteMan.ChangeVignette(gameMan.vignetteMan.hurtVignette);
+        else
+        {
+            VignettePreset toSwitchAfterDecay = life / maxLife < .25 ? gameMan.vignetteMan.hurtVignette : gameMan.vignetteMan.basicVignette;
+            print(toSwitchAfterDecay.name);
+            gameMan.vignetteMan.IncrementSmoothness(gameMan.vignetteMan.hurtVignette, _damage * vignetteFactor, toSwitchAfterDecay);
+        }
+    }
+
+    public override void ResetHealthUI(float _timeToRegen)
+    {
+        base.ResetHealthUI(_timeToRegen);
+
+        gameMan.vignetteMan.ChangeVignette(gameMan.vignetteMan.basicVignette);
     }
 }

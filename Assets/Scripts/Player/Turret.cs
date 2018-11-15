@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turret : MonoBehaviour {
+public class Turret : LivingBeing {
 
     public float maxWanderRadius;
     public List<Transform> targets;
@@ -28,8 +28,9 @@ public class Turret : MonoBehaviour {
     public Transform fireOrigin;
     Transform target;
 
-    private void Start()
+    public override void Start()
     {
+        base.Start();
         targets = new List<Transform>();
         randomPoint = Random.insideUnitCircle * maxWanderRadius;
         destination = new Vector3(randomPoint.x, 0f, randomPoint.y);

@@ -19,13 +19,16 @@ public class PlayerController : LivingBeing {
 
     [Header("Flying")]
     public float flySpeed;
+    public float shootSpeed;
     float speed;
     internal Vector3 desiredDir = Vector3.forward;
     Vector3 lastDesiredDir = Vector3.forward;
     float hinput;
     float vinput;
     float rotationAngle;
-    public float rotationLerp;
+    public float flyingRotationLerp;
+    public float shootingRotationLerp;
+    float rotationLerp;
     Quaternion targetRot;
     public float maxSteerRot;
     Vector3 dirDiff;
@@ -131,6 +134,8 @@ public class PlayerController : LivingBeing {
                     speed = sprintSpeed;
                 else if (isSlowing && !isSprinting)
                     speed = slowSpeed;
+                else if (isShooting)
+                    speed = shootSpeed;
                 else
                     speed = flySpeed;
 
@@ -152,6 +157,7 @@ public class PlayerController : LivingBeing {
                     targetRot = Quaternion.LookRotation(desiredDir);
                     rotationAngle = Vector3.SignedAngle(transform.forward, desiredDir, transform.up);
                     targetRot = Quaternion.Euler(targetRot.eulerAngles.x, targetRot.eulerAngles.y, -rotationAngle * maxSteerRot / 180);
+                    rotationLerp = isShooting ? shootingRotationLerp : flyingRotationLerp;
                     transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationLerp);
                 }
                 break;

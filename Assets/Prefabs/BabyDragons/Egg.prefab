@@ -193,7 +193,7 @@ MonoBehaviour:
   feedbackDecayTime: 0
   lifeBar: {fileID: 0}
   lifeBarFeedback: {fileID: 0}
-  hatchingTimeMax: 1
+  hatchingTimeMax: 20
   hatchingTime: 0
   rend: {fileID: 23236242468205806}
   particle: {fileID: 198113043190778186}

@@ -15,8 +15,11 @@ public class BabyDragonPickup : MonoBehaviour {
     {
         if (other.tag == "Egg")
         {
-            babyDragonMan.SpawnNewBabyDragon();
-            other.GetComponentInParent<Egg>().Die();
+            if (babyDragonMan.babyDragons.Count < babyDragonMan.maxBabyDragonCount)
+            {
+                babyDragonMan.SpawnNewBabyDragon();
+                other.GetComponentInParent<Egg>().Die();
+            }
         }           
     }
 }

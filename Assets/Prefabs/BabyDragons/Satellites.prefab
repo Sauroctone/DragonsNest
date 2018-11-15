@@ -54,6 +54,7 @@ MonoBehaviour:
   target: {fileID: 0}
   followLerp: 0.2
   rotLerp: 0.1
+  maxBabyDragonCount: 4
   babyDragons: []
   containerDistance: 2.5
   angleToDivide: 230

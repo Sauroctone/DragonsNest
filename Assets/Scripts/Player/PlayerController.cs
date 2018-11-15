@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum PlayerStates { FLYING, DODGING, LANDING };
+public enum PlayerStates { FLYING, DODGING, LAYING_EGG };
 
 public class PlayerController : LivingBeing {
 
@@ -159,7 +159,7 @@ public class PlayerController : LivingBeing {
             case PlayerStates.DODGING:
                 break;
             
-            case PlayerStates.LANDING:
+            case PlayerStates.LAYING_EGG:
                 // Decrease speed and stop 
                 /*  if(rb.velocity != new Vector3 (0,0,0))
                   {
@@ -197,7 +197,7 @@ public class PlayerController : LivingBeing {
                 if (Input.GetButtonDown("Fire2")  && canLand && eggMan.eggSlider.value >=1)
                 {
                     eggMan.eggSlider.value = 0;
-                    Landing();
+                    LayEgg();
                 }
                 //Sprinting
                 if (Input.GetAxis("Sprint") > .1f && stamina > 0 && sprintTime >= sprintCooldown)
@@ -245,7 +245,7 @@ public class PlayerController : LivingBeing {
                 //Aim();
                 break;
             
-            case PlayerStates.LANDING:
+            case PlayerStates.LAYING_EGG:
                 break;
         }
 
@@ -335,10 +335,9 @@ public class PlayerController : LivingBeing {
             gameMan.vibrationMan.StopVibrating(playerIndex);
     }
 
-    private void Landing()
+    private void LayEgg()
     {
-        StartCoroutine (ILand());
-        Debug.Log("LandTameredetoi");
+        StartCoroutine (ILayEgg());
     }
 
     //Stamina
@@ -450,18 +449,19 @@ public class PlayerController : LivingBeing {
         canDodge = true;
     }
     
-    IEnumerator ILand()
+    IEnumerator ILayEgg()
     {
         StopShooting();
         //anim.SetTrigger("land");
 
         yield return new WaitForSeconds(0.5f);
-        playerState = PlayerStates.LANDING;
+        playerState = PlayerStates.LAYING_EGG;
 
         yield return new WaitForSeconds(1.0f);
         GameObject instanceEgg;
         instanceEgg = Instantiate(egg, new Vector3(nestPosition.x, nestPosition.y + 0.5f, nestPosition.z), Quaternion.identity) as GameObject;
         nestScript.content = instanceEgg;
+        gameMan.spawnMan.eggs.Add(instanceEgg.transform);
 
         yield return new WaitForSeconds(0.5f);
         playerState = PlayerStates.FLYING;

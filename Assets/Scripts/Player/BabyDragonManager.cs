@@ -7,6 +7,7 @@ public class BabyDragonManager : MonoBehaviour {
     public Transform target;
     public float followLerp;
     public float rotLerp;
+    public int maxBabyDragonCount;
     public List<BabyDragonBehaviour> babyDragons = new List<BabyDragonBehaviour>();
     public float containerDistance;
     public float angleToDivide;

@@ -13,6 +13,8 @@ public class EnemyBehaviour : MonoBehaviour {
     public SpawnManager spawnMan;
     public Transform player;
     public Rigidbody playerRb;
+    public TurretTarget thisTurretTarget;
+
 
     public virtual void Init()
     {
@@ -50,6 +52,7 @@ public class EnemyBehaviour : MonoBehaviour {
 
     public void Die()
     {
+        thisTurretTarget.CallRemoveAndChangeTarget();
         spawnMan.enemies.Remove(this);
         Destroy(gameObject);
     }

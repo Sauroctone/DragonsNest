@@ -26,7 +26,7 @@ public class Turret : MonoBehaviour {
     public GameObject fireCollider;
     public ParticleSystem firePartSys;
     public Transform fireOrigin;
-    public Transform target;
+    Transform target;
 
     private void Start()
     {
@@ -35,14 +35,14 @@ public class Turret : MonoBehaviour {
         destination = new Vector3(randomPoint.x, 0f, randomPoint.y);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        //CheckShoot();
-        if(Input.GetKeyDown(KeyCode.Y))
+        CheckShoot();
+        if (Input.GetButtonDown("Fire1"))
         {
-    Shoot (target);
+            if(canShoot) Shoot (target);
         }
-        if(Input.GetKeyUp(KeyCode.Y))
+        if (Input.GetButtonUp("Fire1"))
         {
             StopShooting();
         }
@@ -50,12 +50,12 @@ public class Turret : MonoBehaviour {
 
     void CheckShoot()
     {
-        if (isShooting)
+        if (isShooting )
         {
             if (fireTime >= timeBetweenCols)
             {
                 GameObject fireCol = Instantiate(fireCollider, fireOrigin.position, Quaternion.identity);
-                fireCol.GetComponent<Rigidbody>().velocity = playerRb.velocity + (shootTarget.position - fireOrigin.position).normalized * fireColSpeed;
+                fireCol.GetComponent<Rigidbody>().velocity = (shootTarget.position - fireOrigin.position).normalized * fireColSpeed;
                 fireTime = 0;
             }
             else
@@ -70,7 +70,7 @@ public class Turret : MonoBehaviour {
     }
 
     public void Shoot(Transform _target)
-    {
+    { 
         if (shootTarget == null)        //Transfer to spawn function
             shootTarget = _target;
 
@@ -83,11 +83,15 @@ public class Turret : MonoBehaviour {
 
     public void AddToTargetList (Transform targ)
     {
-        if(targets.Count<=0) canShoot = true;
-        targets.Add(targ);
+        if(targets.Count<=0)
+        {
+            targets.Add(targ);
+            target = targets[0];
+            canShoot = true;
+        }else targets.Add(targ);
     }
 
-    public void ChangeTarget(Transform targ)
+    public void RemoveAndChangeTarget(Transform targ)
     {
         targets.Remove(targ);
         if(targets.Count > 0)
@@ -105,6 +109,7 @@ public class Turret : MonoBehaviour {
     IEnumerator IStartShooting()
     {
         yield return new WaitForSeconds(Random.Range(minShootDelay, maxShootDelay));
+        Debug.Log("shoot");
         firePartSys.Play();
         isShooting = true;
         fireTime = 0;

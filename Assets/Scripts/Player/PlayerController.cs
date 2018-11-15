@@ -429,6 +429,47 @@ public class PlayerController : LivingBeing {
         yield break;
     }
 
+    public IEnumerator ILandForAncient(GameObject _ancient)
+    {
+        StopShooting();
+
+        rb.velocity = Vector3.zero;
+        playerState = PlayerStates.LANDING;
+
+
+        anim.SetTrigger("land");
+        yield return new WaitForSeconds(2.0f);
+        
+        
+		Instantiate(placeholderFeedback,babyDragonMan.babyDragons[0].transform.position, Quaternion.identity);
+		Instantiate(placeholderFeedback, transform.position, Quaternion.identity);
+		Instantiate(_ancient, transform.position, Quaternion.identity);
+
+		babyDragonMan.RemoveBabyDragon();
+
+		ResetLife(maxLife); //WTF
+		
+        yield return new WaitForSeconds(0.1f);
+        anim.SetTrigger("lift");
+
+        yield return new WaitForSeconds(1.30f);
+        if (isSlowing)
+        {
+            isSlowing = false;
+            if (stamina == 0)
+                slowTime = 0;
+        }
+        if (isSprinting)
+        {
+            isSprinting = false;
+            if (stamina == 0)
+                sprintTime = 0;
+        }
+        playerState = PlayerStates.FLYING;
+
+        yield break;
+    }
+
     //Overrides
 
     public override void Die()
@@ -441,7 +482,7 @@ public class PlayerController : LivingBeing {
 
             babyDragonMan.RemoveBabyDragon();
 
-            ResetLife(100f); //WTF
+            ResetLife(maxLife); //WTF
             MakeInvincible(2f);
         }
         else

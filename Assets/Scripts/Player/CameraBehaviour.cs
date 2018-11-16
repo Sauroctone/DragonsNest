@@ -5,6 +5,8 @@ using UnityEngine;
 public class CameraBehaviour : MonoBehaviour {
 
     public Transform target;
+    [HideInInspector]
+    public Vector3 targetOriginPos;
     Vector3 targetPos;
     public float followLerp;
     public float aimOffset;
@@ -22,6 +24,7 @@ public class CameraBehaviour : MonoBehaviour {
     private void Start()
     {
         baseOffset = transform.position;
+        targetOriginPos = target.localPosition;
     }
 
     void FixedUpdate ()

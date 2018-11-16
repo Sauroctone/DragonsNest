@@ -64,11 +64,10 @@ public class PlayerController : LivingBeing {
     public float regenCooldown;
     float regenTime;
 
-    [Header("Aiming")]
-    public float cursorSpeed;
+    [Header("Looking")]
+    public float lookRange;
     float rhinput;
     float rvinput;
-    public Vector3 originCursorPos;
 
     [Header("Shooting")]
     public float timeBetweenCols;
@@ -118,6 +117,7 @@ public class PlayerController : LivingBeing {
     GameManager gameMan;
     public GameObject placeholderFeedback;
     Nest nestScript;
+    CameraBehaviour mainCamera;
 
     public override void Start()
     {
@@ -127,6 +127,7 @@ public class PlayerController : LivingBeing {
         sprintTime = sprintCooldown;
         slowTime = slowCooldown;
         gameMan = GameManager.Instance;
+        mainCamera = gameMan.mainCamera;
     }
 
     private void FixedUpdate()
@@ -201,7 +202,7 @@ public class PlayerController : LivingBeing {
         switch (playerState)
         {
             case PlayerStates.FLYING:
-                //Aim();
+                Look();
                 Shoot();
                 LayEgg();
                 Sprint();
@@ -210,10 +211,11 @@ public class PlayerController : LivingBeing {
                 break;
 
             case PlayerStates.DODGING:
-                //Aim();
+                Look();
                 break;
             
             case PlayerStates.LAYING_EGG:
+                Look();
                 break;
         }
 
@@ -248,17 +250,12 @@ public class PlayerController : LivingBeing {
 
     //Actions
 
-    void Aim()
+    void Look()
     {
         rhinput = Input.GetAxis("Horizontal_R");
         rvinput = Input.GetAxis("Vertical_R");
-
-        if (rhinput != 0 || rvinput != 0)
-        {
-            //Direction based on input
-            //aimCursor.Translate(new Vector3(hinput, 0f, vinput) * cursorSpeed);
-            aimCursor.localPosition = originCursorPos + new Vector3(rhinput, aimCursor.localPosition.y, rvinput) * cursorSpeed; //range
-        }
+        Vector3 originWorldPos = gameMan.player.transform.TransformPoint(mainCamera.targetOriginPos);
+        mainCamera.target.localPosition = mainCamera.targetOriginPos + new Vector3(rhinput, aimCursor.localPosition.y, rvinput) * lookRange; //range
     }
 
     void Shoot()

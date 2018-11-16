@@ -17,6 +17,16 @@ public class PlayerController : LivingBeing {
     public int level;
     public PlayerStates playerState;
 
+    [Header("Inputs")]
+    public string inputShoot;
+    public string inputShootAlt;
+    public string inputDodge;
+    public string inputDodgeAlt;
+    public string inputSprint;
+    public string inputSlowDown;
+    public string inputLayEgg;
+    public string inputPlaceAncient;
+
     [Header("Flying")]
     public float flySpeed;
     public float shootSpeed;
@@ -183,68 +193,20 @@ public class PlayerController : LivingBeing {
 
     private void Update()
     {
-        //DEBUG FIRE MODES
-        /////////////////////////////////////////////////
-        if (Input.GetKeyDown(KeyCode.Keypad1))
-            fireVibrationDebug = FireVibrationDebug.Continous;
-        if (Input.GetKeyDown(KeyCode.Keypad2))
-            fireVibrationDebug = FireVibrationDebug.Burst;
-        /////////////////////////////////////////////////
+        if (Input.GetKeyDown(KeyCode.Escape))
+            Application.Quit();
 
         RegenStamina();
 
         switch (playerState)
         {
             case PlayerStates.FLYING:
-
                 //Aim();
                 Shoot();
-                //Landing
-                if (Input.GetButtonDown("Fire2")  && canLand && eggMan.eggSlider.value >=1)
-                {
-                    eggMan.eggSlider.value = 0;
-                    LayEgg();
-                }
-                //Sprinting
-                if (Input.GetAxis("Sprint") > .1f && stamina > 0 && sprintTime >= sprintCooldown)
-                {
-                    isSprinting = true;
-                    if (!isSlowing)
-                        UseStamina(sprintCostPerSecond);
-                }
-                else if (isSprinting)
-                {
-                    isSprinting = false;
-                    if (stamina == 0)
-                        sprintTime = 0;
-                }
-
-                //Slowing 
-
-                if (Input.GetButtonDown("SlowDown"))
-                    timeOutOfSlow = 0; 
-
-                if (Input.GetButton("SlowDown") && stamina > 0 && slowTime >= slowCooldown)
-                {
-                    isSlowing = true;
-                    
-                    if (!isSprinting)
-                        UseStamina(slowCostPerSecond);
-                }
-                
-                if (isSlowing && (Input.GetButtonUp("SlowDown") || stamina == 0))
-                {
-                    isSlowing = false;
-                    if (timeOutOfSlow < -minSlowTime)
-                        timeOutOfSlow = boostTimeOutOfSlow;
-                    if (stamina == 0)
-                        slowTime = 0;
-                }
-
-                //Dodge
-                if (Input.GetAxis("Dodge") > .1f && canDodge)
-                    Dodge();
-
+                LayEgg();
+                Sprint();
+                SlowDown();
+                Dodge();
                 break;
 
             case PlayerStates.DODGING:
@@ -260,6 +222,30 @@ public class PlayerController : LivingBeing {
         UpdateStaminaUI();
     }
 
+    private void OnTriggerEnter(Collider colNest)
+    {
+        if (colNest.gameObject.tag == "Nest")
+        {
+            nestScript = colNest.gameObject.GetComponent<Nest>();
+            if (nestScript.content == null)
+            {
+                nestScript.active = true;
+                nestPosition = colNest.transform.position;
+                canLand = true;
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider colNest)
+    {
+        if (colNest.gameObject.tag == "Nest")
+        {
+            nestScript = colNest.gameObject.GetComponent<Nest>();
+            nestScript.active = false;
+            canLand = false;
+        }
+    }
+
     //Actions
 
     void Aim()
@@ -272,14 +258,13 @@ public class PlayerController : LivingBeing {
             //Direction based on input
             //aimCursor.Translate(new Vector3(hinput, 0f, vinput) * cursorSpeed);
             aimCursor.localPosition = originCursorPos + new Vector3(rhinput, aimCursor.localPosition.y, rvinput) * cursorSpeed; //range
-
         }
     }
 
     void Shoot()
     {
         //Begin shooting
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown(inputShoot))
         {
             firePartSys.Play();
             isShooting = true;
@@ -303,7 +288,7 @@ public class PlayerController : LivingBeing {
         }
 
         //End shooting
-        if (Input.GetButtonUp("Fire1"))
+        if (Input.GetButtonUp(inputShoot))
         {
             StopShooting();
         }
@@ -325,7 +310,47 @@ public class PlayerController : LivingBeing {
 
     void Dodge()
     {
-        dodgeCor = StartCoroutine(IDodge());
+        if ((Input.GetButtonDown(inputDodge) || Input.GetAxis(inputDodgeAlt) > .1f) && canDodge)
+            dodgeCor = StartCoroutine(IDodge());
+    }
+
+    void SlowDown()
+    {
+        if (Input.GetButtonDown(inputSlowDown))
+            timeOutOfSlow = 0;
+
+        if (Input.GetButton(inputSlowDown) && stamina > 0 && slowTime >= slowCooldown)
+        {
+            isSlowing = true;
+
+            if (!isSprinting)
+                UseStamina(slowCostPerSecond);
+        }
+
+        if (isSlowing && (Input.GetButtonUp(inputSlowDown) || stamina == 0))
+        {
+            isSlowing = false;
+            if (timeOutOfSlow < -minSlowTime)
+                timeOutOfSlow = boostTimeOutOfSlow;
+            if (stamina == 0)
+                slowTime = 0;
+        }
+    }
+
+    void Sprint()
+    {
+        if (Input.GetButton(inputSprint) && stamina > 0 && sprintTime >= sprintCooldown)
+        {
+            isSprinting = true;
+            if (!isSlowing)
+                UseStamina(sprintCostPerSecond);
+        }
+        else if (isSprinting)
+        {
+            isSprinting = false;
+            if (stamina == 0)
+                sprintTime = 0;
+        }
     }
 
     void StopShooting()
@@ -343,7 +368,11 @@ public class PlayerController : LivingBeing {
 
     private void LayEgg()
     {
-        StartCoroutine (ILayEgg());
+        if (Input.GetButtonDown(inputLayEgg) && canLand && eggMan.eggSlider.value >= 1)
+        {
+            eggMan.eggSlider.value = 0;
+            StartCoroutine(ILayEgg());
+        }
     }
 
     //Stamina
@@ -484,30 +513,6 @@ public class PlayerController : LivingBeing {
             time += Time.deltaTime;
             transform.localScale = Vector3.Lerp(new Vector3(.3f, .3f, .3f), Vector3.one, time / growTime);
             yield return null;
-        }
-    }
-
-    private void OnTriggerEnter(Collider colNest)
-    {
-        if (colNest.gameObject.tag == "Nest")
-        {
-            nestScript = colNest.gameObject.GetComponent<Nest>();
-            if (nestScript.content == null)
-            {
-                nestScript.active = true;
-                nestPosition = colNest.transform.position;
-                canLand = true;
-            }
-        }
-    }
-
-    private void OnTriggerExit(Collider colNest)
-    {
-        if (colNest.gameObject.tag == "Nest")
-        {
-            nestScript = colNest.gameObject.GetComponent<Nest>();
-            nestScript.active = false;
-            canLand = false;
         }
     }
 }

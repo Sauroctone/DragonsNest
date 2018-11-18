@@ -109,6 +109,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1396805512958098
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4319993842669830}
+  m_Layer: 10
+  m_Name: CameraTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1441568749728122
 GameObject:
   m_ObjectHideFlags: 1
@@ -199,7 +214,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4826760242454774}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 14, y: 0, z: 0}
 --- !u!4 &4246441266409180
 Transform:
@@ -213,7 +228,7 @@ Transform:
   m_Children:
   - {fileID: 4490857571516690}
   m_Father: {fileID: 4826760242454774}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4255714368818142
 Transform:
@@ -240,8 +255,21 @@ Transform:
   m_Children:
   - {fileID: 4766982967134030}
   m_Father: {fileID: 4826760242454774}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!4 &4319993842669830
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1396805512958098}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 12}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4826760242454774}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4365864844607896
 Transform:
   m_ObjectHideFlags: 1
@@ -301,14 +329,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1563178673665288}
-  m_LocalRotation: {x: 0.19080894, y: 0, z: 0, w: 0.9816273}
+  m_LocalRotation: {x: 0.20791169, y: 0, z: 0, w: 0.9781476}
   m_LocalPosition: {x: 0, y: 0.37, z: 1.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4255714368818142}
   m_Father: {fileID: 4826760242454774}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 22, y: 0, z: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 24, y: 0, z: 0}
 --- !u!4 &4826760242454774
 Transform:
   m_ObjectHideFlags: 1
@@ -319,6 +347,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 4.86, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4319993842669830}
   - {fileID: 4311013367071178}
   - {fileID: 4184973252353998}
   - {fileID: 4769768314812008}
@@ -464,7 +493,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16dd3b58c87cb624287e455f9be44e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eggTimefactor: 10
+  eggTimefactor: 30
   playerController: {fileID: 114865201573251416}
   eggSlider: {fileID: 0}
 --- !u!114 &114865201573251416
@@ -489,8 +518,18 @@ MonoBehaviour:
   dragonPopup: 0
   level: 0
   playerState: 0
+  inputShoot: Shoot
+  inputShootAlt: ShootAltBinding
+  inputDodge: Dodge
+  inputDodgeAlt: DodgeAltBinding
+  inputSprint: Sprint
+  inputSlowDown: SlowDown
+  inputLayEgg: LayEgg
+  inputPlaceAncient: PlaceAncient
   flySpeed: 25
-  rotationLerp: 0.1
+  shootSpeed: 20
+  flyingRotationLerp: 0.1
+  shootingRotationLerp: 0.025
   maxSteerRot: 75
   sprintSpeed: 60
   slowSpeed: 10
@@ -504,8 +543,7 @@ MonoBehaviour:
   slowCooldown: 3
   regenPerSecond: 10
   regenCooldown: 0.5
-  cursorSpeed: 5
-  originCursorPos: {x: 0, y: 0, z: 7}
+  lookRange: 15
   timeBetweenCols: 0.025
   fireColSpeed: 100
   shootTarget: {fileID: 4766982967134030}
@@ -762,9 +800,9 @@ ParticleSystem:
         m_RotationOrder: 4
     startColor:
       serializedVersion: 2
-      minMaxState: 0
-      minColor: {r: 1, g: 0.3085448, b: 0, a: 1}
-      maxColor: {r: 1, g: 0.5560052, b: 0, a: 1}
+      minMaxState: 2
+      minColor: {r: 0, g: 0.5815592, b: 1, a: 1}
+      maxColor: {r: 0, g: 0.9901037, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -1144,7 +1182,7 @@ ParticleSystem:
     randomizeRotationDirection: 0
     maxNumParticles: 1000
     size3D: 0
-    rotation3D: 1
+    rotation3D: 0
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
@@ -1351,7 +1389,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 200
+      scalar: 300
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -1781,7 +1819,7 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   ColorModule:
-    enabled: 0
+    enabled: 1
     gradient:
       serializedVersion: 2
       minMaxState: 1
@@ -5148,7 +5186,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_RenderMode: 4
+  m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
   m_MaxParticleSize: 0.5

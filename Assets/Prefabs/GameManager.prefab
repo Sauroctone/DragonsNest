@@ -81,12 +81,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies: []
-  maxEnemyCount: 1
+  maxEnemyCount: 5
   eggs:
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
   spawners:
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
 --- !u!114 &114991777532292108
 MonoBehaviour:
@@ -99,6 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 437e87621ac51be45a9cea1834e37e7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCamera: {fileID: 0}
   player: {fileID: 0}
   playerRb: {fileID: 0}
   vignetteMan: {fileID: 114574732768770378}

@@ -9,13 +9,16 @@ public class CameraBehaviour : MonoBehaviour {
     public Vector3 targetOriginPos;
     Vector3 targetPos;
     public float followLerp;
-    public float aimOffset;
+    public float lookRange;
     Vector3 baseOffset;
     public Vector3 fireZoom;
     public Vector3 sprintDezoom;
     public Vector3 slowZoom;
     Vector3 zoom;
     Vector3 lastPos;
+    float rhinput;
+    float rvinput;
+    Vector3 lookOffset;
 
     [Header("References")]
     public PlayerController player;
@@ -29,6 +32,10 @@ public class CameraBehaviour : MonoBehaviour {
 
     void FixedUpdate ()
     {
+        rhinput = Input.GetAxis("Horizontal_R");
+        rvinput = Input.GetAxis("Vertical_R");
+        lookOffset = new Vector3(rhinput, 0f, rvinput);
+
         if (player.isShooting)
             zoom = fireZoom;
         else if (player.isSprinting && !player.isSlowing)
@@ -38,7 +45,7 @@ public class CameraBehaviour : MonoBehaviour {
         else
             zoom = Vector3.zero;
 
-        targetPos = target.position + zoom + target.forward * aimOffset + baseOffset;
+        targetPos = target.position + baseOffset + zoom + lookOffset * lookRange; 
         transform.position = Vector3.Lerp(transform.position, targetPos , followLerp);
 
         if (player.isShooting)

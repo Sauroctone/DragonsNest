@@ -68,6 +68,8 @@ public class PlayerController : LivingBeing {
     public float lookRange;
     float rhinput;
     float rvinput;
+    float lastRHInput;
+    float lastRVInput;
 
     [Header("Shooting")]
     public float timeBetweenCols;
@@ -139,41 +141,11 @@ public class PlayerController : LivingBeing {
         switch (playerState)
         {
             case PlayerStates.FLYING:
-                //Going forward at all times
-
-                if (timeOutOfSlow > 0 || isSprinting && !isSlowing)
-                    speed = sprintSpeed;
-                else if (isSlowing && !isSprinting)
-                    speed = slowSpeed;
-                else if (isShooting)
-                    speed = shootSpeed;
-                else
-                    speed = flySpeed;
-
-                rb.velocity = transform.forward * speed;
-
-                //Don't change the desired direction if there is no input
-                if (hinput != 0 || vinput != 0)
-                {
-                    //Direction based on input
-                    desiredDir = new Vector3(hinput, 0f, vinput);
-                    //Store the desired direction for next frame
-                    lastDesiredDir = desiredDir;
-                }
-
-                //If the player's forward isn't aligned with the desired direction
-                if (transform.forward != desiredDir)
-                {
-                    //Lerp between the current rotation and the desired direction's look rotation
-                    targetRot = Quaternion.LookRotation(desiredDir);
-                    rotationAngle = Vector3.SignedAngle(transform.forward, desiredDir, transform.up);
-                    targetRot = Quaternion.Euler(targetRot.eulerAngles.x, targetRot.eulerAngles.y, -rotationAngle * maxSteerRot / 180);
-                    rotationLerp = isShooting ? shootingRotationLerp : flyingRotationLerp;
-                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationLerp);
-                }
+                Move();
                 break;
 
             case PlayerStates.DODGING:
+                //Look();
                 break;
             
             case PlayerStates.LAYING_EGG:
@@ -202,7 +174,6 @@ public class PlayerController : LivingBeing {
         switch (playerState)
         {
             case PlayerStates.FLYING:
-                Look();
                 Shoot();
                 LayEgg();
                 Sprint();
@@ -211,11 +182,9 @@ public class PlayerController : LivingBeing {
                 break;
 
             case PlayerStates.DODGING:
-                Look();
                 break;
             
             case PlayerStates.LAYING_EGG:
-                Look();
                 break;
         }
 
@@ -250,12 +219,40 @@ public class PlayerController : LivingBeing {
 
     //Actions
 
-    void Look()
+    void Move()
     {
-        rhinput = Input.GetAxis("Horizontal_R");
-        rvinput = Input.GetAxis("Vertical_R");
-        Vector3 originWorldPos = gameMan.player.transform.TransformPoint(mainCamera.targetOriginPos);
-        mainCamera.target.localPosition = mainCamera.targetOriginPos + new Vector3(rhinput, aimCursor.localPosition.y, rvinput) * lookRange; //range
+        //Going forward at all times
+
+        if (timeOutOfSlow > 0 || isSprinting && !isSlowing)
+            speed = sprintSpeed;
+        else if (isSlowing && !isSprinting)
+            speed = slowSpeed;
+        else if (isShooting)
+            speed = shootSpeed;
+        else
+            speed = flySpeed;
+
+        rb.velocity = transform.forward * speed;
+
+        //Don't change the desired direction if there is no input
+        if (hinput != 0 || vinput != 0)
+        {
+            //Direction based on input
+            desiredDir = new Vector3(hinput, 0f, vinput);
+            //Store the desired direction for next frame
+            lastDesiredDir = desiredDir;
+        }
+
+        //If the player's forward isn't aligned with the desired direction
+        if (transform.forward != desiredDir)
+        {
+            //Lerp between the current rotation and the desired direction's look rotation
+            targetRot = Quaternion.LookRotation(desiredDir);
+            rotationAngle = Vector3.SignedAngle(transform.forward, desiredDir, transform.up);
+            targetRot = Quaternion.Euler(targetRot.eulerAngles.x, targetRot.eulerAngles.y, -rotationAngle * maxSteerRot / 180);
+            rotationLerp = isShooting ? shootingRotationLerp : flyingRotationLerp;
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationLerp);
+        }
     }
 
     void Shoot()

@@ -103,8 +103,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  targetOriginPos: {x: 0, y: 0, z: 0}
   followLerp: 0.1
-  aimOffset: 0
+  lookRange: 10
   fireZoom: {x: 0, y: -4, z: 4}
   sprintDezoom: {x: 0, y: 5, z: -5}
   slowZoom: {x: 0, y: -3, z: 3}

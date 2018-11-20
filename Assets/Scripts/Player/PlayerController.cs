@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum PlayerStates { FLYING, DODGING, LAYING_EGG };
+public enum PlayerStates { FLYING, DODGING, LAYING_EGG, LANDING_ANCIENT };
 
 public class PlayerController : LivingBeing {
 
@@ -120,6 +120,7 @@ public class PlayerController : LivingBeing {
     public GameObject placeholderFeedback;
     Nest nestScript;
     CameraBehaviour mainCamera;
+    public GameObject ancientPrefab;
 
     public override void Start()
     {
@@ -360,12 +361,20 @@ public class PlayerController : LivingBeing {
             gameMan.vibrationMan.StopVibrating(playerIndex);
     }
 
-    private void LayEgg()
+    void LayEgg()
     {
         if (Input.GetButtonDown(inputLayEgg) && canLand && eggMan.eggSlider.value >= 1)
         {
             eggMan.eggSlider.value = 0;
             StartCoroutine(ILayEgg());
+        }
+    }
+    
+    void LandForAncient()
+    {
+        if (Input.GetButtonDown(inputPlaceAncient) && gameMan.babyDragonMan.babyDragons.Count > 0)
+        {
+            StartCoroutine(ILandForAncient());
         }
     }
 
@@ -483,7 +492,7 @@ public class PlayerController : LivingBeing {
         StopShooting();
         //anim.SetTrigger("land");
 
-        yield return new WaitForSeconds(0.5f);
+        //yield return new WaitForSeconds(0.5f);
         playerState = PlayerStates.LAYING_EGG;
 
         yield return new WaitForSeconds(1.0f);
@@ -508,5 +517,45 @@ public class PlayerController : LivingBeing {
             transform.localScale = Vector3.Lerp(new Vector3(.3f, .3f, .3f), Vector3.one, time / growTime);
             yield return null;
         }
+    }
+
+    IEnumerator ILandForAncient()
+    {
+        StopShooting();
+        MakeInvincible(5f);
+
+        rb.velocity = Vector3.zero;
+        playerState = PlayerStates.LANDING_ANCIENT;
+
+        anim.SetTrigger("land");
+        yield return new WaitForSeconds(2.0f);
+
+        Instantiate(placeholderFeedback, babyDragonMan.babyDragons[0].transform.position, Quaternion.identity);
+        Instantiate(placeholderFeedback, transform.position, Quaternion.identity);
+        Instantiate(ancientPrefab, transform.position, Quaternion.identity);
+
+        babyDragonMan.RemoveBabyDragon();
+
+        ResetLife(maxLife); //WTF
+
+        yield return new WaitForSeconds(0.1f);
+        anim.SetTrigger("lift");
+
+        yield return new WaitForSeconds(1.30f);
+        if (isSlowing)
+        {
+            isSlowing = false;
+            if (stamina == 0)
+                slowTime = 0;
+        }
+        if (isSprinting)
+        {
+            isSprinting = false;
+            if (stamina == 0)
+                sprintTime = 0;
+        }
+        playerState = PlayerStates.FLYING;
+
+        yield break;
     }
 }

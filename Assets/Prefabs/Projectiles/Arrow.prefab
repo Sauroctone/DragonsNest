@@ -387,6 +387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da81f5dc163cf2242bff1868a7d9b928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firePower: 2
+  firePower: 1
   destroyOnContact: 1
+  isFire: 0
   visualCounterpart: {fileID: 1471345273632862}

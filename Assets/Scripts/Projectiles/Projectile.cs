@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour {
 
-    public int firePower = 10;
+    public int firePower = 1;
     public bool destroyOnContact = true;
+    public bool isFire;
 }

@@ -6,12 +6,13 @@ using UnityEngine.UI;
 public class LivingBeing : MonoBehaviour {
 
     [Header("Life")]
-	public float maxLife = 100;
-    public float life = 100;
+    public float maxLife = 100;
+    public float life;
     [HideInInspector]
     public float lostLifeBeforeDecay;
     float timeSinceLastDamage;
     bool isAlive = true;
+    bool burntThisFrame;
 
     //Conditional hiiiide
     public float timeToUpdateFeedbackBar;
@@ -30,20 +31,34 @@ public class LivingBeing : MonoBehaviour {
 		life = maxLife;
 	}
 
-	void OnTriggerStay(Collider col)
+	public virtual void OnTriggerStay(Collider col)
 	{
 		var proj = col.gameObject.GetComponent<Projectile>();
 
 		if (proj)
 		{
+            //One fire damage tick overall per frame - bool is flagged false in update
+            if (proj.isFire)
+                if (burntThisFrame)
+                    return;
+                else
+                    burntThisFrame = true;
+
 			UpdateLife(proj.firePower);
             
             //Change with the pool die 
             if (proj.destroyOnContact)
                 Destroy(proj.gameObject);
+
+            print(gameObject.name + " damaged at " + Time.time);
 		} 
 	}
 
+    public virtual void Update()
+    {
+        burntThisFrame = false;
+    }
+    
 	public virtual void UpdateLife(int damage) 
 	{	
         if (!isInvincible && isAlive)
@@ -57,7 +72,6 @@ public class LivingBeing : MonoBehaviour {
 			    life = 0;
 			    Die();
 		    }
-
         }
 	}
 

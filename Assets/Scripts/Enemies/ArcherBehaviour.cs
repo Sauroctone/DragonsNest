@@ -35,10 +35,12 @@ public class ArcherBehaviour : LivingBeing {
         rend = GetComponent<Renderer>();
     }
 
-    void Update ()
+    public override void Update ()
     {
-       if (groupState == ArcherGroupState.Moving)
-       {
+        base.Update();
+
+        if (groupState == ArcherGroupState.Moving)
+        {
             MoveRandomly();
             if (transform.localEulerAngles != Vector3.zero && group.nav.velocity != Vector3.zero)
                 transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.LookRotation(group.nav.velocity), moveRotLerp);

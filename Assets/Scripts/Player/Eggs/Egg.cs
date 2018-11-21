@@ -23,8 +23,9 @@ public class Egg : LivingBeing {
         spawnMan = GameManager.Instance.spawnMan;
 	}
 	
-	void Update ()
+	public override void Update ()
     {
+        base.Update();
 		//LifeUpdate();
 		ParticleUpdate();
 		HatchUpdate();

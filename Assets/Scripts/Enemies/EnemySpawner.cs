@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour {
-
+public class EnemySpawner : LivingBeing
+{
     public GameObject enemyPrefab;
     public float baseTimeToSpawn;
     public float minTimeToSpawn;
@@ -12,14 +12,32 @@ public class EnemySpawner : MonoBehaviour {
     float timeToSpawn;
     SpawnManager spawnMan;
 
-    private void Start()
+    //Overrides
+
+    public override void Start()
     {
+        base.Start();
+
         timeToSpawn = baseTimeToSpawn;
         spawnMan = GameManager.Instance.spawnMan;
 
         StartCoroutine(IDecrementSpawnTime());
         StartCoroutine(ISpawnEnemy());
     }
+
+    public override void UpdateHealthUI(int _damage)
+    {
+        // NO HEALTHBAR (yet)
+    }
+
+    public override void Die()
+    {
+        base.Die();
+        spawnMan.spawners.Remove(transform);
+        Destroy(gameObject);
+    }
+
+    //Coroutines
 
     IEnumerator ISpawnEnemy()
     {

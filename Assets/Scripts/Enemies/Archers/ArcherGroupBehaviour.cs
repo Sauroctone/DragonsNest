@@ -11,6 +11,7 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
 
     [Header("Archers")]
     public List<ArcherBehaviour> archers = new List<ArcherBehaviour>();
+    public GameObject bannerMan;
 
     [Header("Movement")]
     public float updatePathFrequency;
@@ -36,6 +37,7 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
     public AnimationCurve visualTrajectory;
 
     [Header("References")]
+    public BannerVisualizer banner;
     public NavMeshAgent nav;
     public Material normalMat;
     public Material aimMat;
@@ -59,7 +61,7 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
                 break;
         }
 
-        if (archers.Count == 0)
+        if (bannerMan == null || archers.Count == 1) //si le bannerman meurt ou s'il ne reste que le bannerman en vie
             Die();
     }
 
@@ -103,9 +105,12 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
 
     IEnumerator IAimAndShoot()
     {
+        banner.ChangeBanner(aimMat);
         yield return new WaitForSeconds(aimTime);
         canShoot = false;
-        yield return new WaitForSeconds(maxShootTime + postShootIdleTime);
+        yield return new WaitForSeconds(maxShootTime);
+        banner.ChangeBanner(normalMat);
+        yield return new WaitForSeconds(postShootIdleTime);
         StartMoving();
         yield return new WaitForSeconds(shootCooldown);
         canShoot = true;

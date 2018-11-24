@@ -10,8 +10,11 @@ public class EnemyBehaviour : MonoBehaviour {
     [Header("References")]
     public Transform currentTarget;
     Transform prevTarget;
+    [HideInInspector]
     public SpawnManager spawnMan;
+    [HideInInspector]
     public Transform player;
+    [HideInInspector]
     public Rigidbody playerRb;
 
     public virtual void Init()

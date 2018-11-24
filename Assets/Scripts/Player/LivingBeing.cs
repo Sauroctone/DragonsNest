@@ -49,8 +49,6 @@ public class LivingBeing : MonoBehaviour {
             //Change with the pool die 
             if (proj.destroyOnContact)
                 Destroy(proj.gameObject);
-
-            print(gameObject.name + " damaged at " + Time.time);
 		} 
 	}
 

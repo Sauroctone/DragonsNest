@@ -501,7 +501,7 @@ public class PlayerController : LivingBeing {
         GameObject instanceEgg;
         instanceEgg = Instantiate(egg, new Vector3(nestPosition.x, nestPosition.y + 0.5f, nestPosition.z), Quaternion.identity) as GameObject;
         nestScript.content = instanceEgg;
-        gameMan.spawnMan.eggs.Add(instanceEgg.transform);
+        gameMan.spawnMan.targets.Add(instanceEgg.transform);
 
         yield return new WaitForSeconds(0.5f);
         playerState = PlayerStates.FLYING;
@@ -534,8 +534,9 @@ public class PlayerController : LivingBeing {
 
         Instantiate(placeholderFeedback, babyDragonMan.babyDragons[0].transform.position, Quaternion.identity);
         Instantiate(placeholderFeedback, transform.position, Quaternion.identity);
-        Instantiate(ancientPrefab, transform.position, Quaternion.identity);
 
+        GameObject ancient = Instantiate(ancientPrefab, transform.position, Quaternion.identity);
+        gameMan.spawnMan.AddTargetToList(ancient.transform);
         babyDragonMan.RemoveBabyDragon();
 
         ResetLife(maxLife); //WTF

@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4560318642421808}
   - component: {fileID: 108769389748204566}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Point Light (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 114115651738484104}
   - component: {fileID: 136413512028395370}
   - component: {fileID: 54538828728579462}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Ancient
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,8 +55,7 @@ GameObject:
   - component: {fileID: 4240667490204050}
   - component: {fileID: 33786773148667056}
   - component: {fileID: 23783861448847660}
-  - component: {fileID: 136225525388267258}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Wing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +72,7 @@ GameObject:
   - component: {fileID: 4405846413763670}
   - component: {fileID: 198103271829236092}
   - component: {fileID: 199430309022448406}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: BabyFireBreathPS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,8 +89,7 @@ GameObject:
   - component: {fileID: 4203121594971972}
   - component: {fileID: 33211466049432420}
   - component: {fileID: 23660199394345314}
-  - component: {fileID: 136548825794764682}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Wing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +107,7 @@ GameObject:
   - component: {fileID: 33914705891150476}
   - component: {fileID: 23640761458550446}
   - component: {fileID: 136215980717237596}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,8 +124,7 @@ GameObject:
   - component: {fileID: 4449684622067250}
   - component: {fileID: 33980752427590896}
   - component: {fileID: 23852500116991068}
-  - component: {fileID: 136960949544584124}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -195,7 +192,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1284249962970228}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 28.31, y: 2.25, z: 93.8}
+  m_LocalPosition: {x: 102.1, y: 1.14, z: 13.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4955791910636704}
@@ -488,23 +485,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
+  m_Radius: 0.75
+  m_Height: 2.45
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!136 &136225525388267258
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1352290498649844}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Center: {x: 0.000000059604645, y: 0.28, z: -0.00000008940697}
 --- !u!136 &136413512028395370
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -518,32 +502,6 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!136 &136548825794764682
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1846769569202464}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!136 &136960949544584124
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1929181747322378}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!198 &198103271829236092
 ParticleSystem:
   m_ObjectHideFlags: 1

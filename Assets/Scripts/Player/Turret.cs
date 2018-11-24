@@ -39,16 +39,25 @@ public class Turret : LivingBeing {
     private void FixedUpdate()
     {
         CheckShoot();
-        if (Input.GetButtonDown("Fire1"))
-        {
-            if(canShoot) Shoot (target);
-        }
-        if (Input.GetButtonUp("Fire1"))
+        // if (Input.GetButtonDown("Shoot") )
+        if(canShoot)
+            { 
+                if(target==null) RemoveAndChangeTarget();
+                if(!isShooting) 
+                Shoot (target); 
+                Debug.Log("Ouesh");
+            }
+        if (!canShoot)
+        // if (Input.GetButtonUp("Shoot"))
         {
             StopShooting();
         }
     }
 
+    public override void Update()
+    {
+        base.Update();
+    }
     void CheckShoot()
     {
         if (isShooting )
@@ -72,13 +81,15 @@ public class Turret : LivingBeing {
 
     public void Shoot(Transform _target)
     { 
-        if (shootTarget == null)        //Transfer to spawn function
+        if (shootTarget == null)
+            {//Transfer to spawn function
             shootTarget = _target;
+            }
 
         if (stopShootingCor != null)
-            StopCoroutine(stopShootingCor);
-        if (startShootingCor != null)
-            StopCoroutine(startShootingCor);
+            {
+                StopCoroutine(stopShootingCor);
+            }
         startShootingCor = StartCoroutine(IStartShooting());
     }
 
@@ -95,6 +106,16 @@ public class Turret : LivingBeing {
     public void RemoveAndChangeTarget(Transform targ)
     {
         targets.Remove(targ);
+        if(targets.Count > 0)
+        {
+        target = targets[0];
+        } else canShoot = false;
+
+    }
+
+    public void RemoveAndChangeTarget()
+    {
+        targets.Remove(null);
         if(targets.Count > 0)
         {
         target = targets[0];
@@ -122,4 +143,23 @@ public class Turret : LivingBeing {
         firePartSys.Stop();
         isShooting = false;
     }
+
+    void OnTriggerEnter (Collider col)
+	{
+		//if(col.gameObject.tag != "Enemies") return;
+		if(col.gameObject.tag != "Archer") return; 
+		this.AddToTargetList(col.transform);
+	}
+
+    public override void UpdateHealthUI(int _damage)
+    {
+        
+    } 
+	
+	void OnTriggerExit (Collider col)
+	{
+		//if(col.gameObject.tag != "Enemies") return;
+		if(col.gameObject.tag != "Archer") return;
+        RemoveAndChangeTarget(col.transform);
+	}
 }

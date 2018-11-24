@@ -9,6 +9,8 @@ TagManager:
   - Archer
   - Dragon
   - Egg
+  - Nest
+  - Enemies
   layers:
   - Default
   - TransparentFX

@@ -6,7 +6,7 @@ public class SpawnManager : MonoBehaviour {
 
     public List<EnemyBehaviour> enemies = new List<EnemyBehaviour>();
     public int maxEnemyCount;
-    public List<Transform> eggs = new List<Transform>();
+    public List<Transform> targets = new List<Transform>();
     public List<Transform> spawners = new List<Transform>();
     Transform player;
     Rigidbody playerRb;
@@ -32,17 +32,22 @@ public class SpawnManager : MonoBehaviour {
     public Transform GetNewTarget(Vector3 _position)
     {
         Transform target = null;
-        if (eggs.Count > 0)
-            target = eggs[0];
+        if (targets.Count > 0)
+            target = targets[0];
         else
             target = player;
 
-        foreach (Transform egg in eggs)
+        foreach (Transform targ in targets)
         {
-            if (Vector3.Distance(egg.position, _position) < Vector3.Distance(target.position, _position))
-                target = egg;
+            if (Vector3.Distance(targ.position, _position) < Vector3.Distance(target.position, _position))
+                target = targ;
         }
 
         return target;
+    }
+
+    public void AddTargetToList(Transform _newTarget)
+    {
+        targets.Add(_newTarget);
     }
 }

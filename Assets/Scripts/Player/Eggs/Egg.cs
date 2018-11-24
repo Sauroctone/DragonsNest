@@ -63,7 +63,7 @@ public class Egg : LivingBeing {
 
     public void Hatch()
     {
-        spawnMan.eggs.Remove(transform);
+        spawnMan.targets.Remove(transform);
         Destroy(gameObject);
     }
 
@@ -78,7 +78,7 @@ public class Egg : LivingBeing {
     {
         base.Die();
 
-        spawnMan.eggs.Remove(transform);
+        spawnMan.targets.Remove(transform);
         Destroy(gameObject);
     }
 }

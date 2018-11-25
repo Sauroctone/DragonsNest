@@ -40,6 +40,7 @@ public class PlayerController : LivingBeing {
     public float shootingRotationLerp;
     float rotationLerp;
     Quaternion targetRot;
+    Quaternion rollRot;
     public float maxSteerRot;
     Vector3 dirDiff;
     internal bool isSprinting;
@@ -105,6 +106,7 @@ public class PlayerController : LivingBeing {
     public float rightFireBurst;
 
     [Header("References")]
+    public Transform visuals;
     public Transform aimCursor;
     public ParticleSystem firePartSys;
     public Transform fireOrigin;
@@ -252,9 +254,11 @@ public class PlayerController : LivingBeing {
             //Lerp between the current rotation and the desired direction's look rotation
             targetRot = Quaternion.LookRotation(desiredDir);
             rotationAngle = Vector3.SignedAngle(transform.forward, desiredDir, transform.up);
-            targetRot = Quaternion.Euler(targetRot.eulerAngles.x, targetRot.eulerAngles.y, -rotationAngle * maxSteerRot / 180);
+            //targetRot = Quaternion.Euler(targetRot.eulerAngles.x, targetRot.eulerAngles.y, -rotationAngle * maxSteerRot / 180);
+            rollRot = Quaternion.Euler(0, 0, -rotationAngle * maxSteerRot / 180);
             rotationLerp = isShooting ? shootingRotationLerp : flyingRotationLerp;
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationLerp);
+            visuals.localRotation = Quaternion.Slerp(visuals.localRotation, rollRot, rotationLerp);
         }
     }
 
@@ -365,9 +369,10 @@ public class PlayerController : LivingBeing {
 
     void LayEgg()
     {
-        if (Input.GetButtonDown(inputLayEgg) && canLand && eggMan.eggSlider.value >= 1)
+        if (Input.GetButtonDown(inputLayEgg) && canLand && eggMan.eggSlider.fillAmount >= 1)
         {
-            eggMan.eggSlider.value = 0;
+            eggMan.eggSlider.fillAmount = 0;
+            eggMan.eggSlider.color = eggMan.startEggColor;
             StartCoroutine(ILayEgg());
         }
     }

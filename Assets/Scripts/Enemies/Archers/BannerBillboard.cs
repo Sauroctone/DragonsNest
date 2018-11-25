@@ -8,7 +8,7 @@ public class BannerBillboard : MonoBehaviour {
 
     private void Start()
     {
-        cam = GameManager.Instance.mainCamera.transform;
+        cam = GameManager.Instance.camBehaviour.transform;
     }
 
     private void LateUpdate()

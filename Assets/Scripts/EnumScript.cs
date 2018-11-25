@@ -2,4 +2,4 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ArcherGroupState { Moving, Shooting }
+public enum ArcherGroupState { MOVING, SHOOTING, FLEEING_INDIVIDUALLY }

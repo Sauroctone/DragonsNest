@@ -121,7 +121,6 @@ public class PlayerController : LivingBeing {
     GameManager gameMan;
     public GameObject placeholderFeedback;
     Nest nestScript;
-    CameraBehaviour mainCamera;
     public GameObject ancientPrefab;
 
     public override void Start()
@@ -132,7 +131,6 @@ public class PlayerController : LivingBeing {
         sprintTime = sprintCooldown;
         slowTime = slowCooldown;
         gameMan = GameManager.Instance;
-        mainCamera = gameMan.mainCamera;
     }
 
     private void FixedUpdate()
@@ -369,9 +367,10 @@ public class PlayerController : LivingBeing {
 
     void LayEgg()
     {
-        if (Input.GetButtonDown(inputLayEgg) && canLand && eggMan.eggSlider.value >= 1)
+        if (Input.GetButtonDown(inputLayEgg) && canLand && eggMan.eggSlider.fillAmount >= 1)
         {
-            eggMan.eggSlider.value = 0;
+            eggMan.eggSlider.fillAmount = 0;
+            eggMan.eggSlider.color = eggMan.startEggColor;
             StartCoroutine(ILayEgg());
         }
     }

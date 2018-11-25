@@ -14,13 +14,10 @@ public class Ancient : LivingBeing {
     public float timeBetweenCols;
     float fireTime;
     public float fireColSpeed;
-    public float minShootDelay;
-    public float maxShootDelay;
     Rigidbody playerRb;
 
     [Header("References")]
-    public GameObject fireCollider;
-    public ParticleSystem firePartSys;
+    public GameObject projectile;
     public Transform fireOrigin;
     Transform target;
 
@@ -52,7 +49,7 @@ public class Ancient : LivingBeing {
         {
             if (fireTime >= timeBetweenCols)
             {
-                GameObject fireCol = Instantiate(fireCollider, fireOrigin.position, Quaternion.identity);
+                GameObject fireCol = Instantiate(projectile, fireOrigin.position, Quaternion.identity);
                 fireCol.GetComponent<Rigidbody>().velocity = (target.position - fireOrigin.position).normalized * fireColSpeed;
                 fireTime = 0;
             }
@@ -65,14 +62,12 @@ public class Ancient : LivingBeing {
 
     public void Shoot()
     {
-        firePartSys.Play();
         isShooting = true;
         fireTime = 0;
     }
 
     public void StopShooting()
     {
-        firePartSys.Stop();
         isShooting = false;
     }
 
@@ -114,27 +109,6 @@ public class Ancient : LivingBeing {
         else
             StopShooting();
     }
-
-    void OnTriggerEnter (Collider col)
-	{
-        foreach(EnemyBehaviour _enemy in targets)
-        {
-            if (_enemy.transform == col.transform.parent)
-                return;
-        }
-
-        EnemyBehaviour enemy = col.GetComponentInParent<EnemyBehaviour>();
-        if (enemy != null)
-            AddToTargetList(enemy);
-    }
-	
-	void OnTriggerExit (Collider col)
-	{
-		if(col.gameObject.tag != "Archer")
-            return;
-
-        RemoveAndChangeTarget(col.GetComponent<EnemyBehaviour>());
-	}
     
     //Overrides
 

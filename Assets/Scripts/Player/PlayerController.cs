@@ -121,7 +121,6 @@ public class PlayerController : LivingBeing {
     GameManager gameMan;
     public GameObject placeholderFeedback;
     Nest nestScript;
-    CameraBehaviour mainCamera;
     public GameObject ancientPrefab;
 
     public override void Start()
@@ -132,7 +131,6 @@ public class PlayerController : LivingBeing {
         sprintTime = sprintCooldown;
         slowTime = slowCooldown;
         gameMan = GameManager.Instance;
-        mainCamera = gameMan.mainCamera;
     }
 
     private void FixedUpdate()

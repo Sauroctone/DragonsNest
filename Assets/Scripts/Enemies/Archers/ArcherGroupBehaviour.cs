@@ -54,15 +54,23 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
 
         switch(state)
         {
-            case ArcherGroupState.Moving:
+            case ArcherGroupState.MOVING:
                 CheckDistanceToTarget();
                 break;
-            case ArcherGroupState.Shooting:
+            case ArcherGroupState.SHOOTING:
+                if (canShoot)
+                    CheckDistanceToTarget();
                 break;
         }
 
-        if (bannerMan == null || archers.Count == 1) //si le bannerman meurt ou s'il ne reste que le bannerman en vie
+        if (bannerMan == null || archers.Count == 1)
+        {
+            state = ArcherGroupState.FLEEING_INDIVIDUALLY;
+            if (EventOnStateChanged != null)
+                EventOnStateChanged(state);
+
             Die();
+        }
     }
 
     void CheckDistanceToTarget()
@@ -71,7 +79,7 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
             && canShoot
             && !Physics.Raycast(transform.position, (currentTarget.position - transform.position).normalized, aimRange, aimObstacleLayer))
         {
-            state = ArcherGroupState.Shooting;
+            state = ArcherGroupState.SHOOTING;
             if (EventOnStateChanged != null)
                 EventOnStateChanged(state);
             StopCoroutine(moveCor);
@@ -84,7 +92,7 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
 
     void StartMoving()
     {
-        state = ArcherGroupState.Moving;
+        state = ArcherGroupState.MOVING;
         if (EventOnStateChanged != null)
             EventOnStateChanged(state);
         moveCor = StartCoroutine(IUpdateTargetPosition());
@@ -106,12 +114,12 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
     IEnumerator IAimAndShoot()
     {
         banner.ChangeBanner(aimMat);
-        yield return new WaitForSeconds(aimTime);
         canShoot = false;
-        yield return new WaitForSeconds(maxShootTime);
+        yield return new WaitForSeconds(aimTime + maxShootTime);
         banner.ChangeBanner(normalMat);
         yield return new WaitForSeconds(postShootIdleTime);
-        StartMoving();
+        if (currentTarget == null || Vector3.Distance(currentTarget.position, transform.position) > aimRange)
+            StartMoving();
         yield return new WaitForSeconds(shootCooldown);
         canShoot = true;
     }

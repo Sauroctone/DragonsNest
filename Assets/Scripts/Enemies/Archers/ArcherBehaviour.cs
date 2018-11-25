@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ArcherBehaviour : LivingBeing {
 
@@ -24,6 +25,7 @@ public class ArcherBehaviour : LivingBeing {
     public Transform debugIntercept;
     public Transform currentTarget;
     Renderer rend;
+    public NavMeshAgent navAgent;
 
     public override void Start()
     {
@@ -41,11 +43,17 @@ public class ArcherBehaviour : LivingBeing {
     {
         base.Update();
 
-        if (groupState == ArcherGroupState.Moving)
+        switch (groupState)
         {
-            MoveRandomly();
-            if (transform.localEulerAngles != Vector3.zero && group.nav.velocity != Vector3.zero)
-                transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.LookRotation(group.nav.velocity), moveRotLerp);
+            case ArcherGroupState.MOVING:
+                MoveRandomly();
+                if (transform.localEulerAngles != Vector3.zero && group.nav.velocity != Vector3.zero)
+                    transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.LookRotation(group.nav.velocity), moveRotLerp);
+                break;
+
+            case ArcherGroupState.FLEEING_INDIVIDUALLY:
+                Flee();
+                break;
         }
     }
 
@@ -62,18 +70,39 @@ public class ArcherBehaviour : LivingBeing {
 
     void OnGroupStateChanged(ArcherGroupState _state)
     {
+        groupState = _state;
         switch (_state)
         {
-            case ArcherGroupState.Moving:
-                groupState = ArcherGroupState.Moving;
-                break;
-
-            case ArcherGroupState.Shooting:
-                groupState = ArcherGroupState.Shooting;
+            case ArcherGroupState.SHOOTING:
                 if(!isBannerman)
                     StartCoroutine(IAimAndShoot());
                 break;
+
+            case ArcherGroupState.FLEEING_INDIVIDUALLY:
+                //LeaveGroup(); 
+                Die();
+                break;
         }
+    }
+
+    void LeaveGroup()
+    {
+        navAgent.enabled = true;
+        transform.parent = null;
+
+        //Vector3 destination = ;
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(destination, out hit, 100f, NavMesh.AllAreas))
+            navAgent.destination = hit.position; 
+    }
+
+    void Flee()
+    {
+        Vector3 viewPos = GameManager.Instance.mainCamera.WorldToViewportPoint(transform.position);
+        if (viewPos.x > 1 || viewPos.x < 0 || viewPos.y > 1 || viewPos.y < 0)
+            Die();
+
+
     }
 
     IEnumerator IAimAndShoot()
@@ -107,7 +136,10 @@ public class ArcherBehaviour : LivingBeing {
 
     public override void Die()
     {
-        group.archers.Remove(this);
+        if (group != null)
+            group.archers.Remove(this);
+
+        //navAgent.enabled = false;
         Destroy(gameObject);
     }
 

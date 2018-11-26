@@ -1,20 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;   
 
 public class Ancient : LivingBeing {
 
-    public float maxWanderRadius;
-    public List<EnemyBehaviour> targets;
-    Vector3 destination;
-    Vector2 randomPoint;
-    bool isShooting;
+    public float minHealthbarScale;
 
     [Header("Shooting")]
+    public List<EnemyBehaviour> targets;
+    bool isShooting;
     public float timeBetweenCols;
     float fireTime;
     public float fireColSpeed;
-    Rigidbody playerRb;
 
     [Header("References")]
     public GameObject projectile;
@@ -114,7 +112,7 @@ public class Ancient : LivingBeing {
 
     public override void UpdateHealthUI(int _damage)
     {
-        
+        lifeBar.rectTransform.localScale = Vector3.Lerp(new Vector3(minHealthbarScale, minHealthbarScale, minHealthbarScale), Vector3.one, life / maxLife);
     }
 
     public override void Die()

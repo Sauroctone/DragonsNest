@@ -123,10 +123,24 @@ public class PlayerController : LivingBeing {
     Nest nestScript;
     public GameObject ancientPrefab;
 
+    [Header("SFXPlayer")]
+    AudioSource[] AudioSources;
+    AudioSource WindflowSoundSource;
+    AudioSource AttackSoundSource;
+    AudioSource SFXSource;
+    public AudioClip DodgeClip;
+    public AudioClip SlowdownClip;
+    public AudioClip WindflowClip;
+    public AudioClip DragonHitClip;
+    public AudioClip DragonDeathClip;
+
     public override void Start()
     {
         base.Start();
-
+        AudioSources = GetComponents<AudioSource>();
+        WindflowSoundSource = AudioSources[0];
+        AttackSoundSource = AudioSources[1];
+        SFXSource = AudioSources[2];
         stamina = maxStamina;
         sprintTime = sprintCooldown;
         slowTime = slowCooldown;
@@ -138,7 +152,7 @@ public class PlayerController : LivingBeing {
         //Storing the joystick inputs
         hinput = Input.GetAxis("Horizontal");
         vinput = Input.GetAxis("Vertical");
-
+        WindflowSoundSource.volume = speed/sprintSpeed;
         switch (playerState)
         {
             case PlayerStates.FLYING:
@@ -265,6 +279,7 @@ public class PlayerController : LivingBeing {
         //Begin shooting
         if (Input.GetButtonDown(inputShoot))
         {
+            AttackSoundSource.Play();
             firePartSys.Play();
             isShooting = true;
             fireTime = 0;
@@ -289,6 +304,7 @@ public class PlayerController : LivingBeing {
         //End shooting
         if (Input.GetButtonUp(inputShoot))
         {
+            AttackSoundSource.Stop();
             StopShooting();
         }
 
@@ -309,14 +325,17 @@ public class PlayerController : LivingBeing {
 
     void Dodge()
     {
-        if ((Input.GetButtonDown(inputDodge) || Input.GetAxis(inputDodgeAlt) > .1f) && canDodge)
-            dodgeCor = StartCoroutine(IDodge());
+        if ((Input.GetButtonDown(inputDodge) || Input.GetAxis(inputDodgeAlt) > .1f) && canDodge) { 
+        SFXSource.PlayOneShot(DodgeClip, 0.5f);
+        dodgeCor = StartCoroutine(IDodge());
+        }
     }
 
     void SlowDown()
     {
-        if (Input.GetButtonDown(inputSlowDown))
+        if (Input.GetButtonDown(inputSlowDown)){
             timeOutOfSlow = 0;
+        }
 
         if (Input.GetButton(inputSlowDown) && stamina > 0 && slowTime >= slowCooldown)
         {
@@ -354,6 +373,7 @@ public class PlayerController : LivingBeing {
 
     void StopShooting()
     {
+        AttackSoundSource.Stop();
         firePartSys.Stop();
         isShooting = false;
         foreach (BabyDragonBehaviour babyDragon in babyDragonMan.babyDragons)
@@ -423,6 +443,7 @@ public class PlayerController : LivingBeing {
 
     public override void Die()
     {
+        SFXSource.PlayOneShot(DragonDeathClip, 1);
         base.Die();
 
         if (babyDragonMan.babyDragons.Count > 0)
@@ -442,6 +463,7 @@ public class PlayerController : LivingBeing {
 
     public override void UpdateHealthUI(int _damage)
     {
+        SFXSource.PlayOneShot(DragonHitClip, 0.2f);
         base.UpdateHealthUI(_damage);
 
         if (gameMan.vignetteMan.CurrentPreset != gameMan.vignetteMan.hurtVignette)

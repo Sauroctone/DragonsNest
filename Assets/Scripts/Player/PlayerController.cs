@@ -125,6 +125,7 @@ public class PlayerController : LivingBeing {
     public GameObject placeholderFeedback;
     public Nest nestScript;
     public GameObject ancientPrefab;
+    public GameObject aimProjector;
     public MeshRenderer LifeQuad;
 
     public override void Start()

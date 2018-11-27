@@ -566,7 +566,7 @@ public class PlayerController : LivingBeing {
         Instantiate(placeholderFeedback, transform.position, Quaternion.identity);
 
         GameObject ancient = Instantiate(ancientPrefab, ancientProjection.transform.position, Quaternion.identity);
-        gameMan.spawnMan.AddTargetToList(ancient.transform);
+        //gameMan.spawnMan.AddTargetToList(ancient.transform);
         babyDragonMan.RemoveBabyDragon();
 
         ResetLife(maxLife);

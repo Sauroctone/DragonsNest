@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UiFollow : MonoBehaviour {
 
-	public Transform self;
+	Transform self;
 	public Transform player;
 	public Egg egg;
 
@@ -25,6 +25,8 @@ public class UiFollow : MonoBehaviour {
 		mainCam = Camera.main;
 		eggStyle = new GUIStyle();
 		eggStyle.normal.background = eggImage;	
+
+		self = transform;
 
 		indicatorStyle = new GUIStyle ();
 		indicatorStyle.normal.background = indicatorImage;	

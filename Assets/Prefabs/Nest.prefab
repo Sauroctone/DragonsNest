@@ -288,8 +288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6af1f851f1a1e34f8c9bcdf894cd9d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  self: {fileID: 4330902124402428}
-  player: {fileID: 4826760242454774, guid: e52e955854e182849a85bfbc65ca9d7a, type: 2}
+  player: {fileID: 0}
   egg: {fileID: 114225908017078630}
   scaleEgg: 1
   eggImage: {fileID: 2800000, guid: d22a5ac92977ce04ea8a3c157ce9ca77, type: 3}

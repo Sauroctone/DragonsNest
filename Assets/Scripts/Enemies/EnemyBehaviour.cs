@@ -45,10 +45,12 @@ public class EnemyBehaviour : MonoBehaviour {
             }
             else
             {
-                if (currentTarget == player)
+                if (currentTarget == player && spawnMan.targets.Count > 0)
                     currentTarget = null;
             }
         }
+
+        Debug.Log(currentTarget);
     }
 
     public void AggroAncient(Transform _ancient)

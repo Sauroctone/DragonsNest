@@ -125,6 +125,7 @@ public class PlayerController : LivingBeing {
     public GameObject placeholderFeedback;
     public Nest nestScript;
     public GameObject ancientPrefab;
+    public GameObject aimProjector;
     public MeshRenderer LifeQuad;
 
     public override void Start()
@@ -543,7 +544,7 @@ public class PlayerController : LivingBeing {
         Instantiate(placeholderFeedback, transform.position, Quaternion.identity);
 
         GameObject ancient = Instantiate(ancientPrefab, ancientProjection.transform.position, Quaternion.identity);
-        gameMan.spawnMan.AddTargetToList(ancient.transform);
+        //gameMan.spawnMan.AddTargetToList(ancient.transform);
         babyDragonMan.RemoveBabyDragon();
 
         ResetLife(maxLife);

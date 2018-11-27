@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum PlayerStates { FLYING, DODGING, LAYING_EGG, LANDING_ANCIENT };
+public enum PlayerStates { FLYING, DODGING, LAYING_EGG, AIMING_ANCIENT, LANDING_ANCIENT };
 
 public class PlayerController : LivingBeing {
 
@@ -24,7 +24,7 @@ public class PlayerController : LivingBeing {
     public string inputDodgeAlt;
     public string inputSprint;
     public string inputSlowDown;
-    public string inputLayEgg;
+    public string inputInteract;
     public string inputPlaceAncient;
 
     [Header("Flying")]
@@ -92,6 +92,9 @@ public class PlayerController : LivingBeing {
     [Header("Landing")]
     public  Vector3 nestPosition;
 
+    [Header("Placing Ancient")]
+    public GameObject ancientProjection;
+
     [System.NonSerialized]
     public bool canLand;
 
@@ -147,8 +150,9 @@ public class PlayerController : LivingBeing {
                 Move();
                 break;
 
-            case PlayerStates.DODGING:
-                //Look();
+
+            case PlayerStates.AIMING_ANCIENT:
+                Move();
                 break;
             
             case PlayerStates.LAYING_EGG:
@@ -159,9 +163,7 @@ public class PlayerController : LivingBeing {
                   }*/
                 rb.velocity = new Vector3(0f, 0f, 0f);
                 if (nestPosition != null)
-                {
                     transform.position = Vector3.Lerp(transform.position, nestPosition, Time.deltaTime * landSpeed);
-                }
 
                 break;
         }
@@ -180,16 +182,22 @@ public class PlayerController : LivingBeing {
         {
             case PlayerStates.FLYING:
                 Shoot();
-                LayEgg();
+                Dodge();
                 Sprint();
                 SlowDown();
-                Dodge();
+                LayEgg();
+                PlaceAncient();
                 break;
 
-            case PlayerStates.DODGING:
-                break;
-            
-            case PlayerStates.LAYING_EGG:
+            case PlayerStates.AIMING_ANCIENT:
+                //Canceling actions
+                Shoot();
+                Dodge();
+                LayEgg();
+
+                Sprint();
+                SlowDown();
+                PlaceAncient();
                 break;
         }
 
@@ -345,7 +353,7 @@ public class PlayerController : LivingBeing {
 
     void LayEgg()
     {
-        if (Input.GetButtonDown(inputLayEgg) && canLand && eggMan.eggSlider.fillAmount >= 1)
+        if (Input.GetButtonDown(inputInteract) && canLand && eggMan.eggSlider.fillAmount >= 1)
         {
             eggMan.eggSlider.fillAmount = 0;
             eggMan.eggSlider.color = eggMan.startEggColor;
@@ -353,11 +361,30 @@ public class PlayerController : LivingBeing {
         }
     }
     
-    void LandForAncient()
+    void PlaceAncient()
     {
-        if (Input.GetButtonDown(inputPlaceAncient) && gameMan.babyDragonMan.babyDragons.Count > 0)
+        if (ancientProjection.activeSelf)
         {
-            StartCoroutine(ILandForAncient());
+            if (Input.GetButtonDown(inputPlaceAncient) || isShooting || playerState != PlayerStates.AIMING_ANCIENT)
+            {
+                if (playerState == PlayerStates.AIMING_ANCIENT)
+                    playerState = PlayerStates.FLYING;
+                ancientProjection.SetActive(false);
+                return;
+            }
+
+            if (Input.GetButtonDown(inputInteract))
+            {
+                ancientProjection.SetActive(false);
+                StartCoroutine(ILandForAncient());
+            }
+        }
+        else if (Input.GetButtonDown(inputPlaceAncient) && gameMan.babyDragonMan.babyDragons.Count > 0)
+        {
+            StopShooting();
+            ancientProjection.SetActive(true);
+            aimProjector.SetActive(false);
+            playerState = PlayerStates.AIMING_ANCIENT;
         }
     }
 
@@ -504,27 +531,27 @@ public class PlayerController : LivingBeing {
     IEnumerator ILandForAncient()
     {
         StopShooting();
-        MakeInvincible(5f);
+        MakeInvincible(4f);
 
         rb.velocity = Vector3.zero;
         playerState = PlayerStates.LANDING_ANCIENT;
 
-        anim.SetTrigger("land");
+        //anim.SetTrigger("land");
         yield return new WaitForSeconds(2.0f);
 
         Instantiate(placeholderFeedback, babyDragonMan.babyDragons[0].transform.position, Quaternion.identity);
         Instantiate(placeholderFeedback, transform.position, Quaternion.identity);
 
-        GameObject ancient = Instantiate(ancientPrefab, transform.position, Quaternion.identity);
-        gameMan.spawnMan.AddTargetToList(ancient.transform);
+        GameObject ancient = Instantiate(ancientPrefab, ancientProjection.transform.position, Quaternion.identity);
+        //gameMan.spawnMan.AddTargetToList(ancient.transform);
         babyDragonMan.RemoveBabyDragon();
 
-        ResetLife(maxLife); //WTF
+        ResetLife(maxLife);
 
-        yield return new WaitForSeconds(0.1f);
-        anim.SetTrigger("lift");
+        //yield return new WaitForSeconds(0.1f);
+        //anim.SetTrigger("lift");
 
-        yield return new WaitForSeconds(1.30f);
+        //yield return new WaitForSeconds(1.30f);
         if (isSlowing)
         {
             isSlowing = false;
@@ -538,6 +565,7 @@ public class PlayerController : LivingBeing {
                 sprintTime = 0;
         }
         playerState = PlayerStates.FLYING;
+        aimProjector.SetActive(true);
 
         yield break;
     }

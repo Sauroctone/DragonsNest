@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class EnemySpawner : LivingBeing
 {
+    public float minHealthbarScale;
+
+    [Header ("Spawn")]
     public GameObject enemyPrefab;
     public float baseTimeToSpawn;
     public float minTimeToSpawn;
@@ -27,7 +30,7 @@ public class EnemySpawner : LivingBeing
 
     public override void UpdateHealthUI(int _damage)
     {
-        // NO HEALTHBAR (yet)
+        lifeBar.rectTransform.localScale = Vector3.Lerp(new Vector3(minHealthbarScale, minHealthbarScale, minHealthbarScale), Vector3.one, life / maxLife);
     }
 
     public override void Die()

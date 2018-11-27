@@ -54,7 +54,7 @@ public class Ancient : LivingBeing {
             else
                 fireTime += Time.deltaTime;
 
-            transform.LookAt(target);
+            transform.rotation = Quaternion.LookRotation(Vector3.ProjectOnPlane((target.position - transform.position).normalized, Vector3.up));
         }
     }
 

@@ -6,21 +6,29 @@ using UnityEngine.UI;
 public class UiFollow : MonoBehaviour {
 
 	public Transform self;
-	Camera mainCam;
-	private Vector2 farFromEggDistance;
-	public GUIStyle originStyle;
-	GUIStyle actualStyle;
+	public Transform player;
+	public Egg egg;
 
-	private void Start()
+	[Range(0.1f,2.0f)]
+	public float scaleEgg;
+	private Camera mainCam;
+	private GUIStyle eggStyle;
+	private GUIStyle indicatorStyle;
+
+	public Texture2D eggImage;
+	public Texture2D indicatorImage;
+
+	Color color;
+
+	private void Awake()
 	{
 		mainCam = Camera.main;
-		actualStyle = originStyle;
+		eggStyle = new GUIStyle();
+		eggStyle.normal.background = eggImage;	
 
-	}
-
-	// Update is called once per frame
-	void Update () {
-		//UpdatePos();
+		indicatorStyle = new GUIStyle ();
+		indicatorStyle.normal.background = indicatorImage;	
+		
 	}
 
 	private void OnGUI ()
@@ -30,39 +38,34 @@ public class UiFollow : MonoBehaviour {
 
 	private void GUICreatorEgg ()
 	{
+		if(!DrawEggg()) DrawIndicator();
+	}
+
+	private bool DrawEggg ()
+	{
 		Vector3 screenPosition = mainCam.WorldToScreenPoint(self.position);
 		screenPosition.y = Screen.height - screenPosition.y;
-		
-		farFromEggDistance.y =0;
-		
-		if(screenPosition.y<40)
-		{
-			farFromEggDistance.y = screenPosition.y -40;
-			screenPosition.y=40;
-		}
 
+		if((screenPosition.y<0) ||
+		(screenPosition.y>Screen.height))
+			return false;
 
-		if(screenPosition.y>Screen.height)
-		{
-			farFromEggDistance.y = screenPosition.y-Screen.height;
-			screenPosition.y=Screen.height;
-		} 
+		if ((screenPosition.x<0) ||
+		(screenPosition.x>Screen.width))
+			return false;
 
+		GUI.backgroundColor = Color.Lerp(egg.fullLifeCol, egg.lowLifeCol,1-(egg.life/egg.maxLife));
+		GUI.Box(new Rect(screenPosition.x-20,screenPosition.y-60,40*scaleEgg,40*scaleEgg),"",eggStyle);
+		return true;
+	}
 
-		if(screenPosition.x<20) 
-		{
-			farFromEggDistance.x = screenPosition.x;
-			screenPosition.x=20;	
-		}
-		if(screenPosition.x>Screen.width-20)
-		{
-			farFromEggDistance.x = screenPosition.x;
-			screenPosition.x= Screen.width;
-		}
+	private void DrawIndicator ()
+	{
+		Vector3 decalPlayer =  self.position - player.position;
+		decalPlayer = new Vector3 (decalPlayer.x, -decalPlayer.z, decalPlayer.y);
+		decalPlayer = decalPlayer.normalized;
 
-		Debug.Log(farFromEggDistance.y);
-		GUI.backgroundColor = Color.blue;
- 		GUI.Box(new Rect(screenPosition.x-20,screenPosition.y-60,40,40),"Oeuf",actualStyle);
-
+		GUI.backgroundColor = Color.Lerp(egg.fullLifeCol, egg.lowLifeCol,1-(egg.life/egg.maxLife));
+		GUI.Box(new Rect((decalPlayer.x+1)/2*Screen.width-5,(decalPlayer.y+1)/2*Screen.height-5,10,10),"", indicatorStyle);
 	}
 }

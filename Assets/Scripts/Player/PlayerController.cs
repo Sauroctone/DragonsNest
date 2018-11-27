@@ -90,7 +90,7 @@ public class PlayerController : LivingBeing {
     public float dodgeCooldown;
     
     [Header("Landing")]
-    private Vector3 nestPosition;
+    public  Vector3 nestPosition;
 
     [System.NonSerialized]
     public bool canLand;
@@ -120,13 +120,15 @@ public class PlayerController : LivingBeing {
     public Transform toDropegg;
     GameManager gameMan;
     public GameObject placeholderFeedback;
-    Nest nestScript;
+    public Nest nestScript;
     public GameObject ancientPrefab;
+    public MeshRenderer LifeQuad;
 
     public override void Start()
     {
         base.Start();
 
+        //LifeQuad.material.shader = Shader.Find ("LifeEnergyShader");
         stamina = maxStamina;
         sprintTime = sprintCooldown;
         slowTime = slowCooldown;
@@ -194,30 +196,6 @@ public class PlayerController : LivingBeing {
         timeOutOfSlow -= Time.deltaTime;
 
         UpdateStaminaUI();
-    }
-
-    private void OnTriggerEnter(Collider colNest)
-    {
-        if (colNest.gameObject.tag == "Nest")
-        {
-            nestScript = colNest.gameObject.GetComponent<Nest>();
-            if (nestScript.content == null)
-            {
-                nestScript.active = true;
-                nestPosition = colNest.transform.position;
-                canLand = true;
-            }
-        }
-    }
-
-    private void OnTriggerExit(Collider colNest)
-    {
-        if (colNest.gameObject.tag == "Nest")
-        {
-            nestScript = colNest.gameObject.GetComponent<Nest>();
-            nestScript.active = false;
-            canLand = false;
-        }
     }
 
     //Actions
@@ -387,7 +365,7 @@ public class PlayerController : LivingBeing {
 
     public void UpdateStaminaUI()
     {
-        staminaBar.value = stamina / maxStamina;
+        LifeQuad.material.SetFloat ("_Stamina", stamina / maxStamina);
     }
 
     void UseStamina(float _cost)
@@ -443,6 +421,9 @@ public class PlayerController : LivingBeing {
     public override void UpdateHealthUI(int _damage)
     {
         base.UpdateHealthUI(_damage);
+        LifeQuad.material.SetFloat ("_Life", life / maxLife);
+
+        /*
 
         if (gameMan.vignetteMan.CurrentPreset != gameMan.vignetteMan.hurtVignette)
             gameMan.vignetteMan.ChangeVignette(gameMan.vignetteMan.hurtVignette);
@@ -452,6 +433,7 @@ public class PlayerController : LivingBeing {
             //print(toSwitchAfterDecay.name);
             gameMan.vignetteMan.IncrementSmoothness(gameMan.vignetteMan.hurtVignette, _damage * vignetteFactor, toSwitchAfterDecay);
         }
+         */
     }
 
     public override void ResetHealthUI(float _timeToRegen)
@@ -495,16 +477,11 @@ public class PlayerController : LivingBeing {
     IEnumerator ILayEgg()
     {
         StopShooting();
-        //anim.SetTrigger("land");
-
-        //yield return new WaitForSeconds(0.5f);
         playerState = PlayerStates.LAYING_EGG;
 
         yield return new WaitForSeconds(1.0f);
-        GameObject instanceEgg;
-        instanceEgg = Instantiate(egg, new Vector3(nestPosition.x, nestPosition.y + 0.5f, nestPosition.z), Quaternion.identity) as GameObject;
-        nestScript.content = instanceEgg;
-        gameMan.spawnMan.targets.Add(instanceEgg.transform);
+        var instanceEgg = nestScript.Action();
+        gameMan.spawnMan.targets.Add(instanceEgg);
 
         yield return new WaitForSeconds(0.5f);
         playerState = PlayerStates.FLYING;

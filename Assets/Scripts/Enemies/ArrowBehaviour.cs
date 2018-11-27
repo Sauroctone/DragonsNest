@@ -20,7 +20,7 @@ public class ArrowBehaviour : MonoBehaviour {
         //Visual
         velocity = Vector3.ProjectOnPlane(_owner.aimDir, Vector3.up) * _owner.group.arrowSpeed;
         visualRb.velocity = velocity;
-        arrowMaxHeight = _owner.group.arrowMaxHeight;
+        arrowMaxHeight = _owner.currentTarget.position.y;
         visualCurve = _owner.group.visualTrajectory;
         transform.rotation = Quaternion.LookRotation(velocity.normalized);
 

@@ -699,6 +699,11 @@ Prefab:
       propertyPath: m_Name
       value: Egg (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 114485223214567632, guid: c73497195adb49e41bf21937d8073bcf,
+        type: 2}
+      propertyPath: hatchingTimeMax
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c73497195adb49e41bf21937d8073bcf, type: 2}
   m_IsPrefabAsset: 0
@@ -1236,6 +1241,11 @@ Prefab:
       propertyPath: maxLife
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 114485223214567632, guid: c73497195adb49e41bf21937d8073bcf,
+        type: 2}
+      propertyPath: hatchingTimeMax
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c73497195adb49e41bf21937d8073bcf, type: 2}
   m_IsPrefabAsset: 0
@@ -1336,6 +1346,11 @@ Prefab:
     - target: {fileID: 4531193308233794, guid: c73497195adb49e41bf21937d8073bcf, type: 2}
       propertyPath: m_RootOrder
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 114485223214567632, guid: c73497195adb49e41bf21937d8073bcf,
+        type: 2}
+      propertyPath: hatchingTimeMax
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c73497195adb49e41bf21937d8073bcf, type: 2}
@@ -1627,11 +1642,6 @@ Prefab:
       propertyPath: babyDragonMan
       value: 
       objectReference: {fileID: 273772590}
-    - target: {fileID: 114865201573251416, guid: e52e955854e182849a85bfbc65ca9d7a,
-        type: 2}
-      propertyPath: toDropegg
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e52e955854e182849a85bfbc65ca9d7a, type: 2}
   m_IsPrefabAsset: 0

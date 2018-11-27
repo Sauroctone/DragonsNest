@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1778992339158906}
   m_LocalRotation: {x: 0.42261827, y: -0, z: -0, w: 0.9063079}
-  m_LocalPosition: {x: 0, y: 18.5, z: -17}
+  m_LocalPosition: {x: 0, y: 25, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -103,8 +103,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  followLerp: 0.075
-  aimOffset: 0
+  targetOriginPos: {x: 0, y: 0, z: 0}
+  followLerp: 0.1
+  lookRange: 10
   fireZoom: {x: 0, y: -4, z: 4}
   sprintDezoom: {x: 0, y: 5, z: -5}
   slowZoom: {x: 0, y: -3, z: 3}

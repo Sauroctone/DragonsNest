@@ -9,6 +9,8 @@ TagManager:
   - Archer
   - Dragon
   - Egg
+  - Nest
+  - Enemies
   layers:
   - Default
   - TransparentFX
@@ -26,9 +28,9 @@ TagManager:
   - EnemyAttack
   - Enemy
   - Egg
-  - 
-  - 
-  - 
+  - Ancient
+  - FireProjectile
+  - AncientDetection
   - 
   - 
   - 

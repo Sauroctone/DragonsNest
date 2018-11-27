@@ -7,11 +7,16 @@ public class EnemyBehaviour : MonoBehaviour {
     [Header("Player")]
     public float distanceToAggroPlayer;
 
-    [Header("References")]
+    [HideInInspector]
     public Transform currentTarget;
-    Transform prevTarget;
+    List<Transform> ancientTargets = new List<Transform>();
+    
+    [Header("References")]
+    [HideInInspector]
     public SpawnManager spawnMan;
+    [HideInInspector]
     public Transform player;
+    [HideInInspector]
     public Rigidbody playerRb;
 
     public virtual void Init()
@@ -30,22 +35,36 @@ public class EnemyBehaviour : MonoBehaviour {
         if (currentTarget == null)
             AskForNewTarget();
 
-        //Aggro player on proximity
-        if (Vector3.Distance(transform.position, player.position) < distanceToAggroPlayer)
-        {
-            if (currentTarget != player)
+        //If no ancient is close : aggro player on proximity
+        if (ancientTargets.Count == 0)
+        { 
+            if (Vector3.Distance(transform.position, player.position) <= distanceToAggroPlayer)
             {
-                prevTarget = currentTarget;
-                currentTarget = player;
+                if (currentTarget != player)
+                    currentTarget = player;
+            }
+            else
+            {
+                if (currentTarget == player)
+                    currentTarget = null;
             }
         }
+    }
+
+    public void AggroAncient(Transform _ancient)
+    {
+        ancientTargets.Add(_ancient);
+        currentTarget = ancientTargets[0];
+    }
+
+    public void ForgetAncient(Transform _ancient)
+    {
+        ancientTargets.Remove(_ancient);
+
+        if (ancientTargets.Count > 0)
+            currentTarget = ancientTargets[0];
         else
-        {
-            if (currentTarget == player)
-            {
-                currentTarget = prevTarget;
-            }
-        }
+            currentTarget = null;
     }
 
     public void Die()

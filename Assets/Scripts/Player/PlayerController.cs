@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum PlayerStates { FLYING, DODGING, LAYING_EGG };
+public enum PlayerStates { FLYING, DODGING, LAYING_EGG, AIMING_ANCIENT, LANDING_ANCIENT };
 
 public class PlayerController : LivingBeing {
 
@@ -17,16 +17,30 @@ public class PlayerController : LivingBeing {
     public int level;
     public PlayerStates playerState;
 
+    [Header("Inputs")]
+    public string inputShoot;
+    public string inputShootAlt;
+    public string inputDodge;
+    public string inputDodgeAlt;
+    public string inputSprint;
+    public string inputSlowDown;
+    public string inputInteract;
+    public string inputPlaceAncient;
+
     [Header("Flying")]
     public float flySpeed;
+    public float shootSpeed;
     float speed;
     internal Vector3 desiredDir = Vector3.forward;
     Vector3 lastDesiredDir = Vector3.forward;
     float hinput;
     float vinput;
     float rotationAngle;
-    public float rotationLerp;
+    public float flyingRotationLerp;
+    public float shootingRotationLerp;
+    float rotationLerp;
     Quaternion targetRot;
+    Quaternion rollRot;
     public float maxSteerRot;
     Vector3 dirDiff;
     internal bool isSprinting;
@@ -51,11 +65,12 @@ public class PlayerController : LivingBeing {
     public float regenCooldown;
     float regenTime;
 
-    [Header("Aiming")]
-    public float cursorSpeed;
+    [Header("Looking")]
+    public float lookRange;
     float rhinput;
     float rvinput;
-    public Vector3 originCursorPos;
+    float lastRHInput;
+    float lastRVInput;
 
     [Header("Shooting")]
     public float timeBetweenCols;
@@ -74,8 +89,10 @@ public class PlayerController : LivingBeing {
     bool canDodge = true;
     public float dodgeCooldown;
     
-    [Header("Landing")]
     private Vector3 nestPosition;
+
+    [Header("Placing Ancient")]
+    public GameObject ancientProjection;
 
     [System.NonSerialized]
     public bool canLand;
@@ -91,6 +108,7 @@ public class PlayerController : LivingBeing {
     public float rightFireBurst;
 
     [Header("References")]
+    public Transform visuals;
     public Transform aimCursor;
     public ParticleSystem firePartSys;
     public Transform fireOrigin;
@@ -105,6 +123,8 @@ public class PlayerController : LivingBeing {
     GameManager gameMan;
     public GameObject placeholderFeedback;
     Nest nestScript;
+    public GameObject ancientPrefab;
+    public GameObject aimProjector;
 
     public override void Start()
     {
@@ -125,38 +145,12 @@ public class PlayerController : LivingBeing {
         switch (playerState)
         {
             case PlayerStates.FLYING:
-                //Going forward at all times
-
-                if (timeOutOfSlow > 0 || isSprinting && !isSlowing)
-                    speed = sprintSpeed;
-                else if (isSlowing && !isSprinting)
-                    speed = slowSpeed;
-                else
-                    speed = flySpeed;
-
-                rb.velocity = transform.forward * speed;
-
-                //Don't change the desired direction if there is no input
-                if (hinput != 0 || vinput != 0)
-                {
-                    //Direction based on input
-                    desiredDir = new Vector3(hinput, 0f, vinput);
-                    //Store the desired direction for next frame
-                    lastDesiredDir = desiredDir;
-                }
-
-                //If the player's forward isn't aligned with the desired direction
-                if (transform.forward != desiredDir)
-                {
-                    //Lerp between the current rotation and the desired direction's look rotation
-                    targetRot = Quaternion.LookRotation(desiredDir);
-                    rotationAngle = Vector3.SignedAngle(transform.forward, desiredDir, transform.up);
-                    targetRot = Quaternion.Euler(targetRot.eulerAngles.x, targetRot.eulerAngles.y, -rotationAngle * maxSteerRot / 180);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationLerp);
-                }
+                Move();
                 break;
 
-            case PlayerStates.DODGING:
+
+            case PlayerStates.AIMING_ANCIENT:
+                Move();
                 break;
             
             case PlayerStates.LAYING_EGG:
@@ -167,85 +161,41 @@ public class PlayerController : LivingBeing {
                   }*/
                 rb.velocity = new Vector3(0f, 0f, 0f);
                 if (nestPosition != null)
-                {
                     transform.position = Vector3.Lerp(transform.position, nestPosition, Time.deltaTime * landSpeed);
-                }
 
                 break;
         }
     }
 
-    private void Update()
+    public override void Update()
     {
-        //DEBUG FIRE MODES
-        /////////////////////////////////////////////////
-        if (Input.GetKeyDown(KeyCode.Keypad1))
-            fireVibrationDebug = FireVibrationDebug.Continous;
-        if (Input.GetKeyDown(KeyCode.Keypad2))
-            fireVibrationDebug = FireVibrationDebug.Burst;
-        /////////////////////////////////////////////////
+        base.Update();
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+            Application.Quit();
 
         RegenStamina();
 
         switch (playerState)
         {
             case PlayerStates.FLYING:
-
-                //Aim();
                 Shoot();
-                //Landing
-                if (Input.GetButtonDown("Fire2")  && canLand && eggMan.eggSlider.value >=1)
-                {
-                    eggMan.eggSlider.value = 0;
-                    LayEgg();
-                }
-                //Sprinting
-                if (Input.GetAxis("Sprint") > .1f && stamina > 0 && sprintTime >= sprintCooldown)
-                {
-                    isSprinting = true;
-                    if (!isSlowing)
-                        UseStamina(sprintCostPerSecond);
-                }
-                else if (isSprinting)
-                {
-                    isSprinting = false;
-                    if (stamina == 0)
-                        sprintTime = 0;
-                }
-
-                //Slowing 
-
-                if (Input.GetButtonDown("SlowDown"))
-                    timeOutOfSlow = 0; 
-
-                if (Input.GetButton("SlowDown") && stamina > 0 && slowTime >= slowCooldown)
-                {
-                    isSlowing = true;
-                    
-                    if (!isSprinting)
-                        UseStamina(slowCostPerSecond);
-                }
-                
-                if (isSlowing && (Input.GetButtonUp("SlowDown") || stamina == 0))
-                {
-                    isSlowing = false;
-                    if (timeOutOfSlow < -minSlowTime)
-                        timeOutOfSlow = boostTimeOutOfSlow;
-                    if (stamina == 0)
-                        slowTime = 0;
-                }
-
-                //Dodge
-                if (Input.GetAxis("Dodge") > .1f && canDodge)
-                    Dodge();
-
+                Dodge();
+                Sprint();
+                SlowDown();
+                LayEgg();
+                PlaceAncient();
                 break;
 
-            case PlayerStates.DODGING:
-                //Aim();
-                break;
-            
-            case PlayerStates.LAYING_EGG:
+            case PlayerStates.AIMING_ANCIENT:
+                //Canceling actions
+                Shoot();
+                Dodge();
+                LayEgg();
+
+                Sprint();
+                SlowDown();
+                PlaceAncient();
                 break;
         }
 
@@ -254,26 +204,74 @@ public class PlayerController : LivingBeing {
         UpdateStaminaUI();
     }
 
+    private void OnTriggerEnter(Collider colNest)
+    {
+        if (colNest.gameObject.tag == "Nest")
+        {
+            nestScript = colNest.gameObject.GetComponent<Nest>();
+            if (nestScript.content == null)
+            {
+                nestScript.active = true;
+                nestPosition = colNest.transform.position;
+                canLand = true;
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider colNest)
+    {
+        if (colNest.gameObject.tag == "Nest")
+        {
+            nestScript = colNest.gameObject.GetComponent<Nest>();
+            nestScript.active = false;
+            canLand = false;
+        }
+    }
+
     //Actions
 
-    void Aim()
+    void Move()
     {
-        rhinput = Input.GetAxis("Horizontal_R");
-        rvinput = Input.GetAxis("Vertical_R");
+        //Going forward at all times
 
-        if (rhinput != 0 || rvinput != 0)
+        if (timeOutOfSlow > 0 || isSprinting && !isSlowing)
+            speed = sprintSpeed;
+        else if (isSlowing && !isSprinting)
+            speed = slowSpeed;
+        else if (isShooting)
+            speed = shootSpeed;
+        else
+            speed = flySpeed;
+
+        rb.velocity = transform.forward * speed;
+
+        //Don't change the desired direction if there is no input
+        if (hinput != 0 || vinput != 0)
         {
             //Direction based on input
-            //aimCursor.Translate(new Vector3(hinput, 0f, vinput) * cursorSpeed);
-            aimCursor.localPosition = originCursorPos + new Vector3(rhinput, aimCursor.localPosition.y, rvinput) * cursorSpeed; //range
+            desiredDir = new Vector3(hinput, 0f, vinput);
+            //Store the desired direction for next frame
+            lastDesiredDir = desiredDir;
+        }
 
+        //If the player's forward isn't aligned with the desired direction
+        if (transform.forward != desiredDir)
+        {
+            //Lerp between the current rotation and the desired direction's look rotation
+            targetRot = Quaternion.LookRotation(desiredDir);
+            rotationAngle = Vector3.SignedAngle(transform.forward, desiredDir, transform.up);
+            //targetRot = Quaternion.Euler(targetRot.eulerAngles.x, targetRot.eulerAngles.y, -rotationAngle * maxSteerRot / 180);
+            rollRot = Quaternion.Euler(0, 0, -rotationAngle * maxSteerRot / 180);
+            rotationLerp = isShooting ? shootingRotationLerp : flyingRotationLerp;
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationLerp);
+            visuals.localRotation = Quaternion.Slerp(visuals.localRotation, rollRot, rotationLerp);
         }
     }
 
     void Shoot()
     {
         //Begin shooting
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown(inputShoot))
         {
             firePartSys.Play();
             isShooting = true;
@@ -297,7 +295,7 @@ public class PlayerController : LivingBeing {
         }
 
         //End shooting
-        if (Input.GetButtonUp("Fire1"))
+        if (Input.GetButtonUp(inputShoot))
         {
             StopShooting();
         }
@@ -319,7 +317,47 @@ public class PlayerController : LivingBeing {
 
     void Dodge()
     {
-        dodgeCor = StartCoroutine(IDodge());
+        if ((Input.GetButtonDown(inputDodge) || Input.GetAxis(inputDodgeAlt) > .1f) && canDodge)
+            dodgeCor = StartCoroutine(IDodge());
+    }
+
+    void SlowDown()
+    {
+        if (Input.GetButtonDown(inputSlowDown))
+            timeOutOfSlow = 0;
+
+        if (Input.GetButton(inputSlowDown) && stamina > 0 && slowTime >= slowCooldown)
+        {
+            isSlowing = true;
+
+            if (!isSprinting)
+                UseStamina(slowCostPerSecond);
+        }
+
+        if (isSlowing && (Input.GetButtonUp(inputSlowDown) || stamina == 0))
+        {
+            isSlowing = false;
+            if (timeOutOfSlow < -minSlowTime)
+                timeOutOfSlow = boostTimeOutOfSlow;
+            if (stamina == 0)
+                slowTime = 0;
+        }
+    }
+
+    void Sprint()
+    {
+        if (Input.GetButton(inputSprint) && stamina > 0 && sprintTime >= sprintCooldown)
+        {
+            isSprinting = true;
+            if (!isSlowing)
+                UseStamina(sprintCostPerSecond);
+        }
+        else if (isSprinting)
+        {
+            isSprinting = false;
+            if (stamina == 0)
+                sprintTime = 0;
+        }
     }
 
     void StopShooting()
@@ -335,9 +373,41 @@ public class PlayerController : LivingBeing {
             gameMan.vibrationMan.StopVibrating(playerIndex);
     }
 
-    private void LayEgg()
+    void LayEgg()
     {
-        StartCoroutine (ILayEgg());
+        if (Input.GetButtonDown(inputInteract) && canLand && eggMan.eggSlider.fillAmount >= 1)
+        {
+            eggMan.eggSlider.fillAmount = 0;
+            eggMan.eggSlider.color = eggMan.startEggColor;
+            StartCoroutine(ILayEgg());
+        }
+    }
+    
+    void PlaceAncient()
+    {
+        if (ancientProjection.activeSelf)
+        {
+            if (Input.GetButtonDown(inputPlaceAncient) || isShooting || playerState != PlayerStates.AIMING_ANCIENT)
+            {
+                if (playerState == PlayerStates.AIMING_ANCIENT)
+                    playerState = PlayerStates.FLYING;
+                ancientProjection.SetActive(false);
+                return;
+            }
+
+            if (Input.GetButtonDown(inputInteract))
+            {
+                ancientProjection.SetActive(false);
+                StartCoroutine(ILandForAncient());
+            }
+        }
+        else if (Input.GetButtonDown(inputPlaceAncient) && gameMan.babyDragonMan.babyDragons.Count > 0)
+        {
+            StopShooting();
+            ancientProjection.SetActive(true);
+            aimProjector.SetActive(false);
+            playerState = PlayerStates.AIMING_ANCIENT;
+        }
     }
 
     //Stamina
@@ -454,14 +524,14 @@ public class PlayerController : LivingBeing {
         StopShooting();
         //anim.SetTrigger("land");
 
-        yield return new WaitForSeconds(0.5f);
+        //yield return new WaitForSeconds(0.5f);
         playerState = PlayerStates.LAYING_EGG;
 
         yield return new WaitForSeconds(1.0f);
         GameObject instanceEgg;
         instanceEgg = Instantiate(egg, new Vector3(nestPosition.x, nestPosition.y + 0.5f, nestPosition.z), Quaternion.identity) as GameObject;
         nestScript.content = instanceEgg;
-        gameMan.spawnMan.eggs.Add(instanceEgg.transform);
+        gameMan.spawnMan.targets.Add(instanceEgg.transform);
 
         yield return new WaitForSeconds(0.5f);
         playerState = PlayerStates.FLYING;
@@ -481,27 +551,45 @@ public class PlayerController : LivingBeing {
         }
     }
 
-    private void OnTriggerEnter(Collider colNest)
+    IEnumerator ILandForAncient()
     {
-        if (colNest.gameObject.tag == "Nest")
-        {
-            nestScript = colNest.gameObject.GetComponent<Nest>();
-            if (nestScript.content == null)
-            {
-                nestScript.active = true;
-                nestPosition = colNest.transform.position;
-                canLand = true;
-            }
-        }
-    }
+        StopShooting();
+        MakeInvincible(4f);
 
-    private void OnTriggerExit(Collider colNest)
-    {
-        if (colNest.gameObject.tag == "Nest")
+        rb.velocity = Vector3.zero;
+        playerState = PlayerStates.LANDING_ANCIENT;
+
+        //anim.SetTrigger("land");
+        yield return new WaitForSeconds(2.0f);
+
+        Instantiate(placeholderFeedback, babyDragonMan.babyDragons[0].transform.position, Quaternion.identity);
+        Instantiate(placeholderFeedback, transform.position, Quaternion.identity);
+
+        GameObject ancient = Instantiate(ancientPrefab, ancientProjection.transform.position, Quaternion.identity);
+        gameMan.spawnMan.AddTargetToList(ancient.transform);
+        babyDragonMan.RemoveBabyDragon();
+
+        ResetLife(maxLife);
+
+        //yield return new WaitForSeconds(0.1f);
+        //anim.SetTrigger("lift");
+
+        //yield return new WaitForSeconds(1.30f);
+        if (isSlowing)
         {
-            nestScript = colNest.gameObject.GetComponent<Nest>();
-            nestScript.active = false;
-            canLand = false;
+            isSlowing = false;
+            if (stamina == 0)
+                slowTime = 0;
         }
+        if (isSprinting)
+        {
+            isSprinting = false;
+            if (stamina == 0)
+                sprintTime = 0;
+        }
+        playerState = PlayerStates.FLYING;
+        aimProjector.SetActive(true);
+
+        yield break;
     }
 }

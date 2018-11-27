@@ -59,8 +59,6 @@ public class UiFollow : MonoBehaviour {
 			farFromEggDistance.x = screenPosition.x;
 			screenPosition.x= Screen.width;
 		}
-
-		Debug.Log(farFromEggDistance.y);
 		GUI.backgroundColor = Color.blue;
  		GUI.Box(new Rect(screenPosition.x-20,screenPosition.y-60,40,40),"Oeuf",actualStyle);
 

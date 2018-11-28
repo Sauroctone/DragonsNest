@@ -112,14 +112,20 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
 
     IEnumerator IAimAndShoot()
     {
-        banner.ChangeBanner(aimMat);
         canShoot = false;
-        yield return new WaitForSeconds(aimTime + maxShootTime);
-        banner.ChangeBanner(normalMat);
+        float time = 0;
+        while (time < aimTime)
+        {
+            time += Time.deltaTime;
+            banner.UpdateBanner(time/aimTime);
+            yield return null;
+        }
+        yield return new WaitForSeconds(maxShootTime);
+        banner.UpdateBanner(0f);
         yield return new WaitForSeconds(postShootIdleTime);
         if (currentTarget == null || Vector3.Distance(currentTarget.position, transform.position) > aimRange)
             StartMoving();
-        yield return new WaitForSeconds(shootCooldown);
+        yield return new WaitForSeconds(shootCooldown - postShootIdleTime);
         canShoot = true;
     }
 }

@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BannerVisualizer : MonoBehaviour
 {
-    public Renderer rend;
+    public Image bannerFill;
     
-    public void ChangeBanner(Material _newBanner)
+    public void UpdateBanner(float _fill)
     {
-        rend.material = _newBanner;
+        bannerFill.fillAmount = _fill;
     }
 }

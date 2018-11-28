@@ -111,16 +111,24 @@ public class ArcherBehaviour : LivingBeing {
         float time = 0f;
         float rand = Random.Range(group.minShootTime, group.maxShootTime);
 
+        Vector3 targetPosition = Vector3.zero;
+        bool lockedTarget = false;
         while (time < group.aimTime + rand && currentTarget != null)
         {
             time += Time.deltaTime;
+            if (time >= group.aimTime && !lockedTarget)
+            {
+                targetPosition = currentTarget.position;
+                lockedTarget = true;
+            }
+
             transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.LookRotation((Vector3.ProjectOnPlane(currentTarget.position, Vector3.up) - transform.position).normalized), aimRotLerp);
             yield return null;
         }
 
         if (currentTarget != null)
         {
-            Vector3 interceptPoint = FirstOrderIntercept(group.transform.position, Vector3.zero, group.arrowSpeed, currentTarget.position, currentTarget == group.player ? group.playerRb.velocity : Vector3.zero);
+            Vector3 interceptPoint = FirstOrderIntercept(group.transform.position, Vector3.zero, group.arrowSpeed, targetPosition, currentTarget == group.player ? group.playerRb.velocity : Vector3.zero);
             aimDir = (interceptPoint - group.transform.position).normalized;
             GameObject proj = Instantiate(group.arrow, transform.position, Quaternion.identity);
             proj.GetComponent<ArrowBehaviour>().Init(this);

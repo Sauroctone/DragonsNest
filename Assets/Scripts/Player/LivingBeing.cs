@@ -10,22 +10,22 @@ public class LivingBeing : MonoBehaviour {
     public float life;
     [HideInInspector]
     public float lostLifeBeforeDecay;
-    float timeSinceLastDamage;
+    internal float timeSinceLastDamage;
     bool isAlive = true;
     bool burntThisFrame;
 
     //Conditional hiiiide
     public float timeToUpdateFeedbackBar;
-    Coroutine feedbackCor;
+    internal Coroutine feedbackCor;
     public float feedbackDecayTime;
-    bool feedbackIsDecaying;
+    internal bool feedbackIsDecaying;
     public Image lifeBar;
     public Image lifeBarFeedback;
 
     bool isInvincible;
     Coroutine invincibleCor;
-    Coroutine regenCor;
-
+    internal Coroutine regenCor;
+#region virtual
 	public virtual void Start()
 	{
 		life = maxLife;
@@ -124,8 +124,8 @@ public class LivingBeing : MonoBehaviour {
             StopCoroutine(invincibleCor);
         invincibleCor = StartCoroutine(IInvulnerability(_time));
     }
-
-    IEnumerator IHealthBarFeedback()
+#endregion
+    public virtual IEnumerator IHealthBarFeedback()
     {
         while (timeSinceLastDamage < timeToUpdateFeedbackBar)
         {

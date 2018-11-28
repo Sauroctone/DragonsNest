@@ -50,7 +50,7 @@ public class EnemyBehaviour : MonoBehaviour {
             }
         }
 
-        Debug.Log(currentTarget);
+        //Debug.Log(currentTarget);
     }
 
     public void AggroAncient(Transform _ancient)

@@ -125,7 +125,7 @@ public class LivingBeing : MonoBehaviour {
         invincibleCor = StartCoroutine(IInvulnerability(_time));
     }
 #endregion
-    public virtual IEnumerator IHealthBarFeedback()
+    internal virtual IEnumerator IHealthBarFeedback()
     {
         while (timeSinceLastDamage < timeToUpdateFeedbackBar)
         {
@@ -144,7 +144,7 @@ public class LivingBeing : MonoBehaviour {
         feedbackIsDecaying = false;
     }
 
-    IEnumerator IHealthBarRegen(float _timeToRegen)
+    internal virtual IEnumerator IHealthBarRegen(float _timeToRegen)
     {
         yield return new WaitForSeconds(1f);
 

@@ -44,7 +44,7 @@ public class Nest : MonoBehaviour
 
 	public void OnTriggerEnter(Collider col)
 	{
-        Debug.Log("enter");
+        //Debug.Log("enter");
 		if(col.gameObject.tag == "Dragon")
 		{   
             active = true;

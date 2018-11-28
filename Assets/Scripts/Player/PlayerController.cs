@@ -524,7 +524,7 @@ public class PlayerController : LivingBeing {
     }
    
     
-    public override IEnumerator IHealthBarFeedback()
+    internal override IEnumerator IHealthBarFeedback()
     {
         LifeQuad.material.SetFloat ("_DisplayLife", 1);        
         while (timeSinceLastDamage < timeToUpdateFeedbackBar)
@@ -548,6 +548,28 @@ public class PlayerController : LivingBeing {
         feedbackIsDecaying = false;
     }
 
+    internal override IEnumerator IHealthBarRegen(float _timeToRegen)
+    {
+        yield return new WaitForSeconds(1f);
+
+        lifeFeedBackAmount = 1;
+        LifeQuad.material.SetFloat ("_LifeFeedbackAmount", lifeFeedBackAmount);
+        
+        float time = 0;
+        LifeQuad.material.SetFloat ("_DisplayLife", 1);        
+        while (time < _timeToRegen)
+        {
+            time += Time.deltaTime;
+            lifesShader = Mathf.Lerp(0, 1, time / _timeToRegen);
+            LifeQuad.material.SetFloat ("_Life", lifesShader);
+            yield return null;
+        }
+        LifeQuad.material.SetFloat ("_DisplayLife", 0);        
+        lifesShader = lifeFeedBackAmount = 1;
+        LifeQuad.material.SetFloat ("_LifeFeedbackAmount", lifeFeedBackAmount);
+        LifeQuad.material.SetFloat ("_Life", lifesShader);
+
+    }
 
     //Coroutines
 

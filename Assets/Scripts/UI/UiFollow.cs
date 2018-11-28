@@ -1,4 +1,4 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +14,7 @@ public class UiFollow : MonoBehaviour {
 	private Camera mainCam;
 	private GUIStyle eggStyle;
 	private GUIStyle indicatorStyle;
+	public Material çavaetrefun;
 
 	public Texture2D eggImage;
 	public Texture2D indicatorImage;
@@ -57,7 +58,10 @@ public class UiFollow : MonoBehaviour {
 			return false;
 
 		GUI.backgroundColor = Color.Lerp(egg.fullLifeCol, egg.lowLifeCol,1-(egg.life/egg.maxLife));
-		GUI.Box(new Rect(screenPosition.x-20,screenPosition.y-60,40*scaleEgg,40*scaleEgg),"",eggStyle);
+		//GUI.Box(new Rect(screenPosition.x-20,screenPosition.y-60,40*scaleEgg,40*scaleEgg),"",eggStyle);
+		var tex = UsualFunction.MakeTex(50,50,Color.white);
+		//	Graphics.DrawTexture(new Rect(0,0,50,50),tex,çavaetrefun);
+		Graphics.DrawTexture(new Rect(screenPosition.x-20,screenPosition.y-60,40*scaleEgg,40*scaleEgg),tex,çavaetrefun);
 		return true;
 	}
 
@@ -68,6 +72,6 @@ public class UiFollow : MonoBehaviour {
 		decalPlayer = decalPlayer.normalized;
 
 		GUI.backgroundColor = Color.Lerp(egg.fullLifeCol, egg.lowLifeCol,1-(egg.life/egg.maxLife));
-		GUI.Box(new Rect((decalPlayer.x+1)/2*Screen.width-5,(decalPlayer.y+1)/2*Screen.height-5,10,10),"", indicatorStyle);
+		GUI.Box(new Rect((decalPlayer.x+1)/2*Screen.width-5,(decalPlayer.y+1)/2*Screen.height-5,20,20),"", indicatorStyle);
 	}
 }

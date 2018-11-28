@@ -76,6 +76,7 @@ public class PlayerController : LivingBeing {
     public float timeBetweenCols;
     internal bool isShooting;
     float fireTime;
+    float prevShootAxis;
     public float fireColSpeed;
     public Transform shootTarget;
     public float scrShakeTimer;
@@ -89,7 +90,8 @@ public class PlayerController : LivingBeing {
     bool canDodge = true;
     public float dodgeCooldown;
     
-    private Vector3 nestPosition;
+    [Header("Landing")]
+    public  Vector3 nestPosition;
 
     [Header("Placing Ancient")]
     public GameObject ancientProjection;
@@ -122,14 +124,29 @@ public class PlayerController : LivingBeing {
     public Transform toDropegg;
     GameManager gameMan;
     public GameObject placeholderFeedback;
-    Nest nestScript;
+    public Nest nestScript;
     public GameObject ancientPrefab;
     public GameObject aimProjector;
+    public MeshRenderer LifeQuad;
+
+    [Header("SFXPlayer")]
+    AudioSource[] AudioSources;
+    AudioSource WindflowSoundSource;
+    AudioSource AttackSoundSource;
+    AudioSource SFXSource;
+    public AudioClip DodgeClip;
+    public AudioClip SlowdownClip;
+    public AudioClip WindflowClip;
+    public AudioClip DragonHitClip;
+    public AudioClip DragonDeathClip;
 
     public override void Start()
     {
         base.Start();
-
+        AudioSources = GetComponents<AudioSource>();
+        WindflowSoundSource = AudioSources[0];
+        AttackSoundSource = AudioSources[1];
+        SFXSource = AudioSources[2];
         stamina = maxStamina;
         sprintTime = sprintCooldown;
         slowTime = slowCooldown;
@@ -141,7 +158,7 @@ public class PlayerController : LivingBeing {
         //Storing the joystick inputs
         hinput = Input.GetAxis("Horizontal");
         vinput = Input.GetAxis("Vertical");
-
+        WindflowSoundSource.volume = speed/sprintSpeed;
         switch (playerState)
         {
             case PlayerStates.FLYING:
@@ -172,7 +189,10 @@ public class PlayerController : LivingBeing {
         base.Update();
 
         if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            gameMan.vibrationMan.StopVibrating(playerIndex);
             Application.Quit();
+        }
 
         RegenStamina();
 
@@ -202,30 +222,6 @@ public class PlayerController : LivingBeing {
         timeOutOfSlow -= Time.deltaTime;
 
         UpdateStaminaUI();
-    }
-
-    private void OnTriggerEnter(Collider colNest)
-    {
-        if (colNest.gameObject.tag == "Nest")
-        {
-            nestScript = colNest.gameObject.GetComponent<Nest>();
-            if (nestScript.content == null)
-            {
-                nestScript.active = true;
-                nestPosition = colNest.transform.position;
-                canLand = true;
-            }
-        }
-    }
-
-    private void OnTriggerExit(Collider colNest)
-    {
-        if (colNest.gameObject.tag == "Nest")
-        {
-            nestScript = colNest.gameObject.GetComponent<Nest>();
-            nestScript.active = false;
-            canLand = false;
-        }
     }
 
     //Actions
@@ -271,8 +267,9 @@ public class PlayerController : LivingBeing {
     void Shoot()
     {
         //Begin shooting
-        if (Input.GetButtonDown(inputShoot))
+        if (Input.GetButtonDown(inputShoot) || (prevShootAxis < .1f && Input.GetAxis(inputShootAlt) >= .1f))
         {
+            AttackSoundSource.Play();
             firePartSys.Play();
             isShooting = true;
             fireTime = 0;
@@ -295,8 +292,9 @@ public class PlayerController : LivingBeing {
         }
 
         //End shooting
-        if (Input.GetButtonUp(inputShoot))
+        if (Input.GetButtonUp(inputShoot) || (prevShootAxis > .1f && Input.GetAxis(inputShootAlt) <= .1f))
         {
+            AttackSoundSource.Stop();
             StopShooting();
         }
 
@@ -313,18 +311,22 @@ public class PlayerController : LivingBeing {
                 fireTime += Time.deltaTime;
         }
 
+        prevShootAxis = Input.GetAxis(inputShootAlt);
     }
 
     void Dodge()
     {
-        if ((Input.GetButtonDown(inputDodge) || Input.GetAxis(inputDodgeAlt) > .1f) && canDodge)
-            dodgeCor = StartCoroutine(IDodge());
+        if ((Input.GetButtonDown(inputDodge) || Input.GetAxis(inputDodgeAlt) > .1f) && canDodge) { 
+        SFXSource.PlayOneShot(DodgeClip, 0.5f);
+        dodgeCor = StartCoroutine(IDodge());
+        }
     }
 
     void SlowDown()
     {
-        if (Input.GetButtonDown(inputSlowDown))
+        if (Input.GetButtonDown(inputSlowDown)){
             timeOutOfSlow = 0;
+        }
 
         if (Input.GetButton(inputSlowDown) && stamina > 0 && slowTime >= slowCooldown)
         {
@@ -362,6 +364,7 @@ public class PlayerController : LivingBeing {
 
     void StopShooting()
     {
+        AttackSoundSource.Stop();
         firePartSys.Stop();
         isShooting = false;
         foreach (BabyDragonBehaviour babyDragon in babyDragonMan.babyDragons)
@@ -414,7 +417,7 @@ public class PlayerController : LivingBeing {
 
     public void UpdateStaminaUI()
     {
-        staminaBar.value = stamina / maxStamina;
+        LifeQuad.material.SetFloat ("_Stamina", stamina / maxStamina);
     }
 
     void UseStamina(float _cost)
@@ -450,6 +453,7 @@ public class PlayerController : LivingBeing {
 
     public override void Die()
     {
+        SFXSource.PlayOneShot(DragonDeathClip, 1);
         base.Die();
 
         if (babyDragonMan.babyDragons.Count > 0)
@@ -469,7 +473,11 @@ public class PlayerController : LivingBeing {
 
     public override void UpdateHealthUI(int _damage)
     {
+        SFXSource.PlayOneShot(DragonHitClip, 0.2f);
         base.UpdateHealthUI(_damage);
+        LifeQuad.material.SetFloat ("_Life", life / maxLife);
+
+        /*
 
         if (gameMan.vignetteMan.CurrentPreset != gameMan.vignetteMan.hurtVignette)
             gameMan.vignetteMan.ChangeVignette(gameMan.vignetteMan.hurtVignette);
@@ -479,6 +487,7 @@ public class PlayerController : LivingBeing {
             //print(toSwitchAfterDecay.name);
             gameMan.vignetteMan.IncrementSmoothness(gameMan.vignetteMan.hurtVignette, _damage * vignetteFactor, toSwitchAfterDecay);
         }
+         */
     }
 
     public override void ResetHealthUI(float _timeToRegen)
@@ -522,16 +531,11 @@ public class PlayerController : LivingBeing {
     IEnumerator ILayEgg()
     {
         StopShooting();
-        //anim.SetTrigger("land");
-
-        //yield return new WaitForSeconds(0.5f);
         playerState = PlayerStates.LAYING_EGG;
 
         yield return new WaitForSeconds(1.0f);
-        GameObject instanceEgg;
-        instanceEgg = Instantiate(egg, new Vector3(nestPosition.x, nestPosition.y + 0.5f, nestPosition.z), Quaternion.identity) as GameObject;
-        nestScript.content = instanceEgg;
-        gameMan.spawnMan.targets.Add(instanceEgg.transform);
+        var instanceEgg = nestScript.Action();
+        gameMan.spawnMan.targets.Add(instanceEgg);
 
         yield return new WaitForSeconds(0.5f);
         playerState = PlayerStates.FLYING;

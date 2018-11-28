@@ -68,7 +68,6 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
             state = ArcherGroupState.FLEEING_INDIVIDUALLY;
             if (EventOnStateChanged != null)
                 EventOnStateChanged(state);
-
             Die();
         }
     }

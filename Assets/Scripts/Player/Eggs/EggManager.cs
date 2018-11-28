@@ -15,6 +15,7 @@ public class EggManager : MonoBehaviour {
 	public Color eggColor;
 	[System.NonSerialized]
 	public Color startEggColor;
+	public GameObject eggGlow;
 
 	// Use this for initialization
 	void Start () {
@@ -31,10 +32,12 @@ public class EggManager : MonoBehaviour {
 	{
 		if(eggSlider.fillAmount<1 && playerController.playerState == PlayerStates.FLYING)
 		{
+			if(eggGlow.activeInHierarchy) eggGlow.SetActive(false);
 			eggSlider.fillAmount += Time.deltaTime/eggTimefactor;
 		}
 		if(eggSlider.fillAmount>=1)
 		{
+			eggGlow.SetActive(true);
 			eggSlider.color = eggColor;
 		}
 	}

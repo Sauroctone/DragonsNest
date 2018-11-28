@@ -76,6 +76,7 @@ public class PlayerController : LivingBeing {
     public float timeBetweenCols;
     internal bool isShooting;
     float fireTime;
+    float prevShootAxis;
     public float fireColSpeed;
     public Transform shootTarget;
     public float scrShakeTimer;
@@ -188,7 +189,10 @@ public class PlayerController : LivingBeing {
         base.Update();
 
         if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            gameMan.vibrationMan.StopVibrating(playerIndex);
             Application.Quit();
+        }
 
         RegenStamina();
 
@@ -263,7 +267,7 @@ public class PlayerController : LivingBeing {
     void Shoot()
     {
         //Begin shooting
-        if (Input.GetButtonDown(inputShoot))
+        if (Input.GetButtonDown(inputShoot) || (prevShootAxis < .1f && Input.GetAxis(inputShootAlt) >= .1f))
         {
             AttackSoundSource.Play();
             firePartSys.Play();
@@ -288,7 +292,7 @@ public class PlayerController : LivingBeing {
         }
 
         //End shooting
-        if (Input.GetButtonUp(inputShoot))
+        if (Input.GetButtonUp(inputShoot) || (prevShootAxis > .1f && Input.GetAxis(inputShootAlt) <= .1f))
         {
             AttackSoundSource.Stop();
             StopShooting();
@@ -307,6 +311,7 @@ public class PlayerController : LivingBeing {
                 fireTime += Time.deltaTime;
         }
 
+        prevShootAxis = Input.GetAxis(inputShootAlt);
     }
 
     void Dodge()

@@ -335,7 +335,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4370150814216058}
-  - component: {fileID: 114308203408123000}
+  - component: {fileID: 33750580124404136}
+  - component: {fileID: 23472892255913314}
   m_Layer: 10
   m_Name: AncientProjection
   m_TagString: Untagged
@@ -671,7 +672,42 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 5fed1f69d2177664ab70b28da9aff605, type: 2}
+  - {fileID: 2100000, guid: fe8988f16c1eaf247bf49f6120a817f9, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!23 &23472892255913314
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1904360204379382}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -741,7 +777,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 5fed1f69d2177664ab70b28da9aff605, type: 2}
+  - {fileID: 2100000, guid: fe8988f16c1eaf247bf49f6120a817f9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -776,7 +812,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 5fed1f69d2177664ab70b28da9aff605, type: 2}
+  - {fileID: 2100000, guid: fe8988f16c1eaf247bf49f6120a817f9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -846,7 +882,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 5fed1f69d2177664ab70b28da9aff605, type: 2}
+  - {fileID: 2100000, guid: fe8988f16c1eaf247bf49f6120a817f9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -908,6 +944,13 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1299135654552388}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &33750580124404136
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1904360204379382}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!54 &54845440365208266
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -1416,25 +1459,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &114308203408123000
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1904360204379382}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 696bf1548b45ffd44a527918475a9ec3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  availableMat: {fileID: 2100000, guid: 5fed1f69d2177664ab70b28da9aff605, type: 2}
-  notAvailableMat: {fileID: 2100000, guid: 26447e5de2b4a9149baae808a6deac69, type: 2}
-  rends:
-  - {fileID: 23059018912299366}
-  - {fileID: 23610042936127460}
-  - {fileID: 23639949403001304}
-  - {fileID: 23544848885221660}
-  rangeOutline: {fileID: 114881322718112344}
 --- !u!114 &114388813204884902
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1462,7 +1486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16dd3b58c87cb624287e455f9be44e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eggTimefactor: 5
+  eggTimefactor: 10
   playerController: {fileID: 114865201573251416}
   eggSlider: {fileID: 0}
   eggColor: {r: 0.13510147, g: 0.30539763, b: 0.8679245, a: 1}
@@ -1525,9 +1549,11 @@ MonoBehaviour:
   dodgeTime: 0.2
   dodgeCooldown: 0.7
   nestPosition: {x: -1.800003, y: 0, z: 1.300003}
-  ancientProjection: {fileID: 114308203408123000}
-  isInNestRange: 0
+  ancientProjection: {fileID: 1904360204379382}
   playerIndex: 0
+  fireVibrationDebug: 1
+  leftFireContinuous: 0.1
+  rightFireContinuous: 0.2
   fireBurstVibrateTime: 0.15
   leftFireBurst: 0.3
   rightFireBurst: 0.75
@@ -1551,11 +1577,6 @@ MonoBehaviour:
     type: 2}
   aimProjector: {fileID: 1347389923306304}
   LifeQuad: {fileID: 23620016657224918}
-  DodgeClip: {fileID: 0}
-  SlowdownClip: {fileID: 0}
-  WindflowClip: {fileID: 0}
-  DragonHitClip: {fileID: 0}
-  DragonDeathClip: {fileID: 0}
 --- !u!114 &114881322718112344
 MonoBehaviour:
   m_ObjectHideFlags: 1

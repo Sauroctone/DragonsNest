@@ -7,6 +7,8 @@ public enum PlayerStates { FLYING, DODGING, LAYING_EGG, AIMING_ANCIENT, LANDING_
 
 public class PlayerController : LivingBeing {
 
+    private float lifesShader;
+    private float lifeFeedBackAmount;
     public float vignetteFactor;
 
     [HideInInspector]
@@ -147,6 +149,9 @@ public class PlayerController : LivingBeing {
         WindflowSoundSource = AudioSources[0];
         AttackSoundSource = AudioSources[1];
         SFXSource = AudioSources[2];
+
+        //LifeQuad.material.shader = Shader.Find ("LifeEnergyShader");
+        lifeFeedBackAmount = lifesShader = 1;
         stamina = maxStamina;
         sprintTime = sprintCooldown;
         slowTime = slowCooldown;
@@ -473,11 +478,32 @@ public class PlayerController : LivingBeing {
 
     public override void UpdateHealthUI(int _damage)
     {
+        LifeQuad.material.SetFloat ("_Life", lifesShader);
         SFXSource.PlayOneShot(DragonHitClip, 0.2f);
         base.UpdateHealthUI(_damage);
         LifeQuad.material.SetFloat ("_Life", life / maxLife);
 
-        /*
+        if (regenCor != null)
+            StopCoroutine(regenCor);
+
+        timeSinceLastDamage = 0;
+        
+        lostLifeBeforeDecay += _damage;
+        LifeQuad.material.SetFloat ("_LifeBeforeDecay", lostLifeBeforeDecay);
+
+        if (lifesShader == lifeFeedBackAmount || feedbackIsDecaying)
+        {
+            if (feedbackIsDecaying)
+            {
+                lifeFeedBackAmount = lifesShader;
+                LifeQuad.material.SetFloat ("_LifeFeedbackAmount", lifeFeedBackAmount);
+                feedbackIsDecaying = false;
+            }
+            if (feedbackCor != null)
+                StopCoroutine(feedbackCor);
+            feedbackCor = StartCoroutine(IHealthBarFeedback());
+        }
+        lifesShader = life/maxLife;
 
         if (gameMan.vignetteMan.CurrentPreset != gameMan.vignetteMan.hurtVignette)
             gameMan.vignetteMan.ChangeVignette(gameMan.vignetteMan.hurtVignette);
@@ -487,7 +513,7 @@ public class PlayerController : LivingBeing {
             //print(toSwitchAfterDecay.name);
             gameMan.vignetteMan.IncrementSmoothness(gameMan.vignetteMan.hurtVignette, _damage * vignetteFactor, toSwitchAfterDecay);
         }
-         */
+         
     }
 
     public override void ResetHealthUI(float _timeToRegen)
@@ -497,6 +523,32 @@ public class PlayerController : LivingBeing {
         gameMan.vignetteMan.ChangeVignette(gameMan.vignetteMan.basicVignette);
     }
    
+    
+    public override IEnumerator IHealthBarFeedback()
+    {
+        LifeQuad.material.SetFloat ("_DisplayLife", 1);        
+        while (timeSinceLastDamage < timeToUpdateFeedbackBar)
+        {
+            timeSinceLastDamage += Time.deltaTime;
+            yield return null;
+        }
+        lostLifeBeforeDecay = 0;
+        float decayingTime = 0;
+        feedbackIsDecaying = true;
+        while (decayingTime < feedbackDecayTime)
+        {
+            decayingTime += Time.deltaTime;
+            lifeFeedBackAmount = Mathf.Lerp(lifeFeedBackAmount, life / maxLife, decayingTime / feedbackDecayTime); 
+            // Debug.Log(lifeFeedBackAmount);
+            LifeQuad.material.SetFloat ("_LifeFeedbackAmount", lifeFeedBackAmount);
+
+            yield return null;
+        }
+        LifeQuad.material.SetFloat ("_DisplayLife", 0);        
+        feedbackIsDecaying = false;
+    }
+
+
     //Coroutines
 
     IEnumerator IDodge()

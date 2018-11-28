@@ -14,12 +14,16 @@ public class ArcherBehaviour : LivingBeing {
     public float aimRotLerp;
     public float moveRotLerp;
 
+    [Header("Flight")]
+    public float flightSpeed;
+
     [HideInInspector]
     public Vector3 aimDir;
 
     Vector3 destination;
     Vector2 randomPoint;
     Vector3 originPos;
+    Vector3 viewPos;
     public ArcherGroupBehaviour group;
     ArcherGroupState groupState;
     public Transform debugIntercept;
@@ -52,7 +56,7 @@ public class ArcherBehaviour : LivingBeing {
                 break;
 
             case ArcherGroupState.FLEEING_INDIVIDUALLY:
-                Flee();
+                DieOutOfView();
                 break;
         }
     }
@@ -79,30 +83,41 @@ public class ArcherBehaviour : LivingBeing {
                 break;
 
             case ArcherGroupState.FLEEING_INDIVIDUALLY:
-                //LeaveGroup(); 
-                Die();
+                LeaveGroup(); 
                 break;
         }
     }
 
     void LeaveGroup()
     {
-        navAgent.enabled = true;
+        if (navAgent != null)
+        {
+            navAgent.enabled = true;
+            navAgent.speed = flightSpeed;
+        }
         transform.parent = null;
 
-        //Vector3 destination = ;
+        float rangeX = Random.Range(-1, 1);
+        float rangeZ = Random.Range(-1, 1);
+        rangeX = Mathf.Clamp(rangeX, 0.5f * Mathf.Sign(rangeX), 1f * Mathf.Sign(rangeX));
+        rangeZ = Mathf.Clamp(rangeZ, 0.5f * Mathf.Sign(rangeZ), 1f * Mathf.Sign(rangeZ));
+
+        Vector3 flightPos = GameManager.Instance.player.transform.position + new Vector3 (rangeX, 0f, rangeZ) * 50f;
+
         NavMeshHit hit;
-        if (NavMesh.SamplePosition(destination, out hit, 100f, NavMesh.AllAreas))
-            navAgent.destination = hit.position; 
+        if (NavMesh.SamplePosition(flightPos, out hit, 100f, NavMesh.AllAreas))
+        {
+            if (navAgent != null)
+                navAgent.SetDestination(hit.position);
+            //debugSphere.position = targetPosOnNav;
+        }
     }
 
-    void Flee()
+    void DieOutOfView()
     {
-        Vector3 viewPos = GameManager.Instance.mainCamera.WorldToViewportPoint(transform.position);
+        viewPos = GameManager.Instance.mainCamera.WorldToViewportPoint(transform.position);
         if (viewPos.x > 1 || viewPos.x < 0 || viewPos.y > 1 || viewPos.y < 0)
             Die();
-
-
     }
 
     IEnumerator IAimAndShoot()
@@ -126,7 +141,7 @@ public class ArcherBehaviour : LivingBeing {
             yield return null;
         }
 
-        if (currentTarget != null)
+        if (currentTarget != null && group != null)
         {
             Vector3 interceptPoint = FirstOrderIntercept(group.transform.position, Vector3.zero, group.arrowSpeed, targetPosition, currentTarget == group.player ? group.playerRb.velocity : Vector3.zero);
             aimDir = (interceptPoint - group.transform.position).normalized;
@@ -147,7 +162,6 @@ public class ArcherBehaviour : LivingBeing {
         if (group != null)
             group.archers.Remove(this);
 
-        //navAgent.enabled = false;
         Destroy(gameObject);
     }
 

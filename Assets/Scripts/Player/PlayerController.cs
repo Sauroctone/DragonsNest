@@ -94,17 +94,16 @@ public class PlayerController : LivingBeing {
     public  Vector3 nestPosition;
 
     [Header("Placing Ancient")]
-    public GameObject ancientProjection;
+    public AncientFeedback ancientProjection;
+    bool canBePlaced;
+    public bool isInNestRange;
+    bool isOnNavMesh;
 
     [System.NonSerialized]
     public bool canLand;
 
     [Header("Vibration")]
     public int playerIndex = 0;
-    public enum FireVibrationDebug { Continous, Burst};
-    public FireVibrationDebug fireVibrationDebug;
-    public float leftFireContinuous;
-    public float rightFireContinuous;
     public float fireBurstVibrateTime;
     public float leftFireBurst;
     public float rightFireBurst;
@@ -200,7 +199,7 @@ public class PlayerController : LivingBeing {
         {
             case PlayerStates.FLYING:
                 Shoot();
-                Dodge();
+                //Dodge();
                 Sprint();
                 SlowDown();
                 LayEgg();
@@ -210,7 +209,7 @@ public class PlayerController : LivingBeing {
             case PlayerStates.AIMING_ANCIENT:
                 //Canceling actions
                 Shoot();
-                Dodge();
+                //Dodge();
                 LayEgg();
 
                 Sprint();
@@ -279,15 +278,7 @@ public class PlayerController : LivingBeing {
                 babyDragon.Shoot(shootTarget, rb);
             }
 
-            switch (fireVibrationDebug)
-            {
-                case FireVibrationDebug.Continous:
-                    gameMan.vibrationMan.StartVibrating(playerIndex, leftFireContinuous, rightFireContinuous);
-                    break;
-                case FireVibrationDebug.Burst:
-                    gameMan.vibrationMan.VibrateFor(fireBurstVibrateTime, playerIndex, leftFireBurst, rightFireBurst);
-                    break;
-            }
+            gameMan.vibrationMan.VibrateFor(fireBurstVibrateTime, playerIndex, leftFireBurst, rightFireBurst);
 
         }
 
@@ -371,14 +362,11 @@ public class PlayerController : LivingBeing {
         {
             babyDragon.StopShooting();
         }
-
-        if (fireVibrationDebug == FireVibrationDebug.Continous)
-            gameMan.vibrationMan.StopVibrating(playerIndex);
     }
 
     void LayEgg()
     {
-        if (Input.GetButtonDown(inputInteract) && canLand && eggMan.eggSlider.fillAmount >= 1)
+        if (Input.GetButtonDown(inputInteract) && canLand)
         {
             eggMan.eggSlider.fillAmount = 0;
             eggMan.eggSlider.color = eggMan.startEggColor;
@@ -388,26 +376,39 @@ public class PlayerController : LivingBeing {
     
     void PlaceAncient()
     {
-        if (ancientProjection.activeSelf)
+        if (ancientProjection.gameObject.activeSelf)
         {
             if (Input.GetButtonDown(inputPlaceAncient) || isShooting || playerState != PlayerStates.AIMING_ANCIENT)
             {
                 if (playerState == PlayerStates.AIMING_ANCIENT)
                     playerState = PlayerStates.FLYING;
-                ancientProjection.SetActive(false);
+                ancientProjection.gameObject.SetActive(false);
                 return;
             }
 
-            if (Input.GetButtonDown(inputInteract))
+            canBePlaced = !isInNestRange; //and isOnNavMesh
+
+            if (canBePlaced)
             {
-                ancientProjection.SetActive(false);
-                StartCoroutine(ILandForAncient());
+                if (!ancientProjection.isAvailable)
+                    ancientProjection.ChangeMat(ancientProjection.availableMat, true);
+
+                if (Input.GetButtonDown(inputInteract))
+                {
+                    ancientProjection.gameObject.SetActive(false);
+                    StartCoroutine(ILandForAncient());
+                }
+            }
+            else
+            {
+                if (ancientProjection.isAvailable)
+                    ancientProjection.ChangeMat(ancientProjection.notAvailableMat, false);
             }
         }
         else if (Input.GetButtonDown(inputPlaceAncient) && gameMan.babyDragonMan.babyDragons.Count > 0)
         {
             StopShooting();
-            ancientProjection.SetActive(true);
+            ancientProjection.gameObject.SetActive(true);
             aimProjector.SetActive(false);
             playerState = PlayerStates.AIMING_ANCIENT;
         }

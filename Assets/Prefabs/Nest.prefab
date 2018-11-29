@@ -80,7 +80,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4107015493121140
 Transform:
   m_ObjectHideFlags: 1
@@ -264,9 +264,9 @@ MonoBehaviour:
   eggLifeMaxColor: {r: 0.21529883, g: 0.8962264, b: 0, a: 1}
   eggLowLifeColor: {r: 0.8980392, g: 0, b: 0.13360417, a: 1}
   eggBAckgroundColor: {r: 0, g: 0, b: 0, a: 1}
+  circleShader: {fileID: 2100000, guid: 02c0b92be3abd574f8f8590e713a2004, type: 2}
   circleColor: {r: 0.93044674, g: 0.9716981, b: 0.9618199, a: 1}
   circleBAckgroundColor: {r: 0, g: 0, b: 0, a: 1}
-  circleShader: {fileID: 2100000, guid: 02c0b92be3abd574f8f8590e713a2004, type: 2}
   eggImage: {fileID: 2800000, guid: d22a5ac92977ce04ea8a3c157ce9ca77, type: 3}
   indicatorImage: {fileID: 2800000, guid: d22a5ac92977ce04ea8a3c157ce9ca77, type: 3}
 --- !u!114 &114939581743000406

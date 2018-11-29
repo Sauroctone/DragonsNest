@@ -34,7 +34,7 @@ public class Egg : LivingBeing {
     {
         base.Update();
 		//LifeUpdate();
-		ParticleUpdate();
+		//ParticleUpdate();
 		HatchUpdate();
 	}
 
@@ -68,7 +68,7 @@ public class Egg : LivingBeing {
 
     public override void UpdateHealthUI(int _damage)
     {
-        material.color = new Color(1 - life/maxLife, life/maxLife, 0, 1);
+        //material.color = new Color(1 - life/maxLife, life/maxLife, 0, 1);
     }
 	
     public override void Die()

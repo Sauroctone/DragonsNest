@@ -9,12 +9,15 @@ public class Nest : MonoBehaviour
     //public PlayerController playerController;
     private MeshRenderer nestRend;
     public bool active = false;
-    public GameObject content;
     //public bool getSomething = false;
 
     [Header("Materials")]
     public Material notActiveMat;
     public Material activeMat;
+    
+    [Header("References")]
+    public Egg eggs;
+	public PlayerController playerController;
 
     private void Start()
     {
@@ -38,11 +41,44 @@ public class Nest : MonoBehaviour
             }
         }
     }
-    /*public void OnTriggerEnter(Collider col)
+
+	public void OnTriggerEnter(Collider col)
 	{
-		if(col.gameObject.tag == "Dragon")// && //!playerController.canLand
-		{
-			//playerController.canLand = true;
+        //Debug.Log("enter");
+		if(col.gameObject.tag == "Dragon")
+		{   
+            active = true;
+            if (eggs.canBeADrone)
+            {
+                eggs.Hatch();
+            }
+            if(!playerController.canLand)
+            {
+                playerController.canLand = true;
+                playerController.nestScript = this;
+                playerController.nestPosition = transform.position;
+            }
 		}
-	}*/
+	}
+
+	public void OnTriggerExit(Collider col)
+	{
+		if(col.gameObject.tag == "Dragon" && playerController.canLand)
+		{
+            active = false;
+			playerController.canLand = false;
+			playerController.nestScript = null;
+		}
+	}
+
+	public Transform Action()
+	{
+		if(eggs.gameObject.activeInHierarchy==false)
+		{
+			eggs.Start();
+			eggs.gameObject.SetActive(true);
+            return eggs.transform;
+		}
+        return null;
+	}
 }

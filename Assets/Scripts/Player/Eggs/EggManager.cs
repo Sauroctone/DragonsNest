@@ -11,11 +11,15 @@ public class EggManager : MonoBehaviour {
 
 	[Header("Refereces")]
 	public PlayerController playerController;
-	public Slider eggSlider;
+	public Image eggSlider;
+	public Color eggColor;
+	[System.NonSerialized]
+	public Color startEggColor;
+	public GameObject eggGlow;
 
 	// Use this for initialization
 	void Start () {
-		
+		startEggColor = eggSlider.color;
 	}
 	
 	// Update is called once per frame
@@ -26,9 +30,15 @@ public class EggManager : MonoBehaviour {
 
 	void UpdateEggByTime ()
 	{
-		if(eggSlider.value<1 && playerController.playerState == PlayerStates.FLYING)
+		if(eggSlider.fillAmount<1 && playerController.playerState == PlayerStates.FLYING)
 		{
-			eggSlider.value += Time.deltaTime/eggTimefactor;
+			if(eggGlow.activeInHierarchy) eggGlow.SetActive(false);
+			eggSlider.fillAmount += Time.deltaTime/eggTimefactor;
+		}
+		if(eggSlider.fillAmount>=1)
+		{
+			eggGlow.SetActive(true);
+			eggSlider.color = eggColor;
 		}
 	}
 }

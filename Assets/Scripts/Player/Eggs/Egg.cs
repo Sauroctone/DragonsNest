@@ -6,6 +6,8 @@ public class Egg : LivingBeing {
 	
 	//[Range(0.0f,1.0f)]
 	//public float life = 1.0f;
+
+	[Header("Hatch's Variables")]
 	public float hatchingTimeMax = 30.0f;
 	public float hatchingTime = 0.0f;
 
@@ -13,6 +15,10 @@ public class Egg : LivingBeing {
 	private Material material;
 	public ParticleSystem particle;
     public GameObject pickupCol;
+	public bool canBeADrone;
+
+	public Color fullLifeCol = Color.green;
+	public Color lowLifeCol = Color.red;
     SpawnManager spawnMan;
    
 	public override void Start ()
@@ -20,13 +26,15 @@ public class Egg : LivingBeing {
         base.Start();
 
         material = rend.material;
+		canBeADrone = false;
         spawnMan = GameManager.Instance.spawnMan;
 	}
 	
-	void Update ()
+	public override void Update ()
     {
+        base.Update();
 		//LifeUpdate();
-		ParticleUpdate();
+		//ParticleUpdate();
 		HatchUpdate();
 	}
 
@@ -34,25 +42,14 @@ public class Egg : LivingBeing {
 	{
 		if (hatchingTime >= hatchingTimeMax)
 		{
-            //TransformTurret();
             pickupCol.SetActive(true);
+			canBeADrone = true;
 		}
 		else
 		{
 			hatchingTime += Time.deltaTime;
 		}
 	}
-
-	//void TransformTurret()
-	//{
-	//	turret.SetActive(true);
-	//	this.gameObject.SetActive(false);
-	//}
-
-    //void LifeUpdate ()
-    //{
-    //	material.color = new Color (1-life,life,0,1);
-    //}
 
     void ParticleUpdate()
 	{
@@ -62,22 +59,23 @@ public class Egg : LivingBeing {
 
     public void Hatch()
     {
-        spawnMan.eggs.Remove(transform);
-        Destroy(gameObject);
+        spawnMan.targets.Remove(transform);        
+		gameObject.SetActive(false);
+
     }
 
     // Overrides
 
     public override void UpdateHealthUI(int _damage)
     {
-        material.color = new Color(1 - life/maxLife, life/maxLife, 0, 1);
+        //material.color = new Color(1 - life/maxLife, life/maxLife, 0, 1);
     }
-
+	
     public override void Die()
     {
         base.Die();
 
-        spawnMan.eggs.Remove(transform);
-        Destroy(gameObject);
+        spawnMan.targets.Remove(transform);
+        gameObject.SetActive(false);
     }
 }

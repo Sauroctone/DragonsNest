@@ -6,36 +6,44 @@ using UnityEngine.UI;
 public class LivingBeing : MonoBehaviour {
 
     [Header("Life")]
-	public float maxLife = 100;
-    public float life = 100;
+    public float maxLife = 100;
+    public float life;
     [HideInInspector]
     public float lostLifeBeforeDecay;
-    float timeSinceLastDamage;
+    internal float timeSinceLastDamage;
     bool isAlive = true;
+    bool burntThisFrame;
 
     //Conditional hiiiide
     public float timeToUpdateFeedbackBar;
-    Coroutine feedbackCor;
+    internal Coroutine feedbackCor;
     public float feedbackDecayTime;
-    bool feedbackIsDecaying;
+    internal bool feedbackIsDecaying;
     public Image lifeBar;
     public Image lifeBarFeedback;
 
     bool isInvincible;
     Coroutine invincibleCor;
-    Coroutine regenCor;
-
+    internal Coroutine regenCor;
+#region virtual
 	public virtual void Start()
 	{
 		life = maxLife;
 	}
 
-	void OnTriggerStay(Collider col)
+	public virtual void OnTriggerStay(Collider col)
 	{
 		var proj = col.gameObject.GetComponent<Projectile>();
 
 		if (proj)
 		{
+            //One fire damage tick overall per frame - bool is flagged false in update
+            if (proj.isFire)
+                if (burntThisFrame)
+                    return;
+                else
+                    burntThisFrame = true;
+
 			UpdateLife(proj.firePower);
             
             //Change with the pool die 
@@ -44,6 +52,11 @@ public class LivingBeing : MonoBehaviour {
 		} 
 	}
 
+    public virtual void Update()
+    {
+        burntThisFrame = false;
+    }
+    
 	public virtual void UpdateLife(int damage) 
 	{	
         if (!isInvincible && isAlive)
@@ -57,7 +70,6 @@ public class LivingBeing : MonoBehaviour {
 			    life = 0;
 			    Die();
 		    }
-
         }
 	}
 
@@ -112,8 +124,8 @@ public class LivingBeing : MonoBehaviour {
             StopCoroutine(invincibleCor);
         invincibleCor = StartCoroutine(IInvulnerability(_time));
     }
-
-    IEnumerator IHealthBarFeedback()
+#endregion
+    internal virtual IEnumerator IHealthBarFeedback()
     {
         while (timeSinceLastDamage < timeToUpdateFeedbackBar)
         {
@@ -132,7 +144,7 @@ public class LivingBeing : MonoBehaviour {
         feedbackIsDecaying = false;
     }
 
-    IEnumerator IHealthBarRegen(float _timeToRegen)
+    internal virtual IEnumerator IHealthBarRegen(float _timeToRegen)
     {
         yield return new WaitForSeconds(1f);
 

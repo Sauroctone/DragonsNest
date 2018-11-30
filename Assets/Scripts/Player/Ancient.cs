@@ -82,7 +82,8 @@ public class Ancient : LivingBeing {
     public void RemoveAndChangeTarget(EnemyBehaviour targ)
     {
         targets.Remove(targ);
-        targ.ForgetAncient(transform);
+        if (targ != null)
+            targ.ForgetAncient(transform);
 
         if (targets.Count > 0)
         {

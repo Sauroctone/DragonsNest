@@ -11,7 +11,7 @@ public class LivingBeing : MonoBehaviour {
     [HideInInspector]
     public float lostLifeBeforeDecay;
     internal float timeSinceLastDamage;
-    bool isAlive = true;
+    public bool isAlive = true;
     bool burntThisFrame;
 
     //Conditional hiiiide
@@ -21,6 +21,8 @@ public class LivingBeing : MonoBehaviour {
     internal bool feedbackIsDecaying;
     public Image lifeBar;
     public Image lifeBarFeedback;
+    
+    public  ScoringObject scoringObject;
 
     bool isInvincible;
     Coroutine invincibleCor;

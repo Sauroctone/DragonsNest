@@ -28,6 +28,12 @@ public class EnemySpawner : LivingBeing
         StartCoroutine(ISpawnEnemy());
     }
 
+    public void Enable()
+    {
+        gameObject.SetActive(true);
+        ResetLife(0f);
+    }
+
     public override void UpdateHealthUI(int _damage)
     {
         lifeBar.rectTransform.localScale = Vector3.Lerp(new Vector3(minHealthbarScale, minHealthbarScale, minHealthbarScale), Vector3.one, life / maxLife);
@@ -36,8 +42,15 @@ public class EnemySpawner : LivingBeing
     public override void Die()
     {
         base.Die();
-        spawnMan.spawners.Remove(transform);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+    }
+
+    //Overrides
+
+    public override void ResetHealthUI(float _timeToRegen)
+    {
+        lifeBar.fillAmount = 1;
+        //FEEDBACK BAR 
     }
 
     //Coroutines

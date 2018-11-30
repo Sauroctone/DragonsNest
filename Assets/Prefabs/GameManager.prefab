@@ -87,6 +87,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  waveState: 0
+  waveTimer: 5
+  restTimer: 3
+  spawnerIncrement: 0.5
 --- !u!114 &114991777532292108
 MonoBehaviour:
   m_ObjectHideFlags: 1

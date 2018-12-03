@@ -19,7 +19,8 @@ public class GameManager : MonoBehaviour {
     public Terrain terrain;
     public TerrainData terrainData;
     
-    public int score;
+    [Header("Score")]  
+    public ScoreManager scoreManager;
     // public 
 
     private void Awake()

@@ -4,26 +4,12 @@ using UnityEngine;
 
 public class ScoringObject : MonoBehaviour {
 
-	public int scoreAmount;
-	internal int multiplicator;
-	public int comboAmount;
+	public int scoreAmount = 1;
+	
 
-
-
-	internal void SetMultiplicator()
-	{
-		multiplicator = 1;
-	}
-
-	internal void SetModifiyersAndApply()
-	{
-
-		SetMultiplicator();
-		SetScore();
-	}
 	internal void SetScore()
 	{
-		GameManager.Instance.score += scoreAmount*multiplicator; 
+		GameManager.Instance.scoreManager.score += scoreAmount + GameManager.Instance.scoreManager.comboAmount ; 
 	}
 
 }

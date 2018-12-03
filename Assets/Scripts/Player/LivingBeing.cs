@@ -122,7 +122,11 @@ public class LivingBeing : MonoBehaviour {
     {
         if (invincibleCor != null)
             StopCoroutine(invincibleCor);
-        invincibleCor = StartCoroutine(IInvulnerability(_time));
+
+        if (_time == -1)
+            isInvincible = true;
+        else
+            invincibleCor = StartCoroutine(IInvulnerability(_time));
     }
 #endregion
     internal virtual IEnumerator IHealthBarFeedback()

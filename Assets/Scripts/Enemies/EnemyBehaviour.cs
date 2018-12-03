@@ -71,7 +71,7 @@ public class EnemyBehaviour : MonoBehaviour {
 
     public void Die()
     {
-        spawnMan.enemies.Remove(this);
+        spawnMan.RemoveEnemyFromList(this);
         Destroy(gameObject);
     }
 }

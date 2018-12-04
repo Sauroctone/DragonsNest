@@ -151,7 +151,9 @@ MonoBehaviour:
   spawnPosition: {fileID: 4190825472060638}
   baseTimeToSpawn: 10
   minTimeToSpawn: 3
-  spawnTimeDecrement: 1
+  waveCountDecrement: 0
+  survivedCountDecrement: 0
   rend: {fileID: 23149973541106560}
   normalMat: {fileID: 2100000, guid: e18073d75861dcd42beee693b6405009, type: 2}
   invincibleMat: {fileID: 2100000, guid: 9cb855330aa988a478187a49d012296e, type: 2}
+  canvas: {fileID: 0}

@@ -45,8 +45,6 @@ public class Nest : MonoBehaviour
             if (egg.canBeADrone)
                 egg.Hatch();
 
-            player.isInNestRange = true;
-
             if(!egg.gameObject.activeSelf && player.eggMan.eggSlider.fillAmount >= 1)
             {
                 active = true;
@@ -61,7 +59,6 @@ public class Nest : MonoBehaviour
 	{
 		if(col.gameObject.tag == "Dragon")
 		{
-            player.isInNestRange = false;
             active = false;
 			player.canLand = false;
 			player.nestScript = null;

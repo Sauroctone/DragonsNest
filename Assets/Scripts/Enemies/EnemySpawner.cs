@@ -13,7 +13,8 @@ public class EnemySpawner : LivingBeing
     float timeBeforeSpawn;
     public float baseTimeToSpawn;
     public float minTimeToSpawn;
-    public float spawnTimeDecrement;
+    public float waveCountDecrement;
+    public float survivedCountDecrement;
     int wavesSurvived;
     SpawnManager spawnMan;
     Coroutine spawnCor;
@@ -48,7 +49,8 @@ public class EnemySpawner : LivingBeing
     {
         if (spawnCor != null)
             StopCoroutine(spawnCor);
-        wavesSurvived++;
+        if (!isOutOfMap)
+            wavesSurvived++;
         MakeInvincible(spawnMan.restTimer);
         ResetLife(0);
         if (canvas != null)
@@ -101,7 +103,8 @@ public class EnemySpawner : LivingBeing
         if (spawnMan.enemies.Count < spawnMan.maxEnemyCount)
             spawnMan.SpawnEnemy(enemyPrefab, spawnPosition.position);
 
-        timeBeforeSpawn = baseTimeToSpawn - spawnTimeDecrement * spawnMan.currentWave;
+        timeBeforeSpawn = baseTimeToSpawn - waveCountDecrement * spawnMan.currentWave;
+        timeBeforeSpawn -= survivedCountDecrement * wavesSurvived;
         if (timeBeforeSpawn < minTimeToSpawn)
             timeBeforeSpawn = minTimeToSpawn;
 

@@ -15,7 +15,6 @@ public class SpawnManager : MonoBehaviour {
     public WaveState waveState;
     public float waveTimer;
     public float restTimer;
-    [HideInInspector]
     public int currentWave;
     public float spawnerCountIncrement;
 

@@ -6,6 +6,7 @@ public class BabyDragonBehaviour : MonoBehaviour {
 
     public float flySpeed;
     public float maxWanderRadius;
+    public float rotLerp = 0.1f;
     Vector3 destination;
     Vector2 randomPoint;
     bool isShooting;
@@ -43,7 +44,6 @@ public class BabyDragonBehaviour : MonoBehaviour {
         }
 
         transform.localPosition += (destination - transform.localPosition).normalized * flySpeed * Time.deltaTime;
-
     }
 
     void CheckShoot()
@@ -63,7 +63,8 @@ public class BabyDragonBehaviour : MonoBehaviour {
         }
         else
         {
-            transform.LookAt(transform.position + transform.forward);
+            if (transform.localEulerAngles != Vector3.zero)
+                transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(0, 0, 0), rotLerp);
         }
     }
 

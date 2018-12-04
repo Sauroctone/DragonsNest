@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public enum PlayerStates { FLYING, DODGING, LAYING_EGG, AIMING_ANCIENT, LANDING_ANCIENT };
 
@@ -98,8 +99,7 @@ public class PlayerController : LivingBeing {
     [Header("Placing Ancient")]
     public AncientFeedback ancientProjection;
     bool canBePlaced;
-    public bool isInNestRange;
-    bool isOnNavMesh;
+    NavMeshHit navMeshHit;
 
     [System.NonSerialized]
     public bool canLand;
@@ -391,7 +391,7 @@ public class PlayerController : LivingBeing {
                 return;
             }
 
-            canBePlaced = !isInNestRange; //and isOnNavMesh
+            canBePlaced = NavMesh.SamplePosition(ancientProjection.transform.position, out navMeshHit, 1f, NavMesh.AllAreas);
 
             if (canBePlaced)
             {
@@ -401,7 +401,7 @@ public class PlayerController : LivingBeing {
                 if (Input.GetButtonDown(inputInteract))
                 {
                     ancientProjection.gameObject.SetActive(false);
-                    StartCoroutine(ILandForAncient());
+                    StartCoroutine(ILandForAncient(navMeshHit.position));
                 }
             }
             else
@@ -630,7 +630,7 @@ public class PlayerController : LivingBeing {
         }
     }
 
-    IEnumerator ILandForAncient()
+    IEnumerator ILandForAncient(Vector3 _hitPos)
     {
         StopShooting();
         MakeInvincible(4f);
@@ -644,7 +644,7 @@ public class PlayerController : LivingBeing {
         Instantiate(placeholderFeedback, babyDragonMan.babyDragons[0].transform.position, Quaternion.identity);
         Instantiate(placeholderFeedback, transform.position, Quaternion.identity);
 
-        GameObject ancient = Instantiate(ancientPrefab, ancientProjection.transform.position, Quaternion.identity);
+        GameObject ancient = Instantiate(ancientPrefab, _hitPos, Quaternion.identity);
         //gameMan.spawnMan.AddTargetToList(ancient.transform);
         babyDragonMan.RemoveBabyDragon();
 

@@ -16,6 +16,7 @@ public class EnemySpawner : LivingBeing
     public float waveCountDecrement;
     public float survivedCountDecrement;
     int wavesSurvived;
+    public GameObject[] survivalFeedbackObjects;
     SpawnManager spawnMan;
     Coroutine spawnCor;
     [Header("References")]
@@ -49,19 +50,44 @@ public class EnemySpawner : LivingBeing
     {
         if (spawnCor != null)
             StopCoroutine(spawnCor);
+
         if (!isOutOfMap)
-            wavesSurvived++;
+            LevelUp();
+
         MakeInvincible(spawnMan.restTimer);
         ResetLife(0);
         if (canvas != null)
             canvas.SetActive(false);
     }
 
+    void LevelUp()
+    {
+        if (survivalFeedbackObjects.Length > wavesSurvived+1)
+        {
+            survivalFeedbackObjects[wavesSurvived].SetActive(false);
+            wavesSurvived++;
+            survivalFeedbackObjects[wavesSurvived].SetActive(true);
+        }
+        else
+        {
+            wavesSurvived++;
+        }
+    }
+
+    void ResetLevel()
+    {
+        if (survivalFeedbackObjects.Length > wavesSurvived)
+            survivalFeedbackObjects[wavesSurvived].SetActive(false);
+        wavesSurvived = 0;
+        survivalFeedbackObjects[wavesSurvived].SetActive(true);
+    }
+
     public void Enable()
     {
         gameObject.SetActive(true);
         ResetLife(0f);
-        wavesSurvived = 0;
+        ResetLevel();
+
         if (spawnMan == null)
             spawnMan = GameManager.Instance.spawnMan;
     }

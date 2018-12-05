@@ -3716,6 +3716,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreAmount: 1
+  goldPS: {fileID: 198413967385631322, guid: a97814cfa764364499dd9097f31df34d, type: 2}
+  tinPS: {fileID: 198489115833832752, guid: 02eb85d95130c244aad451ddd77ddb9a, type: 2}
+  cooperPS: {fileID: 198631688984043044, guid: cf705d28b4175ed4b83b9c916cb695b0, type: 2}
 --- !u!114 &114068339375248776
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3728,6 +3731,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreAmount: 1
+  goldPS: {fileID: 198413967385631322, guid: a97814cfa764364499dd9097f31df34d, type: 2}
+  tinPS: {fileID: 198489115833832752, guid: 02eb85d95130c244aad451ddd77ddb9a, type: 2}
+  cooperPS: {fileID: 198631688984043044, guid: cf705d28b4175ed4b83b9c916cb695b0, type: 2}
 --- !u!114 &114075427604668554
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3783,6 +3789,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreAmount: 1
+  goldPS: {fileID: 198413967385631322, guid: a97814cfa764364499dd9097f31df34d, type: 2}
+  tinPS: {fileID: 198489115833832752, guid: 02eb85d95130c244aad451ddd77ddb9a, type: 2}
+  cooperPS: {fileID: 198631688984043044, guid: cf705d28b4175ed4b83b9c916cb695b0, type: 2}
 --- !u!114 &114098679819677742
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3837,6 +3846,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreAmount: 1
+  goldPS: {fileID: 198413967385631322, guid: a97814cfa764364499dd9097f31df34d, type: 2}
+  tinPS: {fileID: 198489115833832752, guid: 02eb85d95130c244aad451ddd77ddb9a, type: 2}
+  cooperPS: {fileID: 198631688984043044, guid: cf705d28b4175ed4b83b9c916cb695b0, type: 2}
 --- !u!114 &114116549811546326
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3942,6 +3954,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreAmount: 1
+  goldPS: {fileID: 198413967385631322, guid: a97814cfa764364499dd9097f31df34d, type: 2}
+  tinPS: {fileID: 198489115833832752, guid: 02eb85d95130c244aad451ddd77ddb9a, type: 2}
+  cooperPS: {fileID: 198631688984043044, guid: cf705d28b4175ed4b83b9c916cb695b0, type: 2}
 --- !u!114 &114182613698797770
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3954,6 +3969,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreAmount: 1
+  goldPS: {fileID: 198413967385631322, guid: a97814cfa764364499dd9097f31df34d, type: 2}
+  tinPS: {fileID: 198489115833832752, guid: 02eb85d95130c244aad451ddd77ddb9a, type: 2}
+  cooperPS: {fileID: 198631688984043044, guid: cf705d28b4175ed4b83b9c916cb695b0, type: 2}
 --- !u!114 &114232972902997438
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3966,6 +3984,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreAmount: 1
+  goldPS: {fileID: 198413967385631322, guid: a97814cfa764364499dd9097f31df34d, type: 2}
+  tinPS: {fileID: 198489115833832752, guid: 02eb85d95130c244aad451ddd77ddb9a, type: 2}
+  cooperPS: {fileID: 198631688984043044, guid: cf705d28b4175ed4b83b9c916cb695b0, type: 2}
 --- !u!114 &114238218024975908
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4009,6 +4030,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreAmount: 1
+  goldPS: {fileID: 198413967385631322, guid: a97814cfa764364499dd9097f31df34d, type: 2}
+  tinPS: {fileID: 198489115833832752, guid: 02eb85d95130c244aad451ddd77ddb9a, type: 2}
+  cooperPS: {fileID: 198631688984043044, guid: cf705d28b4175ed4b83b9c916cb695b0, type: 2}
 --- !u!114 &114312495043245848
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4052,6 +4076,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreAmount: 1
+  goldPS: {fileID: 198413967385631322, guid: a97814cfa764364499dd9097f31df34d, type: 2}
+  tinPS: {fileID: 198489115833832752, guid: 02eb85d95130c244aad451ddd77ddb9a, type: 2}
+  cooperPS: {fileID: 198631688984043044, guid: cf705d28b4175ed4b83b9c916cb695b0, type: 2}
 --- !u!114 &114356333354474058
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4064,6 +4091,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreAmount: 1
+  goldPS: {fileID: 198413967385631322, guid: a97814cfa764364499dd9097f31df34d, type: 2}
+  tinPS: {fileID: 198489115833832752, guid: 02eb85d95130c244aad451ddd77ddb9a, type: 2}
+  cooperPS: {fileID: 198631688984043044, guid: cf705d28b4175ed4b83b9c916cb695b0, type: 2}
 --- !u!114 &114374118747768802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4107,6 +4137,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreAmount: 1
+  goldPS: {fileID: 198413967385631322, guid: a97814cfa764364499dd9097f31df34d, type: 2}
+  tinPS: {fileID: 198489115833832752, guid: 02eb85d95130c244aad451ddd77ddb9a, type: 2}
+  cooperPS: {fileID: 198631688984043044, guid: cf705d28b4175ed4b83b9c916cb695b0, type: 2}
 --- !u!114 &114429825857632074
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4150,6 +4183,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreAmount: 1
+  goldPS: {fileID: 198413967385631322, guid: a97814cfa764364499dd9097f31df34d, type: 2}
+  tinPS: {fileID: 198489115833832752, guid: 02eb85d95130c244aad451ddd77ddb9a, type: 2}
+  cooperPS: {fileID: 198631688984043044, guid: cf705d28b4175ed4b83b9c916cb695b0, type: 2}
 --- !u!114 &114451181751582360
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4214,6 +4250,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreAmount: 1
+  goldPS: {fileID: 198413967385631322, guid: a97814cfa764364499dd9097f31df34d, type: 2}
+  tinPS: {fileID: 198489115833832752, guid: 02eb85d95130c244aad451ddd77ddb9a, type: 2}
+  cooperPS: {fileID: 198631688984043044, guid: cf705d28b4175ed4b83b9c916cb695b0, type: 2}
 --- !u!114 &114465535948504900
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4257,6 +4296,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreAmount: 1
+  goldPS: {fileID: 198413967385631322, guid: a97814cfa764364499dd9097f31df34d, type: 2}
+  tinPS: {fileID: 198489115833832752, guid: 02eb85d95130c244aad451ddd77ddb9a, type: 2}
+  cooperPS: {fileID: 198631688984043044, guid: cf705d28b4175ed4b83b9c916cb695b0, type: 2}
 --- !u!114 &114510014449680044
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4343,6 +4385,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreAmount: 1
+  goldPS: {fileID: 198413967385631322, guid: a97814cfa764364499dd9097f31df34d, type: 2}
+  tinPS: {fileID: 198489115833832752, guid: 02eb85d95130c244aad451ddd77ddb9a, type: 2}
+  cooperPS: {fileID: 198631688984043044, guid: cf705d28b4175ed4b83b9c916cb695b0, type: 2}
 --- !u!114 &114592103908259832
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4386,6 +4431,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreAmount: 1
+  goldPS: {fileID: 198413967385631322, guid: a97814cfa764364499dd9097f31df34d, type: 2}
+  tinPS: {fileID: 198489115833832752, guid: 02eb85d95130c244aad451ddd77ddb9a, type: 2}
+  cooperPS: {fileID: 198631688984043044, guid: cf705d28b4175ed4b83b9c916cb695b0, type: 2}
 --- !u!114 &114599850429678580
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4398,6 +4446,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreAmount: 1
+  goldPS: {fileID: 198413967385631322, guid: a97814cfa764364499dd9097f31df34d, type: 2}
+  tinPS: {fileID: 198489115833832752, guid: 02eb85d95130c244aad451ddd77ddb9a, type: 2}
+  cooperPS: {fileID: 198631688984043044, guid: cf705d28b4175ed4b83b9c916cb695b0, type: 2}
 --- !u!114 &114620016270077682
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4602,6 +4653,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreAmount: 1
+  goldPS: {fileID: 198413967385631322, guid: a97814cfa764364499dd9097f31df34d, type: 2}
+  tinPS: {fileID: 198489115833832752, guid: 02eb85d95130c244aad451ddd77ddb9a, type: 2}
+  cooperPS: {fileID: 198631688984043044, guid: cf705d28b4175ed4b83b9c916cb695b0, type: 2}
 --- !u!114 &114735001698466516
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4645,6 +4699,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreAmount: 1
+  goldPS: {fileID: 198413967385631322, guid: a97814cfa764364499dd9097f31df34d, type: 2}
+  tinPS: {fileID: 198489115833832752, guid: 02eb85d95130c244aad451ddd77ddb9a, type: 2}
+  cooperPS: {fileID: 198631688984043044, guid: cf705d28b4175ed4b83b9c916cb695b0, type: 2}
 --- !u!114 &114790795218559708
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4781,6 +4838,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreAmount: 1
+  goldPS: {fileID: 198413967385631322, guid: a97814cfa764364499dd9097f31df34d, type: 2}
+  tinPS: {fileID: 198489115833832752, guid: 02eb85d95130c244aad451ddd77ddb9a, type: 2}
+  cooperPS: {fileID: 198631688984043044, guid: cf705d28b4175ed4b83b9c916cb695b0, type: 2}
 --- !u!114 &114992437279536004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4793,6 +4853,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreAmount: 1
+  goldPS: {fileID: 198413967385631322, guid: a97814cfa764364499dd9097f31df34d, type: 2}
+  tinPS: {fileID: 198489115833832752, guid: 02eb85d95130c244aad451ddd77ddb9a, type: 2}
+  cooperPS: {fileID: 198631688984043044, guid: cf705d28b4175ed4b83b9c916cb695b0, type: 2}
 --- !u!136 &136076566216519432
 CapsuleCollider:
   m_ObjectHideFlags: 1

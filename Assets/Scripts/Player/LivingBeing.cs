@@ -103,6 +103,7 @@ public class LivingBeing : MonoBehaviour {
 	{
         if(scoringObject != null)
         {
+            scoringObject.SetParticle(Vector3.zero,365);
             scoringObject.SetScore();
         }
         isAlive = false;

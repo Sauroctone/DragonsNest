@@ -19,6 +19,10 @@ public class GameManager : MonoBehaviour {
     public Terrain terrain;
     public TerrainData terrainData;
     
+    [Header("Score")]  
+    public ScoreManager scoreManager;
+    // public 
+
     private void Awake()
     {
         if (Instance == null)

@@ -35,6 +35,7 @@ public class EnemySpawner : LivingBeing
 
     public override void Die()
     {
+        scoringObject.scoreAmount = 1;//wave j'ai pas encore la var
         base.Die();
         spawnMan.spawners.Remove(transform);
         Destroy(gameObject);

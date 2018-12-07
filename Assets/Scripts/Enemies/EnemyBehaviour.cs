@@ -1,16 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Collections;
+
+[System.Serializable]
+public class EnemyTarget
+{
+    public EnemyTargetType type;
+    public List<Transform> instancesInRange = new List<Transform>();
+}
 
 public class EnemyBehaviour : MonoBehaviour {
 
-    [Header("Player")]
-    public float distanceToAggroPlayer;
+    //  [Header("Player")]
+    //    public float distanceToAggroPlayer;
 
-    [HideInInspector]
+    [Header("Target Priority")]
     public Transform currentTarget;
-    List<Transform> ancientTargets = new List<Transform>();
-    
+    public EnemyTarget[] autoTargets;
+    public EnemyTarget[] overrideTargets;
+
     [Header("References")]
     [HideInInspector]
     public SpawnManager spawnMan;
@@ -21,52 +30,142 @@ public class EnemyBehaviour : MonoBehaviour {
 
     public virtual void Init()
     {
-        AskForNewTarget();
-    }
-
-    public virtual void AskForNewTarget()
-    {
-        currentTarget = spawnMan.GetNewTarget(transform.position);
+        GetNewTarget();
     }
 
     public virtual void Update()
     {
         //Get new target when it's dead
-        if (currentTarget == null)
-            AskForNewTarget();
-
-        //If no ancient is close : aggro player on proximity
-        if (ancientTargets.Count == 0)
-        { 
-            if (Vector3.Distance(transform.position, player.position) <= distanceToAggroPlayer)
-            {
-                if (currentTarget != player)
-                    currentTarget = player;
-            }
-            else
-            {
-                if (currentTarget == player && spawnMan.targets.Count > 0)
-                    currentTarget = null;
-            }
+        if (currentTarget == null && !WasTargetOverridden())
+        {
+            GetNewTarget();
         }
 
         //Debug.Log(currentTarget);
     }
 
-    public void AggroAncient(Transform _ancient)
+    public virtual void OnTriggerEnter(Collider col)
     {
-        ancientTargets.Add(_ancient);
-        currentTarget = ancientTargets[0];
+        Transform colTarget = null;
+        foreach (EnemyTarget target in overrideTargets)
+        {
+            switch (target.type)
+            {
+                case EnemyTargetType.ANCIENT:
+                    if (col.tag == "Ancient")
+                    {
+                        colTarget = col.transform;
+                        target.instancesInRange.Add(colTarget);
+                    }
+                    break;
+
+                case EnemyTargetType.EGG:
+                    if (col.tag == "Egg")
+                    {
+                        colTarget = col.transform;
+                        target.instancesInRange.Add(colTarget);
+                    }
+                    break;
+
+                case EnemyTargetType.PLAYER:
+                    if (col.tag == "Dragon")
+                    {
+                        colTarget = col.transform;
+                        target.instancesInRange.Add(col.transform);
+                    }
+                    break;
+            }
+            if (colTarget != null)
+                break;
+        }
+        WasTargetOverridden();
     }
 
-    public void ForgetAncient(Transform _ancient)
+    public virtual void OnTriggerExit(Collider col)
     {
-        ancientTargets.Remove(_ancient);
-
-        if (ancientTargets.Count > 0)
-            currentTarget = ancientTargets[0];
-        else
+        if (currentTarget == col.transform)
+        {
             currentTarget = null;
+        }
+        foreach (EnemyTarget target in overrideTargets)
+        {
+            if (target.instancesInRange.Contains(col.transform))
+            {
+                target.instancesInRange.Remove(col.transform);
+                break;
+            }
+        }
+        WasTargetOverridden();
+    }
+
+    public void GetNewTarget()
+    {
+        foreach (EnemyTarget target in autoTargets)
+        {
+            currentTarget = GetAutoTarget(target);
+            if (currentTarget != null)
+                break;
+        }
+    }
+
+    public Transform GetAutoTarget(EnemyTarget autoTarget)
+    {
+        if (autoTarget == null)
+            return null;
+        Transform target = null;
+
+        switch (autoTarget.type)
+        {            
+            case EnemyTargetType.PLAYER:
+                return player;
+
+            case EnemyTargetType.ANCIENT:
+
+                if (spawnMan.ancients.Count > 0)
+                    target = spawnMan.ancients[0];
+                else
+                    return null;
+
+                foreach (Transform ancient in spawnMan.ancients)
+                {
+                    if (Vector3.Distance(ancient.position, transform.position) < Vector3.Distance(target.position, transform.position))
+                        target = ancient.transform;
+                }
+                return target;
+
+            case EnemyTargetType.EGG:
+
+                if (spawnMan.eggs.Count > 0)
+                    target = spawnMan.eggs[0];
+                else
+                    return null;
+
+                foreach (Transform targ in spawnMan.eggs)
+                {
+                    if (Vector3.Distance(targ.position, transform.position) < Vector3.Distance(target.position, transform.position))
+                        target = targ;
+                }
+                return target;
+        }
+        return null;
+    }
+
+    public bool WasTargetOverridden()
+    {
+        foreach(EnemyTarget target in overrideTargets)
+        {
+            for (int i = target.instancesInRange.Count-1; i >= 0; i--)
+            {
+                if (target.instancesInRange[i] == null)
+                    target.instancesInRange.RemoveAt(i);
+            }
+            if (target.instancesInRange.Count > 0)
+            {
+                currentTarget = target.instancesInRange[0];
+                return true;
+            }
+        }
+        return false;
     }
 
     public void Die()

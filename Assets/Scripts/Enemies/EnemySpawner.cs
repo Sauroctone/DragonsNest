@@ -134,7 +134,7 @@ public class EnemySpawner : LivingBeing
         if (timeBeforeSpawn < minTimeToSpawn)
             timeBeforeSpawn = minTimeToSpawn;
 
-        Debug.Log("Time to spawn enemy is " + timeBeforeSpawn + " for " + this.gameObject.name);
+        //Debug.Log("Time to spawn enemy is " + timeBeforeSpawn + " for " + this.gameObject.name);
 
         yield return new WaitForSeconds(timeBeforeSpawn);
         spawnCor = StartCoroutine(ISpawnEnemy());

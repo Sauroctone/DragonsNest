@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpawnManager : MonoBehaviour {
 
@@ -19,10 +20,16 @@ public class SpawnManager : MonoBehaviour {
     public int currentWave;
     public float spawnerCountIncrement;
 
+    [Header("UI")]
+    public string restTimerFlavor;
+
     Transform player;
     Rigidbody playerRb;
     Coroutine waveCor;
     Coroutine restCor;
+
+    [Header("References")]
+    public Text waveTimerText;
 
     public void Init()
     {
@@ -102,10 +109,10 @@ public class SpawnManager : MonoBehaviour {
 
     void BeginWave()
     {
-        waveCor = StartCoroutine(IWave());
         waveState = WaveState.DURING_WAVE;
         currentWave++;
         Debug.Log("Launching wave " + currentWave);
+        waveCor = StartCoroutine(IWave());
         int spawnersToActivate = Mathf.CeilToInt(currentWave * spawnerCountIncrement);
         ActivateRandomSpawners(Mathf.Clamp(spawnersToActivate, 0, spawnersInMap.Count));
 
@@ -147,15 +154,28 @@ public class SpawnManager : MonoBehaviour {
 
     IEnumerator IWave()
     {
-        yield return new WaitForSeconds(waveTimer);
+        float time = waveTimer;
+        while (time > 0)
+        {
+            waveTimerText.text = "Wave " + currentWave + ": " + time + " years";  
+            time--;
+            yield return new WaitForSeconds(1f);
+        }
         waveState = WaveState.WAITING_FOR_LAST_ENEMIES;
         EndWave();
+        waveTimerText.text = "Wave " + currentWave + ": Burn the last humans";
         Debug.Log("Waiting for last enemies");
     }
 
     IEnumerator IRest ()
     {
-        yield return new WaitForSeconds(restTimer);
+        float time = restTimer;
+        while (time > 0)
+        {
+            time--;
+            waveTimerText.text = restTimerFlavor + " " + time + " years"; ;
+            yield return new WaitForSeconds(1f);
+        }
         BeginWave();
     }
 }

@@ -610,7 +610,7 @@ public class PlayerController : LivingBeing {
 
         yield return new WaitForSeconds(1.0f);
         var instanceEgg = nestScript.Action();
-        gameMan.spawnMan.targets.Add(instanceEgg);
+        gameMan.spawnMan.eggs.Add(instanceEgg);
 
         yield return new WaitForSeconds(0.5f);
         playerState = PlayerStates.FLYING;
@@ -645,7 +645,7 @@ public class PlayerController : LivingBeing {
         Instantiate(placeholderFeedback, transform.position, Quaternion.identity);
 
         GameObject ancient = Instantiate(ancientPrefab, _hitPos, Quaternion.identity);
-        //gameMan.spawnMan.AddTargetToList(ancient.transform);
+        gameMan.spawnMan.ancients.Add(ancient.transform);
         babyDragonMan.RemoveBabyDragon();
 
         ResetLife(maxLife);

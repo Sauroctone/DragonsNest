@@ -10,7 +10,8 @@ TagManager:
   - Dragon
   - Egg
   - Nest
-  - Enemies
+  - Ancient
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -30,8 +31,8 @@ TagManager:
   - Egg
   - Ancient
   - FireProjectile
-  - AncientDetection
-  - 
+  - AncientRange
+  - EnemyRange
   - 
   - 
   - 

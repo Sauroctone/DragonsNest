@@ -117,8 +117,9 @@ GameObject:
   - component: {fileID: 4793756302785420}
   - component: {fileID: 195031232302732186}
   - component: {fileID: 114690655368564356}
+  - component: {fileID: 136575096871245594}
   - component: {fileID: 82626802987706950}
-  m_Layer: 14
+  m_Layer: 19
   m_Name: Archers
   m_TagString: Enemies
   m_Icon: {fileID: 0}
@@ -1376,7 +1377,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1096279583823314}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 52.3, y: 0.25, z: -6.5}
+  m_LocalPosition: {x: -74.83, y: 0.25, z: -60.77}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4743743981821784}
@@ -4272,8 +4273,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6d4ef07e48195d4eb4047a24ae0312f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceToAggroPlayer: 20
   currentTarget: {fileID: 0}
+  autoTargets:
+  - type: 0
+    instancesInRange: []
+  - type: 2
+    instancesInRange: []
+  overrideTargets:
+  - type: 1
+    instancesInRange: []
+  - type: 2
+    instancesInRange: []
   spawnMan: {fileID: 0}
   player: {fileID: 0}
   playerRb: {fileID: 0}
@@ -4645,6 +4655,19 @@ CapsuleCollider:
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &136575096871245594
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1096279583823314}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 40
+  m_Height: 120
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &136585463630973520

@@ -81,16 +81,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies: []
-  maxEnemyCount: 5
-  targets: []
+  maxEnemyCount: 30
+  eggs: []
   spawnersInMap:
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   activeSpawners: []
   spawnersOutOfMap:
   - {fileID: 0}
+  - {fileID: 0}
+  ancients: []
   waveState: 0
-  waveTimer: 5
-  restTimer: 3
+  waveTimer: 20
+  restTimer: 10
   currentWave: 0
   spawnerCountIncrement: 0.5
 --- !u!114 &114991777532292108

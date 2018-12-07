@@ -125,6 +125,8 @@ public class LivingBeing : MonoBehaviour {
 
         if (_time == -1)
             isInvincible = true;
+        else if (_time == 0)
+            isInvincible = false;
         else
             invincibleCor = StartCoroutine(IInvulnerability(_time));
     }

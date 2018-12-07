@@ -6,10 +6,11 @@ public class SpawnManager : MonoBehaviour {
 
     public List<EnemyBehaviour> enemies = new List<EnemyBehaviour>();
     public int maxEnemyCount;
-    public List<Transform> targets = new List<Transform>();
+    public List<Transform> eggs = new List<Transform>();
     public List<EnemySpawner> spawnersInMap = new List<EnemySpawner>();
     public List<EnemySpawner> activeSpawners = new List<EnemySpawner>();
     public List<EnemySpawner> spawnersOutOfMap = new List<EnemySpawner>();
+    public List<Transform> ancients;
 
     [Header("Wave system")]
     public WaveState waveState;
@@ -61,13 +62,14 @@ public class SpawnManager : MonoBehaviour {
 
     public Transform GetNewTarget(Vector3 _position)
     {
+        Debug.LogError("To clean up");
         Transform target = null;
-        if (targets.Count > 0)
-            target = targets[0];
+        if (eggs.Count > 0)
+            target = eggs[0];
         else
             target = player;
 
-        foreach (Transform targ in targets)
+        foreach (Transform targ in eggs)
         {
             if (Vector3.Distance(targ.position, _position) < Vector3.Distance(target.position, _position))
                 target = targ;
@@ -78,7 +80,7 @@ public class SpawnManager : MonoBehaviour {
 
     public void AddTargetToList(Transform _newTarget)
     {
-        targets.Add(_newTarget);
+        eggs.Add(_newTarget);
     }
 
     //Wave methods

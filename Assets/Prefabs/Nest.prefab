@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 114879880959121818}
   m_Layer: 15
   m_Name: Egg
-  m_TagString: Untagged
+  m_TagString: Egg
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -283,8 +283,7 @@ MonoBehaviour:
   active: 0
   notActiveMat: {fileID: 2100000, guid: 040cf692954c458409c3105a45af2132, type: 2}
   activeMat: {fileID: 2100000, guid: a4326f846d3781a438a5b2c8647a0156, type: 2}
-  eggs: {fileID: 114225908017078630}
-  playerController: {fileID: 0}
+  egg: {fileID: 114225908017078630}
 --- !u!135 &135130580981483110
 SphereCollider:
   m_ObjectHideFlags: 1

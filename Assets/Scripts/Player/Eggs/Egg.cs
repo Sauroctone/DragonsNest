@@ -49,6 +49,8 @@ public class Egg : LivingBeing {
 		else
 		{
 			hatchingTime += Time.deltaTime;
+			var scale = hatchingTime/hatchingTimeMax;
+			transform.localScale = new Vector3(scale,scale,scale);
 		}
 	}
 

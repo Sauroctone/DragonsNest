@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.AI;
 
@@ -474,7 +475,7 @@ public class PlayerController : LivingBeing {
             MakeInvincible(2f);
         }
         else
-            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+            SceneManager.LoadScene(0);
     }
 
     public override void UpdateHealthUI(int _damage)

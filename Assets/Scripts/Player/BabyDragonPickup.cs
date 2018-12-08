@@ -13,7 +13,7 @@ public class BabyDragonPickup : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Egg")
+        if (other.CompareTag("Egg"))
         {
             if (babyDragonMan.babyDragons.Count < babyDragonMan.maxBabyDragonCount)
             {

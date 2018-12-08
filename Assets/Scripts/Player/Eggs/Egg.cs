@@ -28,6 +28,7 @@ public class Egg : LivingBeing {
         material = rend.material;
 		canBeADrone = false;
         spawnMan = GameManager.Instance.spawnMan;
+        hatchingTime = 0f;
 	}
 	
 	public override void Update ()
@@ -61,9 +62,10 @@ public class Egg : LivingBeing {
 
     public void Hatch()
     {
-        spawnMan.targets.Remove(transform);        
+        spawnMan.eggs.Remove(transform);        
 		gameObject.SetActive(false);
-
+        canBeADrone = false;
+        pickupCol.SetActive(false);
     }
 
     // Overrides
@@ -77,7 +79,7 @@ public class Egg : LivingBeing {
     {
         base.Die();
 
-        spawnMan.targets.Remove(transform);
+        spawnMan.eggs.Remove(transform);
         gameObject.SetActive(false);
     }
 }

@@ -8,7 +8,7 @@ public class Ancient : LivingBeing {
     public float minHealthbarScale;
 
     [Header("Shooting")]
-    public List<EnemyBehaviour> targets;
+    public List<Transform> targets;
     bool isShooting;
     public float timeBetweenCols;
     float fireTime;
@@ -22,7 +22,7 @@ public class Ancient : LivingBeing {
     public override void Start()
     {
         base.Start();
-        targets = new List<EnemyBehaviour>();
+        targets = new List<Transform>();
     }
 
     private void FixedUpdate()
@@ -69,38 +69,22 @@ public class Ancient : LivingBeing {
         isShooting = false;
     }
 
-    public void AddToTargetList (EnemyBehaviour targ)
+    public void AddToTargetList (Transform targ)
     {
         targets.Add(targ);
-        target = targets[0].transform;
+        target = targets[0];
         if (!isShooting)
             Shoot();
-
-        targ.AggroAncient(transform);
-    }
-
-    public void RemoveAndChangeTarget(EnemyBehaviour targ)
-    {
-        targets.Remove(targ);
-        targ.ForgetAncient(transform);
-
-        if (targets.Count > 0)
-        {
-            target = targets[0].transform;
-            if (!isShooting)
-                Shoot();
-        }
-        else
-            StopShooting();
     }
 
     public void RemoveAndChangeTarget()
     {
-        targets.RemoveAt(0);
+        if (targets.Count > 0)
+            targets.RemoveAt(0);
 
         if (targets.Count > 0)
         {
-            target = targets[0].transform;
+            target = targets[0];
             if (!isShooting)
                 Shoot();
         }

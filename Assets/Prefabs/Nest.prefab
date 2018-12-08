@@ -101,8 +101,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1789560518037062}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -48.242676, y: -6.5890484, z: -86.51301}
-  m_LocalScale: {x: 3, y: 0.2, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 6, y: 1, z: 6}
   m_Children:
   - {fileID: 4330902124402428}
   m_Father: {fileID: 0}
@@ -151,7 +151,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 040cf692954c458409c3105a45af2132, type: 2}
+  - {fileID: 2100000, guid: 2af9f91502ccb734d85528ed3b742d69, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -212,7 +212,7 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1789560518037062}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300002, guid: 746ca67bc3cdb6247b32c413dfa8c0a3, type: 3}
 --- !u!33 &33707294541647892
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -234,10 +234,12 @@ MonoBehaviour:
   maxLife: 30
   life: 1
   lostLifeBeforeDecay: 0
+  isAlive: 1
   timeToUpdateFeedbackBar: 0
   feedbackDecayTime: 0
   lifeBar: {fileID: 0}
   lifeBarFeedback: {fileID: 0}
+  scoringObject: {fileID: 0}
   hatchingTimeMax: 20
   hatchingTime: 0
   rend: {fileID: 23815555699925760}

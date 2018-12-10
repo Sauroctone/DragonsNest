@@ -339,8 +339,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4184973252353998}
+  - component: {fileID: 114434384479767948}
   m_Layer: 10
-  m_Name: FireOrigin
+  m_Name: EdgeScanner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -407,6 +408,21 @@ GameObject:
   - component: {fileID: 114714577708119054}
   m_Layer: 5
   m_Name: EggSlider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1808829654854596
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4388431970225764}
+  m_Layer: 10
+  m_Name: FireOrigin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -480,13 +496,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1708679250031482}
-  m_LocalRotation: {x: 0.12186928, y: -0, z: -0, w: 0.9925462}
-  m_LocalPosition: {x: 0, y: 0.37, z: 1.8}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.391, z: 2.074}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4826760242454774}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 14, y: 0, z: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4246441266409180
 Transform:
   m_ObjectHideFlags: 1
@@ -619,6 +635,19 @@ Transform:
   m_Father: {fileID: 4490857571516690}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!4 &4388431970225764
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1808829654854596}
+  m_LocalRotation: {x: 0.12186928, y: -0, z: -0, w: 0.9925462}
+  m_LocalPosition: {x: 0, y: 0.37, z: 1.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4826760242454774}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 14, y: 0, z: 0}
 --- !u!4 &4417271678916840
 Transform:
   m_ObjectHideFlags: 1
@@ -734,11 +763,12 @@ Transform:
   - {fileID: 4766982967134030}
   - {fileID: 4370150814216058}
   - {fileID: 4311013367071178}
-  - {fileID: 4184973252353998}
+  - {fileID: 4388431970225764}
   - {fileID: 4769768314812008}
   - {fileID: 4246441266409180}
   - {fileID: 4318139991319860}
   - {fileID: 224405255185982220}
+  - {fileID: 4184973252353998}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1583,6 +1613,22 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114434384479767948
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1708679250031482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88f4dc26b58c8e6499116eda7dc37e9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 114865201573251416}
+  distanceToScan: 2
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1048576
 --- !u!114 &114595963339396318
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1727,12 +1773,9 @@ MonoBehaviour:
   shootTarget: {fileID: 4766982967134030}
   scrShakeTimer: 0.1
   scrShakeAmount: 0.15
-  dodgeSpeed: 80
-  megaDodgeSpeed: 80
-  dodgeTime: 0.2
-  dodgeCooldown: 0.7
   nestPosition: {x: -1.800003, y: 0, z: 1.300003}
   ancientProjection: {fileID: 114308203408123000}
+  turnAroundLockTimeFactor: 12
   playerIndex: 0
   fireBurstVibrateTime: 0.15
   leftFireBurst: 0.3
@@ -1740,7 +1783,7 @@ MonoBehaviour:
   visuals: {fileID: 4246441266409180}
   aimCursor: {fileID: 4311013367071178}
   firePartSys: {fileID: 198701787969807136}
-  fireOrigin: {fileID: 4184973252353998}
+  fireOrigin: {fileID: 4388431970225764}
   rb: {fileID: 54845440365208266}
   fireCollider: {fileID: 1089961876240342, guid: 18ab1038cb915204798c2f53f7cd517e,
     type: 2}

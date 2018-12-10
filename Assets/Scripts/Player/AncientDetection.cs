@@ -11,7 +11,10 @@ public class AncientDetection : MonoBehaviour {
         if (col.tag != "Enemy")
             return;
 
-        ancient.AddToTargetList(col.transform);
+        if (Vector3.Angle(transform.forward, (col.transform.position - transform.position).normalized) <= ancient.angleOfVision / 2)
+        {
+            ancient.AddToTargetList(col.transform);
+        }
     }
 
     void OnTriggerExit(Collider col)
@@ -19,6 +22,6 @@ public class AncientDetection : MonoBehaviour {
         if (col.tag != "Enemy")
             return;
 
-        ancient.RemoveAndChangeTarget();
+        ancient.RemoveAndChangeTarget(col.transform);
     }
 }

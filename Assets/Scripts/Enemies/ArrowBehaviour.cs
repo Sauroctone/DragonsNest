@@ -13,24 +13,24 @@ public class ArrowBehaviour : MonoBehaviour {
     float arrowMaxHeight;
     Vector3 lastPos;
 
-    public void Init(ArcherBehaviour _owner)
+    public void Init(float _lifetime, Vector3 _aimDir, float _arrowSpeed, Transform _target, AnimationCurve _visualTrajectory)
     {
-        lifetime = _owner.group.arrowLifetime;
+        lifetime = _lifetime;
 
         //Visual
-        velocity = Vector3.ProjectOnPlane(_owner.aimDir, Vector3.up) * _owner.group.arrowSpeed;
+        velocity = Vector3.ProjectOnPlane(_aimDir, Vector3.up) * _arrowSpeed;
         visualRb.velocity = velocity;
-        arrowMaxHeight = _owner.currentTarget.position.y;
-        visualCurve = _owner.group.visualTrajectory;
+        arrowMaxHeight = _target.position.y;
+        visualCurve = _visualTrajectory;
         transform.rotation = Quaternion.LookRotation(velocity.normalized);
 
         //Collider
         colliderRb.transform.parent = null;
-        colliderRb.transform.position = new Vector3(colliderRb.transform.position.x, _owner.currentTarget.transform.position.y, colliderRb.transform.position.z);
-        Vector3 colliderDir = Vector3.ProjectOnPlane(_owner.aimDir, Vector3.up);
+        colliderRb.transform.position = new Vector3(colliderRb.transform.position.x, _target.transform.position.y, colliderRb.transform.position.z);
+        Vector3 colliderDir = Vector3.ProjectOnPlane(_aimDir, Vector3.up);
         if (colliderDir != Vector3.zero)
             colliderRb.transform.rotation = Quaternion.LookRotation(colliderDir);
-        colliderRb.velocity = colliderDir * _owner.group.arrowSpeed;
+        colliderRb.velocity = colliderDir * _arrowSpeed;
     }
 
     void Start()

@@ -84,7 +84,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePower: 1
   destroyOnContact: 0
-  isFire: 0
+  isFire: 1
 --- !u!198 &198841829025116596
 ParticleSystem:
   m_ObjectHideFlags: 1

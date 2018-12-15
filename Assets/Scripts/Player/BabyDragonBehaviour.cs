@@ -60,7 +60,7 @@ public class BabyDragonBehaviour : MonoBehaviour {
             else
                 fireTime += Time.deltaTime;
 
-            transform.LookAt(shootTarget);
+            transform.LookAt(shootTarget.position + targetOffset);
         }
         else
         {

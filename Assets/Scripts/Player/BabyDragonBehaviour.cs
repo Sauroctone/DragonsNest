@@ -20,6 +20,7 @@ public class BabyDragonBehaviour : MonoBehaviour {
     public float minShootDelay;
     public float maxShootDelay;
     Transform shootTarget;
+    public Vector3 targetOffset;
     Rigidbody playerRb;
 
     [Header("References")]
@@ -53,7 +54,7 @@ public class BabyDragonBehaviour : MonoBehaviour {
             if (fireTime >= timeBetweenCols)
             {
                 GameObject fireCol = Instantiate(fireCollider, fireOrigin.position, Quaternion.identity);
-                fireCol.GetComponent<Rigidbody>().velocity = playerRb.velocity + (shootTarget.position - fireOrigin.position).normalized * fireColSpeed;
+                fireCol.GetComponent<Rigidbody>().velocity = playerRb.velocity + ((shootTarget.position + targetOffset) - fireOrigin.position).normalized * fireColSpeed;
                 fireTime = 0;
             }
             else

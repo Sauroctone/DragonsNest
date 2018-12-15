@@ -115,6 +115,7 @@ public class Ancient : LivingBeing {
     public override void Die()
     {
         base.Die();
+        GameManager.Instance.spawnMan.ancients.Remove(transform);
         Destroy(gameObject);
     }
 }

@@ -25,6 +25,7 @@ public class LivingBeing : MonoBehaviour {
     bool isInvincible;
     Coroutine invincibleCor;
     internal Coroutine regenCor;
+
 #region virtual
 	public virtual void Start()
 	{

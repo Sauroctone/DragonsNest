@@ -71,6 +71,7 @@ public class EnemyBehaviour : MonoBehaviour {
                     if (col.tag == "Dragon")
                     {
                         colTarget = col.transform;
+                        player = colTarget;
                         target.instancesInRange.Add(col.transform);
                     }
                     break;

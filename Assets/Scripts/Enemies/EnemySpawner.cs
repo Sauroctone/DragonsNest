@@ -116,7 +116,7 @@ public class EnemySpawner : LivingBeing
 
     public override void Die()
     {
-        scoringObject.scoreAmount = 1;//wave j'ai pas encore la var
+        scoringObject.scoreAmount = 1 * GameManager.Instance.spawnMan.currentWave;//wave j'ai pas encore la var
         base.Die();
         spawnMan.activeSpawners.Remove(this);
         spawnMan.spawnersInMap.Add(this);

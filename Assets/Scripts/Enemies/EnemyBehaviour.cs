@@ -35,6 +35,9 @@ public class EnemyBehaviour : MonoBehaviour {
 
     public virtual void Update()
     {
+        if (currentTarget != null && !currentTarget.gameObject.activeSelf)
+            currentTarget = null;
+
         //Get new target when it's dead
         if (currentTarget == null && !WasTargetOverridden())
         {

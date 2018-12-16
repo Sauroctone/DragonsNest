@@ -11,7 +11,7 @@ public class LivingBeing : MonoBehaviour {
     [HideInInspector]
     public float lostLifeBeforeDecay;
     internal float timeSinceLastDamage;
-    bool isAlive = true;
+    internal bool isAlive = true;
     bool burntThisFrame;
 
     //Conditional hiiiide

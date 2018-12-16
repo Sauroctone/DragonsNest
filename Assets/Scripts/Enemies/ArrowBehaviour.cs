@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class ArrowBehaviour : MonoBehaviour {
 
-    float lifetime;
+    internal float lifetime;
     float time;
     AnimationCurve visualCurve;
     public Rigidbody visualRb;
     public Rigidbody colliderRb;
-    Vector3 velocity;
+    internal Vector3 velocity;
     float arrowMaxHeight;
     Vector3 lastPos;
 
-    public void Init(float _lifetime, Vector3 _aimDir, float _arrowSpeed, Transform _target, AnimationCurve _visualTrajectory)
+    public virtual void Init(float _lifetime, Vector3 _aimDir, float _arrowSpeed, Transform _target, AnimationCurve _visualTrajectory)
     {
         lifetime = _lifetime;
 
@@ -33,13 +33,13 @@ public class ArrowBehaviour : MonoBehaviour {
         colliderRb.velocity = colliderDir * _arrowSpeed;
     }
 
-    void Start()
+    public virtual void Start()
     {
         Destroy(gameObject, lifetime);
         Destroy(colliderRb.gameObject, lifetime);
     }
 
-    private void Update()
+    public virtual void Update()
     {
         float lastFrame = time;
         time += Time.deltaTime;

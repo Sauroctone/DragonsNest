@@ -147,7 +147,7 @@ public class ArcherBehaviour : LivingBeing {
             Vector3 interceptPoint = FirstOrderIntercept(group.transform.position, Vector3.zero, group.arrowSpeed, targetPosition, currentTarget == group.player ? group.playerRb.velocity : Vector3.zero);
             aimDir = (interceptPoint - group.transform.position).normalized;
             GameObject proj = Instantiate(group.arrow, transform.position, Quaternion.identity);
-            proj.GetComponent<ArrowBehaviour>().Init(this);
+            proj.GetComponent<ArrowBehaviour>().Init(group.arrowLifetime, aimDir, group.arrowSpeed, currentTarget, group.visualTrajectory);
             if (debugIntercept != null)
                 debugIntercept.position = interceptPoint;
         }
@@ -182,7 +182,7 @@ public class ArcherBehaviour : LivingBeing {
     }
 
     //first-order intercept using absolute target position
-    public static Vector3 FirstOrderIntercept (Vector3 shooterPosition, Vector3 shooterVelocity, float shotSpeed, Vector3 targetPosition, Vector3 targetVelocity)
+    public Vector3 FirstOrderIntercept (Vector3 shooterPosition, Vector3 shooterVelocity, float shotSpeed, Vector3 targetPosition, Vector3 targetVelocity)
     {
         Vector3 targetRelativePosition = targetPosition - shooterPosition;
         Vector3 targetRelativeVelocity = targetVelocity - shooterVelocity;
@@ -196,7 +196,7 @@ public class ArcherBehaviour : LivingBeing {
     }
 
     //first-order intercept using relative target position
-    public static float FirstOrderInterceptTime (float shotSpeed, Vector3 targetRelativePosition, Vector3 targetRelativeVelocity)
+    public float FirstOrderInterceptTime (float shotSpeed, Vector3 targetRelativePosition, Vector3 targetRelativeVelocity)
     {
         float velocitySquared = targetRelativeVelocity.sqrMagnitude;
         if (velocitySquared < 0.001f)

@@ -28,7 +28,8 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
     public float minShootTime;
     public float maxShootTime;
     public float postShootIdleTime;
-    public bool canShoot = true;
+    bool canShoot = true;
+    bool isShooting;
     public float shootCooldown;
     public GameObject arrow;
     public float arrowSpeed;
@@ -73,22 +74,31 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
                 && canShoot
                 && !Physics.Raycast(transform.position, (currentTarget.position - transform.position).normalized, aimRange, aimObstacleLayer))
             {
-                state = ArcherGroupState.SHOOTING;
-                if (EventOnStateChanged != null)
-                    EventOnStateChanged(state);
-                if (moveCor != null)
-                    StopCoroutine(moveCor);
-                nav.ResetPath();
-                StartCoroutine(IAimAndShoot());
-
                 Debug.DrawLine(transform.position, currentTarget.position, Color.red, 2f);
+                AimAndShoot();
             }
             else
             {
-                if (moveCor == null)
+                if (moveCor == null && !isShooting)
                     StartMoving();
             }
         }
+    }
+
+    void AimAndShoot()
+    {
+        state = ArcherGroupState.SHOOTING;
+        if (EventOnStateChanged != null)
+            EventOnStateChanged(state);
+
+        isShooting = true;
+        canShoot = false;
+
+        if (moveCor != null)
+            StopCoroutine(moveCor);
+        nav.ResetPath();
+
+        StartCoroutine(IAimAndShoot());
     }
 
     void StartMoving()
@@ -114,7 +124,6 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
 
     IEnumerator IAimAndShoot()
     {
-        canShoot = false;
         float time = 0;
         while (time < aimTime)
         {
@@ -128,6 +137,7 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
         if (currentTarget == null || Vector3.Distance(currentTarget.position, transform.position) > aimRange)
             StartMoving();
         yield return new WaitForSeconds(shootCooldown - postShootIdleTime);
+        isShooting = false;
         canShoot = true;
     }
 }

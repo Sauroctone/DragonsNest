@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 223866156149708486}
   - component: {fileID: 114797306292791614}
   - component: {fileID: 114494034988627654}
+  - component: {fileID: 114164035957364236}
   m_Layer: 11
   m_Name: ScoreCanvas
   m_TagString: Untagged
@@ -157,6 +158,42 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 00000
+--- !u!114 &114164035957364236
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1245094482824880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 578b113ab90dfff45bcf1a1dd24c4ae7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 0
+  comboAmount: 0
+  comboCoolDownImage: {fileID: 114000878786131660}
+  comboAmountText: {fileID: 114997926029281914}
+  scoreText: {fileID: 114015615610283940}
+  comboCoolDownValue:
+  - 0
+  - 5
+  - 4
+  - 3
+  - 2
+  - 1.5
+  - 1.5
+  - 1.5
+  - 1.5
+  comboColor:
+  - {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  - {r: 0, g: 1, b: 0, a: 1}
+  - {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  - {r: 1, g: 0, b: 1, a: 1}
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 0, g: 0, b: 1, a: 1}
+  - {r: 0, g: 0, b: 1, a: 1}
+  - {r: 0, g: 0, b: 1, a: 1}
+  - {r: 0, g: 0, b: 1, a: 1}
 --- !u!114 &114494034988627654
 MonoBehaviour:
   m_ObjectHideFlags: 1

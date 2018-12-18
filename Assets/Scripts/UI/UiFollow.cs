@@ -25,6 +25,8 @@ public class UiFollow : MonoBehaviour {
 
 	private void Awake()
 	{
+		player = GameManager.Instance.playerControllerInstance.transform;
+
 		mainCam = Camera.main;
 		self = transform;
 		eggShader.SetColor("_ColorBase",eggBAckgroundColor);

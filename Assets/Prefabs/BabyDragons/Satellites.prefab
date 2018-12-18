@@ -34,7 +34,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1994105693550570}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.86, z: 0}
+  m_LocalPosition: {x: -46.442673, y: -1.7290483, z: -87.81301}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -59,3 +59,4 @@ MonoBehaviour:
   containerDistance: 2.5
   angleToDivide: 230
   babyDragon: {fileID: 1600017543294794, guid: c53ceaa07b8774340a11801d07f66233, type: 2}
+  shootOffsetRange: 2

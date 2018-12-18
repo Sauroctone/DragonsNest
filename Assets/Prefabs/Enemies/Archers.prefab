@@ -332,7 +332,7 @@ GameObject:
   - component: {fileID: 114068339375248776}
   m_Layer: 14
   m_Name: Bannerman
-  m_TagString: Archer
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -779,7 +779,7 @@ GameObject:
   - component: {fileID: 114076804793572296}
   m_Layer: 14
   m_Name: Banner
-  m_TagString: Untagged
+  m_TagString: Archer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4595,6 +4595,7 @@ MonoBehaviour:
   spawnMan: {fileID: 0}
   player: {fileID: 0}
   playerRb: {fileID: 0}
+  state: 0
   archers: []
   bannerMan: {fileID: 1321961658691200}
   updatePathFrequency: 0.2

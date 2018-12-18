@@ -119,11 +119,11 @@ public class PlayerController : LivingBeing {
     public Rigidbody rb;
     public GameObject fireCollider;
     public Animator anim;
-    public Slider staminaBar;
+    // public Slider staminaBar;
     public BabyDragonManager babyDragonMan;
     public EggManager eggMan;
-    public GameObject egg;
-    public Transform toDropegg;
+    // public GameObject egg;
+    // public Transform toDropegg;
     GameManager gameMan;
     public GameObject placeholderFeedback;
     public Nest nestScript;
@@ -141,6 +141,11 @@ public class PlayerController : LivingBeing {
     public AudioClip WindflowClip;
     public AudioClip DragonHitClip;
     public AudioClip DragonDeathClip;
+
+    public void Awake()
+    {
+        InstantiateRefs();
+    }
 
     public override void Start()
     {
@@ -230,6 +235,12 @@ public class PlayerController : LivingBeing {
     }
 
     //Actions
+
+    private void InstantiateRefs()
+    {
+       babyDragonMan.target = this.transform;
+       babyDragonMan = Instantiate(babyDragonMan.gameObject, Vector3.zero, Quaternion.identity).GetComponent<BabyDragonManager>();
+    }
 
     void Move()
     {

@@ -1688,10 +1688,12 @@ MonoBehaviour:
   maxLife: 100
   life: 100
   lostLifeBeforeDecay: 0
+  isAlive: 1
   timeToUpdateFeedbackBar: 1
   feedbackDecayTime: 1.5
   lifeBar: {fileID: 0}
   lifeBarFeedback: {fileID: 0}
+  scoringObject: {fileID: 0}
   vignetteFactor: 0.015
   dragonPopup: 0
   level: 0
@@ -1745,11 +1747,9 @@ MonoBehaviour:
   fireCollider: {fileID: 1089961876240342, guid: 18ab1038cb915204798c2f53f7cd517e,
     type: 2}
   anim: {fileID: 95508324259944596}
-  staminaBar: {fileID: 0}
-  babyDragonMan: {fileID: 0}
+  babyDragonMan: {fileID: 114500419610896216, guid: dfb2b35e0d1c8fe47ba3b85ef69c594d,
+    type: 2}
   eggMan: {fileID: 114838063966722996}
-  egg: {fileID: 1472904794707518, guid: c73497195adb49e41bf21937d8073bcf, type: 2}
-  toDropegg: {fileID: 0}
   placeholderFeedback: {fileID: 1890502599676748, guid: b2419bf1e4c519c4abdeb78806b9f78d,
     type: 2}
   nestScript: {fileID: 0}
@@ -1800,6 +1800,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2746527ec6260504b8b5547c8edc0035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  babyDragonMan: {fileID: 114500419610896216, guid: dfb2b35e0d1c8fe47ba3b85ef69c594d,
+    type: 2}
+  pc: {fileID: 114865201573251416}
 --- !u!114 &114975259605202940
 MonoBehaviour:
   m_ObjectHideFlags: 1

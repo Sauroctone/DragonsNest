@@ -12,6 +12,7 @@ public class BabyDragonManager : MonoBehaviour {
     public float containerDistance;
     public float angleToDivide;
     public GameObject babyDragon;
+    public float shootOffsetRange;
 
     private void Start()
     {
@@ -49,6 +50,7 @@ public class BabyDragonManager : MonoBehaviour {
         for (int i = 0; i < babyDragons.Count; i++)
         {
             babyDragons[i].transform.parent.localPosition = new Vector3(containerDistance * Mathf.Cos(-(angleToDivide / babyDragons.Count * i) * Mathf.Deg2Rad), 0f, containerDistance * Mathf.Sin(-(angleToDivide / babyDragons.Count * i) * Mathf.Deg2Rad));
+            babyDragons[i].targetOffset = new Vector3(shootOffsetRange * Mathf.Cos(-(angleToDivide / babyDragons.Count * i) * Mathf.Deg2Rad), 0f, shootOffsetRange * Mathf.Sin(-(angleToDivide / babyDragons.Count * i) * Mathf.Deg2Rad));
         }
     }
 }

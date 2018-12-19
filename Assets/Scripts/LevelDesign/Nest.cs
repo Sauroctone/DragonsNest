@@ -36,14 +36,13 @@ public class Nest : MonoBehaviour
             if (nestRend.material != activeMat)
                 nestRend.material = activeMat;
     }
-
+/*$
+ */
 	public void OnTriggerEnter(Collider col)
 	{
         //Debug.Log("enter");
 		if(col.gameObject.tag == "Dragon")
 		{   
-            if (egg.canBeADrone)
-                egg.Hatch();
 
             if(!egg.gameObject.activeSelf && player.eggMan.eggSlider.fillAmount >= 1)
             {

@@ -29,6 +29,7 @@ public class Egg : LivingBeing {
 		canBeADrone = false;
         spawnMan = GameManager.Instance.spawnMan;
         hatchingTime = 0f;
+        isAlive = true;
 	}
 	
 	public override void Update ()

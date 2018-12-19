@@ -12,6 +12,7 @@ TagManager:
   - Nest
   - Ancient
   - Enemy
+  - Enemies
   layers:
   - Default
   - TransparentFX
@@ -33,7 +34,7 @@ TagManager:
   - FireProjectile
   - AncientRange
   - EnemyRange
-  - 
+  - MapEdge
   - 
   - 
   - 

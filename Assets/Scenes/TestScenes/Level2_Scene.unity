@@ -3045,6 +3045,16 @@ Prefab:
       propertyPath: spawners.Array.data[3]
       value: 
       objectReference: {fileID: 1333624210}
+    - target: {fileID: 114865391200056442, guid: b9ea2f1bd5c68f14fb890aeb1285d6f2,
+        type: 2}
+      propertyPath: eggShader
+      value: 
+      objectReference: {fileID: 2100000, guid: 6c41beadfff24444e804b151191657b7, type: 2}
+    - target: {fileID: 114865391200056442, guid: b9ea2f1bd5c68f14fb890aeb1285d6f2,
+        type: 2}
+      propertyPath: circleShader
+      value: 
+      objectReference: {fileID: 2100000, guid: 02c0b92be3abd574f8f8590e713a2004, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9ea2f1bd5c68f14fb890aeb1285d6f2, type: 2}
   m_IsPrefabAsset: 0

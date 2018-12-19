@@ -240,7 +240,7 @@ public class PlayerController : LivingBeing {
        babyDragonMan = Instantiate(babyDragonMan.gameObject, Vector3.zero, Quaternion.identity).GetComponent<BabyDragonManager>();
     }
 
-    void Move()
+    void GetDirectionAndSpeed()
     {
         if (timeOutOfSlow > 0 || isSprinting && !isSlowing)
             speed = sprintSpeed;

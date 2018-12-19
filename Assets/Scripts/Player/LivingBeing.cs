@@ -25,6 +25,10 @@ public class LivingBeing : MonoBehaviour {
     bool isInvincible;
     Coroutine invincibleCor;
     internal Coroutine regenCor;
+
+    [Header("Score")]
+
+    public ScoringObject scoringObject;
 #region virtual
 	public virtual void Start()
 	{
@@ -178,7 +182,3 @@ public class LivingBeing : MonoBehaviour {
         isInvincible = false;
     }
 }
-
-    [Header("Score")]
-
-    public ScoringObject scoringObject;

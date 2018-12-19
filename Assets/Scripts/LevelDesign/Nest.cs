@@ -16,12 +16,13 @@ public class Nest : MonoBehaviour
     public Material activeMat;
     
     [Header("References")]
-    public Egg eggs;
-	public PlayerController playerController;
+    public Egg egg;
+	PlayerController player;
 
     private void Start()
     {
         nestRend = GetComponent<MeshRenderer>();
+        player = GameManager.Instance.player;
     }
 
     private void Update()
@@ -29,17 +30,11 @@ public class Nest : MonoBehaviour
         if (active == false)
         {
             if (nestRend.material != notActiveMat)
-            {
                 nestRend.material = notActiveMat;
-            }
         }
-        else
-        {
+        else 
             if (nestRend.material != activeMat)
-            {
                 nestRend.material = activeMat;
-            }
-        }
     }
 
 	public void OnTriggerEnter(Collider col)
@@ -47,37 +42,36 @@ public class Nest : MonoBehaviour
         //Debug.Log("enter");
 		if(col.gameObject.tag == "Dragon")
 		{   
-            active = true;
-            if (eggs.canBeADrone)
+            if (egg.canBeADrone)
+                egg.Hatch();
+
+            if(!egg.gameObject.activeSelf && player.eggMan.eggSlider.fillAmount >= 1)
             {
-                eggs.Hatch();
-            }
-            if(!playerController.canLand)
-            {
-                playerController.canLand = true;
-                playerController.nestScript = this;
-                playerController.nestPosition = transform.position;
+                active = true;
+                player.canLand = true;
+                player.nestScript = this;
+                player.nestPosition = transform.position;
             }
 		}
 	}
 
 	public void OnTriggerExit(Collider col)
 	{
-		if(col.gameObject.tag == "Dragon" && playerController.canLand)
+		if(col.gameObject.tag == "Dragon")
 		{
             active = false;
-			playerController.canLand = false;
-			playerController.nestScript = null;
-		}
+			player.canLand = false;
+			player.nestScript = null;
+        }
 	}
 
 	public Transform Action()
 	{
-		if(eggs.gameObject.activeInHierarchy==false)
+		if(egg.gameObject.activeInHierarchy==false)
 		{
-			eggs.Start();
-			eggs.gameObject.SetActive(true);
-            return eggs.transform;
+			egg.Start();
+			egg.gameObject.SetActive(true);
+            return egg.transform;
 		}
         return null;
 	}

@@ -8,8 +8,10 @@ public class Ancient : LivingBeing {
     public float minHealthbarScale;
 
     [Header("Shooting")]
-    public List<EnemyBehaviour> targets;
+    public List<Transform> targets;
+    List<Transform> targetsToClear = new List<Transform>();
     bool isShooting;
+    public float angleOfVision;
     public float timeBetweenCols;
     float fireTime;
     public float fireColSpeed;
@@ -22,30 +24,39 @@ public class Ancient : LivingBeing {
     public override void Start()
     {
         base.Start();
-        targets = new List<EnemyBehaviour>();
-    }
-
-    private void FixedUpdate()
-    {
-        // if (Input.GetButtonDown("Shoot"))
-        if (isShooting && target == null)
-            RemoveAndChangeTarget();
-
-        CheckShoot();
+        targets = new List<Transform>();
     }
 
     public override void Update()
     {
         base.Update();
+        CheckTargets();
+        CheckShoot();
     }
 
     //Custom
+
+    void CheckTargets()
+    {
+        foreach(Transform _target in targets)
+        {
+            if (_target == null || Vector3.Angle(transform.forward, (target.position - transform.position).normalized) > angleOfVision / 2)
+                targetsToClear.Add(_target);
+        }
+        foreach (Transform _toClear in targetsToClear)
+        {
+            targets.Remove(_toClear);
+        }
+
+        if (isShooting && target == null)
+            RemoveAndChangeTarget(target);
+    }
 
     void CheckShoot()
     {
         if (isShooting)
         {
-            if (fireTime >= timeBetweenCols)
+            if (fireTime >= timeBetweenCols && target != null)
             {
                 GameObject fireCol = Instantiate(projectile, fireOrigin.position, Quaternion.identity);
                 fireCol.GetComponent<Rigidbody>().velocity = (target.position - fireOrigin.position).normalized * fireColSpeed;
@@ -54,7 +65,7 @@ public class Ancient : LivingBeing {
             else
                 fireTime += Time.deltaTime;
 
-            transform.rotation = Quaternion.LookRotation(Vector3.ProjectOnPlane((target.position - transform.position).normalized, Vector3.up));
+            //transform.rotation = Quaternion.LookRotation(Vector3.ProjectOnPlane((target.position - transform.position).normalized, Vector3.up));
         }
     }
 
@@ -69,38 +80,24 @@ public class Ancient : LivingBeing {
         isShooting = false;
     }
 
-    public void AddToTargetList (EnemyBehaviour targ)
+    public void AddToTargetList (Transform targ)
     {
         targets.Add(targ);
-        target = targets[0].transform;
+        target = targets[0];
         if (!isShooting)
             Shoot();
-
-        targ.AggroAncient(transform);
     }
 
-    public void RemoveAndChangeTarget(EnemyBehaviour targ)
+    public void RemoveAndChangeTarget(Transform _target)
     {
-        targets.Remove(targ);
-        targ.ForgetAncient(transform);
+        if (targets.Count == 0 || !targets.Contains(_target))
+            return;
+
+        targets.Remove(_target);
 
         if (targets.Count > 0)
         {
-            target = targets[0].transform;
-            if (!isShooting)
-                Shoot();
-        }
-        else
-            StopShooting();
-    }
-
-    public void RemoveAndChangeTarget()
-    {
-        targets.RemoveAt(0);
-
-        if (targets.Count > 0)
-        {
-            target = targets[0].transform;
+            target = targets[0];
             if (!isShooting)
                 Shoot();
         }
@@ -118,6 +115,7 @@ public class Ancient : LivingBeing {
     public override void Die()
     {
         base.Die();
+        GameManager.Instance.spawnMan.ancients.Remove(transform);
         Destroy(gameObject);
     }
 }

@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
-public enum PlayerStates { FLYING, DODGING, LAYING_EGG, AIMING_ANCIENT, LANDING_ANCIENT };
+public enum PlayerStates { FLYING, DODGING, LAYING_EGG, LANDING_ANCIENT, TURNING_AROUND };
 
 public class PlayerController : LivingBeing {
 
@@ -34,7 +36,6 @@ public class PlayerController : LivingBeing {
     public float shootSpeed;
     float speed;
     internal Vector3 desiredDir = Vector3.forward;
-    Vector3 lastDesiredDir = Vector3.forward;
     float hinput;
     float vinput;
     float rotationAngle;
@@ -84,29 +85,31 @@ public class PlayerController : LivingBeing {
     public float scrShakeTimer;
     public float scrShakeAmount;
 
-    [Header("Dodging")]
-    public float dodgeSpeed;
-    public float megaDodgeSpeed;
-    public float dodgeTime;
-    Coroutine dodgeCor;
-    bool canDodge = true;
-    public float dodgeCooldown;
+    //[Header("Dodging")]
+    //public float dodgeSpeed;
+    //public float megaDodgeSpeed;
+    //public float dodgeTime;
+    //Coroutine dodgeCor;
+    //bool canDodge = true;
+    //public float dodgeCooldown;
     
     [Header("Landing")]
     public  Vector3 nestPosition;
 
     [Header("Placing Ancient")]
-    public GameObject ancientProjection;
-
+    public AncientFeedback ancientProjection;
+    bool isAimingForAncient;
+    bool canBePlaced;
+    NavMeshHit navMeshHit;
     [System.NonSerialized]
     public bool canLand;
 
+    [Header("Turn Around")]
+    public float turnAroundLockTimeFactor;
+    Coroutine turnAroundCor;
+
     [Header("Vibration")]
     public int playerIndex = 0;
-    public enum FireVibrationDebug { Continous, Burst};
-    public FireVibrationDebug fireVibrationDebug;
-    public float leftFireContinuous;
-    public float rightFireContinuous;
     public float fireBurstVibrateTime;
     public float leftFireBurst;
     public float rightFireBurst;
@@ -119,11 +122,11 @@ public class PlayerController : LivingBeing {
     public Rigidbody rb;
     public GameObject fireCollider;
     public Animator anim;
-    public Slider staminaBar;
+    // public Slider staminaBar;
     public BabyDragonManager babyDragonMan;
     public EggManager eggMan;
-    public GameObject egg;
-    public Transform toDropegg;
+    // public GameObject egg;
+    // public Transform toDropegg;
     GameManager gameMan;
     public GameObject placeholderFeedback;
     public Nest nestScript;
@@ -141,6 +144,11 @@ public class PlayerController : LivingBeing {
     public AudioClip WindflowClip;
     public AudioClip DragonHitClip;
     public AudioClip DragonDeathClip;
+
+    public void Awake()
+    {
+        InstantiateRefs();
+    }
 
     public override void Start()
     {
@@ -167,11 +175,7 @@ public class PlayerController : LivingBeing {
         switch (playerState)
         {
             case PlayerStates.FLYING:
-                Move();
-                break;
-
-
-            case PlayerStates.AIMING_ANCIENT:
+                GetDirectionAndSpeed();
                 Move();
                 break;
             
@@ -185,6 +189,10 @@ public class PlayerController : LivingBeing {
                 if (nestPosition != null)
                     transform.position = Vector3.Lerp(transform.position, nestPosition, Time.deltaTime * landSpeed);
 
+                break;
+
+            case PlayerStates.TURNING_AROUND:
+                Move();
                 break;
         }
     }
@@ -205,21 +213,16 @@ public class PlayerController : LivingBeing {
         {
             case PlayerStates.FLYING:
                 Shoot();
-                Dodge();
                 Sprint();
                 SlowDown();
                 LayEgg();
                 PlaceAncient();
+                //Dodge();
                 break;
 
-            case PlayerStates.AIMING_ANCIENT:
-                //Canceling actions
+            case PlayerStates.TURNING_AROUND:
                 Shoot();
-                Dodge();
                 LayEgg();
-
-                Sprint();
-                SlowDown();
                 PlaceAncient();
                 break;
         }
@@ -231,10 +234,14 @@ public class PlayerController : LivingBeing {
 
     //Actions
 
+    private void InstantiateRefs()
+    {
+       babyDragonMan.target = this.transform;
+       babyDragonMan = Instantiate(babyDragonMan.gameObject, Vector3.zero, Quaternion.identity).GetComponent<BabyDragonManager>();
+    }
+
     void Move()
     {
-        //Going forward at all times
-
         if (timeOutOfSlow > 0 || isSprinting && !isSlowing)
             speed = sprintSpeed;
         else if (isSlowing && !isSprinting)
@@ -244,16 +251,20 @@ public class PlayerController : LivingBeing {
         else
             speed = flySpeed;
 
-        rb.velocity = transform.forward * speed;
+        rotationLerp = isShooting ? shootingRotationLerp : flyingRotationLerp;
 
         //Don't change the desired direction if there is no input
         if (hinput != 0 || vinput != 0)
         {
             //Direction based on input
             desiredDir = new Vector3(hinput, 0f, vinput);
-            //Store the desired direction for next frame
-            lastDesiredDir = desiredDir;
         }
+    }
+
+    void Move()
+    {
+        //Going forward at all times
+        rb.velocity = transform.forward * speed;
 
         //If the player's forward isn't aligned with the desired direction
         if (transform.forward != desiredDir)
@@ -263,7 +274,6 @@ public class PlayerController : LivingBeing {
             rotationAngle = Vector3.SignedAngle(transform.forward, desiredDir, transform.up);
             //targetRot = Quaternion.Euler(targetRot.eulerAngles.x, targetRot.eulerAngles.y, -rotationAngle * maxSteerRot / 180);
             rollRot = Quaternion.Euler(0, 0, -rotationAngle * maxSteerRot / 180);
-            rotationLerp = isShooting ? shootingRotationLerp : flyingRotationLerp;
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationLerp);
             visuals.localRotation = Quaternion.Slerp(visuals.localRotation, rollRot, rotationLerp);
         }
@@ -284,15 +294,7 @@ public class PlayerController : LivingBeing {
                 babyDragon.Shoot(shootTarget, rb);
             }
 
-            switch (fireVibrationDebug)
-            {
-                case FireVibrationDebug.Continous:
-                    gameMan.vibrationMan.StartVibrating(playerIndex, leftFireContinuous, rightFireContinuous);
-                    break;
-                case FireVibrationDebug.Burst:
-                    gameMan.vibrationMan.VibrateFor(fireBurstVibrateTime, playerIndex, leftFireBurst, rightFireBurst);
-                    break;
-            }
+            gameMan.vibrationMan.VibrateFor(fireBurstVibrateTime, playerIndex, leftFireBurst, rightFireBurst);
 
         }
 
@@ -319,13 +321,13 @@ public class PlayerController : LivingBeing {
         prevShootAxis = Input.GetAxis(inputShootAlt);
     }
 
-    void Dodge()
-    {
-        if ((Input.GetButtonDown(inputDodge) || Input.GetAxis(inputDodgeAlt) > .1f) && canDodge) { 
-        SFXSource.PlayOneShot(DodgeClip, 0.5f);
-        dodgeCor = StartCoroutine(IDodge());
-        }
-    }
+    //void Dodge()
+    //{
+    //    if ((Input.GetButtonDown(inputDodge) || Input.GetAxis(inputDodgeAlt) > .1f) && canDodge) { 
+    //    SFXSource.PlayOneShot(DodgeClip, 0.5f);
+    //    dodgeCor = StartCoroutine(IDodge());
+    //    }
+    //}
 
     void SlowDown()
     {
@@ -376,46 +378,91 @@ public class PlayerController : LivingBeing {
         {
             babyDragon.StopShooting();
         }
-
-        if (fireVibrationDebug == FireVibrationDebug.Continous)
-            gameMan.vibrationMan.StopVibrating(playerIndex);
     }
 
     void LayEgg()
     {
-        if (Input.GetButtonDown(inputInteract) && canLand && eggMan.eggSlider.fillAmount >= 1)
+        if (Input.GetButtonDown(inputInteract) && canLand)
         {
             eggMan.eggSlider.fillAmount = 0;
             eggMan.eggSlider.color = eggMan.startEggColor;
+
+            if (playerState == PlayerStates.TURNING_AROUND)
+                StopTurningAround();
+
             StartCoroutine(ILayEgg());
         }
     }
     
     void PlaceAncient()
     {
-        if (ancientProjection.activeSelf)
+        if (isAimingForAncient)
         {
-            if (Input.GetButtonDown(inputPlaceAncient) || isShooting || playerState != PlayerStates.AIMING_ANCIENT)
+            if (Input.GetButtonDown(inputPlaceAncient) || isShooting || playerState == PlayerStates.LAYING_EGG)
             {
-                if (playerState == PlayerStates.AIMING_ANCIENT)
-                    playerState = PlayerStates.FLYING;
-                ancientProjection.SetActive(false);
+                isAimingForAncient = false;
+                ancientProjection.gameObject.SetActive(false);
                 return;
             }
 
-            if (Input.GetButtonDown(inputInteract))
+            canBePlaced = NavMesh.SamplePosition(ancientProjection.transform.position, out navMeshHit, 1f, NavMesh.AllAreas);
+
+            if (canBePlaced)
             {
-                ancientProjection.SetActive(false);
-                StartCoroutine(ILandForAncient());
+                if (!ancientProjection.isAvailable)
+                    ancientProjection.ChangeMat(ancientProjection.availableMat, true);
+
+                if (Input.GetButtonDown(inputInteract))
+                {
+                    ancientProjection.gameObject.SetActive(false);
+
+                    if (playerState == PlayerStates.TURNING_AROUND)
+                        StopTurningAround();
+
+                    StartCoroutine(ILandForAncient(navMeshHit.position));
+                }
+            }
+            else
+            {
+                if (ancientProjection.isAvailable)
+                    ancientProjection.ChangeMat(ancientProjection.notAvailableMat, false);
             }
         }
         else if (Input.GetButtonDown(inputPlaceAncient) && gameMan.babyDragonMan.babyDragons.Count > 0)
         {
             StopShooting();
-            ancientProjection.SetActive(true);
+            ancientProjection.gameObject.SetActive(true);
             aimProjector.SetActive(false);
-            playerState = PlayerStates.AIMING_ANCIENT;
+            isAimingForAncient = true;
         }
+    }
+
+    public void TurnAround(Vector3 _newDir)
+    {
+        playerState = PlayerStates.TURNING_AROUND;
+
+        //Set correct speed
+        isSlowing = false;
+        isSprinting = false;
+        speed = flySpeed;
+        rotationLerp = flyingRotationLerp;
+
+        //Set direction
+        desiredDir = _newDir;
+
+        //Launch timer
+        if (turnAroundCor != null)
+            StopCoroutine(turnAroundCor);
+        turnAroundCor = StartCoroutine(ITurnAround());
+    }
+
+    void StopTurningAround()
+    {
+        if (turnAroundCor != null)
+            StopCoroutine(turnAroundCor);
+
+        if (playerState == PlayerStates.TURNING_AROUND)
+            playerState = PlayerStates.FLYING;
     }
 
     //Stamina
@@ -473,7 +520,7 @@ public class PlayerController : LivingBeing {
             MakeInvincible(2f);
         }
         else
-            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+            SceneManager.LoadScene(0);
     }
 
     public override void UpdateHealthUI(int _damage)
@@ -523,7 +570,6 @@ public class PlayerController : LivingBeing {
         gameMan.vignetteMan.ChangeVignette(gameMan.vignetteMan.basicVignette);
     }
    
-    
     internal override IEnumerator IHealthBarFeedback()
     {
         LifeQuad.material.SetFloat ("_DisplayLife", 1);        
@@ -573,35 +619,6 @@ public class PlayerController : LivingBeing {
 
     //Coroutines
 
-    IEnumerator IDodge()
-    {
-        canDodge = false;
-        StopShooting();
-        playerState = PlayerStates.DODGING;
-
-        desiredDir = new Vector3(hinput, 0f, vinput);
-        if (desiredDir == Vector3.zero)
-            desiredDir = transform.right;
-
-        anim.SetTrigger("dodges");
-
-        float time = 0;
-        while (time < dodgeTime)
-        {
-            time += Time.deltaTime;
-            rb.velocity = desiredDir * (isSprinting ? megaDodgeSpeed : dodgeSpeed);
-
-            targetRot = Quaternion.LookRotation(desiredDir) * Quaternion.Euler(0f, 0f, 90f);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationLerp);
-            yield return null;
-        }
-
-        playerState = PlayerStates.FLYING;
-
-        yield return new WaitForSeconds(dodgeCooldown);
-        canDodge = true;
-    }
-    
     IEnumerator ILayEgg()
     {
         StopShooting();
@@ -609,7 +626,7 @@ public class PlayerController : LivingBeing {
 
         yield return new WaitForSeconds(1.0f);
         var instanceEgg = nestScript.Action();
-        gameMan.spawnMan.targets.Add(instanceEgg);
+        gameMan.spawnMan.eggs.Add(instanceEgg);
 
         yield return new WaitForSeconds(0.5f);
         playerState = PlayerStates.FLYING;
@@ -629,7 +646,7 @@ public class PlayerController : LivingBeing {
         }
     }
 
-    IEnumerator ILandForAncient()
+    IEnumerator ILandForAncient(Vector3 _hitPos)
     {
         StopShooting();
         MakeInvincible(4f);
@@ -643,8 +660,8 @@ public class PlayerController : LivingBeing {
         Instantiate(placeholderFeedback, babyDragonMan.babyDragons[0].transform.position, Quaternion.identity);
         Instantiate(placeholderFeedback, transform.position, Quaternion.identity);
 
-        GameObject ancient = Instantiate(ancientPrefab, ancientProjection.transform.position, Quaternion.identity);
-        //gameMan.spawnMan.AddTargetToList(ancient.transform);
+        GameObject ancient = Instantiate(ancientPrefab, _hitPos, Quaternion.identity);
+        gameMan.spawnMan.ancients.Add(ancient.transform);
         babyDragonMan.RemoveBabyDragon();
 
         ResetLife(maxLife);
@@ -670,4 +687,40 @@ public class PlayerController : LivingBeing {
 
         yield break;
     }
+
+    IEnumerator ITurnAround()
+    {
+        yield return new WaitForSeconds(turnAroundLockTimeFactor / speed);
+        turnAroundCor = null;
+        StopTurningAround();
+    }
+
+    //IEnumerator IDodge()
+    //{
+    //    canDodge = false;
+    //    StopShooting();
+    //    playerState = PlayerStates.DODGING;
+
+    //    desiredDir = new Vector3(hinput, 0f, vinput);
+    //    if (desiredDir == Vector3.zero)
+    //        desiredDir = transform.right;
+
+    //    anim.SetTrigger("dodges");
+
+    //    float time = 0;
+    //    while (time < dodgeTime)
+    //    {
+    //        time += Time.deltaTime;
+    //        rb.velocity = desiredDir * (isSprinting ? megaDodgeSpeed : dodgeSpeed);
+
+    //        targetRot = Quaternion.LookRotation(desiredDir) * Quaternion.Euler(0f, 0f, 90f);
+    //        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationLerp);
+    //        yield return null;
+    //    }
+
+    //    playerState = PlayerStates.FLYING;
+
+    //    yield return new WaitForSeconds(dodgeCooldown);
+    //    canDodge = true;
+    //}
 }

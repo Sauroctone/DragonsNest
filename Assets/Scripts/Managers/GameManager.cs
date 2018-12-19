@@ -19,8 +19,19 @@ public class GameManager : MonoBehaviour {
     public Terrain terrain;
     public TerrainData terrainData;
     
+    [Header("Score")]  
+    public GameObject UI;
+    public GameObject scoreCanevas;
+    public ScoreManager scoreManager;
+
+    [Header ("SetUp Instance")]
+    public GameObject playerControllerPrefab;
+    public GameObject playerControllerInstance;
+    // public 
+
     private void Awake()
     {
+        CreateInstances();
         if (Instance == null)
             Instance = this;
         else
@@ -33,4 +44,15 @@ public class GameManager : MonoBehaviour {
     {
         spawnMan.Init();
     }
+
+    public void CreateInstances()
+    {
+        // playerControllerInstance = Instantiate(playerControllerPrefab, _transform.position, _transform.rotation);
+        playerControllerInstance = Instantiate(playerControllerPrefab,new Vector3(0,4.86f,0), Quaternion.identity);
+        player = playerControllerInstance.GetComponent<PlayerController>();
+        babyDragonMan = player.babyDragonMan;
+        mainCamera = Instantiate(mainCamera.gameObject).GetComponent<Camera>();
+        Instantiate(UI);
+        scoreManager = UI.GetComponentInChildren<ScoreManager>();
+    }   
 }

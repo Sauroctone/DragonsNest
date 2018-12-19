@@ -8,22 +8,20 @@ public class AncientDetection : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        foreach (EnemyBehaviour _enemy in ancient.targets)
-        {
-            if (_enemy.transform == col.transform.parent)
-                return;
-        }
+        if (col.tag != "Enemy")
+            return;
 
-        EnemyBehaviour enemy = col.GetComponentInParent<EnemyBehaviour>();
-        if (enemy != null)
-            ancient.AddToTargetList(enemy);
+        if (Vector3.Angle(transform.forward, (col.transform.position - transform.position).normalized) <= ancient.angleOfVision / 2)
+        {
+            ancient.AddToTargetList(col.transform);
+        }
     }
 
     void OnTriggerExit(Collider col)
     {
-        if (col.gameObject.tag != "Archer")
+        if (col.tag != "Enemy")
             return;
 
-        ancient.RemoveAndChangeTarget(col.GetComponent<EnemyBehaviour>());
+        ancient.RemoveAndChangeTarget(col.transform);
     }
 }

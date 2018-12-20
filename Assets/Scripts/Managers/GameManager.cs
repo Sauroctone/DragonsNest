@@ -31,7 +31,8 @@ public class GameManager : MonoBehaviour {
 
     private void Awake()
     {
-        CreateInstances();
+      //  CreateInstances();
+      scoreManager = UI.GetComponentInChildren<ScoreManager>();
         if (Instance == null)
             Instance = this;
         else

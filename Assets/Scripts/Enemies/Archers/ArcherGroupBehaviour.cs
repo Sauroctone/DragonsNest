@@ -71,8 +71,8 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
         if (currentTarget != null)
         {
             if (Vector3.Distance(currentTarget.position, transform.position) < aimRange 
-                && canShoot
-                && !Physics.Raycast(transform.position, (currentTarget.position - transform.position).normalized, aimRange, aimObstacleLayer))
+                && canShoot)
+                //&& !Physics.Raycast(transform.position, (currentTarget.position - transform.position).normalized, aimRange, aimObstacleLayer))
             {
                 Debug.DrawLine(transform.position, currentTarget.position, Color.red, 2f);
                 AimAndShoot();

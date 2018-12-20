@@ -77,6 +77,7 @@ GameObject:
   - component: {fileID: 82268911993055964}
   - component: {fileID: 82947384288304106}
   - component: {fileID: 82984217848836176}
+  - component: {fileID: 114490282232585504}
   m_Layer: 10
   m_Name: Player
   m_TagString: Dragon
@@ -781,7 +782,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1082402980589760}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -46.442673, y: -1.7290483, z: -87.81301}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4319993842669830}
@@ -1701,6 +1702,21 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 1048576
+--- !u!114 &114490282232585504
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1082402980589760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2546c691a71ab494e8551f3f187f55f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreAmount: 0
+  goldPS: {fileID: 0}
+  tinPS: {fileID: 0}
+  cooperPS: {fileID: 0}
 --- !u!114 &114595963339396318
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1787,7 +1803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16dd3b58c87cb624287e455f9be44e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eggTimefactor: 1
+  eggTimefactor: 10
   playerController: {fileID: 114865201573251416}
   eggSlider: {fileID: 114714577708119054}
   eggColor: {r: 0.13510147, g: 0.30539763, b: 0.8679245, a: 1}
@@ -1803,8 +1819,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f8764bd14ad7874c868b132858593d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLife: 100
-  life: 100
+  maxLife: 70
+  life: 70
   lostLifeBeforeDecay: 0
   timeToUpdateFeedbackBar: 1
   feedbackDecayTime: 1.5
@@ -1828,17 +1844,17 @@ MonoBehaviour:
   flyingRotationLerp: 0.1
   shootingRotationLerp: 0.025
   maxSteerRot: 75
-  sprintSpeed: 60
+  sprintSpeed: 70
   slowSpeed: 5
   minSlowTime: 0.75
   boostTimeOutOfSlow: 0
   landSpeed: 0
   maxStamina: 100
-  sprintCostPerSecond: 50
+  sprintCostPerSecond: 60
   sprintCooldown: 2.5
   slowCostPerSecond: 25
   slowCooldown: 3
-  regenPerSecond: 10
+  regenPerSecond: 25
   regenCooldown: 0.5
   lookRange: 15
   timeBetweenCols: 0.025
@@ -1861,8 +1877,7 @@ MonoBehaviour:
   fireCollider: {fileID: 1089961876240342, guid: 18ab1038cb915204798c2f53f7cd517e,
     type: 2}
   anim: {fileID: 95508324259944596}
-  babyDragonMan: {fileID: 114500419610896216, guid: dfb2b35e0d1c8fe47ba3b85ef69c594d,
-    type: 2}
+  babyDragonMan: {fileID: 0}
   eggMan: {fileID: 114838063966722996}
   placeholderFeedback: {fileID: 1890502599676748, guid: b2419bf1e4c519c4abdeb78806b9f78d,
     type: 2}
@@ -1871,6 +1886,7 @@ MonoBehaviour:
     type: 2}
   aimProjector: {fileID: 1347389923306304}
   LifeQuad: {fileID: 23091350977178702}
+  StamiQuad: {fileID: 23620016657224918}
   DodgeClip: {fileID: 0}
   SlowdownClip: {fileID: 0}
   WindflowClip: {fileID: 0}
@@ -1887,8 +1903,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2746527ec6260504b8b5547c8edc0035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  babyDragonMan: {fileID: 114500419610896216, guid: dfb2b35e0d1c8fe47ba3b85ef69c594d,
-    type: 2}
+  babyDragonMan: {fileID: 0}
   pc: {fileID: 114865201573251416}
 --- !u!114 &114975259605202940
 MonoBehaviour:

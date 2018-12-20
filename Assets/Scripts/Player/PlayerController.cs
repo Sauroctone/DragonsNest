@@ -133,6 +133,7 @@ public class PlayerController : LivingBeing {
     public GameObject ancientPrefab;
     public GameObject aimProjector;
     public MeshRenderer LifeQuad;
+    public MeshRenderer StamiQuad;
 
     [Header("SFXPlayer")]
     AudioSource[] AudioSources;
@@ -147,7 +148,7 @@ public class PlayerController : LivingBeing {
 
     public void Awake()
     {
-        InstantiateRefs();
+        //InstantiateRefs();
     }
 
     public override void Start()
@@ -469,7 +470,7 @@ public class PlayerController : LivingBeing {
 
     public void UpdateStaminaUI()
     {
-        LifeQuad.material.SetFloat ("_Stamina", stamina / maxStamina);
+        StamiQuad.material.SetFloat ("_Stamina", stamina / maxStamina);
     }
 
     void UseStamina(float _cost)

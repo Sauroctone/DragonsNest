@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -528,7 +528,7 @@ public class PlayerController : LivingBeing {
     {
         LifeQuad.material.SetFloat ("_Life", lifesShader);
         SFXSource.PlayOneShot(DragonHitClip, 0.2f);
-        base.UpdateHealthUI(_damage);
+        //base.UpdateHealthUI(_damage);
         LifeQuad.material.SetFloat ("_Life", life / maxLife);
 
         if (regenCor != null)

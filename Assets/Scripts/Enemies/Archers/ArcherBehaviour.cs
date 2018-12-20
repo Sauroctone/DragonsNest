@@ -38,6 +38,7 @@ public class ArcherBehaviour : LivingBeing {
         group = GetComponentInParent<ArcherGroupBehaviour>();
         group.EventOnStateChanged += OnGroupStateChanged;
         group.archers.Add(this);
+        scoringObject = GetComponent<ScoringObject>();
 
         //Placeholder feedback
         rend = GetComponent<Renderer>();
@@ -159,6 +160,16 @@ public class ArcherBehaviour : LivingBeing {
 
     public override void Die()
     {
+        if(isBannerman)
+        {
+            scoringObject.scoreAmount = 5*group.archers.Count;
+            GameManager.Instance.scoreManager.SetCombo();
+        }
+        else
+        {
+            scoringObject.scoreAmount = 1;
+        }
+        base.Die();
         if (group != null)
             group.archers.Remove(this);
 

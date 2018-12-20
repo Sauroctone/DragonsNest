@@ -25,6 +25,8 @@ public class UiFollow : MonoBehaviour {
 
 	private void Awake()
 	{
+		player = GameManager.Instance.playerControllerInstance.transform;
+
 		mainCam = Camera.main;
 		self = transform;
 		eggShader.SetColor("_ColorBase",eggBAckgroundColor);
@@ -33,8 +35,6 @@ public class UiFollow : MonoBehaviour {
 		
 		
 		circleShader.SetColor("_ColorBase",circleBAckgroundColor);
-		circleShader.SetColor("_ColorTextFL",circleColor);
-		circleShader.SetColor("_ColorTextLL",circleColor);
 	}
 
 	private void OnGUI ()

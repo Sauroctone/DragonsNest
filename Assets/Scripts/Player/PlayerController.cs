@@ -1,6 +1,7 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.AI;
 
@@ -121,17 +122,18 @@ public class PlayerController : LivingBeing {
     public Rigidbody rb;
     public GameObject fireCollider;
     public Animator anim;
-    public Slider staminaBar;
+    // public Slider staminaBar;
     public BabyDragonManager babyDragonMan;
     public EggManager eggMan;
-    public GameObject egg;
-    public Transform toDropegg;
+    // public GameObject egg;
+    // public Transform toDropegg;
     GameManager gameMan;
     public GameObject placeholderFeedback;
     public Nest nestScript;
     public GameObject ancientPrefab;
     public GameObject aimProjector;
     public MeshRenderer LifeQuad;
+    public MeshRenderer StamiQuad;
 
     [Header("SFXPlayer")]
     AudioSource[] AudioSources;
@@ -143,6 +145,11 @@ public class PlayerController : LivingBeing {
     public AudioClip WindflowClip;
     public AudioClip DragonHitClip;
     public AudioClip DragonDeathClip;
+
+    public void Awake()
+    {
+        //InstantiateRefs();
+    }
 
     public override void Start()
     {
@@ -227,6 +234,12 @@ public class PlayerController : LivingBeing {
     }
 
     //Actions
+
+    private void InstantiateRefs()
+    {
+       babyDragonMan.target = this.transform;
+       babyDragonMan = Instantiate(babyDragonMan.gameObject, Vector3.zero, Quaternion.identity).GetComponent<BabyDragonManager>();
+    }
 
     void GetDirectionAndSpeed()
     {
@@ -457,7 +470,7 @@ public class PlayerController : LivingBeing {
 
     public void UpdateStaminaUI()
     {
-        LifeQuad.material.SetFloat ("_Stamina", stamina / maxStamina);
+        StamiQuad.material.SetFloat ("_Stamina", stamina / maxStamina);
     }
 
     void UseStamina(float _cost)
@@ -508,14 +521,14 @@ public class PlayerController : LivingBeing {
             MakeInvincible(2f);
         }
         else
-            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+            SceneManager.LoadScene(0);
     }
 
     public override void UpdateHealthUI(int _damage)
     {
         LifeQuad.material.SetFloat ("_Life", lifesShader);
         SFXSource.PlayOneShot(DragonHitClip, 0.2f);
-        base.UpdateHealthUI(_damage);
+        //base.UpdateHealthUI(_damage);
         LifeQuad.material.SetFloat ("_Life", life / maxLife);
 
         if (regenCor != null)

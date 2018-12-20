@@ -21,13 +21,17 @@ public class LivingBeing : MonoBehaviour {
     internal bool feedbackIsDecaying;
     public Image lifeBar;
     public Image lifeBarFeedback;
-
+    
     bool isInvincible;
     Coroutine invincibleCor;
     internal Coroutine regenCor;
 
-#region virtual
-	public virtual void Start()
+    [Header("Score")]
+
+    public ScoringObject scoringObject;
+    #region virtual
+    public virtual void Start()
+
 	{
 		life = maxLife;
 	}
@@ -97,6 +101,10 @@ public class LivingBeing : MonoBehaviour {
 
 	public virtual void Die()
 	{
+        if(scoringObject != null)
+        {
+            scoringObject.SetScore();
+        }
         isAlive = false;
 	}
 

@@ -121,7 +121,7 @@ public class ArcherBehaviour : LivingBeing {
             Die();
     }
 
-    IEnumerator IAimAndShoot()
+    public virtual IEnumerator IAimAndShoot()
     {        
         currentTarget = group.currentTarget;
         float time = 0f;

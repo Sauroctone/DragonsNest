@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -133,6 +133,7 @@ public class PlayerController : LivingBeing {
     public GameObject ancientPrefab;
     public GameObject aimProjector;
     public MeshRenderer LifeQuad;
+    public MeshRenderer StamiQuad;
 
     [Header("SFXPlayer")]
     AudioSource[] AudioSources;
@@ -147,7 +148,7 @@ public class PlayerController : LivingBeing {
 
     public void Awake()
     {
-        InstantiateRefs();
+        //InstantiateRefs();
     }
 
     public override void Start()
@@ -240,7 +241,7 @@ public class PlayerController : LivingBeing {
        babyDragonMan = Instantiate(babyDragonMan.gameObject, Vector3.zero, Quaternion.identity).GetComponent<BabyDragonManager>();
     }
 
-    void Move()
+    void GetDirectionAndSpeed()
     {
         if (timeOutOfSlow > 0 || isSprinting && !isSlowing)
             speed = sprintSpeed;
@@ -469,7 +470,7 @@ public class PlayerController : LivingBeing {
 
     public void UpdateStaminaUI()
     {
-        LifeQuad.material.SetFloat ("_Stamina", stamina / maxStamina);
+        StamiQuad.material.SetFloat ("_Stamina", stamina / maxStamina);
     }
 
     void UseStamina(float _cost)
@@ -527,7 +528,7 @@ public class PlayerController : LivingBeing {
     {
         LifeQuad.material.SetFloat ("_Life", lifesShader);
         SFXSource.PlayOneShot(DragonHitClip, 0.2f);
-        base.UpdateHealthUI(_damage);
+        //base.UpdateHealthUI(_damage);
         LifeQuad.material.SetFloat ("_Life", life / maxLife);
 
         if (regenCor != null)

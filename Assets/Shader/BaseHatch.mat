@@ -31,15 +31,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-<<<<<<< Updated upstream
-    - _FillAmount: 1.0008521
-=======
-<<<<<<< Updated upstream
-    - _FillAmount: 1.000499
-=======
-    - _FillAmount: 1.0000842
->>>>>>> Stashed changes
->>>>>>> Stashed changes
+    - _FillAmount: 1.0022835
     m_Colors:
     - _ColorBase: {r: 0, g: 0, b: 0, a: 1}
     - _ColorTextFL: {r: 0.93044674, g: 0.9716981, b: 0.9618199, a: 1}

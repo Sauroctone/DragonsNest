@@ -11,7 +11,7 @@ public class LivingBeing : MonoBehaviour {
     [HideInInspector]
     public float lostLifeBeforeDecay;
     internal float timeSinceLastDamage;
-    public bool isAlive = true;
+    internal bool isAlive = true;
     bool burntThisFrame;
 
     //Conditional hiiiide
@@ -25,8 +25,13 @@ public class LivingBeing : MonoBehaviour {
     bool isInvincible;
     Coroutine invincibleCor;
     internal Coroutine regenCor;
-#region virtual
-	public virtual void Start()
+
+    [Header("Score")]
+
+    public ScoringObject scoringObject;
+    #region virtual
+    public virtual void Start()
+
 	{
 		life = maxLife;
 	}
@@ -178,7 +183,3 @@ public class LivingBeing : MonoBehaviour {
         isInvincible = false;
     }
 }
-
-    [Header("Score")]
-
-    public ScoringObject scoringObject;

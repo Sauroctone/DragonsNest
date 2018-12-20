@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 114574732768770378}
   - component: {fileID: 114882257413169298}
   - component: {fileID: 114654065036448118}
-  - component: {fileID: 114182897902408990}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -44,38 +43,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114182897902408990
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1719427262841552}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 578b113ab90dfff45bcf1a1dd24c4ae7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  score: 0
-  comboAmount: 0
-  comboCoolDownImage: {fileID: 114000878786131660, guid: 6e758beaa23690149a0d2da4cfebd2d0,
-    type: 2}
-  comboAmountText: {fileID: 114997926029281914, guid: 6e758beaa23690149a0d2da4cfebd2d0,
-    type: 2}
-  scoreText: {fileID: 114015615610283940, guid: 6e758beaa23690149a0d2da4cfebd2d0,
-    type: 2}
-  comboCoolDownValue:
-  - 0
-  - 5
-  - 4
-  - 3
-  - 2
-  - 1.5
-  comboColor:
-  - {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  - {r: 0, g: 1, b: 0, a: 1}
-  - {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  - {r: 1, g: 0, b: 1, a: 1}
-  - {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &114574732768770378
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -144,9 +111,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camBehaviour: {fileID: 0}
-  mainCamera: {fileID: 0}
-  player: {fileID: 0}
-  playerRb: {fileID: 0}
+  mainCamera: {fileID: 20164785435171496, guid: 8c07c3166d2c527409cb8e607de56fca,
+    type: 2}
+  player: {fileID: 114865201573251416, guid: e52e955854e182849a85bfbc65ca9d7a, type: 2}
+  playerRb: {fileID: 54845440365208266, guid: e52e955854e182849a85bfbc65ca9d7a, type: 2}
   vignetteMan: {fileID: 114574732768770378}
   spawnMan: {fileID: 114882257413169298}
   babyDragonMan: {fileID: 0}
@@ -154,9 +122,9 @@ MonoBehaviour:
   terrain: {fileID: 0}
   terrainData: {fileID: 15600000, guid: 4e38b7e6ac40cb149b5c61c619d4d60c, type: 2}
   UI: {fileID: 1322576969861278, guid: d895af0c19c250e4fbad2353e7f71da7, type: 2}
-  scoreCanevas: {fileID: 0}
-  scoreManager: {fileID: 114182897902408990}
+  scoreCanevas: {fileID: 1245094482824880, guid: 6e758beaa23690149a0d2da4cfebd2d0,
+    type: 2}
+  scoreManager: {fileID: 0}
   playerControllerPrefab: {fileID: 1082402980589760, guid: e52e955854e182849a85bfbc65ca9d7a,
     type: 2}
-  playerControllerInstance: {fileID: 1245094482824880, guid: 6e758beaa23690149a0d2da4cfebd2d0,
-    type: 2}
+  playerControllerInstance: {fileID: 0}

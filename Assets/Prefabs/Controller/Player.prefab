@@ -4570,7 +4570,8 @@ MonoBehaviour:
   fireCollider: {fileID: 1089961876240342, guid: 18ab1038cb915204798c2f53f7cd517e,
     type: 2}
   anim: {fileID: 0}
-  babyDragonMan: {fileID: 0}
+  babyDragonMan: {fileID: 114500419610896216, guid: dfb2b35e0d1c8fe47ba3b85ef69c594d,
+    type: 2}
   eggMan: {fileID: 114838063966722996}
   placeholderFeedback: {fileID: 1890502599676748, guid: b2419bf1e4c519c4abdeb78806b9f78d,
     type: 2}

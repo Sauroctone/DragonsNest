@@ -98,7 +98,8 @@ MonoBehaviour:
   currentWave: 0
   spawnerCountIncrement: 0.5
   restTimerFlavor: 'A brief respite:'
-  waveTimerText: {fileID: 0}
+  waveTimerText: {fileID: 114446249414632664, guid: 8126c08c43fa5b34b8802d32f752283f,
+    type: 2}
 --- !u!114 &114991777532292108
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -124,7 +125,9 @@ MonoBehaviour:
   UI: {fileID: 1322576969861278, guid: d895af0c19c250e4fbad2353e7f71da7, type: 2}
   scoreCanevas: {fileID: 1245094482824880, guid: 6e758beaa23690149a0d2da4cfebd2d0,
     type: 2}
-  scoreManager: {fileID: 0}
+  scoreManager: {fileID: 114503348252651704, guid: d895af0c19c250e4fbad2353e7f71da7,
+    type: 2}
   playerControllerPrefab: {fileID: 1082402980589760, guid: e52e955854e182849a85bfbc65ca9d7a,
     type: 2}
-  playerControllerInstance: {fileID: 0}
+  playerControllerInstance: {fileID: 1082402980589760, guid: e52e955854e182849a85bfbc65ca9d7a,
+    type: 2}

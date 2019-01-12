@@ -37,7 +37,8 @@ public class UiFollow : MonoBehaviour {
 		circleShader.SetColor("_ColorBase",circleBAckgroundColor);
 	}
 
-	private void OnGUI ()
+	private void 
+	OnGUI ()
 	{
 		GUICreatorEgg();
 	}

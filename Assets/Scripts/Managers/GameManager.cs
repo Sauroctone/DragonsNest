@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour {
         player = playerControllerInstance.GetComponent<PlayerController>();
         babyDragonMan = player.babyDragonMan;
         mainCamera = Instantiate(mainCamera.gameObject).GetComponent<Camera>();
+        camBehaviour = mainCamera.GetComponent<CameraBehaviour>();
         Instantiate(UI);
         scoreManager = UI.GetComponentInChildren<ScoreManager>();
     }   

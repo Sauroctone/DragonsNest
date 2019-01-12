@@ -661,7 +661,7 @@ public class PlayerController : LivingBeing {
         Instantiate(placeholderFeedback, babyDragonMan.babyDragons[0].transform.position, Quaternion.identity);
         Instantiate(placeholderFeedback, transform.position, Quaternion.identity);
 
-        GameObject ancient = Instantiate(ancientPrefab, _hitPos, Quaternion.identity);
+        GameObject ancient = Instantiate(ancientPrefab, _hitPos, transform.rotation);
         gameMan.spawnMan.ancients.Add(ancient.transform);
         babyDragonMan.RemoveBabyDragon();
 

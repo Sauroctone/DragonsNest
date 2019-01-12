@@ -148,7 +148,7 @@ public class PlayerController : LivingBeing {
 
     public void Awake()
     {
-        //InstantiateRefs();
+        InstantiateRefs();
     }
 
     public override void Start()

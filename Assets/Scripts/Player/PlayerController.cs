@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -528,7 +528,7 @@ public class PlayerController : LivingBeing {
     {
         LifeQuad.material.SetFloat ("_Life", lifesShader);
         SFXSource.PlayOneShot(DragonHitClip, 0.2f);
-        base.UpdateHealthUI(_damage);
+        //base.UpdateHealthUI(_damage);
         LifeQuad.material.SetFloat ("_Life", life / maxLife);
 
         if (regenCor != null)
@@ -661,7 +661,7 @@ public class PlayerController : LivingBeing {
         Instantiate(placeholderFeedback, babyDragonMan.babyDragons[0].transform.position, Quaternion.identity);
         Instantiate(placeholderFeedback, transform.position, Quaternion.identity);
 
-        GameObject ancient = Instantiate(ancientPrefab, _hitPos, Quaternion.identity);
+        GameObject ancient = Instantiate(ancientPrefab, _hitPos, transform.rotation);
         gameMan.spawnMan.ancients.Add(ancient.transform);
         babyDragonMan.RemoveBabyDragon();
 

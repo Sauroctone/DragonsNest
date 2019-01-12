@@ -35,8 +35,6 @@ public class UiFollow : MonoBehaviour {
 		
 		
 		circleShader.SetColor("_ColorBase",circleBAckgroundColor);
-		circleShader.SetColor("_ColorTextFL",circleColor);
-		circleShader.SetColor("_ColorTextLL",circleColor);
 	}
 
 	private void OnGUI ()

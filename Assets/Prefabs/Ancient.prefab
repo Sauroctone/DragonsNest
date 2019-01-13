@@ -460,7 +460,7 @@ MonoBehaviour:
   timeBetweenCols: 1.5
   fireColSpeed: 100
   projectile: {fileID: 1460089352123924, guid: 151a68bdc59a4aa47b9b2dfd027ce511, type: 2}
-  fireOrigin: {fileID: 0}
+  fireOrigin: {fileID: 4439894210629342}
 --- !u!114 &114209857979387194
 MonoBehaviour:
   m_ObjectHideFlags: 1

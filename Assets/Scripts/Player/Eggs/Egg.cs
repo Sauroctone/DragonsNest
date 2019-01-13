@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,7 +25,7 @@ public class Egg : LivingBeing {
     {
         base.Start();
 
-        material = rend.material;
+        //material = rend.material;
 		canBeADrone = false;
         spawnMan = GameManager.Instance.spawnMan;
         hatchingTime = 0f;
@@ -79,7 +79,7 @@ public class Egg : LivingBeing {
     public override void Die()
     {
         base.Die();
-
+		hatchingTime = 0;
         spawnMan.eggs.Remove(transform);
         gameObject.SetActive(false);
     }

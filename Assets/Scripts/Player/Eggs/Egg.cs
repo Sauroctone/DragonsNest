@@ -81,6 +81,8 @@ public class Egg : LivingBeing {
         base.Die();
 		hatchingTime = 0;
         spawnMan.eggs.Remove(transform);
+		pickupCol.SetActive(false);
         gameObject.SetActive(false);
+
     }
 }

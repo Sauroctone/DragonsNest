@@ -3140,7 +3140,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1082402980589760}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 35.97, y: 5, z: 0}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4319993842669830}
@@ -4130,10 +4130,9 @@ MonoBehaviour:
   availableMat: {fileID: 2100000, guid: 5fed1f69d2177664ab70b28da9aff605, type: 2}
   notAvailableMat: {fileID: 2100000, guid: 26447e5de2b4a9149baae808a6deac69, type: 2}
   rends:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 23676575252821632}
+  - {fileID: 23609482492719722}
+  - {fileID: 23779676765617478}
   isAvailable: 1
 --- !u!114 &114434384479767948
 MonoBehaviour:

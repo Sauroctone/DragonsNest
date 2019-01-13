@@ -52,7 +52,7 @@ public class EnemySpawner : LivingBeing
             StopCoroutine(spawnCor);
 
         if (!isOutOfMap)
-            LevelUp();
+            //LevelUp();
 
         MakeInvincible(spawnMan.restTimer);
         ResetLife(0);
@@ -86,7 +86,7 @@ public class EnemySpawner : LivingBeing
     {
         gameObject.SetActive(true);
         ResetLife(0f);
-        ResetLevel();
+        //ResetLevel();
 
         if (spawnMan == null)
             spawnMan = GameManager.Instance.spawnMan;

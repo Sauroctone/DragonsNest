@@ -107,6 +107,7 @@ GameObject:
   - component: {fileID: 114711577181588868}
   - component: {fileID: 65426152755966630}
   - component: {fileID: 114944657152218628}
+  - component: {fileID: 114670966370529770}
   m_Layer: 14
   m_Name: Spawner
   m_TagString: Untagged
@@ -529,6 +530,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df59013f7d3585746a393c99975c3a04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114670966370529770
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1544373144379654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6af1f851f1a1e34f8c9bcdf894cd9d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  egg: {fileID: 0}
+  scaleEgg: 0
+  eggShader: {fileID: 0}
+  eggLifeMaxColor: {r: 0, g: 0, b: 0, a: 0}
+  eggLowLifeColor: {r: 0, g: 0, b: 0, a: 0}
+  eggBAckgroundColor: {r: 0, g: 0, b: 0, a: 0}
+  circleShader: {fileID: 0}
+  circleColor: {r: 0, g: 0, b: 0, a: 0}
+  circleBAckgroundColor: {r: 0, g: 0, b: 0, a: 0}
+  eggImage: {fileID: 0}
+  indicatorImage: {fileID: 0}
 --- !u!114 &114711577181588868
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -543,7 +567,6 @@ MonoBehaviour:
   maxLife: 100
   life: 100
   lostLifeBeforeDecay: 0
-  isAlive: 1
   timeToUpdateFeedbackBar: 0
   feedbackDecayTime: 0
   lifeBar: {fileID: 114734028930655820}

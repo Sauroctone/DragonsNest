@@ -116,6 +116,7 @@ public class PlayerController : LivingBeing {
 
     [Header("References")]
     public Transform visuals;
+    public ParticleSystem ps;
     public Transform aimCursor;
     public ParticleSystem firePartSys;
     public Transform fireOrigin;
@@ -148,7 +149,7 @@ public class PlayerController : LivingBeing {
 
     public void Awake()
     {
-        //InstantiateRefs();
+        InstantiateRefs();
     }
 
     public override void Start()
@@ -639,6 +640,9 @@ public class PlayerController : LivingBeing {
     {
         float time = 0f;
         float growTime = 2f;
+
+        ps.Play();
+
         while (time < growTime)
         {
             time += Time.deltaTime;

@@ -40,6 +40,7 @@ public class Nest : MonoBehaviour
  */
 	public void OnTriggerEnter(Collider col)
 	{
+        Debug.Log("Banane, kokok");
         //Debug.Log("enter");
 		if(col.gameObject.tag == "Dragon")
 		{   

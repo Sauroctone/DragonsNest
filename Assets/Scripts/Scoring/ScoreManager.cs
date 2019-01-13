@@ -23,9 +23,23 @@ public class ScoreManager : MonoBehaviour {
 		SetScore();
 	}
 
+	public void Start ()
+	{
+		ResetScore();
+	}
+
+	private void ResetScore()
+	{
+		score = 0;
+		comboAmount =0;
+		comboCoolDownImage.color = comboColor[comboAmount];
+		comboAmountText.color = comboColor[comboAmount];
+	}
+
 	public void SetScore()
 	{
 		scoreText.text = score.ToString("00000");
+		
 	}
 
 	public void DecreaseCombo()

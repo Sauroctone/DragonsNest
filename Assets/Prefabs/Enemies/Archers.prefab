@@ -818,7 +818,7 @@ GameObject:
   - component: {fileID: 114853899392640834}
   m_Layer: 14
   m_Name: Bannerman
-  m_TagString: Archer
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4940,9 +4940,10 @@ MonoBehaviour:
   maxWanderRadius: 0.05
   aimRotLerp: 1
   moveRotLerp: 0.1
-  flightSpeed: 0
+  flightSpeed: 3
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
+  groupState: 0
   debugIntercept: {fileID: 0}
   currentTarget: {fileID: 0}
   navAgent: {fileID: 195184867711708560}
@@ -4970,9 +4971,10 @@ MonoBehaviour:
   maxWanderRadius: 0.05
   aimRotLerp: 1
   moveRotLerp: 0.1
-  flightSpeed: 0
+  flightSpeed: 3
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
+  groupState: 0
   debugIntercept: {fileID: 0}
   currentTarget: {fileID: 0}
   navAgent: {fileID: 195841430609526814}
@@ -5000,9 +5002,10 @@ MonoBehaviour:
   maxWanderRadius: 0.05
   aimRotLerp: 1
   moveRotLerp: 0.1
-  flightSpeed: 0
+  flightSpeed: 3
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
+  groupState: 0
   debugIntercept: {fileID: 0}
   currentTarget: {fileID: 0}
   navAgent: {fileID: 195861023915946468}
@@ -5030,9 +5033,10 @@ MonoBehaviour:
   maxWanderRadius: 0.05
   aimRotLerp: 1
   moveRotLerp: 0.1
-  flightSpeed: 0
+  flightSpeed: 3
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
+  groupState: 0
   debugIntercept: {fileID: 0}
   currentTarget: {fileID: 0}
   navAgent: {fileID: 195155647072768138}
@@ -5075,9 +5079,10 @@ MonoBehaviour:
   maxWanderRadius: 0.05
   aimRotLerp: 1
   moveRotLerp: 0.1
-  flightSpeed: 0
+  flightSpeed: 3
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
+  groupState: 0
   debugIntercept: {fileID: 0}
   currentTarget: {fileID: 0}
   navAgent: {fileID: 195736697918542106}
@@ -5203,9 +5208,10 @@ MonoBehaviour:
   maxWanderRadius: 0.05
   aimRotLerp: 1
   moveRotLerp: 0.1
-  flightSpeed: 0
+  flightSpeed: 3
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
+  groupState: 0
   debugIntercept: {fileID: 0}
   currentTarget: {fileID: 0}
   navAgent: {fileID: 195632234845434534}
@@ -5263,9 +5269,10 @@ MonoBehaviour:
   maxWanderRadius: 0.05
   aimRotLerp: 1
   moveRotLerp: 0.1
-  flightSpeed: 0
+  flightSpeed: 3
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
+  groupState: 0
   debugIntercept: {fileID: 0}
   currentTarget: {fileID: 0}
   navAgent: {fileID: 195973994696990568}
@@ -5308,9 +5315,10 @@ MonoBehaviour:
   maxWanderRadius: 0.05
   aimRotLerp: 1
   moveRotLerp: 0.1
-  flightSpeed: 0
+  flightSpeed: 3
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
+  groupState: 0
   debugIntercept: {fileID: 0}
   currentTarget: {fileID: 0}
   navAgent: {fileID: 195466112185234518}
@@ -5362,6 +5370,7 @@ MonoBehaviour:
   flightSpeed: 0
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
+  groupState: 0
   debugIntercept: {fileID: 0}
   currentTarget: {fileID: 0}
   navAgent: {fileID: 195570635837962676}
@@ -5405,9 +5414,10 @@ MonoBehaviour:
   maxWanderRadius: 0.05
   aimRotLerp: 1
   moveRotLerp: 0.1
-  flightSpeed: 0
+  flightSpeed: 3
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
+  groupState: 0
   debugIntercept: {fileID: 0}
   currentTarget: {fileID: 0}
   navAgent: {fileID: 195508475086089098}
@@ -5492,9 +5502,10 @@ MonoBehaviour:
   maxWanderRadius: 0.05
   aimRotLerp: 1
   moveRotLerp: 0.1
-  flightSpeed: 0
+  flightSpeed: 3
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
+  groupState: 0
   debugIntercept: {fileID: 0}
   currentTarget: {fileID: 0}
   navAgent: {fileID: 195142252551937794}
@@ -5522,9 +5533,10 @@ MonoBehaviour:
   maxWanderRadius: 0.05
   aimRotLerp: 1
   moveRotLerp: 0.1
-  flightSpeed: 0
+  flightSpeed: 3
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
+  groupState: 0
   debugIntercept: {fileID: 0}
   currentTarget: {fileID: 0}
   navAgent: {fileID: 195699799524079618}
@@ -5552,9 +5564,10 @@ MonoBehaviour:
   maxWanderRadius: 0.05
   aimRotLerp: 1
   moveRotLerp: 0.1
-  flightSpeed: 0
+  flightSpeed: 3
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
+  groupState: 0
   debugIntercept: {fileID: 0}
   currentTarget: {fileID: 0}
   navAgent: {fileID: 195733545122345536}
@@ -5683,9 +5696,10 @@ MonoBehaviour:
   maxWanderRadius: 0.05
   aimRotLerp: 1
   moveRotLerp: 0.1
-  flightSpeed: 0
+  flightSpeed: 3
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
+  groupState: 0
   debugIntercept: {fileID: 0}
   currentTarget: {fileID: 0}
   navAgent: {fileID: 195052844331975820}
@@ -5713,9 +5727,10 @@ MonoBehaviour:
   maxWanderRadius: 0.05
   aimRotLerp: 1
   moveRotLerp: 0.1
-  flightSpeed: 0
+  flightSpeed: 3
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
+  groupState: 0
   debugIntercept: {fileID: 0}
   currentTarget: {fileID: 0}
   navAgent: {fileID: 195196216195582826}
@@ -5743,9 +5758,10 @@ MonoBehaviour:
   maxWanderRadius: 0.05
   aimRotLerp: 1
   moveRotLerp: 0.1
-  flightSpeed: 0
+  flightSpeed: 3
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
+  groupState: 0
   debugIntercept: {fileID: 0}
   currentTarget: {fileID: 0}
   navAgent: {fileID: 195751561740883314}
@@ -5803,9 +5819,10 @@ MonoBehaviour:
   maxWanderRadius: 0.05
   aimRotLerp: 1
   moveRotLerp: 0.1
-  flightSpeed: 0
+  flightSpeed: 3
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
+  groupState: 0
   debugIntercept: {fileID: 0}
   currentTarget: {fileID: 0}
   navAgent: {fileID: 195014899393098956}
@@ -5863,9 +5880,10 @@ MonoBehaviour:
   maxWanderRadius: 0.05
   aimRotLerp: 1
   moveRotLerp: 0.1
-  flightSpeed: 0
+  flightSpeed: 3
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
+  groupState: 0
   debugIntercept: {fileID: 0}
   currentTarget: {fileID: 0}
   navAgent: {fileID: 195189977170425358}
@@ -5923,9 +5941,10 @@ MonoBehaviour:
   maxWanderRadius: 0.05
   aimRotLerp: 1
   moveRotLerp: 0.1
-  flightSpeed: 0
+  flightSpeed: 3
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
+  groupState: 0
   debugIntercept: {fileID: 0}
   currentTarget: {fileID: 0}
   navAgent: {fileID: 195699368955554660}
@@ -5968,9 +5987,10 @@ MonoBehaviour:
   maxWanderRadius: 0.05
   aimRotLerp: 1
   moveRotLerp: 0.1
-  flightSpeed: 0
+  flightSpeed: 3
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
+  groupState: 0
   debugIntercept: {fileID: 0}
   currentTarget: {fileID: 0}
   navAgent: {fileID: 195676821999712414}
@@ -5998,9 +6018,10 @@ MonoBehaviour:
   maxWanderRadius: 0.05
   aimRotLerp: 1
   moveRotLerp: 0.1
-  flightSpeed: 0
+  flightSpeed: 3
   aimDir: {x: 0, y: 0, z: 0}
   group: {fileID: 0}
+  groupState: 0
   debugIntercept: {fileID: 0}
   currentTarget: {fileID: 0}
   navAgent: {fileID: 195526090180233982}

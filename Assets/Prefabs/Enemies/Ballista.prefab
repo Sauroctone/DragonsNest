@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 4737402235570446}
   - component: {fileID: 33686037978889588}
   - component: {fileID: 23831554464848970}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: SM_Ballista_Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,9 +73,9 @@ GameObject:
   - component: {fileID: 4385386028194392}
   - component: {fileID: 65476069568372520}
   - component: {fileID: 114131781510693878}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: BallistaBody
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 4157955695887554}
   - component: {fileID: 33729574631080414}
   - component: {fileID: 23892540732987842}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: SM_Ballista_MainFrame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,7 +157,7 @@ GameObject:
   - component: {fileID: 4535774062608870}
   - component: {fileID: 33192343222385704}
   - component: {fileID: 23757761773656846}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: SM_Ballista_Tire_BackRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,7 +174,7 @@ GameObject:
   - component: {fileID: 4782307908336940}
   - component: {fileID: 33169467193604578}
   - component: {fileID: 23431537362029762}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: SM_Ballista_Tire_FrontLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: 4555287670809900}
   - component: {fileID: 33119151749824236}
   - component: {fileID: 23279181367914586}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: SM_Ballista_Tire_BackLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,7 +329,7 @@ GameObject:
   - component: {fileID: 4323755727522288}
   - component: {fileID: 33957390600002030}
   - component: {fileID: 23342468597964410}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: SM_Ballista_Tire_FrontRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1145,7 +1145,7 @@ MonoBehaviour:
   player: {fileID: 0}
   playerRb: {fileID: 0}
   state: 0
-  bannerMan: {fileID: 0}
+  bannerMan: {fileID: 1107817215166202}
   updatePathFrequency: 0.2
   debugSphere: {fileID: 0}
   moveRotLerp: 0.1

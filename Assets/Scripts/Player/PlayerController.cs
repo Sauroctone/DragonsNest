@@ -146,6 +146,7 @@ public class PlayerController : LivingBeing {
     public AudioClip WindflowClip;
     public AudioClip DragonHitClip;
     public AudioClip DragonDeathClip;
+    public AudioClip EggDropping;
 
     public void Awake()
     {
@@ -386,6 +387,7 @@ public class PlayerController : LivingBeing {
     {
         if (Input.GetButtonDown(inputInteract) && canLand)
         {
+            SFXSource.PlayOneShot(EggDropping);
             eggMan.eggSlider.fillAmount = 0;
             eggMan.eggSlider.color = eggMan.startEggColor;
 

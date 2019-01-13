@@ -155,7 +155,8 @@ public class ArcherBehaviour : LivingBeing {
 
     private void OnDisable()
     {
-        group.EventOnStateChanged -= OnGroupStateChanged;
+        if (group != null)
+            group.EventOnStateChanged -= OnGroupStateChanged;
     }
 
     public override void Die()

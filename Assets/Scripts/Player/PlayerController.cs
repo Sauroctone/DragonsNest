@@ -420,6 +420,7 @@ public class PlayerController : LivingBeing {
             {
                 isAimingForAncient = false;
                 ancientProjection.gameObject.SetActive(false);
+                aimProjector.SetActive(true);
                 return;
             }
 
@@ -537,6 +538,11 @@ public class PlayerController : LivingBeing {
 
             ResetLife(2f);
             MakeInvincible(2f);
+
+            StopShooting();
+            isAimingForAncient = false;
+            ancientProjection.gameObject.SetActive(false);
+            aimProjector.SetActive(true);
         }
         else
             SceneManager.LoadScene(0);

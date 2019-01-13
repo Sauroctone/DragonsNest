@@ -25,7 +25,7 @@ public class ArcherBehaviour : LivingBeing {
     Vector3 originPos;
     Vector3 viewPos;
     public ArcherGroupBehaviour group;
-    ArcherGroupState groupState;
+    public ArcherGroupState groupState;
     public Transform debugIntercept;
     public Transform currentTarget;
     Renderer rend;
@@ -57,7 +57,7 @@ public class ArcherBehaviour : LivingBeing {
                 break;
 
             case ArcherGroupState.FLEEING_INDIVIDUALLY:
-                //DieOutOfView();
+                DieOutOfView();
                 break;
         }
     }

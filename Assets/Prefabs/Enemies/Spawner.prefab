@@ -107,7 +107,6 @@ GameObject:
   - component: {fileID: 114711577181588868}
   - component: {fileID: 65426152755966630}
   - component: {fileID: 114944657152218628}
-  - component: {fileID: 114670966370529770}
   m_Layer: 14
   m_Name: Spawner
   m_TagString: Untagged
@@ -204,7 +203,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1544373144379654}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -136.24268, y: -5.5890484, z: -171.013}
+  m_LocalPosition: {x: 75.7, y: 1, z: -30.9}
   m_LocalScale: {x: 5, y: 2, z: 5}
   m_Children:
   - {fileID: 224640552310126242}
@@ -275,7 +274,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1121154133764996}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.282, z: 1.26}
+  m_LocalPosition: {x: -1.3, y: -0.44, z: -2.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4380552396983362}
@@ -530,29 +529,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df59013f7d3585746a393c99975c3a04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114670966370529770
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1544373144379654}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6af1f851f1a1e34f8c9bcdf894cd9d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  egg: {fileID: 0}
-  scaleEgg: 0
-  eggShader: {fileID: 0}
-  eggLifeMaxColor: {r: 0, g: 0, b: 0, a: 0}
-  eggLowLifeColor: {r: 0, g: 0, b: 0, a: 0}
-  eggBAckgroundColor: {r: 0, g: 0, b: 0, a: 0}
-  circleShader: {fileID: 0}
-  circleColor: {r: 0, g: 0, b: 0, a: 0}
-  circleBAckgroundColor: {r: 0, g: 0, b: 0, a: 0}
-  eggImage: {fileID: 0}
-  indicatorImage: {fileID: 0}
 --- !u!114 &114711577181588868
 MonoBehaviour:
   m_ObjectHideFlags: 1

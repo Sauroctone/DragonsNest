@@ -86,6 +86,10 @@ public class BabyDragonBehaviour : MonoBehaviour {
 
     public void StopShooting()
     {
+        if (stopShootingCor != null)
+            StopCoroutine(stopShootingCor);
+        if (startShootingCor != null)
+            StopCoroutine(startShootingCor);
         stopShootingCor = StartCoroutine(IStopShooting());
     }
 

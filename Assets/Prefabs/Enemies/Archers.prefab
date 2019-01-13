@@ -5584,8 +5584,28 @@ MonoBehaviour:
   player: {fileID: 0}
   playerRb: {fileID: 0}
   state: 0
-  archers: []
-  bannerMan: {fileID: 0}
+  archers:
+  - {fileID: 114688358344656210}
+  - {fileID: 114845624909452998}
+  - {fileID: 114694990509321362}
+  - {fileID: 114062490343758198}
+  - {fileID: 114582911933928242}
+  - {fileID: 114897626452461054}
+  - {fileID: 114929736938228548}
+  - {fileID: 114693004291399994}
+  - {fileID: 114437901117144934}
+  - {fileID: 114773284807310602}
+  - {fileID: 114521557236784734}
+  - {fileID: 114025324550670794}
+  - {fileID: 114622497258362970}
+  - {fileID: 114373728367745698}
+  - {fileID: 114702225069896346}
+  - {fileID: 114916694811168354}
+  - {fileID: 114047855132860702}
+  - {fileID: 114042797574824050}
+  - {fileID: 114049280244713672}
+  - {fileID: 114429825857632074}
+  bannerMan: {fileID: 1477360616450988}
   updatePathFrequency: 0.2
   debugSphere: {fileID: 0}
   moveRotLerp: 0.1

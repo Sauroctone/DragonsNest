@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -29,6 +30,9 @@ public class GameManager : MonoBehaviour {
     public GameObject playerControllerInstance;
     // public 
 
+    [Header("Spawn")]
+    public GameObject waveCanvas;
+
     private void Awake()
     {
       CreateInstances();
@@ -54,7 +58,7 @@ public class GameManager : MonoBehaviour {
         babyDragonMan = player.babyDragonMan;
         mainCamera = Instantiate(mainCamera.gameObject).GetComponent<Camera>();
         camBehaviour = mainCamera.GetComponent<CameraBehaviour>();
-        Instantiate(UI);
-        scoreManager = UI.GetComponentInChildren<ScoreManager>();
+        UI = Instantiate(UI);
+        spawnMan.waveTimerText = UI.transform.GetChild(2).GetComponentInChildren<Text>();
     }   
 }

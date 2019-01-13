@@ -57,7 +57,7 @@ public class ArcherBehaviour : LivingBeing {
                 break;
 
             case ArcherGroupState.FLEEING_INDIVIDUALLY:
-                DieOutOfView();
+                //DieOutOfView();
                 break;
         }
     }

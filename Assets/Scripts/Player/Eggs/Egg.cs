@@ -25,7 +25,7 @@ public class Egg : LivingBeing {
     {
         base.Start();
 
-        material = rend.material;
+        //material = rend.material;
 		canBeADrone = false;
         spawnMan = GameManager.Instance.spawnMan;
         hatchingTime = 0f;

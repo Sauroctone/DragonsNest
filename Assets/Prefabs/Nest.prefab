@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23782248550036822}
   - component: {fileID: 136180821481021014}
   - component: {fileID: 114970654633114426}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: SM_Egg_Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}

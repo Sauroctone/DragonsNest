@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 114304328799501970}
   - component: {fileID: 114612677995414168}
   m_Layer: 11
-  m_Name: WaveCanvas (1)
+  m_Name: WaveCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -448,7 +448,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3137255, g: 0.3137255, b: 0.3137255, a: 1}
+  m_Color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -468,7 +468,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1
+  m_Text: 3
 --- !u!114 &114261392975725070
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -668,8 +668,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 578b113ab90dfff45bcf1a1dd24c4ae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 0
-  comboAmount: 0
+  score: 416
+  comboAmount: 2
   comboCoolDownImage: {fileID: 114504018851526818}
   comboAmountText: {fileID: 114252897079370922}
   scoreText: {fileID: 114240655267290152}
@@ -705,7 +705,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+  m_Color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -885,7 +885,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Wave XX: Burn the last humans'
+  m_Text: 'Wave 1: 5 years'
 --- !u!114 &114738480092288186
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -85,10 +85,13 @@ MonoBehaviour:
   eggs: []
   spawnersInMap:
   - {fileID: 0}
+  activeSpawners:
   - {fileID: 0}
   - {fileID: 0}
-  activeSpawners: []
+  - {fileID: 0}
+  - {fileID: 0}
   spawnersOutOfMap:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   ancients: []
@@ -123,7 +126,7 @@ MonoBehaviour:
   terrain: {fileID: 0}
   terrainData: {fileID: 15600000, guid: 4e38b7e6ac40cb149b5c61c619d4d60c, type: 2}
   UI: {fileID: 1322576969861278, guid: d895af0c19c250e4fbad2353e7f71da7, type: 2}
-  scoreCanevas: {fileID: 1245094482824880, guid: 6e758beaa23690149a0d2da4cfebd2d0,
+  scoreCanevas: {fileID: 1922284321442798, guid: d895af0c19c250e4fbad2353e7f71da7,
     type: 2}
   scoreManager: {fileID: 114503348252651704, guid: d895af0c19c250e4fbad2353e7f71da7,
     type: 2}
@@ -131,3 +134,4 @@ MonoBehaviour:
     type: 2}
   playerControllerInstance: {fileID: 1082402980589760, guid: e52e955854e182849a85bfbc65ca9d7a,
     type: 2}
+  waveCanvas: {fileID: 1050587436275554, guid: d895af0c19c250e4fbad2353e7f71da7, type: 2}

@@ -56,6 +56,10 @@ public class PlayerController : LivingBeing {
     public float minSlowTime;
     public float boostTimeOutOfSlow;
     public float landSpeed;
+    float flapTime;
+    float timeToFlap;
+    public float minTimeToFlap;
+    public float maxTimeToFlap;
 
     [Header("Stamina")]
     public float maxStamina;
@@ -166,6 +170,8 @@ public class PlayerController : LivingBeing {
         sprintTime = sprintCooldown;
         slowTime = slowCooldown;
         gameMan = GameManager.Instance;
+
+        timeToFlap = Random.Range(minTimeToFlap, maxTimeToFlap);
     }
 
     private void FixedUpdate()
@@ -232,6 +238,14 @@ public class PlayerController : LivingBeing {
         timeOutOfSlow -= Time.deltaTime;
 
         UpdateStaminaUI();
+
+        flapTime += Time.deltaTime;
+        if (flapTime >= timeToFlap)
+        {
+            flapTime = 0;
+            anim.SetTrigger("flaps");
+            timeToFlap = Random.Range(minTimeToFlap, maxTimeToFlap);
+        }
     }
 
     //Actions
@@ -297,6 +311,7 @@ public class PlayerController : LivingBeing {
             }
 
             gameMan.vibrationMan.VibrateFor(fireBurstVibrateTime, playerIndex, leftFireBurst, rightFireBurst);
+            anim.SetBool("isShooting", true);
 
         }
 
@@ -380,6 +395,7 @@ public class PlayerController : LivingBeing {
         {
             babyDragon.StopShooting();
         }
+        anim.SetBool("isShooting", false);
     }
 
     void LayEgg()

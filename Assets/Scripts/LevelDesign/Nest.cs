@@ -44,7 +44,6 @@ public class Nest : MonoBehaviour
         //Debug.Log("enter");
 		if(col.gameObject.tag == "Dragon")
 		{   
-
             if(!egg.gameObject.activeSelf && player.eggMan.eggSlider.fillAmount >= 1)
             {
                 active = true;

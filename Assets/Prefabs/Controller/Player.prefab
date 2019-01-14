@@ -2097,9 +2097,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1597952205405816}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.45, z: -1.06}
-  m_LocalScale: {x: 4, y: 4, z: 3}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.74, y: 0.45, z: -4.549999}
+  m_LocalScale: {x: 4, y: 4.000002, z: 3.000002}
   m_Children: []
   m_Father: {fileID: 4826760242454774}
   m_RootOrder: 7
@@ -2434,7 +2434,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1767828039397828}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.45000005, z: -1.0599976}
+  m_LocalPosition: {x: -0.74, y: 0.45, z: -4.55}
   m_LocalScale: {x: 4, y: 4.000002, z: 3.000002}
   m_Children: []
   m_Father: {fileID: 4826760242454774}
@@ -3231,7 +3231,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1082402980589760}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalPosition: {x: 0, y: 5, z: -5.548}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4319993842669830}
@@ -4648,7 +4648,7 @@ MonoBehaviour:
   aimProjector: {fileID: 1347389923306304}
   LifeQuad: {fileID: 23091350977178702}
   StamiQuad: {fileID: 23620016657224918}
-  DodgeClip: {fileID: 0}
+  DodgeClip: {fileID: 8300000, guid: 373c6c735abbec74ebcfc47f64a5fe40, type: 3}
   SlowdownClip: {fileID: 8300000, guid: 7eb788d52c8fa8a46bde8d3e418131bc, type: 3}
   WindflowClip: {fileID: 8300000, guid: 2b23ac223eb06c041b8400246826ff81, type: 3}
   DragonHitClip: {fileID: 8300000, guid: d53542c88188ecf42b1061b533d3c183, type: 3}

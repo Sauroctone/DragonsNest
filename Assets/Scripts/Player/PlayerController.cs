@@ -357,6 +357,7 @@ public class PlayerController : LivingBeing {
         if ((Input.GetButton(inputSlowDown) || Input.GetAxis(inputSlowDownAlt) >= .1f) && stamina > 0 && slowTime >= slowCooldown)
         {
             isSlowing = true;
+            SFXSource.PlayOneShot(SlowdownClip);
 
             if (!isSprinting)
                 UseStamina(slowCostPerSecond);
@@ -365,6 +366,7 @@ public class PlayerController : LivingBeing {
         if (isSlowing && (Input.GetButtonUp(inputSlowDown) || Input.GetAxis(inputSlowDownAlt) < .1f || stamina == 0))
         {
             isSlowing = false;
+            SFXSource.PlayOneShot(DodgeClip);
             if (timeOutOfSlow < -minSlowTime)
                 timeOutOfSlow = boostTimeOutOfSlow;
             if (stamina == 0)
@@ -692,8 +694,9 @@ public class PlayerController : LivingBeing {
         playerState = PlayerStates.LANDING_ANCIENT;
 
         //anim.SetTrigger("land");
+        yield return new WaitForSeconds(1.5f);
         smokeScreen.Play();
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(0.5f);
 
         // Instantiate(placeholderFeedback, babyDragonMan.babyDragons[0].transform.position, Quaternion.identity);
         // Instantiate(placeholderFeedback, transform.position, Quaternion.identity);

@@ -469,7 +469,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ' x '
+  m_Text: x1
 --- !u!114 &114261392975725070
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -673,6 +673,7 @@ MonoBehaviour:
   comboAmount: 2
   comboCoolDownImage: {fileID: 114504018851526818}
   comboAmountText: {fileID: 114252897079370922}
+  comboAmountTextString: {fileID: 114898864723373144}
   scoreText: {fileID: 114240655267290152}
   comboCoolDownValue:
   - 0
@@ -932,7 +933,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entry:
   - x
-  - 
+  - 1
 --- !u!222 &222023660845537282
 CanvasRenderer:
   m_ObjectHideFlags: 1

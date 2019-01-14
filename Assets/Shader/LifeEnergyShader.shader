@@ -89,7 +89,7 @@
                 float4 actualLife = (checkLifePercent || _DisplayLife ? tempLife : voidColor);
 
                 const float4 actualStamina = (stamDistCheck ? _StaminaColor :  voidColor);
-                const float4 posStamLie = (isRighOrLeft? actualLife : actualStamina);
+                const float4 posStamLie = (isRighOrLeft? tempLife : actualStamina);
 
                 return posStamLie*(isMask) +  voidColor*(1-isMask);
             }

@@ -11,7 +11,6 @@ public class Egg : LivingBeing {
 	public float hatchingTimeMax = 30.0f;
 	public float hatchingTime = 0.0f;
 
-	public MeshRenderer rend;
 	private Material material;
 	public ParticleSystem particle;
     public GameObject pickupCol;
@@ -20,8 +19,6 @@ public class Egg : LivingBeing {
 	public Color fullLifeCol = Color.green;
 	public Color lowLifeCol = Color.red;
     SpawnManager spawnMan;
-
-    [Header("EggSFX")]
     private AudioSource EggAudio;
     public AudioClip eggDestroy;
     public AudioClip eggHatching;
@@ -31,7 +28,6 @@ public class Egg : LivingBeing {
         base.Start();
 
         EggAudio = GetComponent<AudioSource>();
-        material = rend.material;
 		canBeADrone = false;
         spawnMan = GameManager.Instance.spawnMan;
         hatchingTime = 0f;
@@ -74,6 +70,7 @@ public class Egg : LivingBeing {
 		gameObject.SetActive(false);
         canBeADrone = false;
         pickupCol.SetActive(false);
+        EggAudio.PlayOneShot(eggHatching);
     }
 
     // Overrides

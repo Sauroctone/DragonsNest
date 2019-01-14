@@ -37,7 +37,7 @@ public class TextMananger : MonoBehaviour {
 		
 		foreach (var str in stringList)
 		{
-			_strFinal += " " + str;
+			_strFinal += str;
 		}
 		return _strFinal;
 	}

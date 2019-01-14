@@ -12,6 +12,7 @@ public class ScoreManager : MonoBehaviour {
 
 	public Image comboCoolDownImage;
 	public Text comboAmountText;
+	public TextMananger comboAmountTextString;
 	public Text scoreText; 
 	public float[] comboCoolDownValue = {0.0f,5.0f,4.0f,3.0f,2.0f,1.5f,1.5f,1.5f,1.5f};
 	public Color[] comboColor = {Color.grey, Color.green,Color.yellow,Color.magenta,Color.red,Color.blue,Color.blue,Color.blue,Color.blue}; 
@@ -51,7 +52,7 @@ public class ScoreManager : MonoBehaviour {
 				comboCoolDownImage.color = comboColor[comboAmount];
 				comboAmountText.color = comboColor[comboAmount];
 			}
-			if(comboAmountText.text != "1") {comboAmountText.text = (comboAmount+1).ToString();}
+			if(comboAmountTextString.entry[1] != "1") {comboAmountTextString.entry[1] = (comboAmount+1).ToString();}
 			return;
 		} 
 		
@@ -71,7 +72,7 @@ public class ScoreManager : MonoBehaviour {
 		if(comboAmount<=5)
 		{
 			comboAmount ++;
-			comboAmountText.text = (comboAmount+1).ToString();
+			comboAmountTextString.entry[1] = (comboAmount+1).ToString();
 			comboCoolDownImage.color = comboColor[comboAmount];
 			comboAmountText.color = comboColor[comboAmount];
 		}

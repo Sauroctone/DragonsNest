@@ -4648,7 +4648,7 @@ MonoBehaviour:
   aimProjector: {fileID: 1347389923306304}
   LifeQuad: {fileID: 23091350977178702}
   StamiQuad: {fileID: 23620016657224918}
-  DodgeClip: {fileID: 0}
+  DodgeClip: {fileID: 8300000, guid: 373c6c735abbec74ebcfc47f64a5fe40, type: 3}
   SlowdownClip: {fileID: 8300000, guid: 7eb788d52c8fa8a46bde8d3e418131bc, type: 3}
   WindflowClip: {fileID: 8300000, guid: 2b23ac223eb06c041b8400246826ff81, type: 3}
   DragonHitClip: {fileID: 8300000, guid: d53542c88188ecf42b1061b533d3c183, type: 3}

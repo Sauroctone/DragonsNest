@@ -446,7 +446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a717e55567b4854ba10e6b69abc1a85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLife: 50
+  maxLife: 100
   life: 0
   lostLifeBeforeDecay: 0
   timeToUpdateFeedbackBar: 0

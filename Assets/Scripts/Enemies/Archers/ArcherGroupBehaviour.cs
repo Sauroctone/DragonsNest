@@ -36,6 +36,12 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
     public float arrowLifetime;
     public float arrowMaxHeight;
     public AnimationCurve visualTrajectory;
+    [HideInInspector]
+    public Vector3 targetPosition;
+    [HideInInspector]
+    public bool lockedTarget;
+    [HideInInspector]
+    public Vector3 targetVelocity;
 
     [Header("References")]
     public BannerVisualizer banner;
@@ -124,6 +130,7 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
 
     IEnumerator IAimAndShoot()
     {
+        lockedTarget = false;
         float time = 0;
         while (time < aimTime)
         {

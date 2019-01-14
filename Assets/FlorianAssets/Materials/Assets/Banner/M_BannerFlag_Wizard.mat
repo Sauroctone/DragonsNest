@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: M_BannerFlag_Wizard
+  m_Shader: {fileID: 4800000, guid: ee4b24f69ec98a846b255573be7b89af, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 0
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BannerClanMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Diffuse:
+        m_Texture: {fileID: 2800000, guid: 4000d40fa6d388947970f2a95112e535, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Emissive:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FakeMetalMask:
+        m_Texture: {fileID: 2800000, guid: 420b7f08fdd56094faded847f16348f9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Metallic_Smoothness_Mask:
+        m_Texture: {fileID: 2800000, guid: 2b951b6eb8b6f1a44aecad729d75676b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal:
+        m_Texture: {fileID: 2800000, guid: 53cedcd7cdc0b8b4dac3db79ddb6967d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _T_Wind_01:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TopReflectionMap:
+        m_Texture: {fileID: 2800000, guid: e1e1c59796fca16479974fc84ccc3d94, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _BlendingPower: 1
+    - _EmissivePower: 0
+    - _FakeMetalMaskBlending: 0.274
+    - _FakeMetalPower: 1
+    - _GradientPosition: 2
+    - _MetallicPower: 1.28
+    - _OffsetX: 1
+    - _OffsetY: -0.65
+    - _ScaleX: 0.5
+    - _ScaleY: 1
+    - _SmoothnessPower: 1.45
+    - __dirty: 0
+    m_Colors:
+    - _TopReflectionColor1: {r: 0.7877358, g: 0.8955962, b: 1, a: 1}
+    - _TopReflectionColor2: {r: 0.4481132, g: 0.62092626, b: 1, a: 1}

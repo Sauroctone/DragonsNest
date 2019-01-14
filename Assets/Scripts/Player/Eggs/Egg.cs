@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,11 +20,17 @@ public class Egg : LivingBeing {
 	public Color fullLifeCol = Color.green;
 	public Color lowLifeCol = Color.red;
     SpawnManager spawnMan;
-   
-	public override void Start ()
+
+    [Header("EggSFX")]
+    private AudioSource EggAudio;
+    public AudioClip eggDestroy;
+    public AudioClip eggHatching;
+
+    public override void Start ()
     {
         base.Start();
 
+        EggAudio = GetComponent<AudioSource>();
         material = rend.material;
 		canBeADrone = false;
         spawnMan = GameManager.Instance.spawnMan;
@@ -46,6 +52,7 @@ public class Egg : LivingBeing {
 		{
             pickupCol.SetActive(true);
 			canBeADrone = true;
+            EggAudio.PlayOneShot(eggHatching);
 		}
 		else
 		{
@@ -79,8 +86,10 @@ public class Egg : LivingBeing {
     public override void Die()
     {
         base.Die();
-
+		hatchingTime = 0;
         spawnMan.eggs.Remove(transform);
+		pickupCol.SetActive(false);
         gameObject.SetActive(false);
+        EggAudio.PlayOneShot(eggDestroy);
     }
 }

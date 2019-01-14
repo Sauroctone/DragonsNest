@@ -40,10 +40,10 @@ public class Nest : MonoBehaviour
  */
 	public void OnTriggerEnter(Collider col)
 	{
+        Debug.Log("Banane, kokok");
         //Debug.Log("enter");
 		if(col.gameObject.tag == "Dragon")
 		{   
-
             if(!egg.gameObject.activeSelf && player.eggMan.eggSlider.fillAmount >= 1)
             {
                 active = true;

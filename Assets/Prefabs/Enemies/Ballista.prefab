@@ -1122,7 +1122,7 @@ MonoBehaviour:
   feedbackDecayTime: 0
   lifeBar: {fileID: 114504270761324794}
   lifeBarFeedback: {fileID: 0}
-  scoringObject: {fileID: 0}
+  scoringObject: {fileID: 114690748021571914}
   minHealthbarScale: 0.5
 --- !u!114 &114330476410616332
 MonoBehaviour:

@@ -20,6 +20,7 @@ public class Egg : LivingBeing {
 	public Color lowLifeCol = Color.red;
     SpawnManager spawnMan;
     private AudioSource EggAudio;
+    private bool isSFXPlayed;
     public AudioClip eggDestroy;
     public AudioClip eggHatching;
 
@@ -27,7 +28,7 @@ public class Egg : LivingBeing {
     {
         base.Start();
 
-        EggAudio = GetComponent<AudioSource>();
+        EggAudio = GetComponentInParent<AudioSource>();
 		canBeADrone = false;
         spawnMan = GameManager.Instance.spawnMan;
         hatchingTime = 0f;
@@ -48,7 +49,6 @@ public class Egg : LivingBeing {
 		{
             pickupCol.SetActive(true);
 			canBeADrone = true;
-            EggAudio.PlayOneShot(eggHatching);
 		}
 		else
 		{
@@ -66,11 +66,11 @@ public class Egg : LivingBeing {
 
     public void Hatch()
     {
-        spawnMan.eggs.Remove(transform);        
-		gameObject.SetActive(false);
+        EggAudio.PlayOneShot(eggHatching);
+        spawnMan.eggs.Remove(transform);
+        gameObject.SetActive(false);
         canBeADrone = false;
         pickupCol.SetActive(false);
-        EggAudio.PlayOneShot(eggHatching);
     }
 
     // Overrides
@@ -82,11 +82,11 @@ public class Egg : LivingBeing {
 	
     public override void Die()
     {
+        EggAudio.PlayOneShot(eggHatching);
         base.Die();
 		hatchingTime = 0;
         spawnMan.eggs.Remove(transform);
 		pickupCol.SetActive(false);
         gameObject.SetActive(false);
-        EggAudio.PlayOneShot(eggDestroy);
     }
 }

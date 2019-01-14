@@ -3,7 +3,33 @@ guid: 2f8764bd14ad7874c868b132858593d4
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - lifeBar: {instanceID: 0}
+  - lifeBarFeedback: {instanceID: 0}
+  - scoringObject: {instanceID: 0}
+  - shootTarget: {instanceID: 0}
+  - ancientProjection: {instanceID: 0}
+  - visuals: {instanceID: 0}
+  - aimCursor: {instanceID: 0}
+  - firePartSys: {instanceID: 0}
+  - fireOrigin: {instanceID: 0}
+  - rb: {instanceID: 0}
+  - fireCollider: {instanceID: 0}
+  - anim: {instanceID: 0}
+  - babyDragonMan: {instanceID: 0}
+  - eggMan: {instanceID: 0}
+  - smokeScreen: {instanceID: 0}
+  - nestScript: {instanceID: 0}
+  - ancientPrefab: {instanceID: 0}
+  - aimProjector: {instanceID: 0}
+  - LifeQuad: {instanceID: 0}
+  - StamiQuad: {instanceID: 0}
+  - DodgeClip: {fileID: 8300000, guid: f1e807fbdd85adf4da46d02baee2babf, type: 3}
+  - SlowdownClip: {instanceID: 0}
+  - WindflowClip: {instanceID: 0}
+  - DragonHitClip: {instanceID: 0}
+  - DragonDeathClip: {instanceID: 0}
+  - EggDropping: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -4310,14 +4310,13 @@ MonoBehaviour:
   dragonPopup: 0
   level: 0
   playerState: 0
-  inputShoot: Shoot
-  inputShootAlt: ShootAltBinding
-  inputDodge: Dodge
-  inputDodgeAlt: DodgeAltBinding
-  inputSprint: Sprint
-  inputSlowDown: SlowDown
-  inputInteract: LayEgg
-  inputPlaceAncient: PlaceAncient
+  inputShoot: X
+  inputSprint: RightBumper
+  inputSprintAlt: RightTrigger
+  inputSlowDown: LeftBumper
+  inputSlowDownAlt: LeftTrigger
+  inputInteract: A
+  inputPlaceAncient: Y
   flySpeed: 25
   shootSpeed: 20
   flyingRotationLerp: 0.1
@@ -4351,7 +4350,6 @@ MonoBehaviour:
   leftFireBurst: 0.3
   rightFireBurst: 0.75
   visuals: {fileID: 4246441266409180}
-  ps: {fileID: 198546243695778220}
   aimCursor: {fileID: 4311013367071178}
   firePartSys: {fileID: 198701787969807136}
   fireOrigin: {fileID: 4388431970225764}

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,7 +11,6 @@ public class Egg : LivingBeing {
 	public float hatchingTimeMax = 30.0f;
 	public float hatchingTime = 0.0f;
 
-	public MeshRenderer rend;
 	private Material material;
 	public ParticleSystem particle;
     public GameObject pickupCol;
@@ -20,21 +19,26 @@ public class Egg : LivingBeing {
 	public Color fullLifeCol = Color.green;
 	public Color lowLifeCol = Color.red;
     SpawnManager spawnMan;
-   
-	public override void Start ()
+    private AudioSource EggAudio;
+    public AudioClip eggDestroy;
+    public AudioClip eggHatching;
+
+    public override void Start ()
     {
         base.Start();
 
-        material = rend.material;
+        EggAudio = GetComponent<AudioSource>();
 		canBeADrone = false;
         spawnMan = GameManager.Instance.spawnMan;
+        hatchingTime = 0f;
+        isAlive = true;
 	}
 	
 	public override void Update ()
     {
         base.Update();
 		//LifeUpdate();
-		ParticleUpdate();
+		//ParticleUpdate();
 		HatchUpdate();
 	}
 
@@ -44,10 +48,13 @@ public class Egg : LivingBeing {
 		{
             pickupCol.SetActive(true);
 			canBeADrone = true;
+            EggAudio.PlayOneShot(eggHatching);
 		}
 		else
 		{
 			hatchingTime += Time.deltaTime;
+			var scale = hatchingTime/hatchingTimeMax;
+			transform.localScale = new Vector3(scale,scale,scale);
 		}
 	}
 
@@ -59,23 +66,27 @@ public class Egg : LivingBeing {
 
     public void Hatch()
     {
-        spawnMan.targets.Remove(transform);        
+        spawnMan.eggs.Remove(transform);        
 		gameObject.SetActive(false);
-
+        canBeADrone = false;
+        pickupCol.SetActive(false);
+        EggAudio.PlayOneShot(eggHatching);
     }
 
     // Overrides
 
     public override void UpdateHealthUI(int _damage)
     {
-        material.color = new Color(1 - life/maxLife, life/maxLife, 0, 1);
+        //material.color = new Color(1 - life/maxLife, life/maxLife, 0, 1);
     }
 	
     public override void Die()
     {
         base.Die();
-
-        spawnMan.targets.Remove(transform);
+		hatchingTime = 0;
+        spawnMan.eggs.Remove(transform);
+		pickupCol.SetActive(false);
         gameObject.SetActive(false);
+        EggAudio.PlayOneShot(eggDestroy);
     }
 }

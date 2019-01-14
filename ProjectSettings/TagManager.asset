@@ -10,6 +10,8 @@ TagManager:
   - Dragon
   - Egg
   - Nest
+  - Ancient
+  - Enemy
   - Enemies
   layers:
   - Default
@@ -30,9 +32,9 @@ TagManager:
   - Egg
   - Ancient
   - FireProjectile
-  - AncientDetection
-  - 
-  - 
+  - AncientRange
+  - EnemyRange
+  - MapEdge
   - 
   - 
   - 

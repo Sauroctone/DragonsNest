@@ -24,6 +24,7 @@ public class EnemySpawner : LivingBeing
     public Material normalMat;
     public Material invincibleMat;
     public GameObject canvas;
+    public GameObject fuif;
 
     //Overrides
 
@@ -40,6 +41,10 @@ public class EnemySpawner : LivingBeing
 
     public void OnWaveBeginning()
     {
+        if(!isOutOfMap)
+        {
+            StartCoroutine(iUI());
+        }
         rend.material = normalMat;
         if (canvas != null)
             canvas.SetActive(true);
@@ -124,6 +129,18 @@ public class EnemySpawner : LivingBeing
     }
 
     //Coroutines
+    IEnumerator iUI ()
+    {
+        fuif.SetActive(true);
+
+        yield return new WaitForSeconds(3);
+
+        fuif.SetActive(false);
+
+
+
+        yield break;
+    }
 
     IEnumerator ISpawnEnemy()
     {

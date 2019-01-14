@@ -23,11 +23,10 @@ public class PlayerController : LivingBeing {
 
     [Header("Inputs")]
     public string inputShoot;
-    public string inputShootAlt;
-    public string inputDodge;
-    public string inputDodgeAlt;
     public string inputSprint;
+    public string inputSprintAlt;
     public string inputSlowDown;
+    public string inputSlowDownAlt;
     public string inputInteract;
     public string inputPlaceAncient;
 
@@ -83,7 +82,8 @@ public class PlayerController : LivingBeing {
     public float timeBetweenCols;
     internal bool isShooting;
     float fireTime;
-    float prevShootAxis;
+    float prevSprintAxis;
+    float prevSlowDownAxis;
     public float fireColSpeed;
     public Transform shootTarget;
     public float scrShakeTimer;
@@ -150,6 +150,7 @@ public class PlayerController : LivingBeing {
     public AudioClip WindflowClip;
     public AudioClip DragonHitClip;
     public AudioClip DragonDeathClip;
+    public AudioClip EggDropping;
 
     public void Awake()
     {
@@ -238,14 +239,6 @@ public class PlayerController : LivingBeing {
         timeOutOfSlow -= Time.deltaTime;
 
         UpdateStaminaUI();
-
-        flapTime += Time.deltaTime;
-        if (flapTime >= timeToFlap)
-        {
-            flapTime = 0;
-            anim.SetTrigger("flaps");
-            timeToFlap = Random.Range(minTimeToFlap, maxTimeToFlap);
-        }
     }
 
     //Actions
@@ -293,12 +286,21 @@ public class PlayerController : LivingBeing {
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationLerp);
             visuals.localRotation = Quaternion.Slerp(visuals.localRotation, rollRot, rotationLerp);
         }
+
+        flapTime += Time.deltaTime;
+        if (flapTime >= timeToFlap)
+        {
+            flapTime = 0;
+            if(!isSprinting && !isSlowing)
+                anim.SetTrigger("flaps");
+            timeToFlap = Random.Range(minTimeToFlap, maxTimeToFlap);
+        }
     }
 
     void Shoot()
     {
         //Begin shooting
-        if (Input.GetButtonDown(inputShoot) || (prevShootAxis < .1f && Input.GetAxis(inputShootAlt) >= .1f))
+        if (Input.GetButtonDown(inputShoot))
         {
             AttackSoundSource.Play();
             firePartSys.Play();
@@ -316,7 +318,7 @@ public class PlayerController : LivingBeing {
         }
 
         //End shooting
-        if (Input.GetButtonUp(inputShoot) || (prevShootAxis > .1f && Input.GetAxis(inputShootAlt) <= .1f))
+        if (Input.GetButtonUp(inputShoot))
         {
             AttackSoundSource.Stop();
             StopShooting();
@@ -334,8 +336,6 @@ public class PlayerController : LivingBeing {
             else
                 fireTime += Time.deltaTime;
         }
-
-        prevShootAxis = Input.GetAxis(inputShootAlt);
     }
 
     //void Dodge()
@@ -348,11 +348,13 @@ public class PlayerController : LivingBeing {
 
     void SlowDown()
     {
-        if (Input.GetButtonDown(inputSlowDown)){
+        if (Input.GetButtonDown(inputSlowDown) || (prevSlowDownAxis < .1f && Input.GetAxis(inputSlowDownAlt) >= .1f))
+        {
             timeOutOfSlow = 0;
+            anim.SetBool("isSprinting", false);
         }
 
-        if (Input.GetButton(inputSlowDown) && stamina > 0 && slowTime >= slowCooldown)
+        if ((Input.GetButton(inputSlowDown) || Input.GetAxis(inputSlowDownAlt) >= .1f) && stamina > 0 && slowTime >= slowCooldown)
         {
             isSlowing = true;
 
@@ -360,20 +362,27 @@ public class PlayerController : LivingBeing {
                 UseStamina(slowCostPerSecond);
         }
 
-        if (isSlowing && (Input.GetButtonUp(inputSlowDown) || stamina == 0))
+        if (isSlowing && (Input.GetButtonUp(inputSlowDown) || Input.GetAxis(inputSlowDownAlt) < .1f || stamina == 0))
         {
             isSlowing = false;
             if (timeOutOfSlow < -minSlowTime)
                 timeOutOfSlow = boostTimeOutOfSlow;
             if (stamina == 0)
                 slowTime = 0;
+
+            if (isSprinting)
+                anim.SetBool("isSprinting", true);
         }
+
+        prevSlowDownAxis = Input.GetAxis(inputSlowDownAlt);
     }
 
     void Sprint()
     {
-        if (Input.GetButton(inputSprint) && stamina > 0 && sprintTime >= sprintCooldown)
+        if ((Input.GetButton(inputSprint) || Input.GetAxis(inputSprintAlt) >= .1f) && stamina > 0 && sprintTime >= sprintCooldown)
         {
+            if (!isSprinting)
+                anim.SetBool("isSprinting", true);
             isSprinting = true;
             if (!isSlowing)
                 UseStamina(sprintCostPerSecond);
@@ -383,6 +392,7 @@ public class PlayerController : LivingBeing {
             isSprinting = false;
             if (stamina == 0)
                 sprintTime = 0;
+            anim.SetBool("isSprinting", false);
         }
     }
 
@@ -402,6 +412,7 @@ public class PlayerController : LivingBeing {
     {
         if (Input.GetButtonDown(inputInteract) && canLand)
         {
+            SFXSource.PlayOneShot(EggDropping);
             eggMan.eggSlider.fillAmount = 0;
             eggMan.eggSlider.color = eggMan.startEggColor;
 
@@ -420,6 +431,7 @@ public class PlayerController : LivingBeing {
             {
                 isAimingForAncient = false;
                 ancientProjection.gameObject.SetActive(false);
+                aimProjector.SetActive(true);
                 return;
             }
 
@@ -537,6 +549,11 @@ public class PlayerController : LivingBeing {
 
             ResetLife(2f);
             MakeInvincible(2f);
+
+            StopShooting();
+            isAimingForAncient = false;
+            ancientProjection.gameObject.SetActive(false);
+            aimProjector.SetActive(true);
         }
         else
             SceneManager.LoadScene(0);

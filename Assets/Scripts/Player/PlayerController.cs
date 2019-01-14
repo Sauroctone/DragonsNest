@@ -56,6 +56,10 @@ public class PlayerController : LivingBeing {
     public float minSlowTime;
     public float boostTimeOutOfSlow;
     public float landSpeed;
+    float flapTime;
+    float timeToFlap;
+    public float minTimeToFlap;
+    public float maxTimeToFlap;
 
     [Header("Stamina")]
     public float maxStamina;
@@ -116,7 +120,6 @@ public class PlayerController : LivingBeing {
 
     [Header("References")]
     public Transform visuals;
-    public ParticleSystem ps;
     public Transform aimCursor;
     public ParticleSystem firePartSys;
     public Transform fireOrigin;
@@ -129,7 +132,8 @@ public class PlayerController : LivingBeing {
     // public GameObject egg;
     // public Transform toDropegg;
     GameManager gameMan;
-    public GameObject placeholderFeedback;
+    // public GameObject placeholderFeedback;
+    public ParticleSystem smokeScreen;
     public Nest nestScript;
     public GameObject ancientPrefab;
     public GameObject aimProjector;
@@ -167,6 +171,8 @@ public class PlayerController : LivingBeing {
         sprintTime = sprintCooldown;
         slowTime = slowCooldown;
         gameMan = GameManager.Instance;
+
+        timeToFlap = Random.Range(minTimeToFlap, maxTimeToFlap);
     }
 
     private void FixedUpdate()
@@ -233,6 +239,14 @@ public class PlayerController : LivingBeing {
         timeOutOfSlow -= Time.deltaTime;
 
         UpdateStaminaUI();
+
+        flapTime += Time.deltaTime;
+        if (flapTime >= timeToFlap)
+        {
+            flapTime = 0;
+            anim.SetTrigger("flaps");
+            timeToFlap = Random.Range(minTimeToFlap, maxTimeToFlap);
+        }
     }
 
     //Actions
@@ -298,6 +312,7 @@ public class PlayerController : LivingBeing {
             }
 
             gameMan.vibrationMan.VibrateFor(fireBurstVibrateTime, playerIndex, leftFireBurst, rightFireBurst);
+            anim.SetBool("isShooting", true);
 
         }
 
@@ -381,6 +396,7 @@ public class PlayerController : LivingBeing {
         {
             babyDragon.StopShooting();
         }
+        anim.SetBool("isShooting", false);
     }
 
     void LayEgg()
@@ -406,6 +422,7 @@ public class PlayerController : LivingBeing {
             {
                 isAimingForAncient = false;
                 ancientProjection.gameObject.SetActive(false);
+                aimProjector.SetActive(true);
                 return;
             }
 
@@ -514,14 +531,20 @@ public class PlayerController : LivingBeing {
 
         if (babyDragonMan.babyDragons.Count > 0)
         {
-            Instantiate(placeholderFeedback, babyDragonMan.babyDragons[0].transform.position, Quaternion.identity);
-            Instantiate(placeholderFeedback, transform.position, Quaternion.identity);
+            //Instantiate(placeholderFeedback, babyDragonMan.babyDragons[0].transform.position, Quaternion.identity);
+            //Instantiate(placeholderFeedback, transform.position, Quaternion.identity);
+            smokeScreen.Play();
             StartCoroutine(IPlaceholderNewMother());
 
             babyDragonMan.RemoveBabyDragon();
 
             ResetLife(2f);
             MakeInvincible(2f);
+
+            StopShooting();
+            isAimingForAncient = false;
+            ancientProjection.gameObject.SetActive(false);
+            aimProjector.SetActive(true);
         }
         else
             SceneManager.LoadScene(0);
@@ -643,8 +666,6 @@ public class PlayerController : LivingBeing {
         float time = 0f;
         float growTime = 2f;
 
-        ps.Play();
-
         while (time < growTime)
         {
             time += Time.deltaTime;
@@ -662,10 +683,11 @@ public class PlayerController : LivingBeing {
         playerState = PlayerStates.LANDING_ANCIENT;
 
         //anim.SetTrigger("land");
+        smokeScreen.Play();
         yield return new WaitForSeconds(2.0f);
 
-        Instantiate(placeholderFeedback, babyDragonMan.babyDragons[0].transform.position, Quaternion.identity);
-        Instantiate(placeholderFeedback, transform.position, Quaternion.identity);
+        // Instantiate(placeholderFeedback, babyDragonMan.babyDragons[0].transform.position, Quaternion.identity);
+        // Instantiate(placeholderFeedback, transform.position, Quaternion.identity);
 
         GameObject ancient = Instantiate(ancientPrefab, _hitPos, transform.rotation);
         gameMan.spawnMan.ancients.Add(ancient.transform);

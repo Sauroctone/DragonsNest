@@ -2374,13 +2374,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1347389923306304}
-  m_LocalRotation: {x: 0.26552132, y: -0, z: -0, w: 0.964105}
-  m_LocalPosition: {x: 0, y: 1, z: 2.55}
+  m_LocalRotation: {x: 0.21112108, y: -0, z: -0, w: 0.9774599}
+  m_LocalPosition: {x: 0, y: 0.146, z: 2.446}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4826760242454774}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 30.796001, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 24.376001, y: 0, z: 0}
 --- !u!4 &4312643860406014
 Transform:
   m_ObjectHideFlags: 1
@@ -2538,13 +2538,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1808829654854596}
-  m_LocalRotation: {x: 0.18048339, y: -0, z: -0, w: 0.983578}
-  m_LocalPosition: {x: 0, y: 1.0099999, z: 2.36}
+  m_LocalRotation: {x: 0.21112108, y: -0, z: -0, w: 0.9774599}
+  m_LocalPosition: {x: 0, y: 0.146, z: 2.446}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4826760242454774}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 20.796001, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 24.376001, y: 0, z: 0}
 --- !u!4 &4392446278226622
 Transform:
   m_ObjectHideFlags: 1
@@ -2696,7 +2696,7 @@ Transform:
   m_GameObject: {fileID: 1828490363621702}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_Children: []
   m_Father: {fileID: 4826760242454774}
   m_RootOrder: 11
@@ -3046,14 +3046,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1563178673665288}
-  m_LocalRotation: {x: 0.26552132, y: -0, z: -0, w: 0.964105}
-  m_LocalPosition: {x: 0, y: 1.0099999, z: 2.36}
+  m_LocalRotation: {x: 0.21112108, y: -0, z: -0, w: 0.9774599}
+  m_LocalPosition: {x: 0, y: 0.146, z: 2.446}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4255714368818142}
   m_Father: {fileID: 4826760242454774}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 30.796001, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 24.376001, y: 0, z: 0}
 --- !u!4 &4774209587563658
 Transform:
   m_ObjectHideFlags: 1
@@ -4074,7 +4074,7 @@ Animator:
   m_GameObject: {fileID: 1838789678277056}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: dd08fafd44df3e44ba65fd243ea06de8, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 824ac2208cc0af447b983d8bbd1aaf44, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -4328,6 +4328,8 @@ MonoBehaviour:
   minSlowTime: 0.75
   boostTimeOutOfSlow: 0
   landSpeed: 0
+  minTimeToFlap: 4
+  maxTimeToFlap: 7
   maxStamina: 100
   sprintCostPerSecond: 60
   sprintCooldown: 2.5
@@ -4356,12 +4358,11 @@ MonoBehaviour:
   rb: {fileID: 54845440365208266}
   fireCollider: {fileID: 1089961876240342, guid: 18ab1038cb915204798c2f53f7cd517e,
     type: 2}
-  anim: {fileID: 0}
+  anim: {fileID: 95869756674223874}
   babyDragonMan: {fileID: 114500419610896216, guid: dfb2b35e0d1c8fe47ba3b85ef69c594d,
     type: 2}
   eggMan: {fileID: 114838063966722996}
-  placeholderFeedback: {fileID: 1890502599676748, guid: b2419bf1e4c519c4abdeb78806b9f78d,
-    type: 2}
+  smokeScreen: {fileID: 198546243695778220}
   nestScript: {fileID: 0}
   ancientPrefab: {fileID: 1284249962970228, guid: ee40079a814f7864990dc064a747a873,
     type: 2}

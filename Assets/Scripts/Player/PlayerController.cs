@@ -238,14 +238,6 @@ public class PlayerController : LivingBeing {
         timeOutOfSlow -= Time.deltaTime;
 
         UpdateStaminaUI();
-
-        flapTime += Time.deltaTime;
-        if (flapTime >= timeToFlap)
-        {
-            flapTime = 0;
-            anim.SetTrigger("flaps");
-            timeToFlap = Random.Range(minTimeToFlap, maxTimeToFlap);
-        }
     }
 
     //Actions
@@ -292,6 +284,15 @@ public class PlayerController : LivingBeing {
             rollRot = Quaternion.Euler(0, 0, -rotationAngle * maxSteerRot / 180);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationLerp);
             visuals.localRotation = Quaternion.Slerp(visuals.localRotation, rollRot, rotationLerp);
+        }
+
+        flapTime += Time.deltaTime;
+        if (flapTime >= timeToFlap)
+        {
+            flapTime = 0;
+            if(!isSprinting && !isSlowing)
+                anim.SetTrigger("flaps");
+            timeToFlap = Random.Range(minTimeToFlap, maxTimeToFlap);
         }
     }
 
@@ -349,6 +350,7 @@ public class PlayerController : LivingBeing {
         if (Input.GetButtonDown(inputSlowDown) || (prevSlowDownAxis < .1f && Input.GetAxis(inputSlowDownAlt) >= .1f))
         {
             timeOutOfSlow = 0;
+            anim.SetBool("isSprinting", false);
         }
 
         if ((Input.GetButton(inputSlowDown) || Input.GetAxis(inputSlowDownAlt) >= .1f) && stamina > 0 && slowTime >= slowCooldown)
@@ -366,6 +368,9 @@ public class PlayerController : LivingBeing {
                 timeOutOfSlow = boostTimeOutOfSlow;
             if (stamina == 0)
                 slowTime = 0;
+
+            if (isSprinting)
+                anim.SetBool("isSprinting", true);
         }
 
         prevSlowDownAxis = Input.GetAxis(inputSlowDownAlt);
@@ -375,6 +380,8 @@ public class PlayerController : LivingBeing {
     {
         if ((Input.GetButton(inputSprint) || Input.GetAxis(inputSprintAlt) >= .1f) && stamina > 0 && sprintTime >= sprintCooldown)
         {
+            if (!isSprinting)
+                anim.SetBool("isSprinting", true);
             isSprinting = true;
             if (!isSlowing)
                 UseStamina(sprintCostPerSecond);
@@ -384,6 +391,7 @@ public class PlayerController : LivingBeing {
             isSprinting = false;
             if (stamina == 0)
                 sprintTime = 0;
+            anim.SetBool("isSprinting", false);
         }
     }
 

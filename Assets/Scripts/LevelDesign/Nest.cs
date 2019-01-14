@@ -17,6 +17,7 @@ public class Nest : MonoBehaviour
     
     [Header("References")]
     public Egg egg;
+    public GameObject A;
 	PlayerController player;
 
     private void Start()
@@ -46,6 +47,7 @@ public class Nest : MonoBehaviour
 		{   
             if(!egg.gameObject.activeSelf && player.eggMan.eggSlider.fillAmount >= 1)
             {
+                A.SetActive(true);
                 active = true;
                 player.canLand = true;
                 player.nestScript = this;
@@ -58,6 +60,7 @@ public class Nest : MonoBehaviour
 	{
 		if(col.gameObject.tag == "Dragon")
 		{
+            A.SetActive(false);
             active = false;
 			player.canLand = false;
 			player.nestScript = null;

@@ -39,4 +39,4 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _FeedBackColor: {r: 1, g: 1, b: 0, a: 1}
     - _LifeColor: {r: 1, g: 0, b: 0, a: 0.5647059}
-    - _StaminaColor: {r: 0.06159935, g: 1, b: 0, a: 0.7764706}
+    - _StaminaColor: {r: 0.06159933, g: 1, b: 0, a: 0.62352943}

@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 4385386028194392}
   - component: {fileID: 65476069568372520}
   - component: {fileID: 114131781510693878}
+  - component: {fileID: 114690748021571914}
   m_Layer: 14
   m_Name: BallistaBody
   m_TagString: Enemy
@@ -1261,6 +1262,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df59013f7d3585746a393c99975c3a04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114690748021571914
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1107817215166202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2546c691a71ab494e8551f3f187f55f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreAmount: 20
+  goldPS: {fileID: 198413967385631322, guid: a97814cfa764364499dd9097f31df34d, type: 2}
+  tinPS: {fileID: 198489115833832752, guid: 02eb85d95130c244aad451ddd77ddb9a, type: 2}
+  cooperPS: {fileID: 198631688984043044, guid: cf705d28b4175ed4b83b9c916cb695b0, type: 2}
 --- !u!114 &114806572259966200
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -70,6 +70,7 @@ public class Egg : LivingBeing {
 		gameObject.SetActive(false);
         canBeADrone = false;
         pickupCol.SetActive(false);
+        EggAudio.PlayOneShot(eggHatching);
     }
 
     // Overrides

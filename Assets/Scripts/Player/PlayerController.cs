@@ -357,6 +357,7 @@ public class PlayerController : LivingBeing {
         if ((Input.GetButton(inputSlowDown) || Input.GetAxis(inputSlowDownAlt) >= .1f) && stamina > 0 && slowTime >= slowCooldown)
         {
             isSlowing = true;
+            SFXSource.PlayOneShot(SlowdownClip);
 
             if (!isSprinting)
                 UseStamina(slowCostPerSecond);
@@ -365,6 +366,7 @@ public class PlayerController : LivingBeing {
         if (isSlowing && (Input.GetButtonUp(inputSlowDown) || Input.GetAxis(inputSlowDownAlt) < .1f || stamina == 0))
         {
             isSlowing = false;
+            SFXSource.PlayOneShot(DodgeClip);
             if (timeOutOfSlow < -minSlowTime)
                 timeOutOfSlow = boostTimeOutOfSlow;
             if (stamina == 0)

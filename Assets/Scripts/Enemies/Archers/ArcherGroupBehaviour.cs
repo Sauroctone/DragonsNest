@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class ArcherGroupBehaviour : EnemyBehaviour {
 
-    ArcherGroupState state;
+    public ArcherGroupState state;
     public delegate void OnStateChanged(ArcherGroupState _state);
     public event OnStateChanged EventOnStateChanged;
 
@@ -28,7 +28,8 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
     public float minShootTime;
     public float maxShootTime;
     public float postShootIdleTime;
-    public bool canShoot = true;
+    bool canShoot = true;
+    bool isShooting;
     public float shootCooldown;
     public GameObject arrow;
     public float arrowSpeed;
@@ -42,12 +43,6 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
     public Material normalMat;
     public Material aimMat;
 
-    public override void Init()
-    {
-        base.Init();
-        moveCor = StartCoroutine(IUpdateTargetPosition());
-    }
-
     public override void Update()
     {
         base.Update();
@@ -58,8 +53,7 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
                 CheckDistanceToTarget();
                 break;
             case ArcherGroupState.SHOOTING:
-                if (canShoot)
-                    CheckDistanceToTarget();
+                CheckDistanceToTarget();
                 break;
         }
 
@@ -68,26 +62,43 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
             state = ArcherGroupState.FLEEING_INDIVIDUALLY;
             if (EventOnStateChanged != null)
                 EventOnStateChanged(state);
-
             Die();
         }
     }
 
     void CheckDistanceToTarget()
     {
-        if (currentTarget != null && Vector3.Distance(currentTarget.position, transform.position) < aimRange 
-            && canShoot
-            && !Physics.Raycast(transform.position, (currentTarget.position - transform.position).normalized, aimRange, aimObstacleLayer))
+        if (currentTarget != null)
         {
-            state = ArcherGroupState.SHOOTING;
-            if (EventOnStateChanged != null)
-                EventOnStateChanged(state);
-            StopCoroutine(moveCor);
-            nav.ResetPath();
-            StartCoroutine(IAimAndShoot());
-
-            Debug.DrawLine(transform.position, currentTarget.position, Color.red, 2f);
+            if (Vector3.Distance(currentTarget.position, transform.position) < aimRange 
+                && canShoot)
+                //&& !Physics.Raycast(transform.position, (currentTarget.position - transform.position).normalized, aimRange, aimObstacleLayer))
+            {
+                Debug.DrawLine(transform.position, currentTarget.position, Color.red, 2f);
+                AimAndShoot();
+            }
+            else
+            {
+                if (moveCor == null && !isShooting)
+                    StartMoving();
+            }
         }
+    }
+
+    void AimAndShoot()
+    {
+        state = ArcherGroupState.SHOOTING;
+        if (EventOnStateChanged != null)
+            EventOnStateChanged(state);
+
+        isShooting = true;
+        canShoot = false;
+
+        if (moveCor != null)
+            StopCoroutine(moveCor);
+        nav.ResetPath();
+
+        StartCoroutine(IAimAndShoot());
     }
 
     void StartMoving()
@@ -103,7 +114,7 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
         if (currentTarget != null && NavMesh.SamplePosition(currentTarget.position, out hit, 100f, NavMesh.AllAreas))
         {
             targetPosOnNav = hit.position;
-            if (nav != null)
+            if (nav != null && nav.gameObject.activeSelf)
                 nav.SetDestination(targetPosOnNav);
             //debugSphere.position = targetPosOnNav;
         }
@@ -113,14 +124,20 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
 
     IEnumerator IAimAndShoot()
     {
-        banner.ChangeBanner(aimMat);
-        canShoot = false;
-        yield return new WaitForSeconds(aimTime + maxShootTime);
-        banner.ChangeBanner(normalMat);
+        float time = 0;
+        while (time < aimTime)
+        {
+            time += Time.deltaTime;
+            banner.UpdateBanner(time/aimTime);
+            yield return null;
+        }
+        yield return new WaitForSeconds(maxShootTime);
+        banner.UpdateBanner(0f);
         yield return new WaitForSeconds(postShootIdleTime);
         if (currentTarget == null || Vector3.Distance(currentTarget.position, transform.position) > aimRange)
             StartMoving();
-        yield return new WaitForSeconds(shootCooldown);
+        yield return new WaitForSeconds(shootCooldown - postShootIdleTime);
+        isShooting = false;
         canShoot = true;
     }
 }

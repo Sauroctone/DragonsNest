@@ -6,6 +6,7 @@ public class BabyDragonBehaviour : MonoBehaviour {
 
     public float flySpeed;
     public float maxWanderRadius;
+    public float rotLerp = 0.1f;
     Vector3 destination;
     Vector2 randomPoint;
     bool isShooting;
@@ -19,6 +20,7 @@ public class BabyDragonBehaviour : MonoBehaviour {
     public float minShootDelay;
     public float maxShootDelay;
     Transform shootTarget;
+    public Vector3 targetOffset;
     Rigidbody playerRb;
 
     [Header("References")]
@@ -43,7 +45,6 @@ public class BabyDragonBehaviour : MonoBehaviour {
         }
 
         transform.localPosition += (destination - transform.localPosition).normalized * flySpeed * Time.deltaTime;
-
     }
 
     void CheckShoot()
@@ -53,17 +54,18 @@ public class BabyDragonBehaviour : MonoBehaviour {
             if (fireTime >= timeBetweenCols)
             {
                 GameObject fireCol = Instantiate(fireCollider, fireOrigin.position, Quaternion.identity);
-                fireCol.GetComponent<Rigidbody>().velocity = playerRb.velocity + (shootTarget.position - fireOrigin.position).normalized * fireColSpeed;
+                fireCol.GetComponent<Rigidbody>().velocity = playerRb.velocity + ((shootTarget.position + targetOffset) - fireOrigin.position).normalized * fireColSpeed;
                 fireTime = 0;
             }
             else
                 fireTime += Time.deltaTime;
 
-            transform.LookAt(shootTarget);
+            transform.LookAt(shootTarget.position + targetOffset);
         }
         else
         {
-            transform.LookAt(transform.position + transform.forward);
+            if (transform.localEulerAngles != Vector3.zero)
+                transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(0, 0, 0), rotLerp);
         }
     }
 
@@ -84,6 +86,10 @@ public class BabyDragonBehaviour : MonoBehaviour {
 
     public void StopShooting()
     {
+        if (stopShootingCor != null)
+            StopCoroutine(stopShootingCor);
+        if (startShootingCor != null)
+            StopCoroutine(startShootingCor);
         stopShootingCor = StartCoroutine(IStopShooting());
     }
 

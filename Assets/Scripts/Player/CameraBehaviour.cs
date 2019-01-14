@@ -26,6 +26,8 @@ public class CameraBehaviour : MonoBehaviour {
 
     private void Start()
     {
+        player = GameManager.Instance.player;
+        target = GameManager.Instance.playerControllerInstance.transform.GetChild(0);
         baseOffset = transform.position;
         targetOriginPos = target.localPosition;
     }

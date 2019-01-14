@@ -175,7 +175,7 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1157219097873908}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300000, guid: 746ca67bc3cdb6247b32c413dfa8c0a3, type: 3}
 --- !u!114 &114404649557531448
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -187,10 +187,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6af1f851f1a1e34f8c9bcdf894cd9d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  self: {fileID: 4531193308233794}
   player: {fileID: 4826760242454774, guid: e52e955854e182849a85bfbc65ca9d7a, type: 2}
   egg: {fileID: 114485223214567632}
   scaleEgg: 1
+  eggShader: {fileID: 0}
+  eggLifeMaxColor: {r: 0, g: 0, b: 0, a: 0}
+  eggLowLifeColor: {r: 0, g: 0, b: 0, a: 0}
+  eggBAckgroundColor: {r: 0, g: 0, b: 0, a: 0}
+  circleShader: {fileID: 0}
+  circleColor: {r: 0, g: 0, b: 0, a: 0}
+  circleBAckgroundColor: {r: 0, g: 0, b: 0, a: 0}
   eggImage: {fileID: 2800000, guid: d22a5ac92977ce04ea8a3c157ce9ca77, type: 3}
   indicatorImage: {fileID: 2800000, guid: fd1605f40faf44f4fbb51dba7496a812, type: 3}
 --- !u!114 &114485223214567632
@@ -211,13 +217,17 @@ MonoBehaviour:
   feedbackDecayTime: 0
   lifeBar: {fileID: 0}
   lifeBarFeedback: {fileID: 0}
+  scoringObject: {fileID: 0}
   hatchingTimeMax: 20
   hatchingTime: 0
   rend: {fileID: 23236242468205806}
   particle: {fileID: 198113043190778186}
   pickupCol: {fileID: 1672294053986652}
+  canBeADrone: 0
   fullLifeCol: {r: 0, g: 1, b: 0, a: 1}
   lowLifeCol: {r: 1, g: 0, b: 0, a: 1}
+  eggDestroy: {fileID: 8300000, guid: 96397bd9d46ec2841badec1069c04ec1, type: 3}
+  eggHatching: {fileID: 8300000, guid: 713c4ec0f445fb845a1b6e9bb42667e1, type: 3}
 --- !u!135 &135416155835575264
 SphereCollider:
   m_ObjectHideFlags: 1

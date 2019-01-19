@@ -24,9 +24,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _ColorMask: 15
-    - _DisplayLife: 0
+    - _DisplayLife: 1
     - _Life: 0.92
-    - _LifeBeforeShown: 1
+    - _LifeBeforeShown: 0
     - _LifeFeedbackAmount: 1
     - _Stamina: 0
     - _Stencil: 0

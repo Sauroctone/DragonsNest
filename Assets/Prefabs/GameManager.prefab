@@ -57,7 +57,7 @@ MonoBehaviour:
   smoothnessIsDecaying: 0
   basicVignette: {fileID: 11400000, guid: 3fb1af1a7340c94488662cb37421f44a, type: 2}
   hurtVignette: {fileID: 11400000, guid: 4e1086864d47882479b93259f7723e47, type: 2}
-  profile: {fileID: 11400000, guid: bcedd0b6a46856d44bfdfecd35a9caf3, type: 2}
+  profile: {fileID: 11400000, guid: 0da54d7f1e65340438746461cf809ce5, type: 2}
 --- !u!114 &114654065036448118
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -81,15 +81,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies: []
-  maxEnemyCount: 30
+  maxEnemyCount: 1
   eggs: []
   spawnersInMap:
   - {fileID: 0}
-  activeSpawners:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  activeSpawners: []
   spawnersOutOfMap:
   - {fileID: 0}
   - {fileID: 0}
@@ -118,7 +114,7 @@ MonoBehaviour:
   mainCamera: {fileID: 20164785435171496, guid: 8c07c3166d2c527409cb8e607de56fca,
     type: 2}
   player: {fileID: 114865201573251416, guid: e52e955854e182849a85bfbc65ca9d7a, type: 2}
-  playerRb: {fileID: 54845440365208266, guid: e52e955854e182849a85bfbc65ca9d7a, type: 2}
+  playerRb: {fileID: 0}
   vignetteMan: {fileID: 114574732768770378}
   spawnMan: {fileID: 114882257413169298}
   babyDragonMan: {fileID: 0}

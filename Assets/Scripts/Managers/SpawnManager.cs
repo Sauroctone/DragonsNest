@@ -39,8 +39,10 @@ public class SpawnManager : MonoBehaviour {
 
     private void Update()
     {
-        if (waveState == WaveState.GAME_START && Input.GetKeyDown(KeyCode.Return))
+        if (waveState == WaveState.GAME_START)
+        {
             BeginWave();
+        }
     }
 
     //Enemy methods

@@ -27,7 +27,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _FillAmount: 0.30271876
+    - _FillAmount: 0.97976846
     m_Colors:
     - _ColorBase: {r: 0, g: 0, b: 0, a: 1}
     - _ColorTextFL: {r: 0.93044674, g: 0.9716981, b: 0.9618199, a: 1}

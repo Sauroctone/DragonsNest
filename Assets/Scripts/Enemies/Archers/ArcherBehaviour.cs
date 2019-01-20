@@ -36,6 +36,7 @@ public class ArcherBehaviour : LivingBeing {
         originPos = transform.localPosition;
         destination = transform.localPosition;
         group = GetComponentInParent<ArcherGroupBehaviour>();
+        //Debug.Log(name);
         group.EventOnStateChanged += OnGroupStateChanged;
         group.archers.Add(this);
         scoringObject = GetComponent<ScoringObject>();
@@ -127,16 +128,9 @@ public class ArcherBehaviour : LivingBeing {
         float time = 0f;
         float rand = Random.Range(group.minShootTime, group.maxShootTime);
 
-        Vector3 targetPosition = Vector3.zero;
-        bool lockedTarget = false;
         while (time < group.aimTime + rand && currentTarget != null)
         {
             time += Time.deltaTime;
-            if (time >= group.aimTime && !lockedTarget)
-            {
-                targetPosition = currentTarget.position;
-                lockedTarget = true;
-            }
 
             transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.LookRotation((Vector3.ProjectOnPlane(currentTarget.position, Vector3.up) - transform.position).normalized), aimRotLerp);
             yield return null;
@@ -144,7 +138,14 @@ public class ArcherBehaviour : LivingBeing {
 
         if (currentTarget != null && group != null)
         {
-            Vector3 interceptPoint = FirstOrderIntercept(group.transform.position, Vector3.zero, group.arrowSpeed, targetPosition, currentTarget == group.player ? group.playerRb.velocity : Vector3.zero);
+            if (!group.lockedTarget)
+            {
+                group.targetPosition = currentTarget.position;
+                group.targetVelocity = currentTarget == group.player ? group.playerRb.velocity : Vector3.zero;
+                group.lockedTarget = true;
+            }
+
+            Vector3 interceptPoint = FirstOrderIntercept(group.transform.position, Vector3.zero, group.arrowSpeed, group.targetPosition, group.targetVelocity);
             aimDir = (interceptPoint - group.transform.position).normalized;
             GameObject proj = Instantiate(group.arrow, transform.position, Quaternion.identity);
             proj.GetComponent<ArrowBehaviour>().Init(group.arrowLifetime, aimDir, group.arrowSpeed, currentTarget, group.visualTrajectory);

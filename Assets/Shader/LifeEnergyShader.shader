@@ -69,7 +69,7 @@
             float4 frag (v2f IN) : COLOR
             {
                 const float checkLife = (_Life <= 0.66);
-                const float lifeDistCheck = (IN.uv.y<0.5+_Life/2 && IN.uv.y>=0.5-_Life/2 && (checkLife || _DisplayLife));
+                const float lifeDistCheck = (IN.uv.y<0.5+_Life/2 && IN.uv.y>=0.5-_Life/2);
                 const float stamDistCheck = (IN.uv.y<0.5+_Stamina/2 && IN.uv.y>=0.5-_Stamina/2);
                 const float checkFeedback = (IN.uv.y>0.5+_Life/2 && IN.uv.y<=0.5+_LifeFeedbackAmount/2) || (IN.uv.y<0.5-_Life/2 && IN.uv.y>=0.5-_LifeFeedbackAmount/2);
                 const float isRighOrLeft = (IN.uv.x>0.5);

@@ -224,14 +224,14 @@ public class PlayerController : LivingBeing {
                 Shoot();
                 Sprint();
                 SlowDown();
-                LayEgg();
+                //LayEgg();
                 PlaceAncient();
                 //Dodge();
                 break;
 
             case PlayerStates.TURNING_AROUND:
                 Shoot();
-                LayEgg();
+                //LayEgg();
                 PlaceAncient();
                 break;
         }

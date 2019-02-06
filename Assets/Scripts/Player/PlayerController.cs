@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.AI;
 
-public enum PlayerStates { FLYING, DODGING, LAYING_EGG, SELF_DESTROYING, TURNING_AROUND };
+public enum PlayerStates { FLYING, DODGING, LAYING_EGG, SELF_DESTROYING, TURNING_AROUND, DEAD };
 
 public class PlayerController : LivingBeing {
 
@@ -87,7 +87,7 @@ public class PlayerController : LivingBeing {
     public float fireColSpeed;
     public Transform shootTarget;
     public float scrShakeTimer;
-    public float scrShakeAmount;
+    public float shootScrShake;
 
     //[Header("Dodging")]
     //public float dodgeSpeed;
@@ -102,13 +102,16 @@ public class PlayerController : LivingBeing {
 
     [Header("Self destruct")]
     public float timeToSelfDestruct;
-    float selfDestructTime;
+    internal float selfDestructTime;
+    public float selfDestructScrShake;
     public AnimationCurve selfDestructLeftVibCurve;
     public AnimationCurve selfDestructRightVibCurve;
     public float selfDestructLaunchVibTime;
     public float selfDestructLaunchVibInt;
     public float selfDestructFreeze;
     public float timeToPlunge;
+    public Vector3 selfDestructOffset;
+    public float selfDestructExplShake;
 
     [System.NonSerialized]
     public bool canLand;
@@ -146,6 +149,8 @@ public class PlayerController : LivingBeing {
     public MeshRenderer StamiQuad;
     public Image selfDestructInputSlider;
     public GameObject selfDestructFeedback;
+    public GameObject selfDestructExplosion;
+    public GameObject selfDestructPS;
 
     [Header("SFXPlayer")]
     AudioSource[] AudioSources;
@@ -433,7 +438,6 @@ public class PlayerController : LivingBeing {
             {
                 StopShooting();
 
-                selfDestructTime = 0;
                 selfDestructFeedback.SetActive(true);
                 selfDestructInputSlider.fillAmount = 0;
                 gameMan.vibrationMan.VibrateFor(timeToSelfDestruct, 0, selfDestructLeftVibCurve, selfDestructRightVibCurve);
@@ -459,9 +463,9 @@ public class PlayerController : LivingBeing {
 
                     if (selfDestructTime >= timeToSelfDestruct)
                     {
-                        Debug.Log("BOOM");
                         StartCoroutine(ISelfDestruct());
                     }
+                    selfDestructTime = 0;
                 }
             }
 
@@ -691,7 +695,7 @@ public class PlayerController : LivingBeing {
     IEnumerator ISelfDestruct()
     {
         StopShooting();
-        MakeInvincible(4f);
+        MakeInvincible(selfDestructFreeze + timeToPlunge);
         aimProjector.SetActive(false);
 
         rb.velocity = Vector3.zero;
@@ -702,7 +706,7 @@ public class PlayerController : LivingBeing {
         gameMan.vibrationMan.VibrateFor(selfDestructLaunchVibTime, 0, .2f, 1f);
 
         Vector3 originPos = transform.position;
-        Vector3 targetPos = shootTarget.position;
+        Vector3 targetPos = shootTarget.position + selfDestructOffset;
         float time = 0f;
         while (time < timeToPlunge)
         {
@@ -710,6 +714,10 @@ public class PlayerController : LivingBeing {
             rb.MovePosition(Vector3.Lerp(originPos, targetPos, time / timeToPlunge));
             yield return new WaitForFixedUpdate();
         }
+
+        gameMan.camBehaviour.shakeGen.ShakeScreenFor(.4f, selfDestructExplShake);
+        Instantiate(selfDestructExplosion, transform.position, Quaternion.identity);
+        Instantiate(selfDestructPS, transform.position, Quaternion.identity);
 
         Die();
     }

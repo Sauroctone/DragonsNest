@@ -3517,7 +3517,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 116
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!82 &82268911993055964
 AudioSource:
   m_ObjectHideFlags: 1
@@ -4469,9 +4469,10 @@ MonoBehaviour:
   fireColSpeed: 100
   shootTarget: {fileID: 4766982967134030}
   scrShakeTimer: 0.1
-  scrShakeAmount: 0.15
+  shootScrShake: 0.15
   nestPosition: {x: -1.800003, y: 0, z: 1.300003}
   timeToSelfDestruct: 1.5
+  selfDestructScrShake: 0.15
   selfDestructLeftVibCurve:
     serializedVersion: 2
     m_Curve:
@@ -4506,6 +4507,8 @@ MonoBehaviour:
   selfDestructLaunchVibInt: 1
   selfDestructFreeze: 0.2
   timeToPlunge: 0.1
+  selfDestructOffset: {x: 0, y: 0, z: 1}
+  selfDestructExplShake: 0.2
   turnAroundLockTimeFactor: 12
   playerIndex: 0
   fireBurstVibrateTime: 0.15
@@ -4531,6 +4534,10 @@ MonoBehaviour:
   StamiQuad: {fileID: 23620016657224918}
   selfDestructInputSlider: {fileID: 114231726282461790}
   selfDestructFeedback: {fileID: 1563408678124274}
+  selfDestructExplosion: {fileID: 1757186869748010, guid: c2a1c24dd2be6744d847bd9bf0df360a,
+    type: 2}
+  selfDestructPS: {fileID: 1263578822677772, guid: bfad6870e78261b46afb42b228438a2b,
+    type: 2}
   DodgeClip: {fileID: 8300000, guid: 373c6c735abbec74ebcfc47f64a5fe40, type: 3}
   SlowdownClip: {fileID: 8300000, guid: 7eb788d52c8fa8a46bde8d3e418131bc, type: 3}
   WindflowClip: {fileID: 8300000, guid: 2b23ac223eb06c041b8400246826ff81, type: 3}

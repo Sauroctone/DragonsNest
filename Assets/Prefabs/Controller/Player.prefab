@@ -4445,6 +4445,7 @@ MonoBehaviour:
   inputSlowDownAlt: LeftTrigger
   inputInteract: A
   inputPlaceAncient: Y
+  inputDodge: B
   flySpeed: 25
   shootSpeed: 20
   flyingRotationLerp: 0.1
@@ -4470,6 +4471,9 @@ MonoBehaviour:
   shootTarget: {fileID: 4766982967134030}
   scrShakeTimer: 0.1
   shootScrShake: 0.15
+  dodgeSpeed: 80
+  dodgeTime: 0.2
+  dodgeCooldown: 0.5
   nestPosition: {x: -1.800003, y: 0, z: 1.300003}
   timeToSelfDestruct: 1.5
   selfDestructScrShake: 0.15

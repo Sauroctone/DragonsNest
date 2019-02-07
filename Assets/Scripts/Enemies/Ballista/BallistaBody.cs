@@ -14,7 +14,8 @@ public class BallistaBody : LivingBeing {
     public override void Die()
     {
         base.Die();
-
+        scoringObject.scoreAmount = 20;
+        GameManager.Instance.scoreManager.SetCombo();
         Destroy(gameObject);
     }
 }

@@ -231,14 +231,12 @@ public class PlayerController : LivingBeing {
                 Shoot();
                 Sprint();
                 SlowDown();
-                LayEgg();
                 ChargeSelfDestruct();
                 //Dodge();
                 break;
 
             case PlayerStates.TURNING_AROUND:
                 Shoot();
-                LayEgg();
                 break;
         }
 
@@ -420,8 +418,8 @@ public class PlayerController : LivingBeing {
         if (Input.GetButtonDown(inputInteract) && canLand)
         {
             SFXSource.PlayOneShot(EggDropping);
-            eggMan.eggSlider.fillAmount = 0;
-            eggMan.eggSlider.color = eggMan.startEggColor;
+            // eggMan.eggSlider.fillAmount = 0;
+            // eggMan.eggSlider.color = eggMan.startEggColor;
 
             if (playerState == PlayerStates.TURNING_AROUND)
                 StopTurningAround();

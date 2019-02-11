@@ -8,6 +8,8 @@ public class EggManager : MonoBehaviour {
 
 	public float eggTimefactor = 1;
 
+	public Nest[] levelNests;
+
 
 	[Header("Refereces")]
 	public PlayerController playerController;
@@ -40,5 +42,18 @@ public class EggManager : MonoBehaviour {
 			eggGlow.SetActive(true);
 			eggSlider.color = eggColor;
 		}
+	}
+
+	private void RandomLayEgg()
+	{
+		int randInt = Random.Range(0,levelNests.Length);
+		var actualNest = levelNests[randInt];
+
+		if(actualNest.egg.gameObject.activeInHierarchy)
+		{
+			RandomLayEgg();
+			return;
+		}		
+		
 	}
 }

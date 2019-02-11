@@ -99,12 +99,13 @@ public class PlayerController : LivingBeing {
     
     [Header("Landing")]
     public  Vector3 nestPosition;
-
+/* 
     [Header("Placing Ancient")]
     public AncientFeedback ancientProjection;
     bool isAimingForAncient;
     bool canBePlaced;
     NavMeshHit navMeshHit;
+*/
     [System.NonSerialized]
     public bool canLand;
 
@@ -135,7 +136,7 @@ public class PlayerController : LivingBeing {
     // public GameObject placeholderFeedback;
     public ParticleSystem smokeScreen;
     public Nest nestScript;
-    public GameObject ancientPrefab;
+    // public GameObject ancientPrefab;
     public GameObject aimProjector;
     public MeshRenderer LifeQuad;
     public MeshRenderer StamiQuad;
@@ -225,14 +226,14 @@ public class PlayerController : LivingBeing {
                 Sprint();
                 SlowDown();
                 //LayEgg();
-                PlaceAncient();
+                //PlaceAncient();
                 //Dodge();
                 break;
 
             case PlayerStates.TURNING_AROUND:
                 Shoot();
                 //LayEgg();
-                PlaceAncient();
+                //PlaceAncient();
                 break;
         }
 
@@ -424,7 +425,7 @@ public class PlayerController : LivingBeing {
             StartCoroutine(ILayEgg());
         }
     }
-    
+    /*
     void PlaceAncient()
     {
         if (isAimingForAncient)
@@ -468,6 +469,7 @@ public class PlayerController : LivingBeing {
             isAimingForAncient = true;
         }
     }
+    */
 
     public void TurnAround(Vector3 _newDir)
     {
@@ -553,8 +555,8 @@ public class PlayerController : LivingBeing {
             MakeInvincible(2f);
 
             StopShooting();
-            isAimingForAncient = false;
-            ancientProjection.gameObject.SetActive(false);
+            //isAimingForAncient = false;
+            //ancientProjection.gameObject.SetActive(false);
             aimProjector.SetActive(true);
         }
         else
@@ -684,7 +686,7 @@ public class PlayerController : LivingBeing {
             yield return null;
         }
     }
-
+/*
     IEnumerator ILandForAncient(Vector3 _hitPos)
     {
         StopShooting();
@@ -729,6 +731,7 @@ public class PlayerController : LivingBeing {
         yield break;
     }
 
+ */
     IEnumerator ITurnAround()
     {
         yield return new WaitForSeconds(turnAroundLockTimeFactor / speed);

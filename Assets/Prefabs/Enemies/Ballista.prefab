@@ -1153,13 +1153,13 @@ MonoBehaviour:
   aimObstacleLayer:
     serializedVersion: 2
     m_Bits: 2048
-  aimRange: 40
+  aimRange: 30
   aimTime: 0.5
   aimRotLerp: 1
   postShootIdleTime: 0.5
   shootCooldown: 0.5
   arrow: {fileID: 1737514496264914, guid: 1ad7d6f5608f00d4ea0e6432b68e7454, type: 2}
-  arrowSpeed: 60
+  arrowSpeed: 30
   arrowLifetime: 2
   arrowMaxHeight: 5
   visualTrajectory:

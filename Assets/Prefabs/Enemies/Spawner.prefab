@@ -5082,10 +5082,10 @@ MonoBehaviour:
   enemyPrefab: {fileID: 1096279583823314, guid: d29ca2a04b668284ebe320f70f53e751,
     type: 2}
   spawnPosition: {fileID: 4291105479935982}
-  baseTimeToSpawn: 10
-  minTimeToSpawn: 3
-  waveCountDecrement: 0
-  survivedCountDecrement: 0
+  baseTimeToSpawn: 5
+  minTimeToSpawn: 0.5
+  waveCountDecrement: 0.5
+  survivedCountDecrement: 0.5
   survivalFeedbackObjects:
   - {fileID: 1704393645259916}
   - {fileID: 1195128257166340}

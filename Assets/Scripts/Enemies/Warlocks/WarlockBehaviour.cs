@@ -35,4 +35,25 @@ public class WarlockBehaviour : ArcherBehaviour {
                 debugIntercept.position = interceptPoint;
         }
     }
+
+    public override void Die()
+    {
+        if (isBannerman)
+        {
+            scoringObject.scoreAmount = 5 * group.archers.Count;
+            GameManager.Instance.scoreManager.SetCombo();
+            GameManager.Instance.scoreManager.warlockDeathCount++;
+        }
+        else
+        {
+            scoringObject.scoreAmount = 1;
+        }
+        base.Die();
+        if (group != null)
+            group.archers.Remove(this);
+
+
+        Destroy(gameObject);
+
+    }
 }

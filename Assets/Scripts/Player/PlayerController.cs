@@ -29,6 +29,7 @@ public class PlayerController : LivingBeing {
     public string inputSlowDownAlt;
     public string inputInteract;
     public string inputPlaceAncient;
+    public string inputDodge;
 
     [Header("Flying")]
     public float flySpeed;
@@ -59,6 +60,7 @@ public class PlayerController : LivingBeing {
     float timeToFlap;
     public float minTimeToFlap;
     public float maxTimeToFlap;
+    bool movementInputsLocked;
 
     [Header("Stamina")]
     public float maxStamina;
@@ -89,14 +91,13 @@ public class PlayerController : LivingBeing {
     public float scrShakeTimer;
     public float shootScrShake;
 
-    //[Header("Dodging")]
-    //public float dodgeSpeed;
-    //public float megaDodgeSpeed;
-    //public float dodgeTime;
-    //Coroutine dodgeCor;
-    //bool canDodge = true;
-    //public float dodgeCooldown;
-    
+    [Header("Dodging")]
+    public float dodgeSpeed;
+    public float dodgeTime;
+    Coroutine dodgeCor;
+    bool canDodge = true;
+    public float dodgeCooldown;
+
     [Header("Landing")]
     public  Vector3 nestPosition;
 
@@ -151,6 +152,7 @@ public class PlayerController : LivingBeing {
     public GameObject selfDestructFeedback;
     public GameObject selfDestructExplosion;
     public GameObject selfDestructPS;
+    public GameObject selfDestructProj;
 
     [Header("SFXPlayer")]
     AudioSource[] AudioSources;
@@ -233,7 +235,7 @@ public class PlayerController : LivingBeing {
                 SlowDown();
                 LayEgg();
                 ChargeSelfDestruct();
-                //Dodge();
+                Dodge();
                 break;
 
             case PlayerStates.TURNING_AROUND:
@@ -269,7 +271,7 @@ public class PlayerController : LivingBeing {
         rotationLerp = isShooting ? shootingRotationLerp : flyingRotationLerp;
 
         //Don't change the desired direction if there is no input
-        if (hinput != 0 || vinput != 0)
+        if (!movementInputsLocked && (hinput != 0 || vinput != 0))
         {
             //Direction based on input
             desiredDir = new Vector3(hinput, 0f, vinput);
@@ -344,13 +346,15 @@ public class PlayerController : LivingBeing {
         }
     }
 
-    //void Dodge()
-    //{
-    //    if ((Input.GetButtonDown(inputDodge) || Input.GetAxis(inputDodgeAlt) > .1f) && canDodge) { 
-    //    SFXSource.PlayOneShot(DodgeClip, 0.5f);
-    //    dodgeCor = StartCoroutine(IDodge());
-    //    }
-    //}
+    void Dodge()
+    {
+        if (Input.GetButtonDown(inputDodge) && canDodge)
+        {
+            SFXSource.PlayOneShot(DodgeClip, 0.5f);
+            dodgeCor = StartCoroutine(IDodge());
+            print("dodge");
+        }
+    }
 
     void SlowDown()
     {
@@ -444,6 +448,9 @@ public class PlayerController : LivingBeing {
 
                 isSlowing = true;
                 anim.SetBool("isSprinting", false);
+
+                aimProjector.SetActive(false);
+                selfDestructProj.SetActive(true);
             }
 
             if (selfDestructFeedback.activeSelf)
@@ -460,6 +467,8 @@ public class PlayerController : LivingBeing {
                     isSlowing = false;
                     gameMan.vibrationMan.StopVibrating(0);
                     selfDestructFeedback.SetActive(false);
+                    aimProjector.SetActive(true);
+                    selfDestructProj.SetActive(false);
 
                     if (selfDestructTime >= timeToSelfDestruct)
                     {
@@ -715,7 +724,7 @@ public class PlayerController : LivingBeing {
             yield return new WaitForFixedUpdate();
         }
 
-        gameMan.camBehaviour.shakeGen.ShakeScreenFor(.4f, selfDestructExplShake);
+        gameMan.camBehaviour.shakeGen.ShakeScreenFor(.4f, selfDestructExplShake); //erm where is it ?  ? ?? ? ? ??? ?    ? 
         Instantiate(selfDestructExplosion, transform.position, Quaternion.identity);
         Instantiate(selfDestructPS, transform.position, Quaternion.identity);
 
@@ -729,32 +738,37 @@ public class PlayerController : LivingBeing {
         StopTurningAround();
     }
 
-    //IEnumerator IDodge()
-    //{
-    //    canDodge = false;
-    //    StopShooting();
-    //    playerState = PlayerStates.DODGING;
+    IEnumerator IDodge()
+    {
+        canDodge = false;
+        StopShooting();
+        playerState = PlayerStates.DODGING;
 
-    //    desiredDir = new Vector3(hinput, 0f, vinput);
-    //    if (desiredDir == Vector3.zero)
-    //        desiredDir = transform.right;
+        //desiredDir = new Vector3(hinput, 0f, vinput);
+        //if (desiredDir == Vector3.zero)
+        desiredDir = transform.right;
+        Vector3 targetPos = shootTarget.position;
 
-    //    anim.SetTrigger("dodges");
+        anim.SetTrigger("dodges");
 
-    //    float time = 0;
-    //    while (time < dodgeTime)
-    //    {
-    //        time += Time.deltaTime;
-    //        rb.velocity = desiredDir * (isSprinting ? megaDodgeSpeed : dodgeSpeed);
+        float time = 0;
+        while (time < dodgeTime)
+        {
+            time += Time.deltaTime;
+            rb.velocity = desiredDir * dodgeSpeed;
 
-    //        targetRot = Quaternion.LookRotation(desiredDir) * Quaternion.Euler(0f, 0f, 90f);
-    //        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationLerp);
-    //        yield return null;
-    //    }
+            targetRot = Quaternion.LookRotation(desiredDir) * Quaternion.Euler(0f, 0f, 90f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationLerp);
+            yield return null;
+        }
 
-    //    playerState = PlayerStates.FLYING;
-
-    //    yield return new WaitForSeconds(dodgeCooldown);
-    //    canDodge = true;
-    //}
+        desiredDir = (targetPos - transform.position).normalized;
+        desiredDir.y = 0f;
+        playerState = PlayerStates.FLYING;
+        movementInputsLocked = true;
+        yield return new WaitForSeconds(.3f);
+        movementInputsLocked = false;
+        yield return new WaitForSeconds(dodgeCooldown);
+        canDodge = true;
+    }
 }

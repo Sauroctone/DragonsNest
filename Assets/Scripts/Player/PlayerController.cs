@@ -152,6 +152,7 @@ public class PlayerController : LivingBeing {
     public GameObject selfDestructFeedback;
     public GameObject selfDestructExplosion;
     public GameObject selfDestructPS;
+    public GameObject selfDestructProj;
 
     [Header("SFXPlayer")]
     AudioSource[] AudioSources;
@@ -447,6 +448,9 @@ public class PlayerController : LivingBeing {
 
                 isSlowing = true;
                 anim.SetBool("isSprinting", false);
+
+                aimProjector.SetActive(false);
+                selfDestructProj.SetActive(true);
             }
 
             if (selfDestructFeedback.activeSelf)
@@ -463,6 +467,8 @@ public class PlayerController : LivingBeing {
                     isSlowing = false;
                     gameMan.vibrationMan.StopVibrating(0);
                     selfDestructFeedback.SetActive(false);
+                    aimProjector.SetActive(true);
+                    selfDestructProj.SetActive(false);
 
                     if (selfDestructTime >= timeToSelfDestruct)
                     {

@@ -471,12 +471,12 @@ GameObject:
   - component: {fileID: 4311013367071178}
   - component: {fileID: 119049232700489198}
   m_Layer: 10
-  m_Name: AimProjector
+  m_Name: SelfDestructProjector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1350302674951184
 GameObject:
   m_ObjectHideFlags: 1
@@ -929,6 +929,22 @@ GameObject:
   - component: {fileID: 4841980068046424}
   m_Layer: 0
   m_Name: CATRigRLeg1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1593895717465908
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4477438534072834}
+  - component: {fileID: 119175977782530404}
+  m_Layer: 10
+  m_Name: AimProjector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2378,13 +2394,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1347389923306304}
-  m_LocalRotation: {x: 0.21112108, y: -0, z: -0, w: 0.9774599}
-  m_LocalPosition: {x: 0, y: 0.146, z: 2.446}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 33.14, z: 12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4826760242454774}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 24.376001, y: 0, z: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4312643860406014
 Transform:
   m_ObjectHideFlags: 1
@@ -2593,6 +2609,19 @@ Transform:
   m_Father: {fileID: 4696373360554648}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4477438534072834
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1593895717465908}
+  m_LocalRotation: {x: 0.21112108, y: -0, z: -0, w: 0.9774599}
+  m_LocalPosition: {x: 0, y: 0.146, z: 2.446}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4826760242454774}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 24.376001, y: 0, z: 0}
 --- !u!4 &4478791550792208
 Transform:
   m_ObjectHideFlags: 1
@@ -3165,7 +3194,7 @@ Transform:
   m_Children:
   - {fileID: 4319993842669830}
   - {fileID: 4766982967134030}
-  - {fileID: 4311013367071178}
+  - {fileID: 4477438534072834}
   - {fileID: 4388431970225764}
   - {fileID: 4769768314812008}
   - {fileID: 4246441266409180}
@@ -3175,6 +3204,7 @@ Transform:
   - {fileID: 4184973252353998}
   - {fileID: 4575900391821182}
   - {fileID: 224953420670638704}
+  - {fileID: 4311013367071178}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4519,7 +4549,7 @@ MonoBehaviour:
   leftFireBurst: 0.3
   rightFireBurst: 0.75
   visuals: {fileID: 4246441266409180}
-  aimCursor: {fileID: 4311013367071178}
+  aimCursor: {fileID: 4477438534072834}
   firePartSys: {fileID: 198701787969807136}
   fireOrigin: {fileID: 4388431970225764}
   rb: {fileID: 54845440365208266}
@@ -4533,7 +4563,7 @@ MonoBehaviour:
   nestScript: {fileID: 0}
   ancientPrefab: {fileID: 1284249962970228, guid: ee40079a814f7864990dc064a747a873,
     type: 2}
-  aimProjector: {fileID: 1347389923306304}
+  aimProjector: {fileID: 1593895717465908}
   LifeQuad: {fileID: 23091350977178702}
   StamiQuad: {fileID: 23620016657224918}
   selfDestructInputSlider: {fileID: 114231726282461790}
@@ -4542,6 +4572,7 @@ MonoBehaviour:
     type: 2}
   selfDestructPS: {fileID: 1263578822677772, guid: bfad6870e78261b46afb42b228438a2b,
     type: 2}
+  selfDestructProj: {fileID: 0}
   DodgeClip: {fileID: 8300000, guid: 373c6c735abbec74ebcfc47f64a5fe40, type: 3}
   SlowdownClip: {fileID: 8300000, guid: 7eb788d52c8fa8a46bde8d3e418131bc, type: 3}
   WindflowClip: {fileID: 8300000, guid: 2b23ac223eb06c041b8400246826ff81, type: 3}
@@ -4599,6 +4630,24 @@ Projector:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1347389923306304}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_NearClipPlane: 30
+  m_FarClipPlane: 295.1
+  m_FieldOfView: 1
+  m_AspectRatio: 1
+  m_Orthographic: 1
+  m_OrthographicSize: 8
+  m_Material: {fileID: 2100000, guid: f09dff518325a024b804995464d22859, type: 2}
+  m_IgnoreLayers:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!119 &119175977782530404
+Projector:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1593895717465908}
   m_Enabled: 1
   serializedVersion: 2
   m_NearClipPlane: 0.1

@@ -153,6 +153,7 @@ public class PlayerController : LivingBeing {
     public GameObject selfDestructExplosion;
     public GameObject selfDestructPS;
     public GameObject selfDestructProj;
+    public EdgeScanner edgeScan;
 
     [Header("SFXPlayer")]
     AudioSource[] AudioSources;
@@ -477,7 +478,6 @@ public class PlayerController : LivingBeing {
                     selfDestructTime = 0;
                 }
             }
-
         }
     }
 
@@ -716,6 +716,14 @@ public class PlayerController : LivingBeing {
 
         Vector3 originPos = transform.position;
         Vector3 targetPos = shootTarget.position + selfDestructOffset;
+        //RaycastHit hit;
+        //if (Physics.Raycast(originPos, (targetPos - originPos).normalized, out hit, Vector3.Distance(originPos, targetPos), edgeScan.layerMask))
+        //{
+        //    targetPos = hit.point + selfDestructOffset;
+        //    scanDebug.position = targetPos;
+        //    print("yo");
+        //}
+
         float time = 0f;
         while (time < timeToPlunge)
         {

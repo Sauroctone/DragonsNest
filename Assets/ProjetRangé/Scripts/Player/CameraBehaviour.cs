@@ -14,11 +14,13 @@ public class CameraBehaviour : MonoBehaviour {
     public Vector3 fireZoom;
     public Vector3 sprintDezoom;
     public Vector3 slowZoom;
+    public Vector3 selfDestructZoom;
     Vector3 zoom;
     Vector3 lastPos;
     float rhinput;
     float rvinput;
     Vector3 lookOffset;
+    Coroutine selfDestructCor;
 
     [Header("References")]
     public PlayerController player;
@@ -47,10 +49,16 @@ public class CameraBehaviour : MonoBehaviour {
         else
             zoom = Vector3.zero;
 
+        if (player.selfDestructTime > 0)
+        {
+            zoom = selfDestructZoom * player.selfDestructTime;
+            shakeGen.ShakeScreen(player.selfDestructScrShake);
+        }
+
         targetPos = target.position + baseOffset + zoom + lookOffset * lookRange; 
         transform.position = Vector3.Lerp(transform.position, targetPos , followLerp);
 
         if (player.isShooting)
-            shakeGen.ShakeScreen(player.scrShakeAmount);
+            shakeGen.ShakeScreen(player.shootScrShake);
     }
 }

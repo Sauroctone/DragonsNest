@@ -150,12 +150,13 @@ MonoBehaviour:
   enemyPrefab: {fileID: 1096279583823314, guid: d29ca2a04b668284ebe320f70f53e751,
     type: 2}
   spawnPosition: {fileID: 4190825472060638}
-  baseTimeToSpawn: 10
-  minTimeToSpawn: 3
-  waveCountDecrement: 0
-  survivedCountDecrement: 0
+  baseTimeToSpawn: 5
+  minTimeToSpawn: 1
+  waveCountDecrement: 1
+  survivedCountDecrement: 1
   survivalFeedbackObjects: []
   rend: {fileID: 23149973541106560}
   normalMat: {fileID: 2100000, guid: e18073d75861dcd42beee693b6405009, type: 2}
   invincibleMat: {fileID: 2100000, guid: 9cb855330aa988a478187a49d012296e, type: 2}
   canvas: {fileID: 0}
+  fuif: {fileID: 0}

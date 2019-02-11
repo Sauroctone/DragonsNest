@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.AI;
 
-public enum PlayerStates { FLYING, DODGING, LAYING_EGG, LANDING_ANCIENT, TURNING_AROUND };
+public enum PlayerStates { FLYING, DODGING, LAYING_EGG, SELF_DESTROYING, TURNING_AROUND, DEAD };
 
 public class PlayerController : LivingBeing {
 
@@ -87,7 +87,7 @@ public class PlayerController : LivingBeing {
     public float fireColSpeed;
     public Transform shootTarget;
     public float scrShakeTimer;
-    public float scrShakeAmount;
+    public float shootScrShake;
 
     //[Header("Dodging")]
     //public float dodgeSpeed;
@@ -100,11 +100,19 @@ public class PlayerController : LivingBeing {
     [Header("Landing")]
     public  Vector3 nestPosition;
 
-    [Header("Placing Ancient")]
-    public AncientFeedback ancientProjection;
-    bool isAimingForAncient;
-    bool canBePlaced;
-    NavMeshHit navMeshHit;
+    [Header("Self destruct")]
+    public float timeToSelfDestruct;
+    internal float selfDestructTime;
+    public float selfDestructScrShake;
+    public AnimationCurve selfDestructLeftVibCurve;
+    public AnimationCurve selfDestructRightVibCurve;
+    public float selfDestructLaunchVibTime;
+    public float selfDestructLaunchVibInt;
+    public float selfDestructFreeze;
+    public float timeToPlunge;
+    public Vector3 selfDestructOffset;
+    public float selfDestructExplShake;
+
     [System.NonSerialized]
     public bool canLand;
 
@@ -139,6 +147,10 @@ public class PlayerController : LivingBeing {
     public GameObject aimProjector;
     public MeshRenderer LifeQuad;
     public MeshRenderer StamiQuad;
+    public Image selfDestructInputSlider;
+    public GameObject selfDestructFeedback;
+    public GameObject selfDestructExplosion;
+    public GameObject selfDestructPS;
 
     [Header("SFXPlayer")]
     AudioSource[] AudioSources;
@@ -189,11 +201,6 @@ public class PlayerController : LivingBeing {
                 break;
             
             case PlayerStates.LAYING_EGG:
-                // Decrease speed and stop 
-                /*  if(rb.velocity != new Vector3 (0,0,0))
-                  {
-                      rb.velocity = Vector3.Lerp(rb.velocity,new Vector3(0,0,0),Time.deltaTime*landSpeed);
-                  }*/
                 rb.velocity = new Vector3(0f, 0f, 0f);
                 if (nestPosition != null)
                     transform.position = Vector3.Lerp(transform.position, nestPosition, Time.deltaTime * landSpeed);
@@ -225,14 +232,13 @@ public class PlayerController : LivingBeing {
                 Sprint();
                 SlowDown();
                 LayEgg();
-                PlaceAncient();
+                ChargeSelfDestruct();
                 //Dodge();
                 break;
 
             case PlayerStates.TURNING_AROUND:
                 Shoot();
                 LayEgg();
-                PlaceAncient();
                 break;
         }
 
@@ -357,7 +363,6 @@ public class PlayerController : LivingBeing {
         if ((Input.GetButton(inputSlowDown) || Input.GetAxis(inputSlowDownAlt) >= .1f) && stamina > 0 && slowTime >= slowCooldown)
         {
             isSlowing = true;
-            SFXSource.PlayOneShot(SlowdownClip);
 
             if (!isSprinting)
                 UseStamina(slowCostPerSecond);
@@ -366,7 +371,7 @@ public class PlayerController : LivingBeing {
         if (isSlowing && (Input.GetButtonUp(inputSlowDown) || Input.GetAxis(inputSlowDownAlt) < .1f || stamina == 0))
         {
             isSlowing = false;
-            SFXSource.PlayOneShot(DodgeClip);
+            //SFXSource.PlayOneShot(DodgeClip);
             if (timeOutOfSlow < -minSlowTime)
                 timeOutOfSlow = boostTimeOutOfSlow;
             if (stamina == 0)
@@ -425,47 +430,45 @@ public class PlayerController : LivingBeing {
         }
     }
     
-    void PlaceAncient()
+    void ChargeSelfDestruct()
     {
-        if (isAimingForAncient)
+        if (gameMan.babyDragonMan.babyDragons.Count > 0)
         {
-            if (Input.GetButtonDown(inputPlaceAncient) || isShooting || playerState == PlayerStates.LAYING_EGG)
+            if (Input.GetButtonDown(inputPlaceAncient))
             {
-                isAimingForAncient = false;
-                ancientProjection.gameObject.SetActive(false);
-                aimProjector.SetActive(true);
-                return;
+                StopShooting();
+
+                selfDestructFeedback.SetActive(true);
+                selfDestructInputSlider.fillAmount = 0;
+                gameMan.vibrationMan.VibrateFor(timeToSelfDestruct, 0, selfDestructLeftVibCurve, selfDestructRightVibCurve);
+
+                isSlowing = true;
+                anim.SetBool("isSprinting", false);
             }
 
-            canBePlaced = NavMesh.SamplePosition(ancientProjection.transform.position, out navMeshHit, 1f, NavMesh.AllAreas);
-
-            if (canBePlaced)
+            if (selfDestructFeedback.activeSelf)
             {
-                if (!ancientProjection.isAvailable)
-                    ancientProjection.ChangeMat(ancientProjection.availableMat, true);
-
-                if (Input.GetButtonDown(inputInteract))
+                if (Input.GetButton(inputPlaceAncient))
                 {
-                    ancientProjection.gameObject.SetActive(false);
+                    selfDestructTime += Time.deltaTime;
+                    selfDestructInputSlider.fillAmount = selfDestructTime / timeToSelfDestruct;
+                    isSlowing = true;
+                }
 
-                    if (playerState == PlayerStates.TURNING_AROUND)
-                        StopTurningAround();
+                if (selfDestructTime >= timeToSelfDestruct || Input.GetButtonUp(inputPlaceAncient))
+                {
+                    isSlowing = false;
+                    gameMan.vibrationMan.StopVibrating(0);
+                    selfDestructFeedback.SetActive(false);
 
-                    StartCoroutine(ILandForAncient(navMeshHit.position));
+                    if (selfDestructTime >= timeToSelfDestruct)
+                    {
+                        StartCoroutine(ISelfDestruct());
+                    }
+                    selfDestructTime = 0;
                 }
             }
-            else
-            {
-                if (ancientProjection.isAvailable)
-                    ancientProjection.ChangeMat(ancientProjection.notAvailableMat, false);
-            }
-        }
-        else if (Input.GetButtonDown(inputPlaceAncient) && gameMan.babyDragonMan.babyDragons.Count > 0)
-        {
-            StopShooting();
-            ancientProjection.gameObject.SetActive(true);
-            aimProjector.SetActive(false);
-            isAimingForAncient = true;
+
         }
     }
 
@@ -478,6 +481,10 @@ public class PlayerController : LivingBeing {
         isSprinting = false;
         speed = flySpeed;
         rotationLerp = flyingRotationLerp;
+
+        //If is self destructing
+        gameMan.vibrationMan.StopVibrating(0);
+        selfDestructFeedback.SetActive(false);
 
         //Set direction
         desiredDir = _newDir;
@@ -537,9 +544,9 @@ public class PlayerController : LivingBeing {
 
     public override void Die()
     {
-        SFXSource.PlayOneShot(DragonDeathClip, 1);
         base.Die();
 
+        SFXSource.PlayOneShot(DragonDeathClip, 1);
         if (babyDragonMan.babyDragons.Count > 0)
         {
             //Instantiate(placeholderFeedback, babyDragonMan.babyDragons[0].transform.position, Quaternion.identity);
@@ -553,9 +560,9 @@ public class PlayerController : LivingBeing {
             MakeInvincible(2f);
 
             StopShooting();
-            isAimingForAncient = false;
-            ancientProjection.gameObject.SetActive(false);
             aimProjector.SetActive(true);
+
+            playerState = PlayerStates.FLYING;
         }
         else
             SceneManager.LoadScene(0);
@@ -685,47 +692,34 @@ public class PlayerController : LivingBeing {
         }
     }
 
-    IEnumerator ILandForAncient(Vector3 _hitPos)
+    IEnumerator ISelfDestruct()
     {
         StopShooting();
-        MakeInvincible(4f);
+        MakeInvincible(selfDestructFreeze + timeToPlunge);
+        aimProjector.SetActive(false);
 
         rb.velocity = Vector3.zero;
-        playerState = PlayerStates.LANDING_ANCIENT;
+        playerState = PlayerStates.SELF_DESTROYING;
 
-        //anim.SetTrigger("land");
-        smokeScreen.Play();
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(selfDestructFreeze);
 
-        // Instantiate(placeholderFeedback, babyDragonMan.babyDragons[0].transform.position, Quaternion.identity);
-        // Instantiate(placeholderFeedback, transform.position, Quaternion.identity);
+        gameMan.vibrationMan.VibrateFor(selfDestructLaunchVibTime, 0, .2f, 1f);
 
-        GameObject ancient = Instantiate(ancientPrefab, _hitPos, transform.rotation);
-        gameMan.spawnMan.ancients.Add(ancient.transform);
-        babyDragonMan.RemoveBabyDragon();
-
-        ResetLife(maxLife);
-
-        //yield return new WaitForSeconds(0.1f);
-        //anim.SetTrigger("lift");
-
-        //yield return new WaitForSeconds(1.30f);
-        if (isSlowing)
+        Vector3 originPos = transform.position;
+        Vector3 targetPos = shootTarget.position + selfDestructOffset;
+        float time = 0f;
+        while (time < timeToPlunge)
         {
-            isSlowing = false;
-            if (stamina == 0)
-                slowTime = 0;
+            time += Time.fixedDeltaTime;
+            rb.MovePosition(Vector3.Lerp(originPos, targetPos, time / timeToPlunge));
+            yield return new WaitForFixedUpdate();
         }
-        if (isSprinting)
-        {
-            isSprinting = false;
-            if (stamina == 0)
-                sprintTime = 0;
-        }
-        playerState = PlayerStates.FLYING;
-        aimProjector.SetActive(true);
 
-        yield break;
+        gameMan.camBehaviour.shakeGen.ShakeScreenFor(.4f, selfDestructExplShake);
+        Instantiate(selfDestructExplosion, transform.position, Quaternion.identity);
+        Instantiate(selfDestructPS, transform.position, Quaternion.identity);
+
+        Die();
     }
 
     IEnumerator ITurnAround()

@@ -4670,10 +4670,10 @@ MonoBehaviour:
   enemyPrefab: {fileID: 1096279583823314, guid: d29ca2a04b668284ebe320f70f53e751,
     type: 2}
   spawnPosition: {fileID: 4453781775858602}
-  baseTimeToSpawn: 10
-  minTimeToSpawn: 3
-  waveCountDecrement: 0
-  survivedCountDecrement: 0
+  baseTimeToSpawn: 5
+  minTimeToSpawn: 0.5
+  waveCountDecrement: 0.5
+  survivedCountDecrement: 0.5
   survivalFeedbackObjects: []
   rend: {fileID: 23238094918913506}
   normalMat: {fileID: 2100000, guid: a92c0eae44917d34491e804d5d1a50e2, type: 2}

@@ -52,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1237939678105320}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: -0.282, z: 2.32}
+  m_LocalPosition: {x: -7.98, y: 0.01, z: -0.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4900564592788326}
@@ -65,7 +65,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1803268845640584}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 130.8, y: 0, z: 18.6}
+  m_LocalPosition: {x: -60.7, y: 0, z: 20}
   m_LocalScale: {x: 5, y: 2, z: 5}
   m_Children:
   - {fileID: 4190825472060638}
@@ -152,8 +152,8 @@ MonoBehaviour:
   spawnPosition: {fileID: 4190825472060638}
   baseTimeToSpawn: 5
   minTimeToSpawn: 1
-  waveCountDecrement: 1
-  survivedCountDecrement: 1
+  waveCountDecrement: 0.5
+  survivedCountDecrement: 0
   survivalFeedbackObjects: []
   rend: {fileID: 23149973541106560}
   normalMat: {fileID: 2100000, guid: e18073d75861dcd42beee693b6405009, type: 2}

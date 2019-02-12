@@ -7,7 +7,8 @@ using UnityEngine.AI;
 
 public enum PlayerStates { FLYING, DODGING, LAYING_EGG, SELF_DESTROYING, TURNING_AROUND, DEAD };
 
-public class PlayerController : LivingBeing {
+public class PlayerController : LivingBeing
+{
 
     private float lifesShader;
     private float lifeFeedBackAmount;
@@ -29,6 +30,7 @@ public class PlayerController : LivingBeing {
     public string inputSlowDownAlt;
     public string inputInteract;
     public string inputPlaceAncient;
+    public string inputDodge;
 
     [Header("Flying")]
     public float flySpeed;
@@ -48,7 +50,7 @@ public class PlayerController : LivingBeing {
     internal bool isSprinting;
     public float sprintSpeed;
     float sprintTime;
-    internal bool isSlowing; 
+    internal bool isSlowing;
     public float slowSpeed;
     float slowTime;
     float timeOutOfSlow;
@@ -59,6 +61,7 @@ public class PlayerController : LivingBeing {
     float timeToFlap;
     public float minTimeToFlap;
     public float maxTimeToFlap;
+    bool movementInputsLocked;
 
     [Header("Stamina")]
     public float maxStamina;
@@ -89,16 +92,15 @@ public class PlayerController : LivingBeing {
     public float scrShakeTimer;
     public float shootScrShake;
 
-    //[Header("Dodging")]
-    //public float dodgeSpeed;
-    //public float megaDodgeSpeed;
-    //public float dodgeTime;
-    //Coroutine dodgeCor;
-    //bool canDodge = true;
-    //public float dodgeCooldown;
-    
+    [Header("Dodging")]
+    public float dodgeSpeed;
+    public float dodgeTime;
+    Coroutine dodgeCor;
+    bool canDodge = true;
+    public float dodgeCooldown;
+
     [Header("Landing")]
-    public  Vector3 nestPosition;
+    public Vector3 nestPosition;
 
     [Header("Self destruct")]
     public float timeToSelfDestruct;
@@ -194,14 +196,14 @@ public class PlayerController : LivingBeing {
         //Storing the joystick inputs
         hinput = Input.GetAxis("Horizontal");
         vinput = Input.GetAxis("Vertical");
-        WindflowSoundSource.volume = speed/sprintSpeed;
+        WindflowSoundSource.volume = speed / sprintSpeed;
         switch (playerState)
         {
             case PlayerStates.FLYING:
                 GetDirectionAndSpeed();
                 Move();
                 break;
-            
+
             case PlayerStates.LAYING_EGG:
                 rb.velocity = new Vector3(0f, 0f, 0f);
                 if (nestPosition != null)
@@ -233,12 +235,14 @@ public class PlayerController : LivingBeing {
                 Shoot();
                 Sprint();
                 SlowDown();
+                LayEgg();
                 ChargeSelfDestruct();
-                //Dodge();
+                Dodge();
                 break;
 
             case PlayerStates.TURNING_AROUND:
                 Shoot();
+                LayEgg();
                 break;
         }
 
@@ -251,8 +255,8 @@ public class PlayerController : LivingBeing {
 
     private void InstantiateRefs()
     {
-       babyDragonMan.target = this.transform;
-       babyDragonMan = Instantiate(babyDragonMan.gameObject, Vector3.zero, Quaternion.identity).GetComponent<BabyDragonManager>();
+        babyDragonMan.target = this.transform;
+        babyDragonMan = Instantiate(babyDragonMan.gameObject, Vector3.zero, Quaternion.identity).GetComponent<BabyDragonManager>();
     }
 
     void GetDirectionAndSpeed()
@@ -269,7 +273,7 @@ public class PlayerController : LivingBeing {
         rotationLerp = isShooting ? shootingRotationLerp : flyingRotationLerp;
 
         //Don't change the desired direction if there is no input
-        if (hinput != 0 || vinput != 0)
+        if (!movementInputsLocked && (hinput != 0 || vinput != 0))
         {
             //Direction based on input
             desiredDir = new Vector3(hinput, 0f, vinput);
@@ -297,7 +301,7 @@ public class PlayerController : LivingBeing {
         if (flapTime >= timeToFlap)
         {
             flapTime = 0;
-            if(!isSprinting && !isSlowing)
+            if (!isSprinting && !isSlowing)
                 anim.SetTrigger("flaps");
             timeToFlap = Random.Range(minTimeToFlap, maxTimeToFlap);
         }
@@ -313,7 +317,7 @@ public class PlayerController : LivingBeing {
             isShooting = true;
             fireTime = 0;
 
-            foreach(BabyDragonBehaviour babyDragon in babyDragonMan.babyDragons)
+            foreach (BabyDragonBehaviour babyDragon in babyDragonMan.babyDragons)
             {
                 babyDragon.Shoot(shootTarget, rb);
             }
@@ -421,8 +425,6 @@ public class PlayerController : LivingBeing {
         if (Input.GetButtonDown(inputInteract) && canLand)
         {
             SFXSource.PlayOneShot(EggDropping);
-            // eggMan.eggSlider.fillAmount = 0;
-            // eggMan.eggSlider.color = eggMan.startEggColor;
 
             if (playerState == PlayerStates.TURNING_AROUND)
                 StopTurningAround();
@@ -430,7 +432,7 @@ public class PlayerController : LivingBeing {
             StartCoroutine(ILayEgg());
         }
     }
-    
+
     void ChargeSelfDestruct()
     {
         if (gameMan.babyDragonMan.babyDragons.Count > 0)
@@ -445,6 +447,9 @@ public class PlayerController : LivingBeing {
 
                 isSlowing = true;
                 anim.SetBool("isSprinting", false);
+
+                aimProjector.SetActive(false);
+                selfDestructProj.SetActive(true);
             }
 
             if (selfDestructFeedback.activeSelf)
@@ -461,6 +466,8 @@ public class PlayerController : LivingBeing {
                     isSlowing = false;
                     gameMan.vibrationMan.StopVibrating(0);
                     selfDestructFeedback.SetActive(false);
+                    aimProjector.SetActive(true);
+                    selfDestructProj.SetActive(false);
 
                     if (selfDestructTime >= timeToSelfDestruct)
                     {
@@ -508,7 +515,7 @@ public class PlayerController : LivingBeing {
 
     public void UpdateStaminaUI()
     {
-        StamiQuad.material.SetFloat ("_Stamina", stamina / maxStamina);
+        StamiQuad.material.SetFloat("_Stamina", stamina / maxStamina);
     }
 
     void UseStamina(float _cost)
@@ -570,32 +577,32 @@ public class PlayerController : LivingBeing {
 
     public override void UpdateHealthUI(int _damage)
     {
-        LifeQuad.material.SetFloat ("_Life", lifesShader);
+        LifeQuad.material.SetFloat("_Life", lifesShader);
         SFXSource.PlayOneShot(DragonHitClip, 0.2f);
         //base.UpdateHealthUI(_damage);
-        LifeQuad.material.SetFloat ("_Life", life / maxLife);
+        LifeQuad.material.SetFloat("_Life", life / maxLife);
 
         if (regenCor != null)
             StopCoroutine(regenCor);
 
         timeSinceLastDamage = 0;
-        
+
         lostLifeBeforeDecay += _damage;
-        LifeQuad.material.SetFloat ("_LifeBeforeDecay", lostLifeBeforeDecay);
+        LifeQuad.material.SetFloat("_LifeBeforeDecay", lostLifeBeforeDecay);
 
         if (lifesShader == lifeFeedBackAmount || feedbackIsDecaying)
         {
             if (feedbackIsDecaying)
             {
                 lifeFeedBackAmount = lifesShader;
-                LifeQuad.material.SetFloat ("_LifeFeedbackAmount", lifeFeedBackAmount);
+                LifeQuad.material.SetFloat("_LifeFeedbackAmount", lifeFeedBackAmount);
                 feedbackIsDecaying = false;
             }
             if (feedbackCor != null)
                 StopCoroutine(feedbackCor);
             feedbackCor = StartCoroutine(IHealthBarFeedback());
         }
-        lifesShader = life/maxLife;
+        lifesShader = life / maxLife;
 
         if (gameMan.vignetteMan.CurrentPreset != gameMan.vignetteMan.hurtVignette)
             gameMan.vignetteMan.ChangeVignette(gameMan.vignetteMan.hurtVignette);
@@ -605,7 +612,7 @@ public class PlayerController : LivingBeing {
             //print(toSwitchAfterDecay.name);
             gameMan.vignetteMan.IncrementSmoothness(gameMan.vignetteMan.hurtVignette, _damage * vignetteFactor, toSwitchAfterDecay);
         }
-         
+
     }
 
     public override void ResetHealthUI(float _timeToRegen)
@@ -614,10 +621,10 @@ public class PlayerController : LivingBeing {
 
         gameMan.vignetteMan.ChangeVignette(gameMan.vignetteMan.basicVignette);
     }
-   
+
     internal override IEnumerator IHealthBarFeedback()
     {
-        LifeQuad.material.SetFloat ("_DisplayLife", 1);        
+        LifeQuad.material.SetFloat("_DisplayLife", 1);
         while (timeSinceLastDamage < timeToUpdateFeedbackBar)
         {
             timeSinceLastDamage += Time.deltaTime;
@@ -629,13 +636,13 @@ public class PlayerController : LivingBeing {
         while (decayingTime < feedbackDecayTime)
         {
             decayingTime += Time.deltaTime;
-            lifeFeedBackAmount = Mathf.Lerp(lifeFeedBackAmount, life / maxLife, decayingTime / feedbackDecayTime); 
+            lifeFeedBackAmount = Mathf.Lerp(lifeFeedBackAmount, life / maxLife, decayingTime / feedbackDecayTime);
             // Debug.Log(lifeFeedBackAmount);
-            LifeQuad.material.SetFloat ("_LifeFeedbackAmount", lifeFeedBackAmount);
+            LifeQuad.material.SetFloat("_LifeFeedbackAmount", lifeFeedBackAmount);
 
             yield return null;
         }
-        LifeQuad.material.SetFloat ("_DisplayLife", 0);        
+        LifeQuad.material.SetFloat("_DisplayLife", 0);
         feedbackIsDecaying = false;
     }
 
@@ -644,21 +651,21 @@ public class PlayerController : LivingBeing {
         yield return new WaitForSeconds(1f);
 
         lifeFeedBackAmount = 1;
-        LifeQuad.material.SetFloat ("_LifeFeedbackAmount", lifeFeedBackAmount);
-        
+        LifeQuad.material.SetFloat("_LifeFeedbackAmount", lifeFeedBackAmount);
+
         float time = 0;
-        LifeQuad.material.SetFloat ("_DisplayLife", 1);        
+        LifeQuad.material.SetFloat("_DisplayLife", 1);
         while (time < _timeToRegen)
         {
             time += Time.deltaTime;
             lifesShader = Mathf.Lerp(0, 1, time / _timeToRegen);
-            LifeQuad.material.SetFloat ("_Life", lifesShader);
+            LifeQuad.material.SetFloat("_Life", lifesShader);
             yield return null;
         }
-        LifeQuad.material.SetFloat ("_DisplayLife", 0);        
+        LifeQuad.material.SetFloat("_DisplayLife", 0);
         lifesShader = lifeFeedBackAmount = 1;
-        LifeQuad.material.SetFloat ("_LifeFeedbackAmount", lifeFeedBackAmount);
-        LifeQuad.material.SetFloat ("_Life", lifesShader);
+        LifeQuad.material.SetFloat("_LifeFeedbackAmount", lifeFeedBackAmount);
+        LifeQuad.material.SetFloat("_Life", lifesShader);
 
     }
 
@@ -723,7 +730,7 @@ public class PlayerController : LivingBeing {
             yield return new WaitForFixedUpdate();
         }
 
-        gameMan.camBehaviour.shakeGen.ShakeScreenFor(.4f, selfDestructExplShake);
+        gameMan.camBehaviour.shakeGen.ShakeScreenFor(.4f, selfDestructExplShake); //erm where is it ?  ? ?? ? ? ??? ?    ? 
         Instantiate(selfDestructExplosion, transform.position, Quaternion.identity);
         Instantiate(selfDestructPS, transform.position, Quaternion.identity);
 
@@ -737,32 +744,37 @@ public class PlayerController : LivingBeing {
         StopTurningAround();
     }
 
-    //IEnumerator IDodge()
-    //{
-    //    canDodge = false;
-    //    StopShooting();
-    //    playerState = PlayerStates.DODGING;
+    IEnumerator IDodge()
+    {
+        canDodge = false;
+        StopShooting();
+        playerState = PlayerStates.DODGING;
 
-    //    desiredDir = new Vector3(hinput, 0f, vinput);
-    //    if (desiredDir == Vector3.zero)
-    //        desiredDir = transform.right;
+        //desiredDir = new Vector3(hinput, 0f, vinput);
+        //if (desiredDir == Vector3.zero)
+        desiredDir = transform.right;
+        Vector3 targetPos = shootTarget.position;
 
-    //    anim.SetTrigger("dodges");
+        anim.SetTrigger("dodges");
 
-    //    float time = 0;
-    //    while (time < dodgeTime)
-    //    {
-    //        time += Time.deltaTime;
-    //        rb.velocity = desiredDir * (isSprinting ? megaDodgeSpeed : dodgeSpeed);
+        float time = 0;
+        while (time < dodgeTime)
+        {
+            time += Time.deltaTime;
+            rb.velocity = desiredDir * dodgeSpeed;
 
-    //        targetRot = Quaternion.LookRotation(desiredDir) * Quaternion.Euler(0f, 0f, 90f);
-    //        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationLerp);
-    //        yield return null;
-    //    }
+            targetRot = Quaternion.LookRotation(desiredDir) * Quaternion.Euler(0f, 0f, 90f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationLerp);
+            yield return null;
+        }
 
-    //    playerState = PlayerStates.FLYING;
-
-    //    yield return new WaitForSeconds(dodgeCooldown);
-    //    canDodge = true;
-    //}
+        desiredDir = (targetPos - transform.position).normalized;
+        desiredDir.y = 0f;
+        playerState = PlayerStates.FLYING;
+        movementInputsLocked = true;
+        yield return new WaitForSeconds(.3f);
+        movementInputsLocked = false;
+        yield return new WaitForSeconds(dodgeCooldown);
+        canDodge = true;
+    }
 }

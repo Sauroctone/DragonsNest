@@ -61,12 +61,16 @@ public class EggManager : MonoBehaviour {
 	
 	private IEnumerator UpdateEggByTime ()
 	{
+		SetCurrentTime();
 		if(waitDuringInterWave)
 		{
+			Debug.Log("Lay Egg Wait");
 			yield return new WaitWhile(CheckIfInterWave);
 		}
 		yield return new WaitForSeconds(currentTimeBetEgg);
 		RandomLayEgg();
+		
+		StartCoroutine(UpdateEggByTime());
 	}
 
 	private Nest RandomAvailaibleNest()

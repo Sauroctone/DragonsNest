@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class UiFollow : MonoBehaviour {
 
 	Transform self;
-	public Transform player;
+	private Transform player;
 	public Egg egg;
 
 	[Range(0.1f,2.0f)]
@@ -35,6 +35,8 @@ public class UiFollow : MonoBehaviour {
 		
 		
 		circleShader.SetColor("_ColorBase",circleBAckgroundColor);
+		
+		Debug.Log(mainCam);
 	}
 
 	private void 

@@ -69,6 +69,8 @@ public class EggManager : MonoBehaviour {
 		}
 		yield return new WaitForSeconds(currentTimeBetEgg);
 		RandomLayEgg();
+		
+		StartCoroutine(UpdateEggByTime());
 	}
 
 	private Nest RandomAvailaibleNest()

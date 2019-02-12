@@ -166,7 +166,7 @@ public class ArcherBehaviour : LivingBeing {
         {
             scoringObject.scoreAmount = 5*group.archers.Count;
             GameManager.Instance.scoreManager.SetCombo();
-            GameManager.Instance.scoreManager.ballistaDeathCount++;
+            GameManager.Instance.scoreManager.archerDeathCount++;
         }
         else
         {

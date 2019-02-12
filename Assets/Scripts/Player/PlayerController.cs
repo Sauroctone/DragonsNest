@@ -336,7 +336,7 @@ public class PlayerController : LivingBeing {
         //While the player is shooting
         if (isShooting)
         {
-            if (fireTime >= timeBetweenCols)
+            if (fireTime >= (flySpeed / speed) * timeBetweenCols)
             {
                 GameObject fireCol = Instantiate(fireCollider, fireOrigin.position, Quaternion.identity);
                 fireCol.GetComponent<Rigidbody>().velocity = rb.velocity + (shootTarget.position - fireOrigin.position).normalized * fireColSpeed;
@@ -353,7 +353,6 @@ public class PlayerController : LivingBeing {
         {
             SFXSource.PlayOneShot(DodgeClip, 0.5f);
             dodgeCor = StartCoroutine(IDodge());
-            print("dodge");
         }
     }
 

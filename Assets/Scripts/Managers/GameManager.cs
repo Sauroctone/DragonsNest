@@ -57,8 +57,8 @@ public class GameManager : MonoBehaviour {
         player = playerControllerInstance.GetComponent<PlayerController>();
         playerRb = player.rb;
         babyDragonMan = player.babyDragonMan;
-        mainCamera = Instantiate(mainCamera.gameObject).GetComponent<Camera>();
-        camBehaviour = mainCamera.GetComponent<CameraBehaviour>();
+        camBehaviour = Instantiate(camBehaviour.gameObject).GetComponent<CameraBehaviour>();
+        mainCamera = camBehaviour.gameObject.GetComponentInChildren<Camera>();
         UI = Instantiate(UI);
         spawnMan.waveTimerText = UI.transform.GetChild(2).GetComponentInChildren<Text>();
     }   

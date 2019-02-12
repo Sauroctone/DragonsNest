@@ -8,7 +8,9 @@ public class CameraBehaviour : MonoBehaviour {
     [HideInInspector]
     public Vector3 targetOriginPos;
     Vector3 targetPos;
+    float lerp;
     public float followLerp;
+    public float shootLerp;
     public float lookRange;
     Vector3 baseOffset;
     public Vector3 fireZoom;
@@ -41,13 +43,27 @@ public class CameraBehaviour : MonoBehaviour {
         lookOffset = new Vector3(rhinput, 0f, rvinput);
 
         if (player.isShooting)
+        {
             zoom = fireZoom;
-        else if (player.isSprinting && !player.isSlowing)
-            zoom = sprintDezoom;
-        else if (player.isSlowing && !player.isSprinting)
-            zoom = slowZoom;
+            lerp = shootLerp;
+        }
         else
-            zoom = Vector3.zero;
+        {
+            lerp = followLerp;
+
+            if (player.isSprinting && !player.isSlowing)
+            {
+                zoom = sprintDezoom;
+            }
+            else if (player.isSlowing && !player.isSprinting)
+            {
+                zoom = slowZoom;
+            }
+            else
+            {
+                zoom = Vector3.zero;
+            }
+        }
 
         if (player.selfDestructTime > 0)
         {
@@ -56,7 +72,7 @@ public class CameraBehaviour : MonoBehaviour {
         }
 
         targetPos = target.position + baseOffset + zoom + lookOffset * lookRange; 
-        transform.position = Vector3.Lerp(transform.position, targetPos , followLerp);
+        transform.position = Vector3.Lerp(transform.position, targetPos , lerp);
 
         if (player.isShooting)
             shakeGen.ShakeScreen(player.shootScrShake);

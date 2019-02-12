@@ -4542,7 +4542,7 @@ MonoBehaviour:
   selfDestructFreeze: 0.2
   timeToPlunge: 0.1
   selfDestructOffset: {x: 0, y: 0, z: 1}
-  selfDestructExplShake: 0.2
+  selfDestructExplShake: 0.4
   turnAroundLockTimeFactor: 12
   playerIndex: 0
   fireBurstVibrateTime: 0.15
@@ -4574,7 +4574,6 @@ MonoBehaviour:
     type: 2}
   selfDestructProj: {fileID: 1347389923306304}
   edgeScan: {fileID: 114434384479767948}
-  scanDebug: {fileID: 0}
   DodgeClip: {fileID: 8300000, guid: 373c6c735abbec74ebcfc47f64a5fe40, type: 3}
   SlowdownClip: {fileID: 8300000, guid: 7eb788d52c8fa8a46bde8d3e418131bc, type: 3}
   WindflowClip: {fileID: 8300000, guid: 2b23ac223eb06c041b8400246826ff81, type: 3}

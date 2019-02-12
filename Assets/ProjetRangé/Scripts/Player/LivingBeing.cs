@@ -161,7 +161,7 @@ public class LivingBeing : MonoBehaviour {
 
     internal virtual IEnumerator IHealthBarRegen(float _timeToRegen)
     {
-        yield return new WaitForSeconds(1f);
+        //yield return new WaitForSeconds(1f);
 
         float time = 0;
         lifeBarFeedback.fillAmount = lifeBar.fillAmount;

@@ -5,8 +5,7 @@ using UnityEngine;
 public class CameraBehaviour : MonoBehaviour {
 
     public Transform target;
-    [HideInInspector]
-    public Vector3 targetOriginPos;
+    internal Vector3 targetOriginPos;
     Vector3 targetPos;
     float lerp;
     public float followLerp;
@@ -26,7 +25,7 @@ public class CameraBehaviour : MonoBehaviour {
 
     [Header("References")]
     public PlayerController player;
-    public ScreenShakeGenerator shakeGen;
+    public ScreenShaker shaker;
 
     private void Start()
     {
@@ -68,13 +67,13 @@ public class CameraBehaviour : MonoBehaviour {
         if (player.selfDestructTime > 0)
         {
             zoom = selfDestructZoom * player.selfDestructTime;
-            shakeGen.ShakeScreen(player.selfDestructScrShake);
+            shaker.SetTrauma(2f, .5f, 15f, .5f);
         }
 
         targetPos = target.position + baseOffset + zoom + lookOffset * lookRange; 
         transform.position = Vector3.Lerp(transform.position, targetPos , lerp);
 
         if (player.isShooting)
-            shakeGen.ShakeScreen(player.shootScrShake);
+            shaker.SetTrauma(2f, .3f, 15f, .8f);
     }
 }

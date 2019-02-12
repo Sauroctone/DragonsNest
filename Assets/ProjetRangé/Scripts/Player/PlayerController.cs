@@ -8,8 +8,7 @@ using UnityEngine.AI;
 public enum PlayerStates { FLYING, DODGING, LAYING_EGG, SELF_DESTROYING, TURNING_AROUND, DEAD };
 
 public class PlayerController : LivingBeing
-{
-
+{ 
     private float lifesShader;
     private float lifeFeedBackAmount;
     public float vignetteFactor;
@@ -112,8 +111,9 @@ public class PlayerController : LivingBeing
     public float selfDestructLaunchVibInt;
     public float selfDestructFreeze;
     public float timeToPlunge;
-    public Vector3 selfDestructOffset;
+    public float selfDestructOffset;
     public float selfDestructExplShake;
+    internal Vector3 camTargetOriginPos;
 
     [System.NonSerialized]
     public bool canLand;
@@ -553,26 +553,18 @@ public class PlayerController : LivingBeing
     {
         base.Die();
 
+        playerState = PlayerStates.DEAD;
+
         SFXSource.PlayOneShot(DragonDeathClip, 1);
         if (babyDragonMan.babyDragons.Count > 0)
         {
             //Instantiate(placeholderFeedback, babyDragonMan.babyDragons[0].transform.position, Quaternion.identity);
             //Instantiate(placeholderFeedback, transform.position, Quaternion.identity);
-            smokeScreen.Play();
-            StartCoroutine(IPlaceholderNewMother());
-
-            babyDragonMan.RemoveBabyDragon();
-
-            ResetLife(2f);
-            MakeInvincible(2f);
-
-            StopShooting();
-            aimProjector.SetActive(true);
-
-            playerState = PlayerStates.FLYING;
+            //smokeScreen.Play();
+            StartCoroutine(INewMother());
         }
         else
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(1);
     }
 
     public override void UpdateHealthUI(int _damage)
@@ -648,8 +640,6 @@ public class PlayerController : LivingBeing
 
     internal override IEnumerator IHealthBarRegen(float _timeToRegen)
     {
-        yield return new WaitForSeconds(1f);
-
         lifeFeedBackAmount = 1;
         LifeQuad.material.SetFloat("_LifeFeedbackAmount", lifeFeedBackAmount);
 
@@ -686,15 +676,28 @@ public class PlayerController : LivingBeing
         yield break;
     }
 
-    IEnumerator IPlaceholderNewMother()
+    IEnumerator INewMother()
     {
+        MakeInvincible(3f);
+        visuals.gameObject.SetActive(false);
+        rb.velocity = Vector3.zero;
+        yield return new WaitForSeconds(1f);
+
+        visuals.gameObject.SetActive(true);
+        babyDragonMan.RemoveBabyDragon();
+        ResetLife(2f);
+        StopShooting();
+        aimProjector.SetActive(true);
+        gameMan.camBehaviour.target.localPosition = gameMan.camBehaviour.targetOriginPos;
+        playerState = PlayerStates.FLYING;
+
         float time = 0f;
         float growTime = 2f;
 
         while (time < growTime)
         {
             time += Time.deltaTime;
-            transform.localScale = Vector3.Lerp(new Vector3(.3f, .3f, .3f), Vector3.one, time / growTime);
+            transform.localScale = Vector3.Lerp(new Vector3(.1f, .1f, .1f), Vector3.one, time / growTime);
             yield return null;
         }
     }
@@ -713,7 +716,7 @@ public class PlayerController : LivingBeing
         gameMan.vibrationMan.VibrateFor(selfDestructLaunchVibTime, 0, .2f, 1f);
 
         Vector3 originPos = transform.position;
-        Vector3 targetPos = shootTarget.position + selfDestructOffset;
+        Vector3 targetPos = shootTarget.position + transform.forward * selfDestructOffset;
         //RaycastHit hit;
         //if (Physics.Raycast(originPos, (targetPos - originPos).normalized, out hit, Vector3.Distance(originPos, targetPos), edgeScan.layerMask))
         //{
@@ -721,6 +724,8 @@ public class PlayerController : LivingBeing
         //    scanDebug.position = targetPos;
         //    print("yo");
         //}
+        gameMan.camBehaviour.targetOriginPos = gameMan.camBehaviour.target.localPosition;
+        gameMan.camBehaviour.target.localPosition = new Vector3(0f, shootTarget.localPosition.y, 0f);
 
         float time = 0f;
         while (time < timeToPlunge)
@@ -730,7 +735,7 @@ public class PlayerController : LivingBeing
             yield return new WaitForFixedUpdate();
         }
 
-        gameMan.camBehaviour.shakeGen.ShakeScreenFor(.4f, selfDestructExplShake); //erm where is it ?  ? ?? ? ? ??? ?    ? 
+        gameMan.camBehaviour.shaker.SetTrauma(1.5f, .8f, 15f, 1.5f); 
         Instantiate(selfDestructExplosion, transform.position, Quaternion.identity);
         Instantiate(selfDestructPS, transform.position, Quaternion.identity);
 

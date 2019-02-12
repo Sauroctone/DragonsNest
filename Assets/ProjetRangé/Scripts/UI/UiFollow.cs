@@ -35,8 +35,6 @@ public class UiFollow : MonoBehaviour {
 		
 		
 		circleShader.SetColor("_ColorBase",circleBAckgroundColor);
-		
-		Debug.Log(mainCam);
 	}
 
 	private void 

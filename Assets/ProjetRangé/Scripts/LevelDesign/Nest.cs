@@ -17,8 +17,7 @@ public class Nest : MonoBehaviour
     
     [Header("References")]
     public Egg egg;
-    public GameObject A;
-	PlayerController player;
+    PlayerController player;
 
     private void Start()
     {
@@ -37,35 +36,6 @@ public class Nest : MonoBehaviour
             if (nestRend.material != activeMat)
                 nestRend.material = activeMat;
     }
-/*$
- */
-	public void OnTriggerEnter(Collider col)
-	{
-        //Debug.Log("Banane, kokok");
-        //Debug.Log("enter");
-		if(col.gameObject.tag == "Dragon")
-		{   
-            if(!egg.gameObject.activeSelf && player.eggMan.eggSlider.fillAmount >= 1)
-            {
-                A.SetActive(true);
-                active = true;
-                player.canLand = true;
-                player.nestScript = this;
-                player.nestPosition = transform.position;
-            }
-		}
-	}
-
-	public void OnTriggerExit(Collider col)
-	{
-		if(col.gameObject.tag == "Dragon")
-		{
-            A.SetActive(false);
-            active = false;
-			player.canLand = false;
-			player.nestScript = null;
-        }
-	}
 
 	public Transform Action()
 	{

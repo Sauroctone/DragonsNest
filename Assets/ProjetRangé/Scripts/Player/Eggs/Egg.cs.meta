@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 1ee4423cd90ac8a49abb72d1a79060a4
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - lifeBar: {instanceID: 0}
+  - lifeBarFeedback: {instanceID: 0}
+  - scoringObject: {instanceID: 0}
+  - particle: {instanceID: 0}
+  - pickupCol: {instanceID: 0}
+  - eggDestroy: {fileID: 8300000, guid: 96397bd9d46ec2841badec1069c04ec1, type: 3}
+  - eggHatching: {fileID: 8300000, guid: 713c4ec0f445fb845a1b6e9bb42667e1, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

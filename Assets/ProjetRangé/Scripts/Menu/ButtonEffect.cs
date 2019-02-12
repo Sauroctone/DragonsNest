@@ -25,7 +25,11 @@ public class ButtonEffect : MonoBehaviour {
 
 	public void LoadFirstScene()
 	{
-		SceneManager.LoadScene(1);
+		SceneManager.LoadScene(2);
+	}
+	public void LoadMenu()
+	{
+		SceneManager.LoadScene(0);
 	}
 
 	public void Quit()

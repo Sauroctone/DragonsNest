@@ -7,53 +7,63 @@ public class EggManager : MonoBehaviour {
 
 
 	public float eggTimefactor = 1;
+	private float timeEgg;
 
 	public Nest[] levelNests;
 
 
-	[Header("Refereces")]
-	public PlayerController playerController;
-	public Image eggSlider;
-	public Color eggColor;
-	[System.NonSerialized]
-	public Color startEggColor;
-	public GameObject eggGlow;
-
 	// Use this for initialization
-	void Start () {
-		startEggColor = eggSlider.color;
+	private void Start () 
+	{
+
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	private void Update () {
 		UpdateEggByTime();
-		//Debug.Log(this.name);
 	}
 
-	void UpdateEggByTime ()
+	private void UpdateEggByTime ()
 	{
-		if(eggSlider.fillAmount<1 && playerController.playerState == PlayerStates.FLYING)
+		timeEgg += Time.deltaTime;
+		
+		if(timeEgg<eggTimefactor)
 		{
-			if(eggGlow.activeInHierarchy) eggGlow.SetActive(false);
-			eggSlider.fillAmount += Time.deltaTime/eggTimefactor;
+			return;
 		}
-		if(eggSlider.fillAmount>=1)
+
+		RandomLayEgg();
+
+	}
+
+	private Nest RandomAvailaibleNest()
+	{
+		var _tempList = new List<Nest>();
+		foreach (var nest in levelNests)
 		{
-			eggGlow.SetActive(true);
-			eggSlider.color = eggColor;
+			if(!nest.egg.gameObject.activeInHierarchy)
+			{
+				_tempList.Add(nest);
+			}	
 		}
+		
+		if (_tempList.Count == 0)
+		{
+			return null;
+		}
+		
+		int randInt = Random.Range(0,_tempList.Count);
+
+		return _tempList[randInt];
 	}
 
 	private void RandomLayEgg()
 	{
-		int randInt = Random.Range(0,levelNests.Length);
-		var actualNest = levelNests[randInt];
+		timeEgg = 0.0f;
 
-		if(actualNest.egg.gameObject.activeInHierarchy)
-		{
-			RandomLayEgg();
-			return;
-		}		
-		
+		var actualNest = RandomAvailaibleNest();
+		if(actualNest == null) {return;}
+
+		actualNest.Action();
 	}
 }

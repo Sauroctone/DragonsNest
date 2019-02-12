@@ -6,9 +6,18 @@ using UnityEngine.UI;
 public class EggManager : MonoBehaviour {
 
 
-	public float eggTimefactor = 1;
 	private float timeEgg;
+	[Header("WaveStuff")]
+	public AnimationCurve timeFactorByWave;
+	public int maxWaveForEggTimeChange;
+	public float minTimeBetEgg = 1;
+	public float maxTimeBetEgg = 1;
 
+	public bool waitDuringInterWave;
+	
+	private float currentTimeBetEgg;
+
+	[Header("LevelStuff")]
 	public Nest[] levelNests;
 
 
@@ -16,24 +25,48 @@ public class EggManager : MonoBehaviour {
 	private void Start () 
 	{
 
-	}
-	
-	// Update is called once per frame
-	private void Update () {
-		UpdateEggByTime();
-	}
-
-	private void UpdateEggByTime ()
-	{
-		timeEgg += Time.deltaTime;
+		maxTimeBetEgg = maxTimeBetEgg-minTimeBetEgg;
 		
-		if(timeEgg<eggTimefactor)
+		if(maxTimeBetEgg<=0)
 		{
-			return;
+			maxTimeBetEgg =0;
 		}
 
-		RandomLayEgg();
+		StartCoroutine(UpdateEggByTime());
+	}
 
+	private bool CheckIfInterWave()
+	{
+		if(GameManager.Instance.spawnMan.waveState == WaveState.RESTING)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+	private void SetCurrentTime ()
+	{
+		if (GameManager.Instance.spawnMan.currentWave > maxWaveForEggTimeChange)
+		{
+			currentTimeBetEgg = maxTimeBetEgg;
+			return;
+		}
+		else
+		{
+			currentTimeBetEgg = minTimeBetEgg+maxTimeBetEgg*timeFactorByWave.Evaluate(GameManager.Instance.spawnMan.currentWave/maxWaveForEggTimeChange);
+		}
+	}
+	
+	private IEnumerator UpdateEggByTime ()
+	{
+		if(waitDuringInterWave)
+		{
+			yield return new WaitWhile(CheckIfInterWave);
+		}
+		yield return new WaitForSeconds(currentTimeBetEgg);
+		RandomLayEgg();
 	}
 
 	private Nest RandomAvailaibleNest()

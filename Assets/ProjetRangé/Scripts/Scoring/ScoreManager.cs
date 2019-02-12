@@ -10,9 +10,9 @@ public class ScoreManager : MonoBehaviour {
 	public int comboAmount = 0;
 	private float comboCoolDown;
 
-    internal int archerDeathCount;
-    internal int ballistaDeathCount;
-    internal int warlockDeathCount;
+    public  int archerDeathCount;
+    public int ballistaDeathCount;
+    public int warlockDeathCount;
 
     public Image comboCoolDownImage;
 	public Text comboAmountText;

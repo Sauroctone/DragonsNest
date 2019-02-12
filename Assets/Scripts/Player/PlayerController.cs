@@ -1,12 +1,16 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
-public enum PlayerStates { FLYING, DODGING, LAYING_EGG, AIMING_ANCIENT, LANDING_ANCIENT };
+public enum PlayerStates { FLYING, DODGING, LAYING_EGG, SELF_DESTROYING, TURNING_AROUND, DEAD };
 
 public class PlayerController : LivingBeing {
 
+    private float lifesShader;
+    private float lifeFeedBackAmount;
     public float vignetteFactor;
 
     [HideInInspector]
@@ -19,20 +23,19 @@ public class PlayerController : LivingBeing {
 
     [Header("Inputs")]
     public string inputShoot;
-    public string inputShootAlt;
-    public string inputDodge;
-    public string inputDodgeAlt;
     public string inputSprint;
+    public string inputSprintAlt;
     public string inputSlowDown;
+    public string inputSlowDownAlt;
     public string inputInteract;
     public string inputPlaceAncient;
+    public string inputDodge;
 
     [Header("Flying")]
     public float flySpeed;
     public float shootSpeed;
     float speed;
     internal Vector3 desiredDir = Vector3.forward;
-    Vector3 lastDesiredDir = Vector3.forward;
     float hinput;
     float vinput;
     float rotationAngle;
@@ -53,6 +56,11 @@ public class PlayerController : LivingBeing {
     public float minSlowTime;
     public float boostTimeOutOfSlow;
     public float landSpeed;
+    float flapTime;
+    float timeToFlap;
+    public float minTimeToFlap;
+    public float maxTimeToFlap;
+    bool movementInputsLocked;
 
     [Header("Stamina")]
     public float maxStamina;
@@ -76,34 +84,45 @@ public class PlayerController : LivingBeing {
     public float timeBetweenCols;
     internal bool isShooting;
     float fireTime;
+    float prevSprintAxis;
+    float prevSlowDownAxis;
     public float fireColSpeed;
     public Transform shootTarget;
     public float scrShakeTimer;
-    public float scrShakeAmount;
+    public float shootScrShake;
 
     [Header("Dodging")]
     public float dodgeSpeed;
-    public float megaDodgeSpeed;
     public float dodgeTime;
     Coroutine dodgeCor;
     bool canDodge = true;
     public float dodgeCooldown;
-    
+
     [Header("Landing")]
     public  Vector3 nestPosition;
 
-    [Header("Placing Ancient")]
-    public GameObject ancientProjection;
+    [Header("Self destruct")]
+    public float timeToSelfDestruct;
+    internal float selfDestructTime;
+    public float selfDestructScrShake;
+    public AnimationCurve selfDestructLeftVibCurve;
+    public AnimationCurve selfDestructRightVibCurve;
+    public float selfDestructLaunchVibTime;
+    public float selfDestructLaunchVibInt;
+    public float selfDestructFreeze;
+    public float timeToPlunge;
+    public Vector3 selfDestructOffset;
+    public float selfDestructExplShake;
 
     [System.NonSerialized]
     public bool canLand;
 
+    [Header("Turn Around")]
+    public float turnAroundLockTimeFactor;
+    Coroutine turnAroundCor;
+
     [Header("Vibration")]
     public int playerIndex = 0;
-    public enum FireVibrationDebug { Continous, Burst};
-    public FireVibrationDebug fireVibrationDebug;
-    public float leftFireContinuous;
-    public float rightFireContinuous;
     public float fireBurstVibrateTime;
     public float leftFireBurst;
     public float rightFireBurst;
@@ -116,27 +135,58 @@ public class PlayerController : LivingBeing {
     public Rigidbody rb;
     public GameObject fireCollider;
     public Animator anim;
-    public Slider staminaBar;
+    // public Slider staminaBar;
     public BabyDragonManager babyDragonMan;
     public EggManager eggMan;
-    public GameObject egg;
-    public Transform toDropegg;
+    // public GameObject egg;
+    // public Transform toDropegg;
     GameManager gameMan;
-    public GameObject placeholderFeedback;
+    // public GameObject placeholderFeedback;
+    public ParticleSystem smokeScreen;
     public Nest nestScript;
     public GameObject ancientPrefab;
     public GameObject aimProjector;
     public MeshRenderer LifeQuad;
+    public MeshRenderer StamiQuad;
+    public Image selfDestructInputSlider;
+    public GameObject selfDestructFeedback;
+    public GameObject selfDestructExplosion;
+    public GameObject selfDestructPS;
+    public GameObject selfDestructProj;
+
+    [Header("SFXPlayer")]
+    AudioSource[] AudioSources;
+    AudioSource WindflowSoundSource;
+    AudioSource AttackSoundSource;
+    AudioSource SFXSource;
+    public AudioClip DodgeClip;
+    public AudioClip SlowdownClip;
+    public AudioClip WindflowClip;
+    public AudioClip DragonHitClip;
+    public AudioClip DragonDeathClip;
+    public AudioClip EggDropping;
+
+    public void Awake()
+    {
+        InstantiateRefs();
+    }
 
     public override void Start()
     {
         base.Start();
+        AudioSources = GetComponents<AudioSource>();
+        WindflowSoundSource = AudioSources[0];
+        AttackSoundSource = AudioSources[1];
+        SFXSource = AudioSources[2];
 
         //LifeQuad.material.shader = Shader.Find ("LifeEnergyShader");
+        lifeFeedBackAmount = lifesShader = 1;
         stamina = maxStamina;
         sprintTime = sprintCooldown;
         slowTime = slowCooldown;
         gameMan = GameManager.Instance;
+
+        timeToFlap = Random.Range(minTimeToFlap, maxTimeToFlap);
     }
 
     private void FixedUpdate()
@@ -144,28 +194,23 @@ public class PlayerController : LivingBeing {
         //Storing the joystick inputs
         hinput = Input.GetAxis("Horizontal");
         vinput = Input.GetAxis("Vertical");
-
+        WindflowSoundSource.volume = speed/sprintSpeed;
         switch (playerState)
         {
             case PlayerStates.FLYING:
-                Move();
-                break;
-
-
-            case PlayerStates.AIMING_ANCIENT:
+                GetDirectionAndSpeed();
                 Move();
                 break;
             
             case PlayerStates.LAYING_EGG:
-                // Decrease speed and stop 
-                /*  if(rb.velocity != new Vector3 (0,0,0))
-                  {
-                      rb.velocity = Vector3.Lerp(rb.velocity,new Vector3(0,0,0),Time.deltaTime*landSpeed);
-                  }*/
                 rb.velocity = new Vector3(0f, 0f, 0f);
                 if (nestPosition != null)
                     transform.position = Vector3.Lerp(transform.position, nestPosition, Time.deltaTime * landSpeed);
 
+                break;
+
+            case PlayerStates.TURNING_AROUND:
+                Move();
                 break;
         }
     }
@@ -175,7 +220,10 @@ public class PlayerController : LivingBeing {
         base.Update();
 
         if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            gameMan.vibrationMan.StopVibrating(playerIndex);
             Application.Quit();
+        }
 
         RegenStamina();
 
@@ -183,22 +231,16 @@ public class PlayerController : LivingBeing {
         {
             case PlayerStates.FLYING:
                 Shoot();
-                Dodge();
                 Sprint();
                 SlowDown();
                 LayEgg();
-                PlaceAncient();
+                ChargeSelfDestruct();
+                Dodge();
                 break;
 
-            case PlayerStates.AIMING_ANCIENT:
-                //Canceling actions
+            case PlayerStates.TURNING_AROUND:
                 Shoot();
-                Dodge();
                 LayEgg();
-
-                Sprint();
-                SlowDown();
-                PlaceAncient();
                 break;
         }
 
@@ -209,10 +251,14 @@ public class PlayerController : LivingBeing {
 
     //Actions
 
-    void Move()
+    private void InstantiateRefs()
     {
-        //Going forward at all times
+       babyDragonMan.target = this.transform;
+       babyDragonMan = Instantiate(babyDragonMan.gameObject, Vector3.zero, Quaternion.identity).GetComponent<BabyDragonManager>();
+    }
 
+    void GetDirectionAndSpeed()
+    {
         if (timeOutOfSlow > 0 || isSprinting && !isSlowing)
             speed = sprintSpeed;
         else if (isSlowing && !isSprinting)
@@ -222,16 +268,20 @@ public class PlayerController : LivingBeing {
         else
             speed = flySpeed;
 
-        rb.velocity = transform.forward * speed;
+        rotationLerp = isShooting ? shootingRotationLerp : flyingRotationLerp;
 
         //Don't change the desired direction if there is no input
-        if (hinput != 0 || vinput != 0)
+        if (!movementInputsLocked && (hinput != 0 || vinput != 0))
         {
             //Direction based on input
             desiredDir = new Vector3(hinput, 0f, vinput);
-            //Store the desired direction for next frame
-            lastDesiredDir = desiredDir;
         }
+    }
+
+    void Move()
+    {
+        //Going forward at all times
+        rb.velocity = transform.forward * speed;
 
         //If the player's forward isn't aligned with the desired direction
         if (transform.forward != desiredDir)
@@ -241,9 +291,17 @@ public class PlayerController : LivingBeing {
             rotationAngle = Vector3.SignedAngle(transform.forward, desiredDir, transform.up);
             //targetRot = Quaternion.Euler(targetRot.eulerAngles.x, targetRot.eulerAngles.y, -rotationAngle * maxSteerRot / 180);
             rollRot = Quaternion.Euler(0, 0, -rotationAngle * maxSteerRot / 180);
-            rotationLerp = isShooting ? shootingRotationLerp : flyingRotationLerp;
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationLerp);
             visuals.localRotation = Quaternion.Slerp(visuals.localRotation, rollRot, rotationLerp);
+        }
+
+        flapTime += Time.deltaTime;
+        if (flapTime >= timeToFlap)
+        {
+            flapTime = 0;
+            if(!isSprinting && !isSlowing)
+                anim.SetTrigger("flaps");
+            timeToFlap = Random.Range(minTimeToFlap, maxTimeToFlap);
         }
     }
 
@@ -252,6 +310,7 @@ public class PlayerController : LivingBeing {
         //Begin shooting
         if (Input.GetButtonDown(inputShoot))
         {
+            AttackSoundSource.Play();
             firePartSys.Play();
             isShooting = true;
             fireTime = 0;
@@ -261,21 +320,15 @@ public class PlayerController : LivingBeing {
                 babyDragon.Shoot(shootTarget, rb);
             }
 
-            switch (fireVibrationDebug)
-            {
-                case FireVibrationDebug.Continous:
-                    gameMan.vibrationMan.StartVibrating(playerIndex, leftFireContinuous, rightFireContinuous);
-                    break;
-                case FireVibrationDebug.Burst:
-                    gameMan.vibrationMan.VibrateFor(fireBurstVibrateTime, playerIndex, leftFireBurst, rightFireBurst);
-                    break;
-            }
+            gameMan.vibrationMan.VibrateFor(fireBurstVibrateTime, playerIndex, leftFireBurst, rightFireBurst);
+            anim.SetBool("isShooting", true);
 
         }
 
         //End shooting
         if (Input.GetButtonUp(inputShoot))
         {
+            AttackSoundSource.Stop();
             StopShooting();
         }
 
@@ -291,21 +344,27 @@ public class PlayerController : LivingBeing {
             else
                 fireTime += Time.deltaTime;
         }
-
     }
 
     void Dodge()
     {
-        if ((Input.GetButtonDown(inputDodge) || Input.GetAxis(inputDodgeAlt) > .1f) && canDodge)
+        if (Input.GetButtonDown(inputDodge) && canDodge)
+        {
+            SFXSource.PlayOneShot(DodgeClip, 0.5f);
             dodgeCor = StartCoroutine(IDodge());
+            print("dodge");
+        }
     }
 
     void SlowDown()
     {
-        if (Input.GetButtonDown(inputSlowDown))
+        if (Input.GetButtonDown(inputSlowDown) || (prevSlowDownAxis < .1f && Input.GetAxis(inputSlowDownAlt) >= .1f))
+        {
             timeOutOfSlow = 0;
+            anim.SetBool("isSprinting", false);
+        }
 
-        if (Input.GetButton(inputSlowDown) && stamina > 0 && slowTime >= slowCooldown)
+        if ((Input.GetButton(inputSlowDown) || Input.GetAxis(inputSlowDownAlt) >= .1f) && stamina > 0 && slowTime >= slowCooldown)
         {
             isSlowing = true;
 
@@ -313,20 +372,28 @@ public class PlayerController : LivingBeing {
                 UseStamina(slowCostPerSecond);
         }
 
-        if (isSlowing && (Input.GetButtonUp(inputSlowDown) || stamina == 0))
+        if (isSlowing && (Input.GetButtonUp(inputSlowDown) || Input.GetAxis(inputSlowDownAlt) < .1f || stamina == 0))
         {
             isSlowing = false;
+            //SFXSource.PlayOneShot(DodgeClip);
             if (timeOutOfSlow < -minSlowTime)
                 timeOutOfSlow = boostTimeOutOfSlow;
             if (stamina == 0)
                 slowTime = 0;
+
+            if (isSprinting)
+                anim.SetBool("isSprinting", true);
         }
+
+        prevSlowDownAxis = Input.GetAxis(inputSlowDownAlt);
     }
 
     void Sprint()
     {
-        if (Input.GetButton(inputSprint) && stamina > 0 && sprintTime >= sprintCooldown)
+        if ((Input.GetButton(inputSprint) || Input.GetAxis(inputSprintAlt) >= .1f) && stamina > 0 && sprintTime >= sprintCooldown)
         {
+            if (!isSprinting)
+                anim.SetBool("isSprinting", true);
             isSprinting = true;
             if (!isSlowing)
                 UseStamina(sprintCostPerSecond);
@@ -336,64 +403,121 @@ public class PlayerController : LivingBeing {
             isSprinting = false;
             if (stamina == 0)
                 sprintTime = 0;
+            anim.SetBool("isSprinting", false);
         }
     }
 
     void StopShooting()
     {
+        AttackSoundSource.Stop();
         firePartSys.Stop();
         isShooting = false;
         foreach (BabyDragonBehaviour babyDragon in babyDragonMan.babyDragons)
         {
             babyDragon.StopShooting();
         }
-
-        if (fireVibrationDebug == FireVibrationDebug.Continous)
-            gameMan.vibrationMan.StopVibrating(playerIndex);
+        anim.SetBool("isShooting", false);
     }
 
     void LayEgg()
     {
-        if (Input.GetButtonDown(inputInteract) && canLand && eggMan.eggSlider.fillAmount >= 1)
+        if (Input.GetButtonDown(inputInteract) && canLand)
         {
+            SFXSource.PlayOneShot(EggDropping);
             eggMan.eggSlider.fillAmount = 0;
             eggMan.eggSlider.color = eggMan.startEggColor;
+
+            if (playerState == PlayerStates.TURNING_AROUND)
+                StopTurningAround();
+
             StartCoroutine(ILayEgg());
         }
     }
     
-    void PlaceAncient()
+    void ChargeSelfDestruct()
     {
-        if (ancientProjection.activeSelf)
+        if (gameMan.babyDragonMan.babyDragons.Count > 0)
         {
-            if (Input.GetButtonDown(inputPlaceAncient) || isShooting || playerState != PlayerStates.AIMING_ANCIENT)
+            if (Input.GetButtonDown(inputPlaceAncient))
             {
-                if (playerState == PlayerStates.AIMING_ANCIENT)
-                    playerState = PlayerStates.FLYING;
-                ancientProjection.SetActive(false);
-                return;
+                StopShooting();
+
+                selfDestructFeedback.SetActive(true);
+                selfDestructInputSlider.fillAmount = 0;
+                gameMan.vibrationMan.VibrateFor(timeToSelfDestruct, 0, selfDestructLeftVibCurve, selfDestructRightVibCurve);
+
+                isSlowing = true;
+                anim.SetBool("isSprinting", false);
+
+                aimProjector.SetActive(false);
+                selfDestructProj.SetActive(true);
             }
 
-            if (Input.GetButtonDown(inputInteract))
+            if (selfDestructFeedback.activeSelf)
             {
-                ancientProjection.SetActive(false);
-                StartCoroutine(ILandForAncient());
+                if (Input.GetButton(inputPlaceAncient))
+                {
+                    selfDestructTime += Time.deltaTime;
+                    selfDestructInputSlider.fillAmount = selfDestructTime / timeToSelfDestruct;
+                    isSlowing = true;
+                }
+
+                if (selfDestructTime >= timeToSelfDestruct || Input.GetButtonUp(inputPlaceAncient))
+                {
+                    isSlowing = false;
+                    gameMan.vibrationMan.StopVibrating(0);
+                    selfDestructFeedback.SetActive(false);
+                    aimProjector.SetActive(true);
+                    selfDestructProj.SetActive(false);
+
+                    if (selfDestructTime >= timeToSelfDestruct)
+                    {
+                        StartCoroutine(ISelfDestruct());
+                    }
+                    selfDestructTime = 0;
+                }
             }
+
         }
-        else if (Input.GetButtonDown(inputPlaceAncient) && gameMan.babyDragonMan.babyDragons.Count > 0)
-        {
-            StopShooting();
-            ancientProjection.SetActive(true);
-            aimProjector.SetActive(false);
-            playerState = PlayerStates.AIMING_ANCIENT;
-        }
+    }
+
+    public void TurnAround(Vector3 _newDir)
+    {
+        playerState = PlayerStates.TURNING_AROUND;
+
+        //Set correct speed
+        isSlowing = false;
+        isSprinting = false;
+        speed = flySpeed;
+        rotationLerp = flyingRotationLerp;
+
+        //If is self destructing
+        gameMan.vibrationMan.StopVibrating(0);
+        selfDestructFeedback.SetActive(false);
+
+        //Set direction
+        desiredDir = _newDir;
+
+        //Launch timer
+        if (turnAroundCor != null)
+            StopCoroutine(turnAroundCor);
+        turnAroundCor = StartCoroutine(ITurnAround());
+    }
+
+    void StopTurningAround()
+    {
+        if (turnAroundCor != null)
+            StopCoroutine(turnAroundCor);
+
+        if (playerState == PlayerStates.TURNING_AROUND)
+            playerState = PlayerStates.FLYING;
     }
 
     //Stamina
 
     public void UpdateStaminaUI()
     {
-        LifeQuad.material.SetFloat ("_Stamina", stamina / maxStamina);
+        StamiQuad.material.SetFloat ("_Stamina", stamina / maxStamina);
     }
 
     void UseStamina(float _cost)
@@ -431,27 +555,56 @@ public class PlayerController : LivingBeing {
     {
         base.Die();
 
+        SFXSource.PlayOneShot(DragonDeathClip, 1);
         if (babyDragonMan.babyDragons.Count > 0)
         {
-            Instantiate(placeholderFeedback, babyDragonMan.babyDragons[0].transform.position, Quaternion.identity);
-            Instantiate(placeholderFeedback, transform.position, Quaternion.identity);
+            //Instantiate(placeholderFeedback, babyDragonMan.babyDragons[0].transform.position, Quaternion.identity);
+            //Instantiate(placeholderFeedback, transform.position, Quaternion.identity);
+            smokeScreen.Play();
             StartCoroutine(IPlaceholderNewMother());
 
             babyDragonMan.RemoveBabyDragon();
 
             ResetLife(2f);
             MakeInvincible(2f);
+
+            StopShooting();
+            aimProjector.SetActive(true);
+
+            playerState = PlayerStates.FLYING;
         }
         else
-            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+            SceneManager.LoadScene(0);
     }
 
     public override void UpdateHealthUI(int _damage)
     {
-        base.UpdateHealthUI(_damage);
+        LifeQuad.material.SetFloat ("_Life", lifesShader);
+        SFXSource.PlayOneShot(DragonHitClip, 0.2f);
+        //base.UpdateHealthUI(_damage);
         LifeQuad.material.SetFloat ("_Life", life / maxLife);
 
-        /*
+        if (regenCor != null)
+            StopCoroutine(regenCor);
+
+        timeSinceLastDamage = 0;
+        
+        lostLifeBeforeDecay += _damage;
+        LifeQuad.material.SetFloat ("_LifeBeforeDecay", lostLifeBeforeDecay);
+
+        if (lifesShader == lifeFeedBackAmount || feedbackIsDecaying)
+        {
+            if (feedbackIsDecaying)
+            {
+                lifeFeedBackAmount = lifesShader;
+                LifeQuad.material.SetFloat ("_LifeFeedbackAmount", lifeFeedBackAmount);
+                feedbackIsDecaying = false;
+            }
+            if (feedbackCor != null)
+                StopCoroutine(feedbackCor);
+            feedbackCor = StartCoroutine(IHealthBarFeedback());
+        }
+        lifesShader = life/maxLife;
 
         if (gameMan.vignetteMan.CurrentPreset != gameMan.vignetteMan.hurtVignette)
             gameMan.vignetteMan.ChangeVignette(gameMan.vignetteMan.hurtVignette);
@@ -461,7 +614,7 @@ public class PlayerController : LivingBeing {
             //print(toSwitchAfterDecay.name);
             gameMan.vignetteMan.IncrementSmoothness(gameMan.vignetteMan.hurtVignette, _damage * vignetteFactor, toSwitchAfterDecay);
         }
-         */
+         
     }
 
     public override void ResetHealthUI(float _timeToRegen)
@@ -471,37 +624,55 @@ public class PlayerController : LivingBeing {
         gameMan.vignetteMan.ChangeVignette(gameMan.vignetteMan.basicVignette);
     }
    
-    //Coroutines
-
-    IEnumerator IDodge()
+    internal override IEnumerator IHealthBarFeedback()
     {
-        canDodge = false;
-        StopShooting();
-        playerState = PlayerStates.DODGING;
-
-        desiredDir = new Vector3(hinput, 0f, vinput);
-        if (desiredDir == Vector3.zero)
-            desiredDir = transform.right;
-
-        anim.SetTrigger("dodges");
-
-        float time = 0;
-        while (time < dodgeTime)
+        LifeQuad.material.SetFloat ("_DisplayLife", 1);        
+        while (timeSinceLastDamage < timeToUpdateFeedbackBar)
         {
-            time += Time.deltaTime;
-            rb.velocity = desiredDir * (isSprinting ? megaDodgeSpeed : dodgeSpeed);
-
-            targetRot = Quaternion.LookRotation(desiredDir) * Quaternion.Euler(0f, 0f, 90f);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationLerp);
+            timeSinceLastDamage += Time.deltaTime;
             yield return null;
         }
+        lostLifeBeforeDecay = 0;
+        float decayingTime = 0;
+        feedbackIsDecaying = true;
+        while (decayingTime < feedbackDecayTime)
+        {
+            decayingTime += Time.deltaTime;
+            lifeFeedBackAmount = Mathf.Lerp(lifeFeedBackAmount, life / maxLife, decayingTime / feedbackDecayTime); 
+            // Debug.Log(lifeFeedBackAmount);
+            LifeQuad.material.SetFloat ("_LifeFeedbackAmount", lifeFeedBackAmount);
 
-        playerState = PlayerStates.FLYING;
-
-        yield return new WaitForSeconds(dodgeCooldown);
-        canDodge = true;
+            yield return null;
+        }
+        LifeQuad.material.SetFloat ("_DisplayLife", 0);        
+        feedbackIsDecaying = false;
     }
-    
+
+    internal override IEnumerator IHealthBarRegen(float _timeToRegen)
+    {
+        yield return new WaitForSeconds(1f);
+
+        lifeFeedBackAmount = 1;
+        LifeQuad.material.SetFloat ("_LifeFeedbackAmount", lifeFeedBackAmount);
+        
+        float time = 0;
+        LifeQuad.material.SetFloat ("_DisplayLife", 1);        
+        while (time < _timeToRegen)
+        {
+            time += Time.deltaTime;
+            lifesShader = Mathf.Lerp(0, 1, time / _timeToRegen);
+            LifeQuad.material.SetFloat ("_Life", lifesShader);
+            yield return null;
+        }
+        LifeQuad.material.SetFloat ("_DisplayLife", 0);        
+        lifesShader = lifeFeedBackAmount = 1;
+        LifeQuad.material.SetFloat ("_LifeFeedbackAmount", lifeFeedBackAmount);
+        LifeQuad.material.SetFloat ("_Life", lifesShader);
+
+    }
+
+    //Coroutines
+
     IEnumerator ILayEgg()
     {
         StopShooting();
@@ -509,7 +680,7 @@ public class PlayerController : LivingBeing {
 
         yield return new WaitForSeconds(1.0f);
         var instanceEgg = nestScript.Action();
-        gameMan.spawnMan.targets.Add(instanceEgg);
+        gameMan.spawnMan.eggs.Add(instanceEgg);
 
         yield return new WaitForSeconds(0.5f);
         playerState = PlayerStates.FLYING;
@@ -521,6 +692,7 @@ public class PlayerController : LivingBeing {
     {
         float time = 0f;
         float growTime = 2f;
+
         while (time < growTime)
         {
             time += Time.deltaTime;
@@ -529,45 +701,74 @@ public class PlayerController : LivingBeing {
         }
     }
 
-    IEnumerator ILandForAncient()
+    IEnumerator ISelfDestruct()
     {
         StopShooting();
-        MakeInvincible(4f);
+        MakeInvincible(selfDestructFreeze + timeToPlunge);
+        aimProjector.SetActive(false);
 
         rb.velocity = Vector3.zero;
-        playerState = PlayerStates.LANDING_ANCIENT;
+        playerState = PlayerStates.SELF_DESTROYING;
 
-        //anim.SetTrigger("land");
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(selfDestructFreeze);
 
-        Instantiate(placeholderFeedback, babyDragonMan.babyDragons[0].transform.position, Quaternion.identity);
-        Instantiate(placeholderFeedback, transform.position, Quaternion.identity);
+        gameMan.vibrationMan.VibrateFor(selfDestructLaunchVibTime, 0, .2f, 1f);
 
-        GameObject ancient = Instantiate(ancientPrefab, ancientProjection.transform.position, Quaternion.identity);
-        //gameMan.spawnMan.AddTargetToList(ancient.transform);
-        babyDragonMan.RemoveBabyDragon();
-
-        ResetLife(maxLife);
-
-        //yield return new WaitForSeconds(0.1f);
-        //anim.SetTrigger("lift");
-
-        //yield return new WaitForSeconds(1.30f);
-        if (isSlowing)
+        Vector3 originPos = transform.position;
+        Vector3 targetPos = shootTarget.position + selfDestructOffset;
+        float time = 0f;
+        while (time < timeToPlunge)
         {
-            isSlowing = false;
-            if (stamina == 0)
-                slowTime = 0;
+            time += Time.fixedDeltaTime;
+            rb.MovePosition(Vector3.Lerp(originPos, targetPos, time / timeToPlunge));
+            yield return new WaitForFixedUpdate();
         }
-        if (isSprinting)
+
+        gameMan.camBehaviour.shakeGen.ShakeScreenFor(.4f, selfDestructExplShake); //erm where is it ?  ? ?? ? ? ??? ?    ? 
+        Instantiate(selfDestructExplosion, transform.position, Quaternion.identity);
+        Instantiate(selfDestructPS, transform.position, Quaternion.identity);
+
+        Die();
+    }
+
+    IEnumerator ITurnAround()
+    {
+        yield return new WaitForSeconds(turnAroundLockTimeFactor / speed);
+        turnAroundCor = null;
+        StopTurningAround();
+    }
+
+    IEnumerator IDodge()
+    {
+        canDodge = false;
+        StopShooting();
+        playerState = PlayerStates.DODGING;
+
+        //desiredDir = new Vector3(hinput, 0f, vinput);
+        //if (desiredDir == Vector3.zero)
+        desiredDir = transform.right;
+        Vector3 targetPos = shootTarget.position;
+
+        anim.SetTrigger("dodges");
+
+        float time = 0;
+        while (time < dodgeTime)
         {
-            isSprinting = false;
-            if (stamina == 0)
-                sprintTime = 0;
+            time += Time.deltaTime;
+            rb.velocity = desiredDir * dodgeSpeed;
+
+            targetRot = Quaternion.LookRotation(desiredDir) * Quaternion.Euler(0f, 0f, 90f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationLerp);
+            yield return null;
         }
+
+        desiredDir = (targetPos - transform.position).normalized;
+        desiredDir.y = 0f;
         playerState = PlayerStates.FLYING;
-        aimProjector.SetActive(true);
-
-        yield break;
+        movementInputsLocked = true;
+        yield return new WaitForSeconds(.3f);
+        movementInputsLocked = false;
+        yield return new WaitForSeconds(dodgeCooldown);
+        canDodge = true;
     }
 }

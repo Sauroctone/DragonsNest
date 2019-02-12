@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1065,6 +1065,16 @@ Prefab:
       propertyPath: spawners.Array.data[0]
       value: 
       objectReference: {fileID: 1713857252}
+    - target: {fileID: 114991777532292108, guid: b9ea2f1bd5c68f14fb890aeb1285d6f2,
+        type: 2}
+      propertyPath: camBehaviour
+      value: 
+      objectReference: {fileID: 1435812056}
+    - target: {fileID: 114991777532292108, guid: b9ea2f1bd5c68f14fb890aeb1285d6f2,
+        type: 2}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 1435812058}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9ea2f1bd5c68f14fb890aeb1285d6f2, type: 2}
   m_IsPrefabAsset: 0
@@ -1260,12 +1270,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1640985981}
   m_Script: {fileID: -113659843, guid: f70555f144d8491a825f0804e09c671c, type: 3}
---- !u!114 &1297790522 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114184245969599358, guid: 68cd07a0c429bde4aa37a7feb4f556bb,
-    type: 2}
-  m_PrefabInternal: {fileID: 1640985981}
-  m_Script: {fileID: -113659843, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1001 &1366988669
 Prefab:
   m_ObjectHideFlags: 0
@@ -1308,6 +1312,17 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8e74562c4be10743a58a1af66c8e133, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &1435812056 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114206224224018144, guid: 8c07c3166d2c527409cb8e607de56fca,
+    type: 2}
+  m_PrefabInternal: {fileID: 166423930}
+  m_Script: {fileID: 11500000, guid: 4babce42a8874584a823adffcd490bf5, type: 3}
+--- !u!20 &1435812058 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 20164785435171496, guid: 8c07c3166d2c527409cb8e607de56fca,
+    type: 2}
+  m_PrefabInternal: {fileID: 166423930}
 --- !u!1001 &1454905514
 Prefab:
   m_ObjectHideFlags: 0
@@ -1542,6 +1557,21 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 224693255542789922, guid: 68cd07a0c429bde4aa37a7feb4f556bb,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224693255542789922, guid: 68cd07a0c429bde4aa37a7feb4f556bb,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224708027787466320, guid: 68cd07a0c429bde4aa37a7feb4f556bb,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68cd07a0c429bde4aa37a7feb4f556bb, type: 2}
   m_IsPrefabAsset: 0
@@ -1621,7 +1651,7 @@ Prefab:
         type: 2}
       propertyPath: eggSlider
       value: 
-      objectReference: {fileID: 1297790522}
+      objectReference: {fileID: 0}
     - target: {fileID: 114865201573251416, guid: e52e955854e182849a85bfbc65ca9d7a,
         type: 2}
       propertyPath: lifeBar
@@ -1642,6 +1672,11 @@ Prefab:
       propertyPath: babyDragonMan
       value: 
       objectReference: {fileID: 273772590}
+    - target: {fileID: 82425835955195458, guid: e52e955854e182849a85bfbc65ca9d7a,
+        type: 2}
+      propertyPath: Priority
+      value: 24
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e52e955854e182849a85bfbc65ca9d7a, type: 2}
   m_IsPrefabAsset: 0

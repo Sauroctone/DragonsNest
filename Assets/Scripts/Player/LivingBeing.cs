@@ -10,23 +10,28 @@ public class LivingBeing : MonoBehaviour {
     public float life;
     [HideInInspector]
     public float lostLifeBeforeDecay;
-    float timeSinceLastDamage;
-    bool isAlive = true;
+    internal float timeSinceLastDamage;
+    internal bool isAlive = true;
     bool burntThisFrame;
 
     //Conditional hiiiide
     public float timeToUpdateFeedbackBar;
-    Coroutine feedbackCor;
+    internal Coroutine feedbackCor;
     public float feedbackDecayTime;
-    bool feedbackIsDecaying;
+    internal bool feedbackIsDecaying;
     public Image lifeBar;
     public Image lifeBarFeedback;
-
+    
     bool isInvincible;
     Coroutine invincibleCor;
-    Coroutine regenCor;
+    internal Coroutine regenCor;
 
-	public virtual void Start()
+    [Header("Score")]
+
+    public ScoringObject scoringObject;
+    #region virtual
+    public virtual void Start()
+
 	{
 		life = maxLife;
 	}
@@ -96,6 +101,10 @@ public class LivingBeing : MonoBehaviour {
 
 	public virtual void Die()
 	{
+        if(scoringObject != null)
+        {
+            scoringObject.SetScore();
+        }
         isAlive = false;
 	}
 
@@ -122,10 +131,16 @@ public class LivingBeing : MonoBehaviour {
     {
         if (invincibleCor != null)
             StopCoroutine(invincibleCor);
-        invincibleCor = StartCoroutine(IInvulnerability(_time));
-    }
 
-    IEnumerator IHealthBarFeedback()
+        if (_time == -1)
+            isInvincible = true;
+        else if (_time == 0)
+            isInvincible = false;
+        else
+            invincibleCor = StartCoroutine(IInvulnerability(_time));
+    }
+#endregion
+    internal virtual IEnumerator IHealthBarFeedback()
     {
         while (timeSinceLastDamage < timeToUpdateFeedbackBar)
         {
@@ -144,7 +159,7 @@ public class LivingBeing : MonoBehaviour {
         feedbackIsDecaying = false;
     }
 
-    IEnumerator IHealthBarRegen(float _timeToRegen)
+    internal virtual IEnumerator IHealthBarRegen(float _timeToRegen)
     {
         yield return new WaitForSeconds(1f);
 

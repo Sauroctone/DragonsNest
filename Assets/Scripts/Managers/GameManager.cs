@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -19,8 +20,23 @@ public class GameManager : MonoBehaviour {
     public Terrain terrain;
     public TerrainData terrainData;
     
+    [Header("Score")]  
+    public GameObject UI;
+    public GameObject scoreCanevas;
+    public ScoreManager scoreManager;
+
+    [Header ("SetUp Instance")]
+    public GameObject playerControllerPrefab;
+    public GameObject playerControllerInstance;
+    // public 
+
+    [Header("Spawn")]
+    public GameObject waveCanvas;
+
     private void Awake()
     {
+      CreateInstances();
+      scoreManager = UI.GetComponentInChildren<ScoreManager>();
         if (Instance == null)
             Instance = this;
         else
@@ -33,4 +49,17 @@ public class GameManager : MonoBehaviour {
     {
         spawnMan.Init();
     }
+
+    public void CreateInstances()
+    {
+        // playerControllerInstance = Instantiate(playerControllerPrefab, _transform.position, _transform.rotation);
+        playerControllerInstance = Instantiate(playerControllerPrefab,new Vector3(0,4.86f,0), Quaternion.identity);
+        player = playerControllerInstance.GetComponent<PlayerController>();
+        playerRb = player.rb;
+        babyDragonMan = player.babyDragonMan;
+        mainCamera = Instantiate(mainCamera.gameObject).GetComponent<Camera>();
+        camBehaviour = mainCamera.GetComponent<CameraBehaviour>();
+        UI = Instantiate(UI);
+        spawnMan.waveTimerText = UI.transform.GetChild(2).GetComponentInChildren<Text>();
+    }   
 }

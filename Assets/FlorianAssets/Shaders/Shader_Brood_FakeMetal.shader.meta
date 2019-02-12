@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: e1536cbc11e77b04fa7d2cf4ae197002
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _TopReflectionMap: {fileID: 2800000, guid: 4e7dff65b6d456c4384a0fdac3a9e8d9, type: 3}
+  - _FakeMetalMask: {fileID: 2800000, guid: 420b7f08fdd56094faded847f16348f9, type: 3}
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

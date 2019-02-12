@@ -15,6 +15,8 @@ public class BallistaBody : LivingBeing {
     {
         base.Die();
         scoringObject.scoreAmount = 20;
+        GameManager.Instance.scoreManager.ballistaDeathCount++;
+
         GameManager.Instance.scoreManager.SetCombo();
         Destroy(gameObject);
     }

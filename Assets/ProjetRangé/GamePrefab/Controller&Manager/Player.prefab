@@ -144,7 +144,6 @@ GameObject:
   - component: {fileID: 4826760242454774}
   - component: {fileID: 54845440365208266}
   - component: {fileID: 114865201573251416}
-  - component: {fileID: 114838063966722996}
   - component: {fileID: 114969828467269000}
   - component: {fileID: 82425835955195458}
   - component: {fileID: 82268911993055964}
@@ -4402,28 +4401,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114838063966722996
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1082402980589760}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16dd3b58c87cb624287e455f9be44e12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeFactorByWave:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  maxWaveForEggTimeChange: 0
-  minTimeBetEgg: 1
-  maxTimeBetEgg: 1
-  waitDuringInterWave: 0
-  levelNests: []
 --- !u!114 &114857835714186302
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4564,7 +4541,7 @@ MonoBehaviour:
   anim: {fileID: 95869756674223874}
   babyDragonMan: {fileID: 114500419610896216, guid: dfb2b35e0d1c8fe47ba3b85ef69c594d,
     type: 2}
-  eggMan: {fileID: 114838063966722996}
+  eggMan: {fileID: 0}
   smokeScreen: {fileID: 198546243695778220}
   nestScript: {fileID: 0}
   ancientPrefab: {fileID: 1284249962970228, guid: ee40079a814f7864990dc064a747a873,

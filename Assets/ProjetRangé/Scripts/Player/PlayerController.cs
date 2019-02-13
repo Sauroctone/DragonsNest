@@ -461,19 +461,13 @@ public class PlayerController : LivingBeing
                     isSlowing = true;
                 }
 
-                if (selfDestructTime >= timeToSelfDestruct || Input.GetButtonUp(inputPlaceAncient))
+                if (selfDestructTime >= timeToSelfDestruct)
                 {
-                    isSlowing = false;
-                    gameMan.vibrationMan.StopVibrating(0);
-                    selfDestructFeedback.SetActive(false);
-                    aimProjector.SetActive(true);
-                    selfDestructProj.SetActive(false);
-
-                    if (selfDestructTime >= timeToSelfDestruct)
-                    {
-                        StartCoroutine(ISelfDestruct());
-                    }
-                    selfDestructTime = 0;
+                    StartCoroutine(ISelfDestruct());
+                }
+                else if (Input.GetButtonUp(inputPlaceAncient))
+                {
+                    StopChargingSelfDestruct();
                 }
             }
         }
@@ -490,8 +484,7 @@ public class PlayerController : LivingBeing
         rotationLerp = flyingRotationLerp;
 
         //If is self destructing
-        gameMan.vibrationMan.StopVibrating(0);
-        selfDestructFeedback.SetActive(false);
+        StopChargingSelfDestruct();
 
         //Set direction
         desiredDir = _newDir;
@@ -509,6 +502,16 @@ public class PlayerController : LivingBeing
 
         if (playerState == PlayerStates.TURNING_AROUND)
             playerState = PlayerStates.FLYING;
+    }
+
+    void StopChargingSelfDestruct()
+    {
+        isSlowing = false;
+        gameMan.vibrationMan.StopVibrating(0);
+        selfDestructFeedback.SetActive(false);
+        aimProjector.SetActive(true);
+        selfDestructProj.SetActive(false);
+        selfDestructTime = 0;
     }
 
     //Stamina
@@ -554,6 +557,9 @@ public class PlayerController : LivingBeing
         base.Die();
 
         playerState = PlayerStates.DEAD;
+
+        if (selfDestructFeedback.activeSelf)
+            StopChargingSelfDestruct();
 
         SFXSource.PlayOneShot(DragonDeathClip, 1);
         if (babyDragonMan.babyDragons.Count > 0)
@@ -707,6 +713,11 @@ public class PlayerController : LivingBeing
         StopShooting();
         MakeInvincible(selfDestructFreeze + timeToPlunge);
         aimProjector.SetActive(false);
+        isSlowing = false;
+        gameMan.vibrationMan.StopVibrating(0);
+        selfDestructFeedback.SetActive(false);
+        selfDestructProj.SetActive(false);
+        selfDestructTime = 0;
 
         rb.velocity = Vector3.zero;
         playerState = PlayerStates.SELF_DESTROYING;

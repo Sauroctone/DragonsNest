@@ -13,7 +13,10 @@ public class EdgeScanner : MonoBehaviour {
     {
         if (Physics.Raycast(transform.position, transform.forward, out hit, Vector3.Distance(transform.position, player.shootTarget.position) + distanceToScan, layerMask))
         {
-            player.TurnAround(hit.normal);
+            if (player.playerState != PlayerStates.DEAD)
+                player.TurnAround(hit.normal);
+
+            print("please turn around");
         }
     }
 }

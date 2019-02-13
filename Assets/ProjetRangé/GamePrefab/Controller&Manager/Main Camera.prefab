@@ -37,11 +37,11 @@ GameObject:
   - component: {fileID: 4900434415872440}
   - component: {fileID: 20954020472290998}
   - component: {fileID: 81822297343802496}
-  - component: {fileID: 114957946638873314}
   - component: {fileID: 114251549237705020}
+  - component: {fileID: 114508728586764722}
   m_Layer: 0
   m_Name: ActualCamera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -139,9 +139,9 @@ MonoBehaviour:
   fireZoom: {x: 0, y: -4, z: 4}
   sprintDezoom: {x: 0, y: 5, z: -5}
   slowZoom: {x: 0, y: -3, z: 3}
-  selfDestructZoom: {x: 0, y: -7, z: 7}
+  selfDestructZoom: {x: 0, y: -6, z: 6}
   player: {fileID: 0}
-  shakeGen: {fileID: 114957946638873314}
+  shaker: {fileID: 114508728586764722}
 --- !u!114 &114251549237705020
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: 0da54d7f1e65340438746461cf809ce5, type: 2}
---- !u!114 &114957946638873314
+--- !u!114 &114508728586764722
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,6 +162,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 1801100295165216}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edde5715b8e55df438f3cf47cc6490ec, type: 3}
+  m_Script: {fileID: 11500000, guid: 4ae70366c8878a14fa64b0b53241942d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canShake: 1
+  trauma: 0

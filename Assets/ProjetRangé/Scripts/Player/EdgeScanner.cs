@@ -11,7 +11,7 @@ public class EdgeScanner : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        if (Physics.Raycast(transform.position, transform.forward, out hit, distanceToScan, layerMask))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, Vector3.Distance(transform.position, player.shootTarget.position) + distanceToScan, layerMask))
         {
             player.TurnAround(hit.normal);
         }

@@ -5625,14 +5625,14 @@ MonoBehaviour:
   aimObstacleLayer:
     serializedVersion: 2
     m_Bits: 2048
-  aimRange: 20
+  aimRange: 40
   aimTime: 1
   minShootTime: 0
   maxShootTime: 0.1
   postShootIdleTime: 0.5
   shootCooldown: 2
   arrow: {fileID: 1737514496264914, guid: 235608be6731cea4faafea349538a6a6, type: 2}
-  arrowSpeed: 20
+  arrowSpeed: 40
   arrowLifetime: 2
   arrowMaxHeight: 5
   visualTrajectory:
@@ -5668,9 +5668,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  targetPosition: {x: 0, y: 0, z: 0}
-  lockedTarget: 0
-  targetVelocity: {x: 0, y: 0, z: 0}
   banner: {fileID: 114076804793572296}
   nav: {fileID: 195031232302732186}
   normalMat: {fileID: 2100000, guid: 5a9f70f0b5a12c3489e1142f1db87559, type: 2}

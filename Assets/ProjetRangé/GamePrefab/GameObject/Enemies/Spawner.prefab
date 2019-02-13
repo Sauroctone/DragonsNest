@@ -5079,7 +5079,7 @@ MonoBehaviour:
   scoringObject: {fileID: 114525648482765438}
   minHealthbarScale: 0.57
   isOutOfMap: 0
-  enemyPrefab: {fileID: 1811636849572144, guid: 6b2e3848144ac124ea20a5b7ab1716e5,
+  enemyPrefab: {fileID: 1096279583823314, guid: d29ca2a04b668284ebe320f70f53e751,
     type: 2}
   spawnPosition: {fileID: 4291105479935982}
   baseTimeToSpawn: 5

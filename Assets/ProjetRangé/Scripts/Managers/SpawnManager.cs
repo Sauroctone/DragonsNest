@@ -69,28 +69,10 @@ public class SpawnManager : MonoBehaviour {
         }
     }
 
-    public Transform GetNewTarget(Vector3 _position)
-    {
-        Debug.LogError("To clean up");
-        Transform target = null;
-        if (eggs.Count > 0)
-            target = eggs[0];
-        else
-            target = player;
-
-        foreach (Transform targ in eggs)
-        {
-            if (Vector3.Distance(targ.position, _position) < Vector3.Distance(target.position, _position))
-                target = targ;
-        }
-
-        return target;
-    }
-
-    public void AddTargetToList(Transform _newTarget)
-    {
-        eggs.Add(_newTarget);
-    }
+    //public void AddTargetToList(Transform _newTarget)
+    //{
+    //    eggs.Add(_newTarget);
+    //}
 
     //Wave methods
 

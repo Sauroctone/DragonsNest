@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour {
     public SpawnManager spawnMan;
     public BabyDragonManager babyDragonMan;
     public VibrationManager vibrationMan;
+    public EggManager eggMan;
     [Header("Environment")]
     public Terrain terrain;
     public TerrainData terrainData;

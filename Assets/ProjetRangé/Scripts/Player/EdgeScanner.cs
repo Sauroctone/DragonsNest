@@ -15,8 +15,6 @@ public class EdgeScanner : MonoBehaviour {
         {
             if (player.playerState != PlayerStates.DEAD)
                 player.TurnAround(hit.normal);
-
-            print("please turn around");
         }
     }
 }

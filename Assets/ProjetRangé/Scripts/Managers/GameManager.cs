@@ -33,6 +33,11 @@ public class GameManager : MonoBehaviour {
 
     [Header("Spawn")]
     public GameObject waveCanvas;
+    
+    [Header("Timer")]
+    public TimeManager timeMan;
+
+
 
     private void Awake()
     {
@@ -44,6 +49,7 @@ public class GameManager : MonoBehaviour {
             Destroy(this);
 
         InitManagers();
+        timeMan.LaunchTimer();
     }
 
     void InitManagers()

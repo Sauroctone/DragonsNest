@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameOverManager : MonoBehaviour {
 
+	public TextMananger timer;
 	public TextMananger score;
 	public TextMananger[] individualScore;
 
@@ -12,6 +13,8 @@ public class GameOverManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
+		timer.entry[1] = GameManager.Instance.timeMan.timer.ToString("0000");
+
 		score.entry[0] = GameManager.Instance.scoreManager.score.ToString("000000");
 		
 		individualScore[0].entry[1] = GameManager.Instance.scoreManager.archerDeathCount.ToString("0000");

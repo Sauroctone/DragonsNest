@@ -11,5 +11,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd79f7f88be25b449b14628dc4fd5116, type: 3}
   m_Name: LeaderBoard
   m_EditorClassIdentifier: 
-  maxLeaderBoard: 0
-  _scores: []
+  maxLeaderBoard: 7
+  _scores:
+  - playerName: Roger
+    date: 2/18/2019
+    yearReached: 0004 Years
+    goldAmount: 1000
+  - playerName: Roger
+    date: 2/18/2019
+    yearReached: 0008 Years
+    goldAmount: 222
+  - playerName: ??????
+    date: ??????
+    yearReached: ????
+    goldAmount: 0
+  - playerName: ??????
+    date: ??????
+    yearReached: ????
+    goldAmount: 0
+  - playerName: ??????
+    date: ??????
+    yearReached: ????
+    goldAmount: 0
+  - playerName: ??????
+    date: ??????
+    yearReached: ????
+    goldAmount: 0
+  - playerName: ??????
+    date: ??????
+    yearReached: ????
+    goldAmount: 0

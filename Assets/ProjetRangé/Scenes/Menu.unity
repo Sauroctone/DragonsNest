@@ -532,9 +532,9 @@ RectTransform:
   m_Father: {fileID: 2003572817}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 209.85, y: -220.38998}
   m_SizeDelta: {x: 419.7, y: 141.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &130614310
@@ -970,9 +970,9 @@ RectTransform:
   m_Father: {fileID: 2003572817}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 209.85, y: -70.85}
   m_SizeDelta: {x: 419.7, y: 141.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &194879670
@@ -1987,9 +1987,9 @@ RectTransform:
   m_Father: {fileID: 2003572817}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 209.85, y: -369.93}
   m_SizeDelta: {x: 419.7, y: 141.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &889823735
@@ -3442,21 +3442,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a717e55567b4854ba10e6b69abc1a85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLife: 100
-  life: 0
-  lostLifeBeforeDecay: 0
-  timeToUpdateFeedbackBar: 0
-  feedbackDecayTime: 0
-  lifeBar: {fileID: 0}
-  lifeBarFeedback: {fileID: 0}
-  scoringObject: {fileID: 0}
-  minHealthbarScale: 0.37
-  targets: []
-  angleOfVision: 0
-  timeBetweenCols: 1.5
-  fireColSpeed: 100
-  projectile: {fileID: 1460089352123924, guid: 151a68bdc59a4aa47b9b2dfd027ce511, type: 2}
-  fireOrigin: {fileID: 0}
 --- !u!54 &1693931937
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3863,7 +3848,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: 0da54d7f1e65340438746461cf809ce5, type: 2}
+  profile: {fileID: 11400000, guid: c368d6e911e6bde449eeb92dfb8e656b, type: 2}
 --- !u!1001 &1844685855
 Prefab:
   m_ObjectHideFlags: 0

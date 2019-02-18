@@ -25,6 +25,13 @@ public class ButtonEffect : MonoBehaviour {
 
 	public void LoadFirstScene()
 	{
+		SceneManager.LoadScene(3);
+	}
+	public void LoadLeaderBoardScene()
+	{
+		//TestPlease Dont toutch
+		GameManager.Instance.lb.AddANewPlayer("Roger",GameManager.Instance.timeMan.timer,GameManager.Instance.scoreManager.score);
+		//
 		SceneManager.LoadScene(2);
 	}
 	public void LoadMenu()

@@ -84,12 +84,24 @@ public static class UsualFunction
     	return result;	
 	}
 
-	public static void CopyToList<T>(this List<T> list1, List<T> list2) where T : Object
+	public static void CopyToList<T>(this List<T> list1, List<T> list2) where T : UnityEngine.Object
 	{
 		var min = (int)Mathf.Min(list1.Count, list2.Count);
 		for (int i = 0; i < min; i++)
 		{
 			list2[i] = list1[i];
 		}
+	}
+
+	public static int FindIndexOfElementBelow (this List<int> list, int element) 
+	{
+		for (int i = 0; i < list.Count; i++)
+		{
+			if(list[i]>element)
+			{
+				return i;
+			}
+		}
+		return 0;
 	}
 }

@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour {
     public GameObject UI;
     public GameObject scoreCanevas;
     public ScoreManager scoreManager;
+	public LeaderBoard lb;
+
 
     [Header ("SetUp Instance")]
     public GameObject playerControllerPrefab;
@@ -43,6 +45,8 @@ public class GameManager : MonoBehaviour {
     {
       CreateInstances();
       scoreManager = UI.GetComponentInChildren<ScoreManager>();
+      lb.ResetLeaderBoard();
+
         if (Instance == null)
             Instance = this;
         else

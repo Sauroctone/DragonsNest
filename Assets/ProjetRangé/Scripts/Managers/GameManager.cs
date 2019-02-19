@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour {
     {
       CreateInstances();
       scoreManager = UI.GetComponentInChildren<ScoreManager>();
-      lb.ResetLeaderBoard();
+      lb.LoadLeaderBoard();
 
         if (Instance == null)
             Instance = this;

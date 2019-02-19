@@ -20,7 +20,7 @@ public class DEBUG : MonoBehaviour {
 		
 		if(Input.GetKeyDown(KeyCode.I))
 		{
-			GameManager.Instance.scoreManager.score = 1000;			
+			GameManager.Instance.scoreManager.score += 1000;			
 		}
 
 	}

@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class ButtonEffect : MonoBehaviour {
 
 	public EventSystem eventSystem;
+	public InputField iF;
 
 	public void DisplayUI (GameObject go)
 	{
@@ -30,7 +32,8 @@ public class ButtonEffect : MonoBehaviour {
 	public void LoadLeaderBoardScene()
 	{
 		//TestPlease Dont toutch
-		GameManager.Instance.lb.AddANewPlayer("Roger",GameManager.Instance.timeMan.timer,GameManager.Instance.scoreManager.score);
+		GameManager.Instance.lb.AddANewPlayer(iF.text,GameManager.Instance.timeMan.timer,GameManager.Instance.scoreManager.score);
+		GameManager.Instance.lb.SaveLeaderBoard();
 		//
 		SceneManager.LoadScene(2);
 	}

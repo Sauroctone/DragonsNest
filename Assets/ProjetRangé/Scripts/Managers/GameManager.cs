@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour {
     public GameObject UI;
     public GameObject scoreCanevas;
     public ScoreManager scoreManager;
+	public LeaderBoard lb;
+
 
     [Header ("SetUp Instance")]
     public GameObject playerControllerPrefab;
@@ -33,17 +35,25 @@ public class GameManager : MonoBehaviour {
 
     [Header("Spawn")]
     public GameObject waveCanvas;
+    
+    [Header("Timer")]
+    public TimeManager timeMan;
+
+
 
     private void Awake()
     {
       CreateInstances();
       scoreManager = UI.GetComponentInChildren<ScoreManager>();
+      lb.ResetLeaderBoard();
+
         if (Instance == null)
             Instance = this;
         else
             Destroy(this);
 
         InitManagers();
+        timeMan.LaunchTimer();
     }
 
     void InitManagers()

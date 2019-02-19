@@ -29,6 +29,28 @@ public class Score
 		yearReached = "????";
 		goldAmount = 0;
 	}
+
+	
+	public void SaveScore (int reference)
+	{
+		PlayerPrefs.SetString("name_"+reference,playerName);
+		PlayerPrefs.SetString("date_"+reference,date);
+		PlayerPrefs.SetString("year_"+reference,yearReached);
+		
+		PlayerPrefs.SetInt("gold_"+reference,goldAmount);
+
+		PlayerPrefs.Save();
+	}
+
+	public void LoadScore(int reference)
+	{
+		
+		playerName = PlayerPrefs.GetString("name_"+reference,playerName);
+		date = PlayerPrefs.GetString("date_"+reference,date);
+		yearReached = PlayerPrefs.GetString("year_"+reference,yearReached);
+		
+		goldAmount = PlayerPrefs.GetInt("gold_"+reference,goldAmount);
+	}
 }
 
 [CreateAssetMenu(fileName = "LeaderBoard", menuName = "LB", order = 12)]
@@ -70,17 +92,26 @@ public class LeaderBoard : ScriptableObject
 		}
 		return maxLeaderBoard+1;
 	}
-	public void ResetLeaderBoard()
+
+	public void SaveLeaderBoard()
 	{
-		if(_scores.Count == 0 || _scores == null)
+		for (int i = 0; i < _scores.Count; i++)
 		{
-			_scores = new List<Score>();
-			for (int i = 0; i < maxLeaderBoard; i++)
-			{
-				_scores.Add(new Score());
-			}
+			_scores[i].SaveScore(i);
 		}
+		Debug.Log("Save");
+
 	}
+
+	public void LoadLeaderBoard()
+	{
+		for (int i = 0; i < _scores.Count; i++)
+		{
+			_scores[i].LoadScore(i);
+		}
+		Debug.Log("Load");
+	}
+
 }
 
 

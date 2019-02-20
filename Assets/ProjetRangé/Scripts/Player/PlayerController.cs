@@ -155,6 +155,9 @@ public class PlayerController : LivingBeing
     public GameObject selfDestructPS;
     public GameObject selfDestructProj;
     public EdgeScanner edgeScan;
+    public Material selfDestructMat;
+    Material originalMat;
+    public Renderer dragonMesh;
 
     [Header("SFXPlayer")]
     AudioSource[] AudioSources;
@@ -189,6 +192,8 @@ public class PlayerController : LivingBeing
         gameMan = GameManager.Instance;
 
         timeToFlap = Random.Range(minTimeToFlap, maxTimeToFlap);
+
+        originalMat = dragonMesh.material;
     }
 
     private void FixedUpdate()
@@ -452,6 +457,8 @@ public class PlayerController : LivingBeing
 
                 aimProjector.SetActive(false);
                 selfDestructProj.SetActive(true);
+
+                dragonMesh.material = selfDestructMat;
             }
 
             if (selfDestructFeedback.activeSelf)
@@ -514,6 +521,7 @@ public class PlayerController : LivingBeing
         aimProjector.SetActive(true);
         selfDestructProj.SetActive(false);
         selfDestructTime = 0;
+        dragonMesh.material = originalMat;
     }
 
     //Stamina
@@ -562,6 +570,9 @@ public class PlayerController : LivingBeing
 
         if (selfDestructFeedback.activeSelf)
             StopChargingSelfDestruct();
+
+        LifeQuad.enabled = false;
+        StamiQuad.enabled = false;
 
         SFXSource.PlayOneShot(DragonDeathClip, 1);
         if (babyDragonMan.babyDragons.Count > 0)
@@ -692,12 +703,15 @@ public class PlayerController : LivingBeing
         yield return new WaitForSeconds(1f);
 
         visuals.gameObject.SetActive(true);
+        LifeQuad.enabled = true;
+        StamiQuad.enabled = true;
         babyDragonMan.RemoveBabyDragon();
         ResetLife(2f);
         StopShooting();
         aimProjector.SetActive(true);
         gameMan.camBehaviour.target.localPosition = gameMan.camBehaviour.targetOriginPos;
         playerState = PlayerStates.FLYING;
+        dragonMesh.material = originalMat;
 
         float time = 0f;
         float growTime = 2f;

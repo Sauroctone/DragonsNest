@@ -22,6 +22,7 @@ public class CameraBehaviour : MonoBehaviour {
     float rvinput;
     Vector3 lookOffset;
     Coroutine selfDestructCor;
+    Vector3 velocity = Vector3.zero;
 
     [Header("References")]
     public PlayerController player;
@@ -70,8 +71,9 @@ public class CameraBehaviour : MonoBehaviour {
             shaker.SetTrauma(2f, .5f, 15f, .5f);
         }
 
-        targetPos = target.position + baseOffset + zoom + lookOffset * lookRange; 
+        targetPos = target.position + baseOffset + zoom + lookOffset * lookRange;
         transform.position = Vector3.Lerp(transform.position, targetPos , lerp);
+        //transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, lerp);
 
         if (player.isShooting)
             shaker.SetTrauma(2f, .3f, 15f, .8f);

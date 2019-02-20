@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: "Assets/ProjetRang\xE9/Scenes/GameOverScene.unity"
     guid: da006264fa4127c4d801e4d72edaa652
   - enabled: 1
+    path: "Assets/ProjetRang\xE9/Scenes/LeaderBoard.unity"
+    guid: d66e814d2918bf041a0afff459edc8e6
+  - enabled: 1
     path: "Assets/ProjetRang\xE9/Scenes/TestScenes/UsedScene.unity"
     guid: b3901528a2774d74fa4ae89288d2c927
   m_configObjects: {}

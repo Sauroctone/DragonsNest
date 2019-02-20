@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class EggManager : MonoBehaviour {
 
-
 	private float timeEgg;
 	[Header("WaveStuff")]
 	public AnimationCurve timeFactorByWave;
@@ -16,6 +15,9 @@ public class EggManager : MonoBehaviour {
 	public bool waitDuringInterWave;
 	
 	private float currentTimeBetEgg;
+    public delegate void OnNewEgg();
+    public event OnNewEgg EventOnNewEgg;
+
 
 	[Header("LevelStuff")]
 	public Nest[] levelNests;
@@ -24,7 +26,7 @@ public class EggManager : MonoBehaviour {
 	// Use this for initialization
 	private void Start () 
 	{
-
+        GameManager.Instance.eggMan = this;
 		maxTimeBetEgg = maxTimeBetEgg-minTimeBetEgg;
 		
 		if(maxTimeBetEgg<=0)
@@ -101,6 +103,9 @@ public class EggManager : MonoBehaviour {
 		var actualNest = RandomAvailaibleNest();
 		if(actualNest == null) {return;}
 
-		actualNest.Action();
+		GameManager.Instance.spawnMan.eggs.Add(actualNest.Action());
+
+        if (EventOnNewEgg != null)
+            EventOnNewEgg();
 	}
 }

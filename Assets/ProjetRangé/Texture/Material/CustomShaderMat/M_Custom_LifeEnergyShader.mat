@@ -25,9 +25,9 @@ Material:
     m_Floats:
     - _ColorMask: 15
     - _DisplayLife: 1
-    - _Life: 0.92
+    - _Life: 0.54
     - _LifeBeforeShown: 0
-    - _LifeFeedbackAmount: 1
+    - _LifeFeedbackAmount: 1.09
     - _Stamina: 0
     - _Stencil: 0
     - _StencilComp: 8
@@ -37,6 +37,6 @@ Material:
     - _UseUIAlphaClip: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _FeedBackColor: {r: 1, g: 1, b: 0, a: 1}
-    - _LifeColor: {r: 1, g: 0, b: 0, a: 0.5647059}
+    - _FeedBackColor: {r: 1, g: 0.9479665, b: 0, a: 1}
+    - _LifeColor: {r: 1, g: 0, b: 0.04843235, a: 0.5647059}
     - _StaminaColor: {r: 0.06159935, g: 1, b: 0, a: 0.7764706}

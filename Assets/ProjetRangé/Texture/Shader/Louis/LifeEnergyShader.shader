@@ -81,9 +81,9 @@
                 const float checkDynamic = (dynamicStamina.w>=_StaminaColor.w);
                 dynamicStamina = (checkDynamic ? _StaminaColor : dynamicStamina);
 
-                const float feedBack = (checkFeedback ? _FeedBackColor :  voidColor);
+                const float4 feedBack = (checkFeedback ? _FeedBackColor :  voidColor);
 
-                const float4 tempLife = (lifeDistCheck ? _LifeColor :  voidColor) + feedBack;
+                const float4 tempLife = (lifeDistCheck ? _LifeColor :  voidColor + feedBack);
                 const float checkLifePercent = (_Life<_LifeBeforeShown);
                 
                 float4 actualLife = (checkLifePercent || _DisplayLife ? tempLife : voidColor);

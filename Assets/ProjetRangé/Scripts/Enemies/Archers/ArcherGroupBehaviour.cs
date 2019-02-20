@@ -49,6 +49,12 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
     public Material normalMat;
     public Material aimMat;
 
+    public override void Init()
+    {
+        base.Init();
+        nav.speed = moveSpeed;
+    }
+
     public override void Update()
     {
         base.Update();

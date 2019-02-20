@@ -4054,7 +4054,7 @@ MonoBehaviour:
   maxTimeToFlap: 7
   maxStamina: 100
   sprintCostPerSecond: 60
-  sprintCooldown: 2.5
+  sprintCooldown: 1.5
   slowCostPerSecond: 25
   slowCooldown: 3
   regenPerSecond: 25

@@ -39,6 +39,12 @@ public class BallistaBehaviour : EnemyBehaviour {
     public BannerVisualizer banner;
     public NavMeshAgent nav;
 
+    public override void Init()
+    {
+        base.Init();
+        nav.speed = moveSpeed;
+    }
+
     public override void Update()
     {
         base.Update();

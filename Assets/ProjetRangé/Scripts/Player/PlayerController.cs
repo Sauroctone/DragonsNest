@@ -257,6 +257,8 @@ public class PlayerController : LivingBeing
     {
         babyDragonMan.target = this.transform;
         babyDragonMan = Instantiate(babyDragonMan.gameObject, Vector3.zero, Quaternion.identity).GetComponent<BabyDragonManager>();
+        LifeQuad = babyDragonMan.LifeQuad;
+        StamiQuad = babyDragonMan.StamiQuad;
     }
 
     void GetDirectionAndSpeed()

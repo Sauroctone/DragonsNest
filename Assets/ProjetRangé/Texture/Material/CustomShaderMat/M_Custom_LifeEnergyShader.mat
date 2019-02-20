@@ -37,6 +37,6 @@ Material:
     - _UseUIAlphaClip: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _FeedBackColor: {r: 1, g: 0.9479665, b: 0, a: 1}
-    - _LifeColor: {r: 1, g: 0, b: 0.04843235, a: 0.5647059}
+    - _FeedBackColor: {r: 1, g: 0, b: 0.77993584, a: 1}
+    - _LifeColor: {r: 0.8962264, g: 0.21560161, b: 0.21560161, a: 1}
     - _StaminaColor: {r: 0.06159935, g: 1, b: 0, a: 0.7764706}

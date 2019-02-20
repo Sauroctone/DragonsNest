@@ -15,6 +15,9 @@ public class ScoreManager : MonoBehaviour {
     public int warlockDeathCount;
 
     public Image comboCoolDownImage;
+    private int baseComboWidth;
+    private int baseComboHeight;
+    public float ComboMeterScalingDownRate;
 	public Text comboAmountText;
 	public TextMananger comboAmountTextString;
 	public Text scoreText; 
@@ -26,12 +29,16 @@ public class ScoreManager : MonoBehaviour {
 	{
 		DecreaseCombo();
 		SetScore();
-	}
+        if(comboCoolDownImage.mainTexture.width > baseComboWidth) { comboCoolDownImage.mainTexture.width--; }
+        if (comboCoolDownImage.mainTexture.height > baseComboHeight) { comboCoolDownImage.mainTexture.height--; }
+    }
 
 	public void Start ()
 	{
 		ResetScore();
-	}
+        int baseComboWidth = comboCoolDownImage.mainTexture.width;
+        int baseComboHeight = comboCoolDownImage.mainTexture.height;
+    }
 
 	private void ResetScore()
 	{
@@ -69,16 +76,21 @@ public class ScoreManager : MonoBehaviour {
 		}
 	}
 
-	public void SetCombo ()
-	{
-		comboCoolDown =0;
+    public void SetCombo()
+    {
+        comboCoolDown = 0;
 
-		if(comboAmount<=5)
-		{
-			comboAmount ++;
-			comboAmountTextString.entry[1] = (comboAmount+1).ToString();
-			comboCoolDownImage.color = comboColor[comboAmount];
-			comboAmountText.color = comboColor[comboAmount];
-		}
+        if (comboAmount <= 5)
+        {
+            comboAmount++;
+            comboAmountTextString.entry[1] = (comboAmount + 1).ToString();
+            comboCoolDownImage.color = comboColor[comboAmount];
+            comboAmountText.color = comboColor[comboAmount];
+        }
+        if (comboAmount > 1)
+        {
+            comboCoolDownImage.mainTexture.width = 2 * baseComboWidth;
+            comboCoolDownImage.mainTexture.height = 2 * baseComboHeight;
+        }
 	}
 }

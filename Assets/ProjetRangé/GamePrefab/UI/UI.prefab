@@ -89,7 +89,6 @@ GameObject:
   - component: {fileID: 4843110108847252}
   - component: {fileID: 114392729901237106}
   - component: {fileID: 114278844276321152}
-  - component: {fileID: 114810204242992380}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -672,7 +671,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 0
   comboAmount: 0
+  archerDeathCount: 0
+  ballistaDeathCount: 0
+  warlockDeathCount: 0
   comboCoolDownImage: {fileID: 114504018851526818}
+  ComboMeterScalingDownRate: 3
   comboAmountText: {fileID: 114252897079370922}
   comboAmountTextString: {fileID: 114898864723373144}
   scoreText: {fileID: 114240655267290152}

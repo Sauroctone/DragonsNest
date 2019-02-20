@@ -126,7 +126,7 @@ MonoBehaviour:
     type: 2}
   scoreManager: {fileID: 114503348252651704, guid: d895af0c19c250e4fbad2353e7f71da7,
     type: 2}
-  playerControllerPrefab: {fileID: 1082402980589760, guid: e52e955854e182849a85bfbc65ca9d7a,
+  playerControllerPrefab: {fileID: 1082402980589760, guid: a3dc7d880217086469500a54623f56da,
     type: 2}
   playerControllerInstance: {fileID: 1082402980589760, guid: e52e955854e182849a85bfbc65ca9d7a,
     type: 2}

@@ -17,6 +17,8 @@ public class EnemyBehaviour : MonoBehaviour {
 
     bool subscribedForEggs;
 
+    public float moveSpeed;
+
     [Header("Target Priority")]
     public Transform currentTarget;
     public EnemyTarget[] autoTargets;

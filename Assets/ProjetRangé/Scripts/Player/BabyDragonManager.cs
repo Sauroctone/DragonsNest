@@ -13,6 +13,8 @@ public class BabyDragonManager : MonoBehaviour {
     public float angleToDivide;
     public GameObject babyDragon;
     public float shootOffsetRange;
+    public MeshRenderer LifeQuad;
+    public MeshRenderer StamiQuad;
 
     private void Start()
     {

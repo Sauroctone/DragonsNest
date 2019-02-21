@@ -47,9 +47,10 @@ public class GameManager : MonoBehaviour {
 
     private void Awake()
     {
-      CreateInstances();
-      scoreManager = UI.GetComponentInChildren<ScoreManager>();
-      lb.LoadLeaderBoard();
+        CreateInstances();
+        paraMan = ParameterManager.Instance;
+        scoreManager = UI.GetComponentInChildren<ScoreManager>();
+        lb.LoadLeaderBoard();
 
         if (Instance == null)
             Instance = this;
@@ -157,8 +158,3 @@ public class GameManager : MonoBehaviour {
         }
     }
 }
-
-      CreateInstances();
-      paraMan = ParameterManager.Instance;
-      scoreManager = UI.GetComponentInChildren<ScoreManager>();
-      lb.LoadLeaderBoard();

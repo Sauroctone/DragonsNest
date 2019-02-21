@@ -663,7 +663,7 @@ public class PlayerController : LivingBeing
 
     internal override IEnumerator IHealthBarRegen(float _timeToRegen)
     {
-        lifeFeedBackAmount = 1;
+        lifeFeedBackAmount = 0;
         LifeQuad.material.SetFloat("_LifeFeedbackAmount", lifeFeedBackAmount);
 
         float time = 0;

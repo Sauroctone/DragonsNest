@@ -41,6 +41,9 @@ public class BabyDragonManager : MonoBehaviour {
         GameObject baby = Instantiate(babyDragon, transform);
         babyDragons.Add(baby.GetComponentInChildren<BabyDragonBehaviour>());
         GiveNewPositions();
+
+        if (!GameManager.Instance.gotFirstBabyDragon)
+            GameManager.Instance.gotFirstBabyDragon = true;
     }
 
     public void RemoveBabyDragon()

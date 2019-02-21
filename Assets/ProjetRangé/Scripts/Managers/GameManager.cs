@@ -27,7 +27,6 @@ public class GameManager : MonoBehaviour {
     public ScoreManager scoreManager;
 	public LeaderBoard lb;
 
-
     [Header ("SetUp Instance")]
     public GameObject playerControllerPrefab;
     public GameObject playerControllerInstance;
@@ -39,13 +38,16 @@ public class GameManager : MonoBehaviour {
     [Header("Timer")]
     public TimeManager timeMan;
 
-
+    public GameObject[] tutorials;
+    int currentTutorial= -1;
+    internal bool gotFirstBabyDragon;
+    internal bool selfDestructed;
 
     private void Awake()
     {
-      CreateInstances();
-      scoreManager = UI.GetComponentInChildren<ScoreManager>();
-      lb.LoadLeaderBoard();
+        CreateInstances();
+        scoreManager = UI.GetComponentInChildren<ScoreManager>();
+        lb.LoadLeaderBoard();
 
         if (Instance == null)
             Instance = this;
@@ -54,6 +56,12 @@ public class GameManager : MonoBehaviour {
 
         InitManagers();
         timeMan.LaunchTimer();
+    }
+
+    private void Update()
+    {
+        if (currentTutorial == -1)
+            NextTutorial();
     }
 
     void InitManagers()
@@ -73,4 +81,77 @@ public class GameManager : MonoBehaviour {
         UI = Instantiate(UI);
         spawnMan.waveTimerText = UI.transform.GetChild(2).GetComponentInChildren<Text>();
     }   
+
+    public void NextTutorial()
+    {
+        currentTutorial++;
+
+        if (currentTutorial > 0)
+            tutorials[currentTutorial -1].SetActive(false);
+
+        if (currentTutorial == tutorials.Length)
+        {
+            spawnMan.BeginWave();
+            //CALL TRUE EGG
+        }
+        else
+        {
+            tutorials[currentTutorial].SetActive(true);
+            StartCoroutine(ITutorial());
+        }
+    }
+
+    IEnumerator ITutorial()
+    {
+        switch (currentTutorial)
+        {
+            case 0:
+                yield return new WaitForSeconds(5f);
+                NextTutorial();
+                break;
+            case 1:
+                while (Input.GetAxis(player.inputSprint) < .1f && Input.GetAxis(player.inputSprintAlt) < .1f)
+                {
+                    yield return null;
+                }
+                NextTutorial();
+                break;
+            case 2:
+                while (Input.GetAxis(player.inputSlowDown) < .1f && Input.GetAxis(player.inputSlowDownAlt) < .1f)
+                {
+                    yield return null;
+                }
+                NextTutorial();
+                break;
+            case 3:
+                while (!Input.GetButton(player.inputShoot))
+                {
+                    yield return null;
+                }
+                NextTutorial();
+                //CALL TUTORIAL EGG
+                break;
+            case 4:
+                while (!gotFirstBabyDragon)
+                {
+                    yield return null;
+                }
+                NextTutorial();
+                break;
+            case 5:
+                while (!Input.GetButtonDown(player.inputInteract))
+                {
+                    yield return null;
+                }
+                NextTutorial();
+                break;
+            case 6:
+                while (!selfDestructed)
+                {
+                    yield return null;
+                }
+                NextTutorial();
+                break;
+        }
+    }
 }

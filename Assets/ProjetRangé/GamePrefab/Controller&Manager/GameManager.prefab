@@ -102,6 +102,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   ancients: []
   waveState: 0
   waveTimer: 20
@@ -147,3 +149,11 @@ MonoBehaviour:
     type: 2}
   waveCanvas: {fileID: 1050587436275554, guid: d895af0c19c250e4fbad2353e7f71da7, type: 2}
   timeMan: {fileID: 114489176683777286}
+  tutorials:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

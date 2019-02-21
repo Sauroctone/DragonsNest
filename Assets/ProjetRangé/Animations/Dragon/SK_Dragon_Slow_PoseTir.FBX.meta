@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fc9456880e3a2384a82d4e779c2fafe2
+guid: 2a10a573f78467a4fadeb933256f7591
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -193,7 +193,7 @@ ModelImporter:
     400184: CATRigTail6
     400186: CATRigTorso
     400188: //RootNode
-    7400000: Gliding
+    7400000: SlowPoseTir
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -224,17 +224,17 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Gliding
+      name: SlowPoseTir
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 120
+      lastFrame: 60
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

@@ -38,12 +38,14 @@ public class GameManager : MonoBehaviour {
     
     [Header("Timer")]
     public TimeManager timeMan;
-
+    [Header("Parameters")]
+    public ParameterManager paraMan;
 
 
     private void Awake()
     {
       CreateInstances();
+      paraMan = ParameterManager.Instance;
       scoreManager = UI.GetComponentInChildren<ScoreManager>();
       lb.LoadLeaderBoard();
 

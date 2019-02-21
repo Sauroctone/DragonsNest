@@ -35,7 +35,7 @@ public class EnemyBehaviour : MonoBehaviour {
     public virtual void Init()
     {
         GetNewTarget();
-
+        moveSpeed = moveSpeed*GameManager.Instance.paraMan.enemySpeed;
         foreach (EnemyTarget target in autoTargets)
         {
             if(target.type == EnemyTargetType.EGG)

@@ -6,6 +6,8 @@ public class EnemySpawner : LivingBeing
 {
     public float minHealthbarScale;
 
+    [Header ("GameParameters")]
+    public int paramSpawn;
     [Header("Spawn")]
     public bool isOutOfMap;
     public GameObject enemyPrefab;
@@ -31,6 +33,12 @@ public class EnemySpawner : LivingBeing
     public override void Start()
     {
         base.Start();
+        if(paramSpawn > GameManager.Instance.paraMan.fortNumer)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+        GameManager.Instance.spawnMan.spawnersOutOfMap.Add(this);
 
         if (spawnMan == null)
             spawnMan = GameManager.Instance.spawnMan;

@@ -178,6 +178,7 @@ MonoBehaviour:
   comboScaledownRate: 0.5
   comboScaleMaxScale: 5
   comboAmountText: {fileID: 114997926029281914}
+  comboAmountTextString: {fileID: 0}
   scoreText: {fileID: 114015615610283940}
   comboCoolDownValue:
   - 0

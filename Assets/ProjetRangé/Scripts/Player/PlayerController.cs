@@ -168,6 +168,8 @@ public class PlayerController : LivingBeing
     public AudioClip SlowdownClip;
     public AudioClip WindflowClip;
     public AudioClip DragonHitClip;
+    private float dragonHitCooldown;
+    public float dragonHitMaxCooldown;
     public AudioClip DragonDeathClip;
     public AudioClip EggDropping;
 
@@ -256,7 +258,7 @@ public class PlayerController : LivingBeing
         }
 
         timeOutOfSlow -= Time.deltaTime;
-
+        if(dragonHitCooldown > 0) { dragonHitCooldown--; }
         UpdateStaminaUI();
     }
 
@@ -593,7 +595,7 @@ public class PlayerController : LivingBeing
     public override void UpdateHealthUI(int _damage)
     {
         LifeQuad.material.SetFloat("_Life", lifesShader);
-        SFXSource.PlayOneShot(DragonHitClip, 0.2f);
+        if (dragonHitCooldown <= 0) { SFXSource.PlayOneShot(DragonHitClip, 1f); dragonHitCooldown = dragonHitMaxCooldown; }
         //base.UpdateHealthUI(_damage);
         LifeQuad.material.SetFloat("_Life", life / maxLife);
 

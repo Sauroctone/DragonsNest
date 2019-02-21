@@ -4144,6 +4144,7 @@ MonoBehaviour:
   SlowdownClip: {fileID: 8300000, guid: 7eb788d52c8fa8a46bde8d3e418131bc, type: 3}
   WindflowClip: {fileID: 8300000, guid: 2b23ac223eb06c041b8400246826ff81, type: 3}
   DragonHitClip: {fileID: 8300000, guid: d53542c88188ecf42b1061b533d3c183, type: 3}
+  dragonHitMaxCooldown: 20
   DragonDeathClip: {fileID: 8300000, guid: 9d01ce2d25b293d4a80567ba4a761c66, type: 3}
   EggDropping: {fileID: 8300000, guid: fbc63bb185fa0d3469cf45c6cd36dcce, type: 3}
 --- !u!114 &114967292322091464

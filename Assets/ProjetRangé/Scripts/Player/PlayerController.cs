@@ -773,6 +773,9 @@ public class PlayerController : LivingBeing
         Instantiate(selfDestructPS, transform.position, Quaternion.identity);
 
         Die();
+
+        if (!GameManager.Instance.selfDestructed)
+            GameManager.Instance.selfDestructed = true;
     }
 
     IEnumerator ITurnAround()

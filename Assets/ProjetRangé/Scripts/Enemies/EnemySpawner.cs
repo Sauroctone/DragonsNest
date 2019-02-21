@@ -19,7 +19,7 @@ public class EnemySpawner : LivingBeing
     public float survivedCountDecrement;
     int wavesSurvived;
     public GameObject[] survivalFeedbackObjects;
-    SpawnManager spawnMan;
+    internal SpawnManager spawnMan;
     Coroutine spawnCor;
     [Header("References")]
     public Renderer rend;
@@ -39,9 +39,6 @@ public class EnemySpawner : LivingBeing
             return;
         }
         GameManager.Instance.spawnMan.spawnersOutOfMap.Add(this);
-
-        if (spawnMan == null)
-            spawnMan = GameManager.Instance.spawnMan;
 
         if (isOutOfMap)
             MakeInvincible(0);

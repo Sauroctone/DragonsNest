@@ -2015,6 +2015,7 @@ MonoBehaviour:
   state: 0
   archers: []
   bannerMan: {fileID: 0}
+  moveSpeed: 5
   updatePathFrequency: 0.2
   debugSphere: {fileID: 0}
   moveRotLerp: 0.1
@@ -2055,6 +2056,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  targetPosition: {x: 0, y: 0, z: 0}
+  lockedTarget: 0
+  targetVelocity: {x: 0, y: 0, z: 0}
   banner: {fileID: 114076804793572296}
   nav: {fileID: 195031232302732186}
   normalMat: {fileID: 2100000, guid: 5a9f70f0b5a12c3489e1142f1db87559, type: 2}

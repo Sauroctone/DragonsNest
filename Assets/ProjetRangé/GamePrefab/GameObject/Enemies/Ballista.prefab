@@ -1147,6 +1147,7 @@ MonoBehaviour:
   playerRb: {fileID: 0}
   state: 0
   bannerMan: {fileID: 1107817215166202}
+  moveSpeed: 2
   updatePathFrequency: 0.2
   debugSphere: {fileID: 0}
   moveRotLerp: 0.1

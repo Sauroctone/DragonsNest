@@ -4054,7 +4054,7 @@ MonoBehaviour:
   maxTimeToFlap: 7
   maxStamina: 100
   sprintCostPerSecond: 60
-  sprintCooldown: 2.5
+  sprintCooldown: 1.5
   slowCostPerSecond: 25
   slowCooldown: 3
   regenPerSecond: 25
@@ -4138,6 +4138,8 @@ MonoBehaviour:
     type: 2}
   selfDestructProj: {fileID: 1347389923306304}
   edgeScan: {fileID: 114434384479767948}
+  selfDestructMat: {fileID: 2100000, guid: 26575ea95ac58d0439f41edab49ff09a, type: 2}
+  dragonMesh: {fileID: 137697479105888588}
   DodgeClip: {fileID: 8300000, guid: 373c6c735abbec74ebcfc47f64a5fe40, type: 3}
   SlowdownClip: {fileID: 8300000, guid: 7eb788d52c8fa8a46bde8d3e418131bc, type: 3}
   WindflowClip: {fileID: 8300000, guid: 2b23ac223eb06c041b8400246826ff81, type: 3}

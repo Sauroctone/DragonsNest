@@ -5619,6 +5619,7 @@ MonoBehaviour:
   - {fileID: 114049280244713672}
   - {fileID: 114429825857632074}
   bannerMan: {fileID: 1477360616450988}
+  moveSpeed: 3.5
   updatePathFrequency: 0.2
   debugSphere: {fileID: 0}
   moveRotLerp: 0.1

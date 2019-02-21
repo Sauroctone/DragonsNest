@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour {
     
     [Header("Timer")]
     public TimeManager timeMan;
+    [Header("Parameters")]
+    public ParameterManager paraMan;
 
     public GameObject[] tutorials;
     int currentTutorial= -1;
@@ -45,9 +47,9 @@ public class GameManager : MonoBehaviour {
 
     private void Awake()
     {
-        CreateInstances();
-        scoreManager = UI.GetComponentInChildren<ScoreManager>();
-        lb.LoadLeaderBoard();
+      CreateInstances();
+      scoreManager = UI.GetComponentInChildren<ScoreManager>();
+      lb.LoadLeaderBoard();
 
         if (Instance == null)
             Instance = this;
@@ -155,3 +157,8 @@ public class GameManager : MonoBehaviour {
         }
     }
 }
+
+      CreateInstances();
+      paraMan = ParameterManager.Instance;
+      scoreManager = UI.GetComponentInChildren<ScoreManager>();
+      lb.LoadLeaderBoard();

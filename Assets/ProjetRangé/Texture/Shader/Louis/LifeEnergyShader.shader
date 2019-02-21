@@ -76,14 +76,15 @@
                 const float isMask = tex2D(_MainTex, IN.uv.xy) == float4(1,1,1,1);
 
                 const float4 voidColor = float4 (0,0,0,0);
+                const float4 voidColorFB = float4 (0,0,0,1);
 
                 float4 dynamicStamina = float4 (_StaminaColor.xyz,1-_Stamina);
                 const float checkDynamic = (dynamicStamina.w>=_StaminaColor.w);
                 dynamicStamina = (checkDynamic ? _StaminaColor : dynamicStamina);
 
-                const float feedBack = (checkFeedback ? _FeedBackColor :  voidColor);
+                const float4 feedBack = (checkFeedback ? _FeedBackColor :  voidColorFB);
 
-                const float4 tempLife = (lifeDistCheck ? _LifeColor :  voidColor) + feedBack;
+                const float4 tempLife = (lifeDistCheck ? _LifeColor :  voidColor + feedBack);
                 const float checkLifePercent = (_Life<_LifeBeforeShown);
                 
                 float4 actualLife = (checkLifePercent || _DisplayLife ? tempLife : voidColor);

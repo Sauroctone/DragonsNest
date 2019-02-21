@@ -23,7 +23,10 @@ EditorBuildSettings:
   - enabled: 1
     path: "Assets/ProjetRang\xE9/Scenes/LeaderBoard.unity"
     guid: d66e814d2918bf041a0afff459edc8e6
-  - enabled: 1
+  - enabled: 0
     path: "Assets/ProjetRang\xE9/Scenes/TestScenes/UsedScene.unity"
     guid: b3901528a2774d74fa4ae89288d2c927
+  - enabled: 1
+    path: Assets/Scenes/TestScenes/NewLevel.unity
+    guid: e0ac24acef981a24c8bb2f7d056e452b
   m_configObjects: {}

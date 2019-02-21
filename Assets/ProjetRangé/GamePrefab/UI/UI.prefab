@@ -675,7 +675,8 @@ MonoBehaviour:
   ballistaDeathCount: 0
   warlockDeathCount: 0
   comboCoolDownImage: {fileID: 114504018851526818}
-  ComboMeterScalingDownRate: 3
+  comboScaledownRate: 0.5
+  comboScaleMaxScale: 5
   comboAmountText: {fileID: 114252897079370922}
   comboAmountTextString: {fileID: 114898864723373144}
   scoreText: {fileID: 114240655267290152}

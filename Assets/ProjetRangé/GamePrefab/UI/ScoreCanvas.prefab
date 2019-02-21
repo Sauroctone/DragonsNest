@@ -171,7 +171,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 0
   comboAmount: 0
+  archerDeathCount: 0
+  ballistaDeathCount: 0
+  warlockDeathCount: 0
   comboCoolDownImage: {fileID: 114000878786131660}
+  comboScaledownRate: 0.5
+  comboScaleMaxScale: 5
   comboAmountText: {fileID: 114997926029281914}
   scoreText: {fileID: 114015615610283940}
   comboCoolDownValue:

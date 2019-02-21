@@ -15,9 +15,8 @@ public class ScoreManager : MonoBehaviour {
     public int warlockDeathCount;
 
     public Image comboCoolDownImage;
-    private int baseComboWidth;
-    private int baseComboHeight;
-    public float ComboMeterScalingDownRate;
+    public float comboScaledownRate;
+    public float comboScaleMaxScale;
 	public Text comboAmountText;
 	public TextMananger comboAmountTextString;
 	public Text scoreText; 
@@ -29,8 +28,8 @@ public class ScoreManager : MonoBehaviour {
 	{
 		DecreaseCombo();
 		SetScore();
-        if(comboCoolDownImage.mainTexture.width > baseComboWidth) { comboCoolDownImage.mainTexture.width--; }
-        if (comboCoolDownImage.mainTexture.height > baseComboHeight) { comboCoolDownImage.mainTexture.height--; }
+        if (comboCoolDownImage.transform.localScale.x > 1f) { comboCoolDownImage.transform.localScale -= new Vector3(comboScaledownRate, 0f, 0f); }
+        if (comboCoolDownImage.transform.localScale.y > 1f) { comboCoolDownImage.transform.localScale -= new Vector3(0f, comboScaledownRate, 0f); }
     }
 
 	public void Start ()
@@ -64,7 +63,7 @@ public class ScoreManager : MonoBehaviour {
 				comboAmountText.color = comboColor[comboAmount];
 			}
 			if(comboAmountTextString.entry[1] != "1") {comboAmountTextString.entry[1] = (comboAmount+1).ToString();}
-			return;
+            return;
 		} 
 		
 		comboCoolDown += Time.deltaTime;
@@ -87,10 +86,9 @@ public class ScoreManager : MonoBehaviour {
             comboCoolDownImage.color = comboColor[comboAmount];
             comboAmountText.color = comboColor[comboAmount];
         }
-        if (comboAmount > 1)
+        if (comboAmount > 0)
         {
-            comboCoolDownImage.mainTexture.width = 2 * baseComboWidth;
-            comboCoolDownImage.mainTexture.height = 2 * baseComboHeight;
+            comboCoolDownImage.transform.localScale = new Vector3(comboScaleMaxScale, comboScaleMaxScale, 1f);
         }
 	}
 }

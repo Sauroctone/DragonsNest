@@ -191,6 +191,10 @@ public class PlayerController : LivingBeing
         slowTime = slowCooldown;
         gameMan = GameManager.Instance;
 
+        flySpeed = flySpeed*gameMan.paraMan.playerSpeed;
+        sprintSpeed = sprintSpeed*gameMan.paraMan.playerSpeed;
+        slowSpeed = slowSpeed*gameMan.paraMan.playerSpeed;
+
         timeToFlap = Random.Range(minTimeToFlap, maxTimeToFlap);
 
         originalMat = dragonMesh.material;

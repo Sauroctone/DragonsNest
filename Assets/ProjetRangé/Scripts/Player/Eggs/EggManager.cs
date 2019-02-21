@@ -26,8 +26,12 @@ public class EggManager : MonoBehaviour {
 	// Use this for initialization
 	private void Start () 
 	{
-        GameManager.Instance.eggMan = this;
+		maxTimeBetEgg *= GameManager.Instance.paraMan.eggSpeed;
+		minTimeBetEgg *= GameManager.Instance.paraMan.eggSpeed;
+		
 		maxTimeBetEgg = maxTimeBetEgg-minTimeBetEgg;
+        
+		GameManager.Instance.eggMan = this;
 		
 		if(maxTimeBetEgg<=0)
 		{

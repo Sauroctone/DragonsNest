@@ -92,7 +92,8 @@ public class GameManager : MonoBehaviour {
         if (currentTutorial > 0)
             tutorials[currentTutorial -1].SetActive(false);
 
-        if (currentTutorial == tutorials.Length)
+        if (true)
+//        if (currentTutorial == tutorials.Length)
         {
             spawnMan.BeginWave();
             eggMan.LaunchEgg();

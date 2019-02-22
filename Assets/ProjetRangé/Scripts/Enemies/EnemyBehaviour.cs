@@ -201,10 +201,6 @@ public class EnemyBehaviour : MonoBehaviour {
 
     private void OnDestroy()
     {
-        if (subscribedForEggs)
-        {
-            GameManager.Instance.eggMan.EventOnNewEgg -= Event_OnNewEgg;
-            Debug.Log("Destroy");
-        }
+            GameManager.Instance.eggMan.EventOnNewEgg -= Event_OnNewEgg;    
     }
 }

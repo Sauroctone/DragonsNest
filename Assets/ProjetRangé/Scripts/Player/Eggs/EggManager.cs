@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class EggManager : MonoBehaviour {
 
-	private float timeEgg;
 	[Header("WaveStuff")]
 	public AnimationCurve timeFactorByWave;
 	public int maxWaveForEggTimeChange;
@@ -38,6 +37,9 @@ public class EggManager : MonoBehaviour {
 			maxTimeBetEgg =0;
 		}
 
+	}
+	public void LaunchEgg()
+	{
 		StartCoroutine(UpdateEggByTime());
 	}
 
@@ -102,7 +104,6 @@ public class EggManager : MonoBehaviour {
 
 	private void RandomLayEgg()
 	{
-		timeEgg = 0.0f;
 
 		var actualNest = RandomAvailaibleNest();
 		if(actualNest == null) {return;}
@@ -112,4 +113,13 @@ public class EggManager : MonoBehaviour {
         if (EventOnNewEgg != null)
             EventOnNewEgg();
 	}
+	
+	public void RandomLayEggTuto()
+	{
+		var actualNest = RandomAvailaibleNest();
+		if(actualNest == null) {return;}
+
+		actualNest.ActionTuto();
+	}
+
 }

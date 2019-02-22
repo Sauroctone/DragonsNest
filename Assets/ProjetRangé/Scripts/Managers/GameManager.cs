@@ -40,7 +40,9 @@ public class GameManager : MonoBehaviour {
     [Header("Parameters")]
     public ParameterManager paraMan;
 
-    public GameObject[] tutorials;
+    public GameObject tutorialCanvas;
+    public GameObject instancedTutoCanvas;
+    public Image[] tutorials;
     int currentTutorial= -1;
     internal bool gotFirstBabyDragon;
     internal bool selfDestructed;
@@ -50,6 +52,7 @@ public class GameManager : MonoBehaviour {
         CreateInstances();
         paraMan = ParameterManager.Instance;
         scoreManager = UI.GetComponentInChildren<ScoreManager>();
+
         lb.LoadLeaderBoard();
 
         if (Instance == null)
@@ -59,12 +62,18 @@ public class GameManager : MonoBehaviour {
 
         InitManagers();
         timeMan.LaunchTimer();
+
+        tutorials = instancedTutoCanvas.GetComponentsInChildren<Image>(true);
+        Debug.Log("nombre de fiches de tuto : " + tutorials.Length);
     }
 
     private void Update()
     {
         if (currentTutorial == -1)
+        {
+            Debug.Log("Next Tuto");
             NextTutorial();
+        }
     }
 
     void InitManagers()
@@ -83,23 +92,28 @@ public class GameManager : MonoBehaviour {
         mainCamera = camBehaviour.gameObject.GetComponentInChildren<Camera>();
         UI = Instantiate(UI);
         spawnMan.waveTimerText = UI.transform.GetChild(2).GetComponentInChildren<Text>();
+        instancedTutoCanvas = GameObject.Instantiate(tutorialCanvas);
     }   
 
     public void NextTutorial()
     {
         currentTutorial++;
+        Debug.Log(currentTutorial);
 
         if (currentTutorial > 0)
-            tutorials[currentTutorial -1].SetActive(false);
+        {
+            tutorials[currentTutorial - 1].gameObject.SetActive(false);
+            Debug.Log(tutorials[currentTutorial - 1].gameObject.activeSelf);
+        }
 
-        if (currentTutorial == tutorials.Length)
+        if (currentTutorial >= tutorials.Length)
         {
             spawnMan.BeginWave();
             //CALL TRUE EGG
         }
         else
         {
-            tutorials[currentTutorial].SetActive(true);
+            tutorials[currentTutorial].gameObject.SetActive(true);
             StartCoroutine(ITutorial());
         }
     }
@@ -109,12 +123,14 @@ public class GameManager : MonoBehaviour {
         switch (currentTutorial)
         {
             case 0:
+                Debug.Log("Case0");
                 yield return new WaitForSeconds(5f);
                 NextTutorial();
                 break;
             case 1:
                 while (Input.GetAxis(player.inputSprint) < .1f && Input.GetAxis(player.inputSprintAlt) < .1f)
                 {
+                    Debug.Log("Case1");
                     yield return null;
                 }
                 NextTutorial();
@@ -122,6 +138,7 @@ public class GameManager : MonoBehaviour {
             case 2:
                 while (Input.GetAxis(player.inputSlowDown) < .1f && Input.GetAxis(player.inputSlowDownAlt) < .1f)
                 {
+                    Debug.Log("Case2");
                     yield return null;
                 }
                 NextTutorial();
@@ -129,6 +146,7 @@ public class GameManager : MonoBehaviour {
             case 3:
                 while (!Input.GetButton(player.inputShoot))
                 {
+                    Debug.Log("Case3");
                     yield return null;
                 }
                 NextTutorial();
@@ -137,20 +155,23 @@ public class GameManager : MonoBehaviour {
             case 4:
                 while (!gotFirstBabyDragon)
                 {
+                    Debug.Log("Case4");
                     yield return null;
                 }
                 NextTutorial();
                 break;
             case 5:
-                while (!Input.GetButtonDown(player.inputInteract))
+                while (!selfDestructed)
                 {
+                    Debug.Log("Case5");
                     yield return null;
                 }
                 NextTutorial();
                 break;
             case 6:
-                while (!selfDestructed)
+                while (!Input.GetButtonDown(player.inputInteract))
                 {
+                    Debug.Log("Case6");
                     yield return null;
                 }
                 NextTutorial();

@@ -75,9 +75,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  maxWaveForEggTimeChange: 9
-  minTimeBetEgg: 1
-  maxTimeBetEgg: 10
+  maxWaveForEggTimeChange: 30
+  minTimeBetEgg: 15
+  maxTimeBetEgg: 90
   waitDuringInterWave: 0
   levelNests:
   - {fileID: 0}

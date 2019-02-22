@@ -564,7 +564,7 @@ public class PlayerController : LivingBeing
             StartCoroutine(INewMother());
         }
         else
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(1);
     }
 
     public override void UpdateHealthUI(int _damage)

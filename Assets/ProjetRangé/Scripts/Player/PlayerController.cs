@@ -275,13 +275,29 @@ public class PlayerController : LivingBeing
     void GetDirectionAndSpeed()
     {
         if (timeOutOfSlow > 0 || isSprinting && !isSlowing)
+        {
             speed = sprintSpeed;
+            anim.SetBool("isSprinting", true);
+            anim.SetBool("isSlowing", false);
+        }
         else if (isSlowing && !isSprinting)
+        {
             speed = slowSpeed;
+            anim.SetBool("isSprinting", false);
+            anim.SetBool("isSlowing", true);
+        }
         else if (isShooting)
+        {
             speed = shootSpeed;
+            anim.SetBool("isSprinting", false);
+            anim.SetBool("isSlowing", false);
+        }
         else
+        {
             speed = flySpeed;
+            anim.SetBool("isSprinting", false);
+            anim.SetBool("isSlowing", false);
+        }
 
         rotationLerp = isShooting ? shootingRotationLerp : flyingRotationLerp;
 
@@ -375,7 +391,6 @@ public class PlayerController : LivingBeing
         if (Input.GetButtonDown(inputSlowDown) || (prevSlowDownAxis < .1f && Input.GetAxis(inputSlowDownAlt) >= .1f))
         {
             timeOutOfSlow = 0;
-            anim.SetBool("isSprinting", false);
         }
 
         if ((Input.GetButton(inputSlowDown) || Input.GetAxis(inputSlowDownAlt) >= .1f) && stamina > 0 && slowTime >= slowCooldown)
@@ -394,9 +409,6 @@ public class PlayerController : LivingBeing
                 timeOutOfSlow = boostTimeOutOfSlow;
             if (stamina == 0)
                 slowTime = 0;
-
-            if (isSprinting)
-                anim.SetBool("isSprinting", true);
         }
 
         prevSlowDownAxis = Input.GetAxis(inputSlowDownAlt);
@@ -406,8 +418,6 @@ public class PlayerController : LivingBeing
     {
         if ((Input.GetButton(inputSprint) || Input.GetAxis(inputSprintAlt) >= .1f) && stamina > 0 && sprintTime >= sprintCooldown)
         {
-            if (!isSprinting)
-                anim.SetBool("isSprinting", true);
             isSprinting = true;
             if (!isSlowing)
                 UseStamina(sprintCostPerSecond);
@@ -417,7 +427,6 @@ public class PlayerController : LivingBeing
             isSprinting = false;
             if (stamina == 0)
                 sprintTime = 0;
-            anim.SetBool("isSprinting", false);
         }
     }
 
@@ -426,11 +435,11 @@ public class PlayerController : LivingBeing
         AttackSoundSource.Stop();
         firePartSys.Stop();
         isShooting = false;
+        anim.SetBool("isShooting", false);
         foreach (BabyDragonBehaviour babyDragon in babyDragonMan.babyDragons)
         {
             babyDragon.StopShooting();
         }
-        anim.SetBool("isShooting", false);
     }
 
     void LayEgg()
@@ -459,7 +468,6 @@ public class PlayerController : LivingBeing
                 gameMan.vibrationMan.VibrateFor(timeToSelfDestruct, 0, selfDestructLeftVibCurve, selfDestructRightVibCurve);
 
                 isSlowing = true;
-                anim.SetBool("isSprinting", false);
 
                 aimProjector.SetActive(false);
                 selfDestructProj.SetActive(true);

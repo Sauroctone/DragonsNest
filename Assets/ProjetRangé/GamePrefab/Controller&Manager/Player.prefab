@@ -4046,7 +4046,7 @@ MonoBehaviour:
   shootingRotationLerp: 0.025
   maxSteerRot: 75
   sprintSpeed: 70
-  slowSpeed: 5
+  slowSpeed: 2
   minSlowTime: 0.75
   boostTimeOutOfSlow: 0
   landSpeed: 0

@@ -54,4 +54,11 @@ public class TextMananger : MonoBehaviour {
 		}
 		return _strFinal;
 	}
+	public void ChangeTwo(string str)
+	{
+		if(entry.Count >= 2)
+		{
+			entry[1] = str;
+		}
+	}
 }

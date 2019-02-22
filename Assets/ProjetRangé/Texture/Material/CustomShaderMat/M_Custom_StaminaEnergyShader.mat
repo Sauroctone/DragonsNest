@@ -28,7 +28,7 @@ Material:
     - _Life: 1
     - _LifeBeforeShown: 1
     - _LifeFeedbackAmount: 1
-    - _Stamina: 2.54
+    - _Stamina: 1
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0

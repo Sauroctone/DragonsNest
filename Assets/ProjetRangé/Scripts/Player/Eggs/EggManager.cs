@@ -36,7 +36,7 @@ public class EggManager : MonoBehaviour {
 		{
 			maxTimeBetEgg =0;
 		}
-
+	
 	}
 	public void LaunchEgg()
 	{
@@ -72,7 +72,6 @@ public class EggManager : MonoBehaviour {
 		SetCurrentTime();
 		if(waitDuringInterWave)
 		{
-			Debug.Log("Lay Egg Wait");
 			yield return new WaitWhile(CheckIfInterWave);
 		}
 		yield return new WaitForSeconds(currentTimeBetEgg);

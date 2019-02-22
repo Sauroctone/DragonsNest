@@ -244,14 +244,12 @@ public class PlayerController : LivingBeing
                 Shoot();
                 Sprint();
                 SlowDown();
-                LayEgg();
                 ChargeSelfDestruct();
                 Dodge();
                 break;
 
             case PlayerStates.TURNING_AROUND:
                 Shoot();
-                LayEgg();
                 break;
         }
 
@@ -440,18 +438,6 @@ public class PlayerController : LivingBeing
         }
     }
 
-    void LayEgg()
-    {
-        if (Input.GetButtonDown(inputInteract) && canLand)
-        {
-            SFXSource.PlayOneShot(EggDropping);
-
-            if (playerState == PlayerStates.TURNING_AROUND)
-                StopTurningAround();
-
-            StartCoroutine(ILayEgg());
-        }
-    }
 
     void ChargeSelfDestruct()
     {

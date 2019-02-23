@@ -13,6 +13,8 @@ public class BabyDragonManager : MonoBehaviour {
     public float angleToDivide;
     public GameObject babyDragon;
     public float shootOffsetRange;
+    public MeshRenderer LifeQuad;
+    public MeshRenderer StamiQuad;
 
     private void Start()
     {
@@ -39,6 +41,9 @@ public class BabyDragonManager : MonoBehaviour {
         GameObject baby = Instantiate(babyDragon, transform);
         babyDragons.Add(baby.GetComponentInChildren<BabyDragonBehaviour>());
         GiveNewPositions();
+
+        if (!GameManager.Instance.gotFirstBabyDragon)
+            GameManager.Instance.gotFirstBabyDragon = true;
     }
 
     public void RemoveBabyDragon()

@@ -15,6 +15,10 @@ public class EnemyBehaviour : MonoBehaviour {
     //  [Header("Player")]
     //    public float distanceToAggroPlayer;
 
+    bool subscribedForEggs;
+
+    public float moveSpeed;
+
     [Header("Target Priority")]
     public Transform currentTarget;
     public EnemyTarget[] autoTargets;
@@ -31,6 +35,15 @@ public class EnemyBehaviour : MonoBehaviour {
     public virtual void Init()
     {
         GetNewTarget();
+        moveSpeed = moveSpeed*GameManager.Instance.paraMan.enemySpeed;
+        foreach (EnemyTarget target in autoTargets)
+        {
+            if(target.type == EnemyTargetType.EGG)
+            {
+                GameManager.Instance.eggMan.EventOnNewEgg += Event_OnNewEgg;
+                break;
+            }
+        }
     }
 
     public virtual void Update()
@@ -123,6 +136,22 @@ public class EnemyBehaviour : MonoBehaviour {
             case EnemyTargetType.PLAYER:
                 return player;
 
+            case EnemyTargetType.EGG:
+                if (spawnMan.eggs.Count > 0)
+                    target = spawnMan.eggs[0];
+                else
+                    return null;
+
+                if (spawnMan.eggs.Count > 1)
+                {
+                    foreach (Transform targ in spawnMan.eggs)
+                    {
+                        if (Vector3.Distance(targ.position, transform.position) < Vector3.Distance(target.position, transform.position))
+                            target = targ;
+                    }
+                }
+                return target;
+
             case EnemyTargetType.ANCIENT:
 
                 if (spawnMan.ancients.Count > 0)
@@ -134,20 +163,6 @@ public class EnemyBehaviour : MonoBehaviour {
                 {
                     if (Vector3.Distance(ancient.position, transform.position) < Vector3.Distance(target.position, transform.position))
                         target = ancient.transform;
-                }
-                return target;
-
-            case EnemyTargetType.EGG:
-
-                if (spawnMan.eggs.Count > 0)
-                    target = spawnMan.eggs[0];
-                else
-                    return null;
-
-                foreach (Transform targ in spawnMan.eggs)
-                {
-                    if (Vector3.Distance(targ.position, transform.position) < Vector3.Distance(target.position, transform.position))
-                        target = targ;
                 }
                 return target;
         }
@@ -171,10 +186,22 @@ public class EnemyBehaviour : MonoBehaviour {
         }
         return false;
     }
+    
+    public void Event_OnNewEgg()
+    {
+        currentTarget = null;
+        GetNewTarget();
+    }
 
     public void Die()
     {
         spawnMan.RemoveEnemyFromList(this);
         Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        if (subscribedForEggs)
+            GameManager.Instance.eggMan.EventOnNewEgg -= Event_OnNewEgg;
     }
 }

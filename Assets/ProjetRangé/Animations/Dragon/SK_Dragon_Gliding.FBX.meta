@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ed7f63d45a6430b449151544e7ce4a6f
+guid: fc9456880e3a2384a82d4e779c2fafe2
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -18,88 +18,86 @@ ModelImporter:
     100024: CATRigLArmOutFinger3
     100026: CATRigLArmOutFinger4
     100028: CATRigLArmPalm
-    100030: CATRigLArmUpVectorNode
-    100032: CATRigLBackLeg1
-    100034: CATRigLBackLeg2
-    100036: CATRigLBackLeg3
-    100038: CATRigLBackLegAnkle
-    100040: CATRigLBackLegDigit11
-    100042: CATRigLBackLegDigit12
-    100044: CATRigLBackLegDigit21
-    100046: CATRigLBackLegDigit22
-    100048: CATRigLBackLegDigit31
-    100050: CATRigLBackLegDigit32
-    100052: CATRigLBackLegDigit41
-    100054: CATRigLBackLegDigit42
-    100056: CATRigLFrontLeg1
-    100058: CATRigLFrontLeg2
-    100060: CATRigLFrontLegAnkle
-    100062: CATRigLFrontLegCollarbone
-    100064: CATRigLFrontLegDigit11
-    100066: CATRigLFrontLegDigit12
-    100068: CATRigLFrontLegDigit21
-    100070: CATRigLFrontLegDigit22
-    100072: CATRigLFrontLegDigit31
-    100074: CATRigLFrontLegDigit32
-    100076: CATRigLFrontLegDigit41
-    100078: CATRigLFrontLegDigit42
-    100080: CATRigLMiddleArm
-    100082: CATRigLMiddleArm 1
-    100084: CATRigNeck1
-    100086: CATRigNeck2
-    100088: CATRigNeck3
-    100090: CATRigNeck4
-    100092: CATRigNeck5
-    100094: CATRigPelvis
-    100096: CATRigRArm1
-    100098: CATRigRArm2
-    100100: CATRigRArmInnerFinger1
-    100102: CATRigRArmInnerFinger2
-    100104: CATRigRArmInnerFinger3
-    100106: CATRigRArmMiddleFinger1
-    100108: CATRigRArmMiddleFinger2
-    100110: CATRigRArmMiddleFinger3
-    100112: CATRigRArmOutFinger1
-    100114: CATRigRArmOutFinger2
-    100116: CATRigRArmOutFinger3
-    100118: CATRigRArmOutFinger4
-    100120: CATRigRArmPalm
-    100122: CATRigRArmUpVectorNode
-    100124: CATRigRBackLeg1
-    100126: CATRigRBackLeg2
-    100128: CATRigRBackLeg3
-    100130: CATRigRBackLegAnkle
-    100132: CATRigRBackLegDigit11
-    100134: CATRigRBackLegDigit12
-    100136: CATRigRBackLegDigit21
-    100138: CATRigRBackLegDigit22
-    100140: CATRigRBackLegDigit31
-    100142: CATRigRBackLegDigit32
-    100144: CATRigRBackLegDigit41
-    100146: CATRigRBackLegDigit42
-    100148: CATRigRLeg1
-    100150: CATRigRLeg2
-    100152: CATRigRLegAnkle
-    100154: CATRigRLegCollarbone
-    100156: CATRigRLegDigit11
-    100158: CATRigRLegDigit12
-    100160: CATRigRLegDigit21
-    100162: CATRigRLegDigit22
-    100164: CATRigRLegDigit31
-    100166: CATRigRLegDigit32
-    100168: CATRigRLegDigit41
-    100170: CATRigRLegDigit42
-    100172: CATRigRoot
-    100174: CATRigSpine1
-    100176: CATRigSpine2
-    100178: CATRigTail1
-    100180: CATRigTail2
-    100182: CATRigTail3
-    100184: CATRigTail4
-    100186: CATRigTail5
-    100188: CATRigTail6
-    100190: CATRigTorso
-    100192: //RootNode
+    100030: CATRigLBackLeg1
+    100032: CATRigLBackLeg2
+    100034: CATRigLBackLeg3
+    100036: CATRigLBackLegAnkle
+    100038: CATRigLBackLegDigit11
+    100040: CATRigLBackLegDigit12
+    100042: CATRigLBackLegDigit21
+    100044: CATRigLBackLegDigit22
+    100046: CATRigLBackLegDigit31
+    100048: CATRigLBackLegDigit32
+    100050: CATRigLBackLegDigit41
+    100052: CATRigLBackLegDigit42
+    100054: CATRigLFrontLeg1
+    100056: CATRigLFrontLeg2
+    100058: CATRigLFrontLegAnkle
+    100060: CATRigLFrontLegCollarbone
+    100062: CATRigLFrontLegDigit11
+    100064: CATRigLFrontLegDigit12
+    100066: CATRigLFrontLegDigit21
+    100068: CATRigLFrontLegDigit22
+    100070: CATRigLFrontLegDigit31
+    100072: CATRigLFrontLegDigit32
+    100074: CATRigLFrontLegDigit41
+    100076: CATRigLFrontLegDigit42
+    100078: CATRigLMiddleArm
+    100080: CATRigLMiddleArm 1
+    100082: CATRigNeck1
+    100084: CATRigNeck2
+    100086: CATRigNeck3
+    100088: CATRigNeck4
+    100090: CATRigNeck5
+    100092: CATRigPelvis
+    100094: CATRigRArm1
+    100096: CATRigRArm2
+    100098: CATRigRArmInnerFinger1
+    100100: CATRigRArmInnerFinger2
+    100102: CATRigRArmInnerFinger3
+    100104: CATRigRArmMiddleFinger1
+    100106: CATRigRArmMiddleFinger2
+    100108: CATRigRArmMiddleFinger3
+    100110: CATRigRArmOutFinger1
+    100112: CATRigRArmOutFinger2
+    100114: CATRigRArmOutFinger3
+    100116: CATRigRArmOutFinger4
+    100118: CATRigRArmPalm
+    100120: CATRigRBackLeg1
+    100122: CATRigRBackLeg2
+    100124: CATRigRBackLeg3
+    100126: CATRigRBackLegAnkle
+    100128: CATRigRBackLegDigit11
+    100130: CATRigRBackLegDigit12
+    100132: CATRigRBackLegDigit21
+    100134: CATRigRBackLegDigit22
+    100136: CATRigRBackLegDigit31
+    100138: CATRigRBackLegDigit32
+    100140: CATRigRBackLegDigit41
+    100142: CATRigRBackLegDigit42
+    100144: CATRigRLeg1
+    100146: CATRigRLeg2
+    100148: CATRigRLegAnkle
+    100150: CATRigRLegCollarbone
+    100152: CATRigRLegDigit11
+    100154: CATRigRLegDigit12
+    100156: CATRigRLegDigit21
+    100158: CATRigRLegDigit22
+    100160: CATRigRLegDigit31
+    100162: CATRigRLegDigit32
+    100164: CATRigRLegDigit41
+    100166: CATRigRLegDigit42
+    100168: CATRigRoot
+    100170: CATRigSpine1
+    100172: CATRigSpine2
+    100174: CATRigTail1
+    100176: CATRigTail2
+    100178: CATRigTail3
+    100180: CATRigTail4
+    100182: CATRigTail5
+    100184: CATRigTail6
+    100186: CATRigTorso
+    100188: //RootNode
     400000: CATRigHead
     400002: CATRigJaw
     400004: CATRigLArm1
@@ -115,88 +113,86 @@ ModelImporter:
     400024: CATRigLArmOutFinger3
     400026: CATRigLArmOutFinger4
     400028: CATRigLArmPalm
-    400030: CATRigLArmUpVectorNode
-    400032: CATRigLBackLeg1
-    400034: CATRigLBackLeg2
-    400036: CATRigLBackLeg3
-    400038: CATRigLBackLegAnkle
-    400040: CATRigLBackLegDigit11
-    400042: CATRigLBackLegDigit12
-    400044: CATRigLBackLegDigit21
-    400046: CATRigLBackLegDigit22
-    400048: CATRigLBackLegDigit31
-    400050: CATRigLBackLegDigit32
-    400052: CATRigLBackLegDigit41
-    400054: CATRigLBackLegDigit42
-    400056: CATRigLFrontLeg1
-    400058: CATRigLFrontLeg2
-    400060: CATRigLFrontLegAnkle
-    400062: CATRigLFrontLegCollarbone
-    400064: CATRigLFrontLegDigit11
-    400066: CATRigLFrontLegDigit12
-    400068: CATRigLFrontLegDigit21
-    400070: CATRigLFrontLegDigit22
-    400072: CATRigLFrontLegDigit31
-    400074: CATRigLFrontLegDigit32
-    400076: CATRigLFrontLegDigit41
-    400078: CATRigLFrontLegDigit42
-    400080: CATRigLMiddleArm
-    400082: CATRigLMiddleArm 1
-    400084: CATRigNeck1
-    400086: CATRigNeck2
-    400088: CATRigNeck3
-    400090: CATRigNeck4
-    400092: CATRigNeck5
-    400094: CATRigPelvis
-    400096: CATRigRArm1
-    400098: CATRigRArm2
-    400100: CATRigRArmInnerFinger1
-    400102: CATRigRArmInnerFinger2
-    400104: CATRigRArmInnerFinger3
-    400106: CATRigRArmMiddleFinger1
-    400108: CATRigRArmMiddleFinger2
-    400110: CATRigRArmMiddleFinger3
-    400112: CATRigRArmOutFinger1
-    400114: CATRigRArmOutFinger2
-    400116: CATRigRArmOutFinger3
-    400118: CATRigRArmOutFinger4
-    400120: CATRigRArmPalm
-    400122: CATRigRArmUpVectorNode
-    400124: CATRigRBackLeg1
-    400126: CATRigRBackLeg2
-    400128: CATRigRBackLeg3
-    400130: CATRigRBackLegAnkle
-    400132: CATRigRBackLegDigit11
-    400134: CATRigRBackLegDigit12
-    400136: CATRigRBackLegDigit21
-    400138: CATRigRBackLegDigit22
-    400140: CATRigRBackLegDigit31
-    400142: CATRigRBackLegDigit32
-    400144: CATRigRBackLegDigit41
-    400146: CATRigRBackLegDigit42
-    400148: CATRigRLeg1
-    400150: CATRigRLeg2
-    400152: CATRigRLegAnkle
-    400154: CATRigRLegCollarbone
-    400156: CATRigRLegDigit11
-    400158: CATRigRLegDigit12
-    400160: CATRigRLegDigit21
-    400162: CATRigRLegDigit22
-    400164: CATRigRLegDigit31
-    400166: CATRigRLegDigit32
-    400168: CATRigRLegDigit41
-    400170: CATRigRLegDigit42
-    400172: CATRigRoot
-    400174: CATRigSpine1
-    400176: CATRigSpine2
-    400178: CATRigTail1
-    400180: CATRigTail2
-    400182: CATRigTail3
-    400184: CATRigTail4
-    400186: CATRigTail5
-    400188: CATRigTail6
-    400190: CATRigTorso
-    400192: //RootNode
+    400030: CATRigLBackLeg1
+    400032: CATRigLBackLeg2
+    400034: CATRigLBackLeg3
+    400036: CATRigLBackLegAnkle
+    400038: CATRigLBackLegDigit11
+    400040: CATRigLBackLegDigit12
+    400042: CATRigLBackLegDigit21
+    400044: CATRigLBackLegDigit22
+    400046: CATRigLBackLegDigit31
+    400048: CATRigLBackLegDigit32
+    400050: CATRigLBackLegDigit41
+    400052: CATRigLBackLegDigit42
+    400054: CATRigLFrontLeg1
+    400056: CATRigLFrontLeg2
+    400058: CATRigLFrontLegAnkle
+    400060: CATRigLFrontLegCollarbone
+    400062: CATRigLFrontLegDigit11
+    400064: CATRigLFrontLegDigit12
+    400066: CATRigLFrontLegDigit21
+    400068: CATRigLFrontLegDigit22
+    400070: CATRigLFrontLegDigit31
+    400072: CATRigLFrontLegDigit32
+    400074: CATRigLFrontLegDigit41
+    400076: CATRigLFrontLegDigit42
+    400078: CATRigLMiddleArm
+    400080: CATRigLMiddleArm 1
+    400082: CATRigNeck1
+    400084: CATRigNeck2
+    400086: CATRigNeck3
+    400088: CATRigNeck4
+    400090: CATRigNeck5
+    400092: CATRigPelvis
+    400094: CATRigRArm1
+    400096: CATRigRArm2
+    400098: CATRigRArmInnerFinger1
+    400100: CATRigRArmInnerFinger2
+    400102: CATRigRArmInnerFinger3
+    400104: CATRigRArmMiddleFinger1
+    400106: CATRigRArmMiddleFinger2
+    400108: CATRigRArmMiddleFinger3
+    400110: CATRigRArmOutFinger1
+    400112: CATRigRArmOutFinger2
+    400114: CATRigRArmOutFinger3
+    400116: CATRigRArmOutFinger4
+    400118: CATRigRArmPalm
+    400120: CATRigRBackLeg1
+    400122: CATRigRBackLeg2
+    400124: CATRigRBackLeg3
+    400126: CATRigRBackLegAnkle
+    400128: CATRigRBackLegDigit11
+    400130: CATRigRBackLegDigit12
+    400132: CATRigRBackLegDigit21
+    400134: CATRigRBackLegDigit22
+    400136: CATRigRBackLegDigit31
+    400138: CATRigRBackLegDigit32
+    400140: CATRigRBackLegDigit41
+    400142: CATRigRBackLegDigit42
+    400144: CATRigRLeg1
+    400146: CATRigRLeg2
+    400148: CATRigRLegAnkle
+    400150: CATRigRLegCollarbone
+    400152: CATRigRLegDigit11
+    400154: CATRigRLegDigit12
+    400156: CATRigRLegDigit21
+    400158: CATRigRLegDigit22
+    400160: CATRigRLegDigit31
+    400162: CATRigRLegDigit32
+    400164: CATRigRLegDigit41
+    400166: CATRigRLegDigit42
+    400168: CATRigRoot
+    400170: CATRigSpine1
+    400172: CATRigSpine2
+    400174: CATRigTail1
+    400176: CATRigTail2
+    400178: CATRigTail3
+    400180: CATRigTail4
+    400182: CATRigTail5
+    400184: CATRigTail6
+    400186: CATRigTorso
+    400188: //RootNode
     7400000: Gliding
     9500000: //RootNode
   externalObjects: {}
@@ -208,7 +204,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleCurves: 0
+    resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
     rigImportErrors: 
@@ -219,7 +215,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 0
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -231,7 +227,7 @@ ModelImporter:
       name: Gliding
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 60
+      lastFrame: 120
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -298,8 +294,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    rootMotionBoneName: CATRigRoot
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1

@@ -155,6 +155,9 @@ public class PlayerController : LivingBeing
     public GameObject selfDestructPS;
     public GameObject selfDestructProj;
     public EdgeScanner edgeScan;
+    public Material selfDestructMat;
+    Material originalMat;
+    public Renderer dragonMesh;
 
     [Header("SFXPlayer")]
     AudioSource[] AudioSources;
@@ -188,7 +191,13 @@ public class PlayerController : LivingBeing
         slowTime = slowCooldown;
         gameMan = GameManager.Instance;
 
+        flySpeed = flySpeed*gameMan.paraMan.playerSpeed;
+        sprintSpeed = sprintSpeed*gameMan.paraMan.playerSpeed;
+        slowSpeed = slowSpeed*gameMan.paraMan.playerSpeed;
+
         timeToFlap = Random.Range(minTimeToFlap, maxTimeToFlap);
+
+        originalMat = dragonMesh.material;
     }
 
     private void FixedUpdate()
@@ -257,18 +266,36 @@ public class PlayerController : LivingBeing
     {
         babyDragonMan.target = this.transform;
         babyDragonMan = Instantiate(babyDragonMan.gameObject, Vector3.zero, Quaternion.identity).GetComponent<BabyDragonManager>();
+        LifeQuad = babyDragonMan.LifeQuad;
+        StamiQuad = babyDragonMan.StamiQuad;
     }
 
     void GetDirectionAndSpeed()
     {
         if (timeOutOfSlow > 0 || isSprinting && !isSlowing)
+        {
             speed = sprintSpeed;
+            anim.SetBool("isSprinting", true);
+            anim.SetBool("isSlowing", false);
+        }
         else if (isSlowing && !isSprinting)
+        {
             speed = slowSpeed;
+            anim.SetBool("isSprinting", false);
+            anim.SetBool("isSlowing", true);
+        }
         else if (isShooting)
+        {
             speed = shootSpeed;
+            anim.SetBool("isSprinting", false);
+            anim.SetBool("isSlowing", false);
+        }
         else
+        {
             speed = flySpeed;
+            anim.SetBool("isSprinting", false);
+            anim.SetBool("isSlowing", false);
+        }
 
         rotationLerp = isShooting ? shootingRotationLerp : flyingRotationLerp;
 
@@ -362,7 +389,6 @@ public class PlayerController : LivingBeing
         if (Input.GetButtonDown(inputSlowDown) || (prevSlowDownAxis < .1f && Input.GetAxis(inputSlowDownAlt) >= .1f))
         {
             timeOutOfSlow = 0;
-            anim.SetBool("isSprinting", false);
         }
 
         if ((Input.GetButton(inputSlowDown) || Input.GetAxis(inputSlowDownAlt) >= .1f) && stamina > 0 && slowTime >= slowCooldown)
@@ -381,9 +407,6 @@ public class PlayerController : LivingBeing
                 timeOutOfSlow = boostTimeOutOfSlow;
             if (stamina == 0)
                 slowTime = 0;
-
-            if (isSprinting)
-                anim.SetBool("isSprinting", true);
         }
 
         prevSlowDownAxis = Input.GetAxis(inputSlowDownAlt);
@@ -393,8 +416,6 @@ public class PlayerController : LivingBeing
     {
         if ((Input.GetButton(inputSprint) || Input.GetAxis(inputSprintAlt) >= .1f) && stamina > 0 && sprintTime >= sprintCooldown)
         {
-            if (!isSprinting)
-                anim.SetBool("isSprinting", true);
             isSprinting = true;
             if (!isSlowing)
                 UseStamina(sprintCostPerSecond);
@@ -404,7 +425,6 @@ public class PlayerController : LivingBeing
             isSprinting = false;
             if (stamina == 0)
                 sprintTime = 0;
-            anim.SetBool("isSprinting", false);
         }
     }
 
@@ -413,11 +433,11 @@ public class PlayerController : LivingBeing
         AttackSoundSource.Stop();
         firePartSys.Stop();
         isShooting = false;
+        anim.SetBool("isShooting", false);
         foreach (BabyDragonBehaviour babyDragon in babyDragonMan.babyDragons)
         {
             babyDragon.StopShooting();
         }
-        anim.SetBool("isShooting", false);
     }
 
     void LayEgg()
@@ -446,10 +466,11 @@ public class PlayerController : LivingBeing
                 gameMan.vibrationMan.VibrateFor(timeToSelfDestruct, 0, selfDestructLeftVibCurve, selfDestructRightVibCurve);
 
                 isSlowing = true;
-                anim.SetBool("isSprinting", false);
 
                 aimProjector.SetActive(false);
                 selfDestructProj.SetActive(true);
+
+                dragonMesh.material = selfDestructMat;
             }
 
             if (selfDestructFeedback.activeSelf)
@@ -461,19 +482,13 @@ public class PlayerController : LivingBeing
                     isSlowing = true;
                 }
 
-                if (selfDestructTime >= timeToSelfDestruct || Input.GetButtonUp(inputPlaceAncient))
+                if (selfDestructTime >= timeToSelfDestruct)
                 {
-                    isSlowing = false;
-                    gameMan.vibrationMan.StopVibrating(0);
-                    selfDestructFeedback.SetActive(false);
-                    aimProjector.SetActive(true);
-                    selfDestructProj.SetActive(false);
-
-                    if (selfDestructTime >= timeToSelfDestruct)
-                    {
-                        StartCoroutine(ISelfDestruct());
-                    }
-                    selfDestructTime = 0;
+                    StartCoroutine(ISelfDestruct());
+                }
+                else if (Input.GetButtonUp(inputPlaceAncient))
+                {
+                    StopChargingSelfDestruct();
                 }
             }
         }
@@ -490,8 +505,7 @@ public class PlayerController : LivingBeing
         rotationLerp = flyingRotationLerp;
 
         //If is self destructing
-        gameMan.vibrationMan.StopVibrating(0);
-        selfDestructFeedback.SetActive(false);
+        StopChargingSelfDestruct();
 
         //Set direction
         desiredDir = _newDir;
@@ -509,6 +523,17 @@ public class PlayerController : LivingBeing
 
         if (playerState == PlayerStates.TURNING_AROUND)
             playerState = PlayerStates.FLYING;
+    }
+
+    void StopChargingSelfDestruct()
+    {
+        isSlowing = false;
+        gameMan.vibrationMan.StopVibrating(0);
+        selfDestructFeedback.SetActive(false);
+        aimProjector.SetActive(true);
+        selfDestructProj.SetActive(false);
+        selfDestructTime = 0;
+        dragonMesh.material = originalMat;
     }
 
     //Stamina
@@ -554,6 +579,12 @@ public class PlayerController : LivingBeing
         base.Die();
 
         playerState = PlayerStates.DEAD;
+
+        if (selfDestructFeedback.activeSelf)
+            StopChargingSelfDestruct();
+
+        LifeQuad.enabled = false;
+        StamiQuad.enabled = false;
 
         SFXSource.PlayOneShot(DragonDeathClip, 1);
         if (babyDragonMan.babyDragons.Count > 0)
@@ -684,12 +715,15 @@ public class PlayerController : LivingBeing
         yield return new WaitForSeconds(1f);
 
         visuals.gameObject.SetActive(true);
+        LifeQuad.enabled = true;
+        StamiQuad.enabled = true;
         babyDragonMan.RemoveBabyDragon();
         ResetLife(2f);
         StopShooting();
         aimProjector.SetActive(true);
         gameMan.camBehaviour.target.localPosition = gameMan.camBehaviour.targetOriginPos;
         playerState = PlayerStates.FLYING;
+        dragonMesh.material = originalMat;
 
         float time = 0f;
         float growTime = 2f;
@@ -707,6 +741,11 @@ public class PlayerController : LivingBeing
         StopShooting();
         MakeInvincible(selfDestructFreeze + timeToPlunge);
         aimProjector.SetActive(false);
+        isSlowing = false;
+        gameMan.vibrationMan.StopVibrating(0);
+        selfDestructFeedback.SetActive(false);
+        selfDestructProj.SetActive(false);
+        selfDestructTime = 0;
 
         rb.velocity = Vector3.zero;
         playerState = PlayerStates.SELF_DESTROYING;
@@ -740,6 +779,9 @@ public class PlayerController : LivingBeing
         Instantiate(selfDestructPS, transform.position, Quaternion.identity);
 
         Die();
+
+        if (!GameManager.Instance.selfDestructed)
+            GameManager.Instance.selfDestructed = true;
     }
 
     IEnumerator ITurnAround()

@@ -37,14 +37,6 @@ public class SpawnManager : MonoBehaviour {
         playerRb = GameManager.Instance.playerRb;
     }
 
-    private void Update()
-    {
-        if (waveState == WaveState.GAME_START)
-        {
-            BeginWave();
-        }
-    }
-
     //Enemy methods
 
     public void SpawnEnemy(GameObject _enemyPrefab, Vector3 _pos)
@@ -69,28 +61,10 @@ public class SpawnManager : MonoBehaviour {
         }
     }
 
-    public Transform GetNewTarget(Vector3 _position)
-    {
-        Debug.LogError("To clean up");
-        Transform target = null;
-        if (eggs.Count > 0)
-            target = eggs[0];
-        else
-            target = player;
-
-        foreach (Transform targ in eggs)
-        {
-            if (Vector3.Distance(targ.position, _position) < Vector3.Distance(target.position, _position))
-                target = targ;
-        }
-
-        return target;
-    }
-
-    public void AddTargetToList(Transform _newTarget)
-    {
-        eggs.Add(_newTarget);
-    }
+    //public void AddTargetToList(Transform _newTarget)
+    //{
+    //    eggs.Add(_newTarget);
+    //}
 
     //Wave methods
 
@@ -109,7 +83,7 @@ public class SpawnManager : MonoBehaviour {
         Debug.Log("Activated " + _count + " spawners ; current spawner count is " + activeSpawners.Count);
     }
 
-    void BeginWave()
+    public void BeginWave()
     {
         waveState = WaveState.DURING_WAVE;
         currentWave++;
@@ -120,10 +94,14 @@ public class SpawnManager : MonoBehaviour {
 
         foreach(EnemySpawner spawner in activeSpawners)
         {
+            if (spawner.spawnMan == null)
+                spawner.spawnMan = this;
             spawner.OnWaveBeginning();
         }
         foreach (EnemySpawner spawner in spawnersOutOfMap)
         {
+            if (spawner.spawnMan == null)
+                spawner.spawnMan = this;
             spawner.OnWaveBeginning();
         }
     }

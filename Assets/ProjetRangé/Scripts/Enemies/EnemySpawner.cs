@@ -6,6 +6,8 @@ public class EnemySpawner : LivingBeing
 {
     public float minHealthbarScale;
 
+    [Header ("GameParameters")]
+    public int paramSpawn;
     [Header("Spawn")]
     public bool isOutOfMap;
     public GameObject enemyPrefab;
@@ -17,7 +19,7 @@ public class EnemySpawner : LivingBeing
     public float survivedCountDecrement;
     int wavesSurvived;
     public GameObject[] survivalFeedbackObjects;
-    SpawnManager spawnMan;
+    internal SpawnManager spawnMan;
     Coroutine spawnCor;
     [Header("References")]
     public Renderer rend;
@@ -31,9 +33,12 @@ public class EnemySpawner : LivingBeing
     public override void Start()
     {
         base.Start();
-
-        if (spawnMan == null)
-            spawnMan = GameManager.Instance.spawnMan;
+        if(paramSpawn > GameManager.Instance.paraMan.fortNumer)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+        GameManager.Instance.spawnMan.spawnersOutOfMap.Add(this);
 
         if (isOutOfMap)
             MakeInvincible(0);

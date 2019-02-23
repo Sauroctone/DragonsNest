@@ -85,6 +85,7 @@ public class SpawnManager : MonoBehaviour {
 
     public void BeginWave()
     {
+        player.GetComponent<PlayerController>().PlayNarratorCLip(4);
         waveState = WaveState.DURING_WAVE;
         currentWave++;
         Debug.Log("Launching wave " + currentWave);
@@ -108,6 +109,7 @@ public class SpawnManager : MonoBehaviour {
 
     void EndWave()
     {
+        player.GetComponent<PlayerController>().PlayNarratorCLip(Random.Range(0,1));
         Debug.Log("End of wave " + currentWave);
 
         foreach (EnemySpawner spawner in activeSpawners)

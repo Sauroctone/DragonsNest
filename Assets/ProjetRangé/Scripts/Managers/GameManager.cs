@@ -74,6 +74,10 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Next Tuto");
             NextTutorial();
         }
+        if (Input.GetKeyDown(KeyCode.Insert)) {
+            currentTutorial++;
+            NextTutorial();
+        }
     }
 
     void InitManagers()
@@ -102,8 +106,11 @@ public class GameManager : MonoBehaviour {
 
         if (currentTutorial > 0)
         {
-            tutorials[currentTutorial - 1].gameObject.SetActive(false);
-            Debug.Log(tutorials[currentTutorial - 1].gameObject.activeSelf);
+            if (currentTutorial < (tutorials.Length + 1))
+            {
+                tutorials[currentTutorial - 1].gameObject.SetActive(false);
+                Debug.Log(tutorials[currentTutorial - 1].gameObject.activeSelf);
+            }
         }
 
         if (currentTutorial >= tutorials.Length)

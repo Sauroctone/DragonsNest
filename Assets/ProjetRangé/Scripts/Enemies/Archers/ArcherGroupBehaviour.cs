@@ -73,6 +73,7 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
         {
             state = ArcherGroupState.FLEEING_INDIVIDUALLY;
             if (EventOnStateChanged != null)
+           //     Player.GetComponent<PlayerController>().PlayArchersDeath();
                 EventOnStateChanged(state);
             Die();
         }

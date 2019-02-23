@@ -20,9 +20,8 @@ public class Egg : LivingBeing {
 	public Color lowLifeCol = Color.red;
     SpawnManager spawnMan;
     private AudioSource EggAudio;
-    private bool isSFXPlayed;
-    public AudioClip eggDestroy;
     public AudioClip eggHatching;
+    public GameObject Player;
 
     public override void Start ()
     {
@@ -77,12 +76,12 @@ public class Egg : LivingBeing {
 
     public override void UpdateHealthUI(int _damage)
     {
+        Player.GetComponent<PlayerController>().PlayNarratorCLip(3);
         //material.color = new Color(1 - life/maxLife, life/maxLife, 0, 1);
     }
 	
     public override void Die()
     {
-        EggAudio.PlayOneShot(eggHatching);
         base.Die();
 		hatchingTime = 0;
         spawnMan.eggs.Remove(transform);

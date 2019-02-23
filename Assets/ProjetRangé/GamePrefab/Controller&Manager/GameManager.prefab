@@ -113,6 +113,7 @@ MonoBehaviour:
   restTimerFlavor: 'A brief respite:'
   waveTimerText: {fileID: 114446249414632664, guid: 8126c08c43fa5b34b8802d32f752283f,
     type: 2}
+  Player: {fileID: 1082402980589760, guid: e52e955854e182849a85bfbc65ca9d7a, type: 2}
 --- !u!114 &114991777532292108
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -152,11 +153,12 @@ MonoBehaviour:
   paraMan: {fileID: 0}
   tutorialCanvas: {fileID: 1252889100393728, guid: 0751d75abe75f444eac3d5c2e8eceb3c,
     type: 2}
+  instancedTutoCanvas: {fileID: 0}
   tutorials:
-  - {fileID: 1815544294588866, guid: 0751d75abe75f444eac3d5c2e8eceb3c, type: 2}
-  - {fileID: 1261362431287958, guid: 0751d75abe75f444eac3d5c2e8eceb3c, type: 2}
-  - {fileID: 1265539942501836, guid: 0751d75abe75f444eac3d5c2e8eceb3c, type: 2}
-  - {fileID: 1481491160443378, guid: 0751d75abe75f444eac3d5c2e8eceb3c, type: 2}
-  - {fileID: 1614331543172660, guid: 0751d75abe75f444eac3d5c2e8eceb3c, type: 2}
-  - {fileID: 1438189767501592, guid: 0751d75abe75f444eac3d5c2e8eceb3c, type: 2}
-  - {fileID: 1349277299633092, guid: 0751d75abe75f444eac3d5c2e8eceb3c, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

@@ -164,6 +164,7 @@ public class PlayerController : LivingBeing
     AudioSource WindflowSoundSource;
     AudioSource AttackSoundSource;
     AudioSource SFXSource;
+    AudioSource narratorVoices;
     public AudioClip DodgeClip;
     public AudioClip SlowdownClip;
     public AudioClip WindflowClip;
@@ -171,21 +172,25 @@ public class PlayerController : LivingBeing
     private float dragonHitCooldown;
     public float dragonHitMaxCooldown;
     public AudioClip DragonDeathClip;
-    public AudioClip EggDropping;
+    public AudioClip[] sfxEnemiesDeaths;
+    public float sfxDeathsCooldown;
+    public AudioClip[] narratorSfxClips;
 
     public void Awake()
     {
         InstantiateRefs();
+        AudioSources = gameObject.GetComponents<AudioSource>();
+        Debug.Log("Nombre d'AudioSources : " + AudioSources.Length);
+        WindflowSoundSource = AudioSources[0];
+        AttackSoundSource = AudioSources[1];
+        SFXSource = AudioSources[2];
+        narratorVoices = AudioSources[4];
     }
 
     public override void Start()
     {
         base.Start();
-        AudioSources = GetComponents<AudioSource>();
-        WindflowSoundSource = AudioSources[0];
-        AttackSoundSource = AudioSources[1];
-        SFXSource = AudioSources[2];
-
+        
         //LifeQuad.material.shader = Shader.Find ("LifeEnergyShader");
         lifeFeedBackAmount = lifesShader = 1;
         stamina = maxStamina;
@@ -208,6 +213,8 @@ public class PlayerController : LivingBeing
         hinput = Input.GetAxis("Horizontal");
         vinput = Input.GetAxis("Vertical");
         WindflowSoundSource.volume = speed / sprintSpeed;
+        WindflowSoundSource.pitch = speed / sprintSpeed;
+
         switch (playerState)
         {
             case PlayerStates.FLYING:
@@ -257,8 +264,9 @@ public class PlayerController : LivingBeing
                 break;
         }
 
-        timeOutOfSlow -= Time.deltaTime;
-        if(dragonHitCooldown > 0) { dragonHitCooldown--; }
+        if (timeOutOfSlow > 0) { timeOutOfSlow -= Time.deltaTime; }
+        if (sfxDeathsCooldown > 0) { sfxDeathsCooldown -= Time.deltaTime; }
+        if (dragonHitCooldown > 0) { dragonHitCooldown -= Time.deltaTime; }
         UpdateStaminaUI();
     }
 
@@ -446,8 +454,6 @@ public class PlayerController : LivingBeing
     {
         if (Input.GetButtonDown(inputInteract) && canLand)
         {
-            SFXSource.PlayOneShot(EggDropping);
-
             if (playerState == PlayerStates.TURNING_AROUND)
                 StopTurningAround();
 
@@ -573,6 +579,39 @@ public class PlayerController : LivingBeing
         if (slowTime < slowCooldown)
             slowTime += Time.deltaTime;
     }
+    
+    //Sound Functions
+    public void PlayArchersDeath()
+    {
+        if (sfxDeathsCooldown <= 0)
+        {
+            SFXSource.PlayOneShot(sfxEnemiesDeaths[0], 1f);
+        }
+    }
+
+    public void PlayBallistaDeath()
+    {
+        if (sfxDeathsCooldown <= 0)
+        {
+            SFXSource.PlayOneShot(sfxEnemiesDeaths[1], 1f);
+        }
+    }
+
+    public void PlayNarratorCLip(int scenario)
+    {
+        for (int u = 0; u < narratorSfxClips.Length; u++)
+        {
+            if (u == scenario)
+            {
+                narratorVoices.PlayOneShot(narratorSfxClips[u], 1f);
+            }
+        }
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene(1);
+    }
 
     //Overrides
 
@@ -589,6 +628,7 @@ public class PlayerController : LivingBeing
         StamiQuad.enabled = false;
 
         SFXSource.PlayOneShot(DragonDeathClip, 1);
+
         if (babyDragonMan.babyDragons.Count > 0)
         {
             //Instantiate(placeholderFeedback, babyDragonMan.babyDragons[0].transform.position, Quaternion.identity);
@@ -597,7 +637,8 @@ public class PlayerController : LivingBeing
             StartCoroutine(INewMother());
         }
         else
-            SceneManager.LoadScene(1);
+            PlayNarratorCLip(2);
+            Invoke("BackToMenu",2f);
     }
 
     public override void UpdateHealthUI(int _damage)

@@ -8079,12 +8079,12 @@ Prefab:
         type: 2}
       propertyPath: activeSpawners.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1972807739}
     - target: {fileID: 114882257413169298, guid: b9ea2f1bd5c68f14fb890aeb1285d6f2,
         type: 2}
       propertyPath: activeSpawners.Array.data[1]
       value: 
-      objectReference: {fileID: 1972807739}
+      objectReference: {fileID: 758191037}
     - target: {fileID: 114882257413169298, guid: b9ea2f1bd5c68f14fb890aeb1285d6f2,
         type: 2}
       propertyPath: activeSpawners.Array.data[2]
@@ -8094,7 +8094,7 @@ Prefab:
         type: 2}
       propertyPath: activeSpawners.Array.data[3]
       value: 
-      objectReference: {fileID: 133660860}
+      objectReference: {fileID: 1986411275}
     - target: {fileID: 114882257413169298, guid: b9ea2f1bd5c68f14fb890aeb1285d6f2,
         type: 2}
       propertyPath: spawnersOutOfMap.Array.data[0]
@@ -8123,7 +8123,7 @@ Prefab:
     - target: {fileID: 114882257413169298, guid: b9ea2f1bd5c68f14fb890aeb1285d6f2,
         type: 2}
       propertyPath: maxEnemyCount
-      value: 50
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 114882257413169298, guid: b9ea2f1bd5c68f14fb890aeb1285d6f2,
         type: 2}
@@ -8148,6 +8148,36 @@ Prefab:
     - target: {fileID: 114882257413169298, guid: b9ea2f1bd5c68f14fb890aeb1285d6f2,
         type: 2}
       propertyPath: spawnersOutOfMap.Array.data[9]
+      value: 
+      objectReference: {fileID: 134465143}
+    - target: {fileID: 114882257413169298, guid: b9ea2f1bd5c68f14fb890aeb1285d6f2,
+        type: 2}
+      propertyPath: activeSpawners.Array.data[4]
+      value: 
+      objectReference: {fileID: 133660860}
+    - target: {fileID: 114882257413169298, guid: b9ea2f1bd5c68f14fb890aeb1285d6f2,
+        type: 2}
+      propertyPath: activeSpawners.Array.data[5]
+      value: 
+      objectReference: {fileID: 113356094}
+    - target: {fileID: 114882257413169298, guid: b9ea2f1bd5c68f14fb890aeb1285d6f2,
+        type: 2}
+      propertyPath: activeSpawners.Array.data[6]
+      value: 
+      objectReference: {fileID: 1575743924}
+    - target: {fileID: 114882257413169298, guid: b9ea2f1bd5c68f14fb890aeb1285d6f2,
+        type: 2}
+      propertyPath: activeSpawners.Array.data[7]
+      value: 
+      objectReference: {fileID: 1587147403}
+    - target: {fileID: 114882257413169298, guid: b9ea2f1bd5c68f14fb890aeb1285d6f2,
+        type: 2}
+      propertyPath: activeSpawners.Array.data[8]
+      value: 
+      objectReference: {fileID: 345247756}
+    - target: {fileID: 114882257413169298, guid: b9ea2f1bd5c68f14fb890aeb1285d6f2,
+        type: 2}
+      propertyPath: activeSpawners.Array.data[9]
       value: 
       objectReference: {fileID: 134465143}
     m_RemovedComponents: []

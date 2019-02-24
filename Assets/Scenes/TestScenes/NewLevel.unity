@@ -1791,6 +1791,11 @@ Prefab:
       propertyPath: minTimeToSpawn
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 114550151332927422, guid: a55c59ba766792648921dae4777f77b0,
+        type: 2}
+      propertyPath: paramSpawn
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55c59ba766792648921dae4777f77b0, type: 2}
   m_IsPrefabAsset: 0
@@ -12781,6 +12786,11 @@ Prefab:
       propertyPath: minTimeToSpawn
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 114550151332927422, guid: a55c59ba766792648921dae4777f77b0,
+        type: 2}
+      propertyPath: paramSpawn
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55c59ba766792648921dae4777f77b0, type: 2}
   m_IsPrefabAsset: 0
@@ -14418,6 +14428,11 @@ Prefab:
         type: 2}
       propertyPath: minTimeToSpawn
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114550151332927422, guid: a55c59ba766792648921dae4777f77b0,
+        type: 2}
+      propertyPath: paramSpawn
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55c59ba766792648921dae4777f77b0, type: 2}
@@ -19593,6 +19608,11 @@ Prefab:
       propertyPath: minTimeToSpawn
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 114550151332927422, guid: a55c59ba766792648921dae4777f77b0,
+        type: 2}
+      propertyPath: paramSpawn
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55c59ba766792648921dae4777f77b0, type: 2}
   m_IsPrefabAsset: 0
@@ -19847,6 +19867,11 @@ Prefab:
         type: 2}
       propertyPath: minTimeToSpawn
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114550151332927422, guid: a55c59ba766792648921dae4777f77b0,
+        type: 2}
+      propertyPath: paramSpawn
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55c59ba766792648921dae4777f77b0, type: 2}

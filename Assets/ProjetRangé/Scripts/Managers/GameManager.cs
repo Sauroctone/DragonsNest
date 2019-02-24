@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour {
     int currentTutorial= -1;
     internal bool gotFirstBabyDragon;
     internal bool selfDestructed;
-    bool playedTutorial;
+    int playedTutorial;
 
     private void Awake()
     {
@@ -64,6 +64,8 @@ public class GameManager : MonoBehaviour {
         InitManagers();
         timeMan.LaunchTimer();
 
+        playedTutorial = PlayerPrefs.GetInt("playedTuto",0);
+
         tutorials = instancedTutoCanvas.GetComponentsInChildren<Image>(true);
         Debug.Log("nombre de fiches de tuto : " + tutorials.Length);
     }
@@ -72,7 +74,7 @@ public class GameManager : MonoBehaviour {
     {
         if (currentTutorial == -1)
         {
-            if (playedTutorial)
+            if (playedTutorial==0)
                 currentTutorial = 5;
 
             Debug.Log("Next Tuto");
@@ -134,7 +136,8 @@ public class GameManager : MonoBehaviour {
             spawnMan.BeginWave();
             eggMan.LaunchEgg();
 
-            ////// BOOL PLAYEDTUTORIAL ICI ////////
+            PlayerPrefs.SetInt("playedTuto", 1);
+            PlayerPrefs.Save();
         }
         else
         {

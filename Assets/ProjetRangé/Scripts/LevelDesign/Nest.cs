@@ -52,7 +52,7 @@ public class Nest : MonoBehaviour
 		if(egg.gameObject.activeInHierarchy==false)
 		{
 			egg.Start();
-            egg.hatchingTime = 20.0f;
+            egg.hatchingTime = 15.0f;
 			egg.gameObject.SetActive(true);
             return egg.transform;
 		}

@@ -9,7 +9,10 @@ public class ParameterManager : MonoBehaviour
     private void Awake()
     {
         if (Instance == null)
+        {
             Instance = this;
+            DontDestroyOnLoad(this);
+        }
         else
             Destroy(this);
     }

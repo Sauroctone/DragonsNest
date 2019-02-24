@@ -101,9 +101,13 @@ public class SpawnManager : MonoBehaviour {
         }
         foreach (EnemySpawner spawner in spawnersOutOfMap)
         {
-            if (spawner.spawnMan == null)
-                spawner.spawnMan = this;
-            spawner.OnWaveBeginning();
+            if (spawner.gameObject.activeSelf)
+            {
+                if (spawner.spawnMan == null)
+                    spawner.spawnMan = this;
+
+                spawner.OnWaveBeginning();
+            }
         }
     }
 

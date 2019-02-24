@@ -74,10 +74,10 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Next Tuto");
             NextTutorial();
         }
-        if (Input.GetKeyDown(KeyCode.Insert)) {
-            currentTutorial++;
-            NextTutorial();
-        }
+        //if (Input.GetKeyDown(KeyCode.Insert)) {
+        //    currentTutorial++;
+        //    NextTutorial();
+        //}
     }
 
     void InitManagers()
@@ -104,15 +104,24 @@ public class GameManager : MonoBehaviour {
         currentTutorial++;
         Debug.Log(currentTutorial);
 
+        //if (currentTutorial > 0)
+        //{
+        //    if (currentTutorial <= (tutorials.Length + 1))
+        //    {
+        //        if (tutorials[currentTutorial - 1].gameObject.activeSelf == true)
+        //        {
+        //            tutorials[currentTutorial - 1].gameObject.SetActive(false);
+        //            Debug.Log(tutorials[currentTutorial - 1].gameObject.activeSelf);
+        //        }
+        //    }
+        //}
+
         if (currentTutorial > 0)
         {
-            if (currentTutorial <= (tutorials.Length + 1))
+            if (tutorials[currentTutorial - 1].gameObject.activeSelf)
             {
-                if (tutorials[currentTutorial - 1].gameObject.activeSelf == true)
-                {
-                    tutorials[currentTutorial - 1].gameObject.SetActive(false);
-                    Debug.Log(tutorials[currentTutorial - 1].gameObject.activeSelf);
-                }
+                tutorials[currentTutorial - 1].gameObject.SetActive(false);
+                Debug.Log(tutorials[currentTutorial - 1].gameObject.activeSelf);
             }
         }
 

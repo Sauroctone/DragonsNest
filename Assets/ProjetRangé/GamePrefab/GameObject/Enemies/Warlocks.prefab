@@ -1919,7 +1919,7 @@ MonoBehaviour:
   playerRb: {fileID: 0}
   state: 0
   archers: []
-  bannerMan: {fileID: 0}
+  bannerMan: {fileID: 1899714551933594}
   updatePathFrequency: 0.2
   debugSphere: {fileID: 0}
   moveRotLerp: 0.1
@@ -1967,7 +1967,6 @@ MonoBehaviour:
   nav: {fileID: 195031232302732186}
   normalMat: {fileID: 2100000, guid: 5a9f70f0b5a12c3489e1142f1db87559, type: 2}
   aimMat: {fileID: 2100000, guid: 3e4738cc171cb5346a51e375ceb04d08, type: 2}
-  Player: {fileID: 1082402980589760, guid: e52e955854e182849a85bfbc65ca9d7a, type: 2}
 --- !u!114 &114785130118390924
 MonoBehaviour:
   m_ObjectHideFlags: 1

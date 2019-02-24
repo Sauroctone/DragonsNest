@@ -13,15 +13,15 @@ public class DEBUG : MonoBehaviour {
 	void Update () 
 	{
 
-		if(Input.GetKeyDown(KeyCode.U))
-		{
-			GameManager.Instance.player.life = 0;
-		}
+		//if(Input.GetKeyDown(KeyCode.U))
+		//{
+		//	GameManager.Instance.player.life = 0;
+		//}
 		
-		if(Input.GetKeyDown(KeyCode.I))
-		{
-			GameManager.Instance.scoreManager.score += 1000;			
-		}
+		//if(Input.GetKeyDown(KeyCode.I))
+		//{
+		//	GameManager.Instance.scoreManager.score += 1000;			
+		//}
 
 	}
 }

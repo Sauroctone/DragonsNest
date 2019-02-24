@@ -254,7 +254,7 @@ public class PlayerController : LivingBeing
                 Sprint();
                 SlowDown();
                 ChargeSelfDestruct();
-                Dodge();
+                //Dodge();
                 break;
 
             case PlayerStates.TURNING_AROUND:
@@ -617,8 +617,10 @@ public class PlayerController : LivingBeing
             StartCoroutine(INewMother());
         }
         else
+        {
             PlayNarratorCLip(2);
             Invoke("BackToMenu",2f);
+        }
     }
 
     public override void UpdateHealthUI(int _damage)

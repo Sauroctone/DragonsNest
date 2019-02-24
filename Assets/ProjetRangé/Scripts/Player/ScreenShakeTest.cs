@@ -50,9 +50,9 @@ public class ScreenShakeTest : MonoBehaviour {
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.RightShift))
-        {
-            ShakeScreenFor(debugShakeTimer, debugShakeSize, debugShakeSpeed);
-        }
+        //if (Input.GetKeyDown(KeyCode.RightShift))
+        //{
+        //    ShakeScreenFor(debugShakeTimer, debugShakeSize, debugShakeSpeed);
+        //}
     }
 }

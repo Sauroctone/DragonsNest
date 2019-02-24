@@ -244,14 +244,12 @@ public class PlayerController : LivingBeing
                 Shoot();
                 Sprint();
                 SlowDown();
-                LayEgg();
                 ChargeSelfDestruct();
                 Dodge();
                 break;
 
             case PlayerStates.TURNING_AROUND:
                 Shoot();
-                LayEgg();
                 break;
         }
 
@@ -440,18 +438,6 @@ public class PlayerController : LivingBeing
         }
     }
 
-    void LayEgg()
-    {
-        if (Input.GetButtonDown(inputInteract) && canLand)
-        {
-            SFXSource.PlayOneShot(EggDropping);
-
-            if (playerState == PlayerStates.TURNING_AROUND)
-                StopTurningAround();
-
-            StartCoroutine(ILayEgg());
-        }
-    }
 
     void ChargeSelfDestruct()
     {
@@ -671,7 +657,7 @@ public class PlayerController : LivingBeing
 
     internal override IEnumerator IHealthBarRegen(float _timeToRegen)
     {
-        lifeFeedBackAmount = 1;
+        lifeFeedBackAmount = 0;
         LifeQuad.material.SetFloat("_LifeFeedbackAmount", lifeFeedBackAmount);
 
         float time = 0;

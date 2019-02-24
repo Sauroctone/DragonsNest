@@ -47,4 +47,15 @@ public class Nest : MonoBehaviour
 		}
         return null;
 	}
+    public Transform ActionTuto()
+	{
+		if(egg.gameObject.activeInHierarchy==false)
+		{
+			egg.Start();
+            egg.hatchingTime = 20.0f;
+			egg.gameObject.SetActive(true);
+            return egg.transform;
+		}
+        return null;
+	}
 }

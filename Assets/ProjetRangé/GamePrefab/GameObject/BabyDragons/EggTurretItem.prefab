@@ -522,6 +522,8 @@ MonoBehaviour:
   canBeADrone: 0
   fullLifeCol: {r: 0, g: 1, b: 0, a: 1}
   lowLifeCol: {r: 1, g: 0, b: 0, a: 1}
+  eggAudioMaxCooldown: 3
+  eggAudioCooldown: 0
   eggHatching: {fileID: 8300000, guid: 2ac7bc3d21eca8d4195451a52fc55f3e, type: 3}
   Player: {fileID: 0}
 --- !u!114 &114554814738244898

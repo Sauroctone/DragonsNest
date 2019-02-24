@@ -573,7 +573,7 @@ public class PlayerController : LivingBeing
     {
         if (sfxDeathsCooldown <= 0)
         {
-            SFXSource.PlayOneShot(sfxEnemiesDeaths[Random.Range(0, sfxEnemiesDeaths.Length)], 1f);
+            SFXSource.PlayOneShot(sfxEnemiesDeaths[Random.Range(0, sfxEnemiesDeaths.Length)]);
         }
     }
 

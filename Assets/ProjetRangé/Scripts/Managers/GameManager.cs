@@ -40,7 +40,10 @@ public class GameManager : MonoBehaviour {
     [Header("Parameters")]
     public ParameterManager paraMan;
 
-    public GameObject[] tutorials;
+    public GameObject tutorialCanvas;
+    public GameObject instancedTutoCanvas;
+    public Image[] tutorials;
+
     int currentTutorial= -1;
     internal bool gotFirstBabyDragon;
     internal bool selfDestructed;
@@ -59,12 +62,22 @@ public class GameManager : MonoBehaviour {
 
         InitManagers();
         timeMan.LaunchTimer();
+
+        tutorials = instancedTutoCanvas.GetComponentsInChildren<Image>(true);
+        Debug.Log("nombre de fiches de tuto : " + tutorials.Length);
     }
 
     private void Update()
     {
         if (currentTutorial == -1)
+        {
+            Debug.Log("Next Tuto");
             NextTutorial();
+        }
+        //if (Input.GetKeyDown(KeyCode.Insert)) {
+        //    currentTutorial++;
+        //    NextTutorial();
+        //}
     }
 
     void InitManagers()
@@ -83,24 +96,43 @@ public class GameManager : MonoBehaviour {
         mainCamera = camBehaviour.gameObject.GetComponentInChildren<Camera>();
         UI = Instantiate(UI);
         spawnMan.waveTimerText = UI.transform.GetChild(2).GetComponentInChildren<Text>();
+        instancedTutoCanvas = GameObject.Instantiate(tutorialCanvas);
     }   
 
     public void NextTutorial()
     {
         currentTutorial++;
+        Debug.Log(currentTutorial);
+
+        //if (currentTutorial > 0)
+        //{
+        //    if (currentTutorial <= (tutorials.Length + 1))
+        //    {
+        //        if (tutorials[currentTutorial - 1].gameObject.activeSelf == true)
+        //        {
+        //            tutorials[currentTutorial - 1].gameObject.SetActive(false);
+        //            Debug.Log(tutorials[currentTutorial - 1].gameObject.activeSelf);
+        //        }
+        //    }
+        //}
 
         if (currentTutorial > 0)
-            tutorials[currentTutorial -1].SetActive(false);
+        {
+            if (tutorials[currentTutorial - 1].gameObject.activeSelf)
+            {
+                tutorials[currentTutorial - 1].gameObject.SetActive(false);
+                Debug.Log(tutorials[currentTutorial - 1].gameObject.activeSelf);
+            }
+        }
 
-        if (true)
-//        if (currentTutorial == tutorials.Length)
+        if (currentTutorial == tutorials.Length)
         {
             spawnMan.BeginWave();
             eggMan.LaunchEgg();
         }
         else
         {
-            tutorials[currentTutorial].SetActive(true);
+            tutorials[currentTutorial].gameObject.SetActive(true);
             StartCoroutine(ITutorial());
         }
     }
@@ -143,14 +175,14 @@ public class GameManager : MonoBehaviour {
                 NextTutorial();
                 break;
             case 5:
-                while (!Input.GetButtonDown(player.inputInteract))
+                while (!selfDestructed)
                 {
                     yield return null;
                 }
                 NextTutorial();
                 break;
             case 6:
-                while (!selfDestructed)
+                while (!Input.GetButtonDown(player.inputInteract))
                 {
                     yield return null;
                 }

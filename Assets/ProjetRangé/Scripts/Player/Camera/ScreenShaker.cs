@@ -44,10 +44,10 @@ public class ScreenShaker : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.RightControl))
-        {
-            SetTrauma(1f, .5f, 10f, 2f);
-        }
+        //if (Input.GetKeyDown(KeyCode.RightControl))
+        //{
+        //    SetTrauma(1f, .5f, 10f, 2f);
+        //}
 
         if (canShake && Trauma > 0)
         {

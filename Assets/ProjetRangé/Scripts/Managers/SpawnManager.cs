@@ -87,6 +87,7 @@ public class SpawnManager : MonoBehaviour {
     {
         waveState = WaveState.DURING_WAVE;
         currentWave++;
+        player.GetComponent<PlayerController>().PlayNarratorCLip(4);
         Debug.Log("Launching wave " + currentWave);
         waveCor = StartCoroutine(IWave());
         int spawnersToActivate = Mathf.CeilToInt(currentWave * spawnerCountIncrement);
@@ -100,14 +101,19 @@ public class SpawnManager : MonoBehaviour {
         }
         foreach (EnemySpawner spawner in spawnersOutOfMap)
         {
-            if (spawner.spawnMan == null)
-                spawner.spawnMan = this;
-            spawner.OnWaveBeginning();
+            if (spawner.gameObject.activeSelf)
+            {
+                if (spawner.spawnMan == null)
+                    spawner.spawnMan = this;
+
+                spawner.OnWaveBeginning();
+            }
         }
     }
 
     void EndWave()
     {
+        player.GetComponent<PlayerController>().PlayNarratorCLip(Random.Range(0,1));
         Debug.Log("End of wave " + currentWave);
 
         foreach (EnemySpawner spawner in activeSpawners)

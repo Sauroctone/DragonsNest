@@ -172,7 +172,6 @@ GameObject:
   - component: {fileID: 195031232302732186}
   - component: {fileID: 114690655368564356}
   - component: {fileID: 136575096871245594}
-  - component: {fileID: 82626802987706950}
   m_Layer: 19
   m_Name: Archers
   m_TagString: Enemies
@@ -4821,101 +4820,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1851942847554254}
   m_Mesh: {fileID: 4300000, guid: 56bbb03ab787d484abc5be0827cf440e, type: 3}
---- !u!82 &82626802987706950
-AudioSource:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1096279583823314}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 5ab6c9865e5d95b49b080fecbb6bce76, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!114 &114025324550670794
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5582,6 +5486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6d4ef07e48195d4eb4047a24ae0312f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 3.5
   currentTarget: {fileID: 0}
   autoTargets:
   - type: 0
@@ -5619,21 +5524,20 @@ MonoBehaviour:
   - {fileID: 114049280244713672}
   - {fileID: 114429825857632074}
   bannerMan: {fileID: 1477360616450988}
-  moveSpeed: 3.5
   updatePathFrequency: 0.2
   debugSphere: {fileID: 0}
   moveRotLerp: 0.1
   aimObstacleLayer:
     serializedVersion: 2
     m_Bits: 2048
-  aimRange: 20
+  aimRange: 25
   aimTime: 1
   minShootTime: 0
   maxShootTime: 0.1
   postShootIdleTime: 0.5
-  shootCooldown: 2
+  shootCooldown: 1
   arrow: {fileID: 1737514496264914, guid: 235608be6731cea4faafea349538a6a6, type: 2}
-  arrowSpeed: 20
+  arrowSpeed: 25
   arrowLifetime: 2
   arrowMaxHeight: 5
   visualTrajectory:
@@ -5676,6 +5580,7 @@ MonoBehaviour:
   nav: {fileID: 195031232302732186}
   normalMat: {fileID: 2100000, guid: 5a9f70f0b5a12c3489e1142f1db87559, type: 2}
   aimMat: {fileID: 2100000, guid: 3e4738cc171cb5346a51e375ceb04d08, type: 2}
+  Player: {fileID: 1082402980589760, guid: e52e955854e182849a85bfbc65ca9d7a, type: 2}
 --- !u!114 &114693004291399994
 MonoBehaviour:
   m_ObjectHideFlags: 1

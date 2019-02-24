@@ -29,11 +29,11 @@ public class BabyDragonManager : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            SpawnNewBabyDragon();
+        //if (Input.GetKeyDown(KeyCode.Return))
+        //{
+        //    SpawnNewBabyDragon();
 
-        }
+        //}
     }
 
     public void SpawnNewBabyDragon()

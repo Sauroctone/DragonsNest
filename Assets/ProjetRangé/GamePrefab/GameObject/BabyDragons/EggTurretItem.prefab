@@ -514,12 +514,18 @@ MonoBehaviour:
   feedbackDecayTime: 0
   lifeBar: {fileID: 0}
   lifeBarFeedback: {fileID: 0}
+  scoringObject: {fileID: 0}
   hatchingTimeMax: 30
   hatchingTime: 0
-  rend: {fileID: 23833415561047980}
   particle: {fileID: 198566609509605934}
-  turret: {fileID: 1939580617145788}
   pickupCol: {fileID: 0}
+  canBeADrone: 0
+  fullLifeCol: {r: 0, g: 1, b: 0, a: 1}
+  lowLifeCol: {r: 1, g: 0, b: 0, a: 1}
+  eggAudioMaxCooldown: 3
+  eggAudioCooldown: 0
+  eggHatching: {fileID: 8300000, guid: 2ac7bc3d21eca8d4195451a52fc55f3e, type: 3}
+  Player: {fileID: 0}
 --- !u!114 &114554814738244898
 MonoBehaviour:
   m_ObjectHideFlags: 1

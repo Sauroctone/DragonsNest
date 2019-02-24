@@ -164,26 +164,33 @@ public class PlayerController : LivingBeing
     AudioSource WindflowSoundSource;
     AudioSource AttackSoundSource;
     AudioSource SFXSource;
+    AudioSource narratorVoices;
     public AudioClip DodgeClip;
     public AudioClip SlowdownClip;
     public AudioClip WindflowClip;
     public AudioClip DragonHitClip;
+    private float dragonHitCooldown;
+    public float dragonHitMaxCooldown;
     public AudioClip DragonDeathClip;
-    public AudioClip EggDropping;
+    public AudioClip[] sfxEnemiesDeaths;
+    public float sfxDeathsCooldown;
+    public AudioClip[] narratorSfxClips;
 
     public void Awake()
     {
         InstantiateRefs();
+        AudioSources = gameObject.GetComponents<AudioSource>();
+        Debug.Log("Nombre d'AudioSources : " + AudioSources.Length);
+        WindflowSoundSource = AudioSources[0];
+        AttackSoundSource = AudioSources[1];
+        SFXSource = AudioSources[2];
+        narratorVoices = AudioSources[4];
     }
 
     public override void Start()
     {
         base.Start();
-        AudioSources = GetComponents<AudioSource>();
-        WindflowSoundSource = AudioSources[0];
-        AttackSoundSource = AudioSources[1];
-        SFXSource = AudioSources[2];
-
+        
         //LifeQuad.material.shader = Shader.Find ("LifeEnergyShader");
         lifeFeedBackAmount = lifesShader = 1;
         stamina = maxStamina;
@@ -206,6 +213,8 @@ public class PlayerController : LivingBeing
         hinput = Input.GetAxis("Horizontal");
         vinput = Input.GetAxis("Vertical");
         WindflowSoundSource.volume = speed / sprintSpeed;
+        WindflowSoundSource.pitch = speed / sprintSpeed;
+
         switch (playerState)
         {
             case PlayerStates.FLYING:
@@ -245,7 +254,7 @@ public class PlayerController : LivingBeing
                 Sprint();
                 SlowDown();
                 ChargeSelfDestruct();
-                Dodge();
+                //Dodge();
                 break;
 
             case PlayerStates.TURNING_AROUND:
@@ -253,8 +262,9 @@ public class PlayerController : LivingBeing
                 break;
         }
 
-        timeOutOfSlow -= Time.deltaTime;
-
+        if (timeOutOfSlow > 0) { timeOutOfSlow -= Time.deltaTime; }
+        if (sfxDeathsCooldown > 0) { sfxDeathsCooldown -= Time.deltaTime; }
+        if (dragonHitCooldown > 0) { dragonHitCooldown -= Time.deltaTime; }
         UpdateStaminaUI();
     }
 
@@ -557,6 +567,27 @@ public class PlayerController : LivingBeing
         if (slowTime < slowCooldown)
             slowTime += Time.deltaTime;
     }
+    
+    //Sound Functions
+    public void PlayEnemiesDeath()
+    {
+        if (sfxDeathsCooldown <= 0)
+        {
+            SFXSource.PlayOneShot(sfxEnemiesDeaths[Random.Range(0, sfxEnemiesDeaths.Length)]);
+        }
+    }
+
+    public void PlayNarratorCLip(int scenario)
+    {
+        for (int u = 0; u < narratorSfxClips.Length; u++)
+        {
+            if (u == scenario)
+            {
+                narratorVoices.PlayOneShot(narratorSfxClips[u], 1f);
+            }
+        }
+    }
+
 
     //Overrides
 
@@ -573,6 +604,7 @@ public class PlayerController : LivingBeing
         StamiQuad.enabled = false;
 
         SFXSource.PlayOneShot(DragonDeathClip, 1);
+
         if (babyDragonMan.babyDragons.Count > 0)
         {
             //Instantiate(placeholderFeedback, babyDragonMan.babyDragons[0].transform.position, Quaternion.identity);
@@ -581,13 +613,15 @@ public class PlayerController : LivingBeing
             StartCoroutine(INewMother());
         }
         else
-            SceneManager.LoadScene(1);
+        {
+            Invoke("BackToMenu",2f);
+        }
     }
 
     public override void UpdateHealthUI(int _damage)
     {
         LifeQuad.material.SetFloat("_Life", lifesShader);
-        SFXSource.PlayOneShot(DragonHitClip, 0.2f);
+        if (dragonHitCooldown <= 0) { SFXSource.PlayOneShot(DragonHitClip, 1f); dragonHitCooldown = dragonHitMaxCooldown; }
         //base.UpdateHealthUI(_damage);
         LifeQuad.material.SetFloat("_Life", life / maxLife);
 

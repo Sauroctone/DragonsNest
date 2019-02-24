@@ -52,7 +52,6 @@ public class GameManager : MonoBehaviour {
         CreateInstances();
         paraMan = ParameterManager.Instance;
         scoreManager = UI.GetComponentInChildren<ScoreManager>();
-
         lb.LoadLeaderBoard();
 
         if (Instance == null)
@@ -116,10 +115,10 @@ public class GameManager : MonoBehaviour {
             }
         }
 
-        if (currentTutorial >= tutorials.Length)
+        if (currentTutorial == tutorials.Length)
         {
             spawnMan.BeginWave();
-            //CALL TRUE EGG
+            eggMan.LaunchEgg();
         }
         else
         {
@@ -160,7 +159,7 @@ public class GameManager : MonoBehaviour {
                     yield return null;
                 }
                 NextTutorial();
-                //CALL TUTORIAL EGG
+                eggMan.RandomLayEggTuto();
                 break;
             case 4:
                 while (!gotFirstBabyDragon)
@@ -189,3 +188,9 @@ public class GameManager : MonoBehaviour {
         }
     }
 }
+
+    {
+        CreateInstances();
+        paraMan = ParameterManager.Instance;
+        scoreManager = UI.GetComponentInChildren<ScoreManager>();
+        if (currentTutorial >= tutorials.Length)

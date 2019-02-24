@@ -63,9 +63,8 @@ public class ButtonEffect : MonoBehaviour {
 
 	public void LoadLeaderBoardScene()
 	{
-        SfxSource.PlayOneShot(buttonConfirmSFX, 1f);
-        //TestPlease Dont toutch
-        GameManager.Instance.lb.AddANewPlayer(iF.text,GameManager.Instance.timeMan.timer,Mathf.RoundToInt (GameManager.Instance.scoreManager.score*GameManager.Instance.paraMan.enemySpeed/(GameManager.Instance.paraMan.eggSpeed*GameManager.Instance.paraMan.playerSpeed)));
+		//TestPlease Dont toutch
+		GameManager.Instance.lb.AddANewPlayer(iF.text,GameManager.Instance.timeMan.timer,Mathf.RoundToInt (GameManager.Instance.scoreManager.score*GameManager.Instance.paraMan.enemySpeed*(1+GameManager.Instance.paraMan.fortNumer*0.2f)/(GameManager.Instance.paraMan.eggSpeed*GameManager.Instance.paraMan.playerSpeed)));
 		GameManager.Instance.lb.SaveLeaderBoard();
 		//
 		SceneManager.LoadScene(2);

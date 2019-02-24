@@ -117,7 +117,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1789560518037062}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -131.1, y: 0, z: -137.1}
+  m_LocalPosition: {x: -173.4, y: 0, z: -18.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4918005546953692}
@@ -386,14 +386,14 @@ MonoBehaviour:
   egg: {fileID: 114225908017078630}
   scaleEgg: 1
   eggShader: {fileID: 2100000, guid: 6c41beadfff24444e804b151191657b7, type: 2}
-  eggLifeMaxColor: {r: 0.21529883, g: 0.8962264, b: 0, a: 1}
-  eggLowLifeColor: {r: 0.8980392, g: 0, b: 0.13360417, a: 1}
+  eggLifeMaxColor: {r: 1, g: 0.9019608, b: 0, a: 1}
+  eggLowLifeColor: {r: 1, g: 0.3137255, b: 0.13360417, a: 1}
   eggBAckgroundColor: {r: 0, g: 0, b: 0, a: 1}
   circleShader: {fileID: 2100000, guid: fe6a03e1a9e29ef4b8df8aa42acb23d3, type: 2}
   circleColor: {r: 0.93044674, g: 0.9716981, b: 0.9618199, a: 1}
   circleBAckgroundColor: {r: 0, g: 0, b: 0, a: 1}
-  eggImage: {fileID: 2800000, guid: d22a5ac92977ce04ea8a3c157ce9ca77, type: 3}
-  indicatorImage: {fileID: 2800000, guid: d22a5ac92977ce04ea8a3c157ce9ca77, type: 3}
+  eggImage: {fileID: 2800000, guid: 7c170faa1b7dd544d9eafda5e49a4a49, type: 3}
+  indicatorImage: {fileID: 2800000, guid: 7c170faa1b7dd544d9eafda5e49a4a49, type: 3}
 --- !u!114 &114970654633114426
 MonoBehaviour:
   m_ObjectHideFlags: 1

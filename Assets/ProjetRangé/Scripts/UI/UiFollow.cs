@@ -10,8 +10,10 @@ public class UiFollow : MonoBehaviour {
 	public Egg egg;
 
 	[Range(0.1f,2.0f)]
-	public float scaleEgg;
-	private Camera mainCam;
+    public float scaleEgg;
+    [Range(0.1f, 2.0f)]
+	public float scaleMinEgg;
+    private Camera mainCam;
 	public Material eggShader;
 	public Color eggLifeMaxColor, eggLowLifeColor, eggBAckgroundColor;	
 	public Material circleShader;
@@ -86,8 +88,8 @@ public class UiFollow : MonoBehaviour {
 
 		}
 		
-		Graphics.DrawTexture(new Rect((decalPlayer.x+1)/2*Screen.width-10,(decalPlayer.y+1)/2*Screen.height-10,30,30),tex,circleShader);
-		Graphics.DrawTexture(new Rect((decalPlayer.x+1)/2*Screen.width-5,(decalPlayer.y+1)/2*Screen.height-5,20,20),tex,eggShader);
+		Graphics.DrawTexture(new Rect((decalPlayer.x+1)/2*Screen.width-10*scaleMinEgg,(decalPlayer.y+1)/2*Screen.height-10*scaleMinEgg,30*scaleMinEgg,30*scaleMinEgg),tex,circleShader);
+		Graphics.DrawTexture(new Rect((decalPlayer.x+1)/2*Screen.width-5*scaleMinEgg,(decalPlayer.y+1)/2*Screen.height-5*scaleMinEgg,20*scaleMinEgg,20*scaleMinEgg),tex,eggShader);
 
 
 

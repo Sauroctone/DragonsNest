@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour {
     int currentTutorial= -1;
     internal bool gotFirstBabyDragon;
     internal bool selfDestructed;
+    bool playedTutorial;
 
     private void Awake()
     {
@@ -71,6 +72,9 @@ public class GameManager : MonoBehaviour {
     {
         if (currentTutorial == -1)
         {
+            if (playedTutorial)
+                currentTutorial = 5;
+
             Debug.Log("Next Tuto");
             NextTutorial();
         }
@@ -129,6 +133,8 @@ public class GameManager : MonoBehaviour {
         {
             spawnMan.BeginWave();
             eggMan.LaunchEgg();
+
+            ////// BOOL PLAYEDTUTORIAL ICI ////////
         }
         else
         {

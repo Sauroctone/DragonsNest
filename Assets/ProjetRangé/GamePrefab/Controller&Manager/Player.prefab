@@ -4165,7 +4165,7 @@ MonoBehaviour:
   dodgeTime: 0.2
   dodgeCooldown: 0.5
   nestPosition: {x: -1.800003, y: 0, z: 1.300003}
-  timeToSelfDestruct: 1.5
+  timeToSelfDestruct: 0.75
   selfDestructScrShake: 0.15
   selfDestructLeftVibCurve:
     serializedVersion: 2

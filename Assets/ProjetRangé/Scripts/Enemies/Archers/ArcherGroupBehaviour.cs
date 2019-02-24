@@ -73,9 +73,11 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
         if (bannerMan == null || archers.Count == 1)
         {
             state = ArcherGroupState.FLEEING_INDIVIDUALLY;
+            GameManager.Instance.player.PlayEnemiesDeath();
             if (EventOnStateChanged != null)
-                GameManager.Instance.player.PlayEnemiesDeath();
+            {
                 EventOnStateChanged(state);
+            }
             Die();
         }
     }

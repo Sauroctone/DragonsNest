@@ -8023,6 +8023,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114991777532292108, guid: b9ea2f1bd5c68f14fb890aeb1285d6f2,
+        type: 2}
+      propertyPath: tutorials.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 114882257413169298, guid: b9ea2f1bd5c68f14fb890aeb1285d6f2,
         type: 2}
       propertyPath: spawnersInMap.Array.size
@@ -8123,7 +8128,7 @@ Prefab:
     - target: {fileID: 114882257413169298, guid: b9ea2f1bd5c68f14fb890aeb1285d6f2,
         type: 2}
       propertyPath: maxEnemyCount
-      value: 200
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 114882257413169298, guid: b9ea2f1bd5c68f14fb890aeb1285d6f2,
         type: 2}
@@ -8180,6 +8185,11 @@ Prefab:
       propertyPath: activeSpawners.Array.data[9]
       value: 
       objectReference: {fileID: 134465143}
+    - target: {fileID: 114882257413169298, guid: b9ea2f1bd5c68f14fb890aeb1285d6f2,
+        type: 2}
+      propertyPath: restTimerFlavor
+      value: 'A brief respite :'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9ea2f1bd5c68f14fb890aeb1285d6f2, type: 2}
   m_IsPrefabAsset: 0

@@ -496,9 +496,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 75a672f8223c1ed449d48e4cd202d957, type: 3}
+  m_audioClip: {fileID: 8300000, guid: e2f03cdd5a0790e41b30a965408d3f3d, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1503,7 +1503,6 @@ MonoBehaviour:
   iF: {fileID: 1951902592}
   buttonMoveSFX: {fileID: 0}
   buttonConfirmSFX: {fileID: 0}
-  buttonCancelSFX: {fileID: 0}
   titleSFX: {fileID: 0}
 --- !u!1 &991393500
 GameObject:

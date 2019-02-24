@@ -63,7 +63,7 @@ public class BallistaBehaviour : EnemyBehaviour {
 
         if (bannerMan == null)
         {
-          //  player.GetComponent<PlayerController>().PlayBallistaDeath();
+            GameManager.Instance.player.PlayEnemiesDeath();
             Die();
         }
     }

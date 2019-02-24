@@ -15,7 +15,6 @@ public class ButtonEffect : MonoBehaviour {
     private AudioSource SfxSource;
     public AudioClip buttonMoveSFX;
     public AudioClip buttonConfirmSFX;
-    public AudioClip buttonCancelSFX;
     public AudioClip titleSFX;
     private Scene activeScene;
     private bool isTitleSFXPlayed = false;
@@ -51,6 +50,7 @@ public class ButtonEffect : MonoBehaviour {
 	{
         if (isTitleSFXPlayed == false)
         {
+            MusicSource.Stop();
             SfxSource.PlayOneShot(titleSFX, 1f);
             isTitleSFXPlayed = true;
             Invoke("LoadFirstScene", 1.2f);
@@ -85,7 +85,7 @@ public class ButtonEffect : MonoBehaviour {
 	public void Quit()
 	{
 		Application.Quit();
-        SfxSource.PlayOneShot(buttonCancelSFX, 1f);
+        SfxSource.PlayOneShot(buttonMoveSFX, 1f);
 	}
 
 	public void SetDragonSpeed(float Speed)

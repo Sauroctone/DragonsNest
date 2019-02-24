@@ -106,10 +106,13 @@ public class GameManager : MonoBehaviour {
 
         if (currentTutorial > 0)
         {
-            if (currentTutorial < (tutorials.Length + 1))
+            if (currentTutorial <= (tutorials.Length + 1))
             {
-                tutorials[currentTutorial - 1].gameObject.SetActive(false);
-                Debug.Log(tutorials[currentTutorial - 1].gameObject.activeSelf);
+                if (tutorials[currentTutorial - 1].gameObject.activeSelf == true)
+                {
+                    tutorials[currentTutorial - 1].gameObject.SetActive(false);
+                    Debug.Log(tutorials[currentTutorial - 1].gameObject.activeSelf);
+                }
             }
         }
 

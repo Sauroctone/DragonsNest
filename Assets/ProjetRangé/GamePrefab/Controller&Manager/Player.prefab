@@ -3675,9 +3675,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 75a672f8223c1ed449d48e4cd202d957, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 8e43b3622d7194048a3fd0ff40593c43, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -4243,8 +4243,13 @@ MonoBehaviour:
   dragonHitMaxCooldown: 5
   DragonDeathClip: {fileID: 8300000, guid: 9d01ce2d25b293d4a80567ba4a761c66, type: 3}
   sfxEnemiesDeaths:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: a93774d5a86458e42a881348124cf25b, type: 3}
+  - {fileID: 8300000, guid: 167f0407748e657479ccde833fa3d750, type: 3}
+  - {fileID: 8300000, guid: 77a866a7c3dacce40a35e483c4e82e85, type: 3}
+  - {fileID: 8300000, guid: 07e3db3da4d12f54480100c14f70bf45, type: 3}
+  - {fileID: 8300000, guid: 107aa302aeed45a4e967a54c6924f964, type: 3}
+  - {fileID: 8300000, guid: a72ff874d926c8b44a594da2ca58e64d, type: 3}
+  - {fileID: 8300000, guid: ccd5878ec60facc439f91812bbf763a9, type: 3}
   sfxDeathsCooldown: 5
   narratorSfxClips:
   - {fileID: 8300000, guid: 81cc36ca8c5fe81429c40246ba5c6992, type: 3}

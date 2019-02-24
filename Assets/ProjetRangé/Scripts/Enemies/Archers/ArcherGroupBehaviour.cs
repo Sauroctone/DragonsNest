@@ -48,6 +48,7 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
     public NavMeshAgent nav;
     public Material normalMat;
     public Material aimMat;
+    private GameObject Player;
 
     public override void Init()
     {
@@ -73,7 +74,7 @@ public class ArcherGroupBehaviour : EnemyBehaviour {
         {
             state = ArcherGroupState.FLEEING_INDIVIDUALLY;
             if (EventOnStateChanged != null)
-           //     Player.GetComponent<PlayerController>().PlayArchersDeath();
+                GameManager.Instance.player.PlayEnemiesDeath();
                 EventOnStateChanged(state);
             Die();
         }

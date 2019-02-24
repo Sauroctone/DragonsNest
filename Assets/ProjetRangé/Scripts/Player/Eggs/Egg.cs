@@ -65,7 +65,7 @@ public class Egg : LivingBeing {
 
     public void Hatch()
     {
-        EggAudio.PlayOneShot(eggHatching);
+        EggAudio.PlayOneShot(eggHatching,1f);
         spawnMan.eggs.Remove(transform);
         gameObject.SetActive(false);
         canBeADrone = false;
@@ -76,7 +76,7 @@ public class Egg : LivingBeing {
 
     public override void UpdateHealthUI(int _damage)
     {
-        Player.GetComponent<PlayerController>().PlayNarratorCLip(3);
+        GameManager.Instance.player.PlayNarratorCLip(3);
         //material.color = new Color(1 - life/maxLife, life/maxLife, 0, 1);
     }
 	

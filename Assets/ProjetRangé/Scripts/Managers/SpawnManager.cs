@@ -85,9 +85,9 @@ public class SpawnManager : MonoBehaviour {
 
     public void BeginWave()
     {
-        player.GetComponent<PlayerController>().PlayNarratorCLip(4);
         waveState = WaveState.DURING_WAVE;
         currentWave++;
+        player.GetComponent<PlayerController>().PlayNarratorCLip(4);
         Debug.Log("Launching wave " + currentWave);
         waveCor = StartCoroutine(IWave());
         int spawnersToActivate = Mathf.CeilToInt(currentWave * spawnerCountIncrement);

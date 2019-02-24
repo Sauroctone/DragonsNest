@@ -581,19 +581,11 @@ public class PlayerController : LivingBeing
     }
     
     //Sound Functions
-    public void PlayArchersDeath()
+    public void PlayEnemiesDeath()
     {
         if (sfxDeathsCooldown <= 0)
         {
-            SFXSource.PlayOneShot(sfxEnemiesDeaths[0], 1f);
-        }
-    }
-
-    public void PlayBallistaDeath()
-    {
-        if (sfxDeathsCooldown <= 0)
-        {
-            SFXSource.PlayOneShot(sfxEnemiesDeaths[1], 1f);
+            SFXSource.PlayOneShot(sfxEnemiesDeaths[Random.Range(0, sfxEnemiesDeaths.Length)], 1f);
         }
     }
 

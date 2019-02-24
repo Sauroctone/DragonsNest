@@ -20,6 +20,8 @@ public class Egg : LivingBeing {
 	public Color lowLifeCol = Color.red;
     SpawnManager spawnMan;
     private AudioSource EggAudio;
+    public float eggAudioMaxCooldown;
+    public float eggAudioCooldown;
     public AudioClip eggHatching;
     public GameObject Player;
 
@@ -40,6 +42,7 @@ public class Egg : LivingBeing {
 		//LifeUpdate();
 		//ParticleUpdate();
 		HatchUpdate();
+        eggAudioCooldown -= Time.deltaTime;
 	}
 
 	void HatchUpdate()
@@ -76,8 +79,11 @@ public class Egg : LivingBeing {
 
     public override void UpdateHealthUI(int _damage)
     {
-        GameManager.Instance.player.PlayNarratorCLip(3);
-        //material.color = new Color(1 - life/maxLife, life/maxLife, 0, 1);
+        if(eggAudioCooldown <= 0) { 
+            GameManager.Instance.player.PlayNarratorCLip(3);
+            //material.color = new Color(1 - life/maxLife, life/maxLife, 0, 1);
+            eggAudioCooldown = eggAudioMaxCooldown;
+        }
     }
 	
     public override void Die()

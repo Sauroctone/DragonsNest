@@ -142,14 +142,12 @@ public class GameManager : MonoBehaviour {
         switch (currentTutorial)
         {
             case 0:
-                Debug.Log("Case0");
                 yield return new WaitForSeconds(5f);
                 NextTutorial();
                 break;
             case 1:
                 while (Input.GetAxis(player.inputSprint) < .1f && Input.GetAxis(player.inputSprintAlt) < .1f)
                 {
-                    Debug.Log("Case1");
                     yield return null;
                 }
                 NextTutorial();
@@ -157,7 +155,6 @@ public class GameManager : MonoBehaviour {
             case 2:
                 while (Input.GetAxis(player.inputSlowDown) < .1f && Input.GetAxis(player.inputSlowDownAlt) < .1f)
                 {
-                    Debug.Log("Case2");
                     yield return null;
                 }
                 NextTutorial();
@@ -165,7 +162,6 @@ public class GameManager : MonoBehaviour {
             case 3:
                 while (!Input.GetButton(player.inputShoot))
                 {
-                    Debug.Log("Case3");
                     yield return null;
                 }
                 NextTutorial();
@@ -174,7 +170,6 @@ public class GameManager : MonoBehaviour {
             case 4:
                 while (!gotFirstBabyDragon)
                 {
-                    Debug.Log("Case4");
                     yield return null;
                 }
                 NextTutorial();
@@ -182,7 +177,6 @@ public class GameManager : MonoBehaviour {
             case 5:
                 while (!selfDestructed)
                 {
-                    Debug.Log("Case5");
                     yield return null;
                 }
                 NextTutorial();
@@ -190,7 +184,6 @@ public class GameManager : MonoBehaviour {
             case 6:
                 while (!Input.GetButtonDown(player.inputInteract))
                 {
-                    Debug.Log("Case6");
                     yield return null;
                 }
                 NextTutorial();

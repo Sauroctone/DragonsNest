@@ -588,10 +588,6 @@ public class PlayerController : LivingBeing
         }
     }
 
-    public void BackToMenu()
-    {
-        SceneManager.LoadScene(1);
-    }
 
     //Overrides
 
@@ -618,7 +614,6 @@ public class PlayerController : LivingBeing
         }
         else
         {
-            PlayNarratorCLip(2);
             Invoke("BackToMenu",2f);
         }
     }

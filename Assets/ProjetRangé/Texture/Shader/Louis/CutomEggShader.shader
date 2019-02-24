@@ -8,6 +8,7 @@
         _ColorTextLL("Color Low Amount", COLOR) = (1,1,1,1)
         _GradientTex("GradientTex", 2D) = "white"
         _MainTexture("MainTexture", 2D) = "white"
+		_MultiplyPower("MultiplyGlow", Float) = 1
     }
     
     SubShader

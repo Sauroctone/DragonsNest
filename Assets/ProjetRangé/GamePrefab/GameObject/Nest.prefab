@@ -371,7 +371,10 @@ MonoBehaviour:
   canBeADrone: 0
   fullLifeCol: {r: 0, g: 1, b: 0, a: 1}
   lowLifeCol: {r: 1, g: 0, b: 0, a: 1}
-  eggHatching: {fileID: 8300000, guid: 713c4ec0f445fb845a1b6e9bb42667e1, type: 3}
+  eggAudioMaxCooldown: 3
+  eggAudioCooldown: 0
+  eggHatching: {fileID: 8300000, guid: 2ac7bc3d21eca8d4195451a52fc55f3e, type: 3}
+  Player: {fileID: 0}
 --- !u!114 &114879880959121818
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -385,6 +388,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   egg: {fileID: 114225908017078630}
   scaleEgg: 1
+  scaleMinEgg: 2
   eggShader: {fileID: 2100000, guid: 6c41beadfff24444e804b151191657b7, type: 2}
   eggLifeMaxColor: {r: 1, g: 0.9019608, b: 0, a: 1}
   eggLowLifeColor: {r: 1, g: 0.3137255, b: 0.13360417, a: 1}

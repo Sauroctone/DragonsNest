@@ -2161,6 +2161,11 @@ Prefab:
       propertyPath: scaleEgg
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114225908017078630, guid: c8e74562c4be10743a58a1af66c8e133,
+        type: 2}
+      propertyPath: eggHatching
+      value: 
+      objectReference: {fileID: 8300000, guid: 2ac7bc3d21eca8d4195451a52fc55f3e, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8e74562c4be10743a58a1af66c8e133, type: 2}
   m_IsPrefabAsset: 0
@@ -4112,7 +4117,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 966864866}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -14087,13 +14092,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 1172094457}
-  - {fileID: 1141611440}
   - {fileID: 1163277676}
   - {fileID: 234397598}
-  - {fileID: 1033340975}
-  - {fileID: 1133009557}
-  - {fileID: 999189765}
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -16233,7 +16233,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 966864866}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -17478,6 +17478,11 @@ Prefab:
       propertyPath: m_Layer
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 114225908017078630, guid: c8e74562c4be10743a58a1af66c8e133,
+        type: 2}
+      propertyPath: eggHatching
+      value: 
+      objectReference: {fileID: 8300000, guid: 2ac7bc3d21eca8d4195451a52fc55f3e, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8e74562c4be10743a58a1af66c8e133, type: 2}
   m_IsPrefabAsset: 0
@@ -25060,6 +25065,11 @@ Prefab:
       propertyPath: m_Name
       value: Nest (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 114225908017078630, guid: c8e74562c4be10743a58a1af66c8e133,
+        type: 2}
+      propertyPath: eggHatching
+      value: 
+      objectReference: {fileID: 8300000, guid: 2ac7bc3d21eca8d4195451a52fc55f3e, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8e74562c4be10743a58a1af66c8e133, type: 2}
   m_IsPrefabAsset: 0

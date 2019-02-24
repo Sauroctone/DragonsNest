@@ -305,7 +305,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.25
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -369,9 +369,8 @@ MonoBehaviour:
   particle: {fileID: 0}
   pickupCol: {fileID: 1554857640213768}
   canBeADrone: 0
-  fullLifeCol: {r: 1, g: 0.9019608, b: 0, a: 1}
-  lowLifeCol: {r: 1, g: 0.3137255, b: 0, a: 1}
-  eggDestroy: {fileID: 8300000, guid: 96397bd9d46ec2841badec1069c04ec1, type: 3}
+  fullLifeCol: {r: 0, g: 1, b: 0, a: 1}
+  lowLifeCol: {r: 1, g: 0, b: 0, a: 1}
   eggHatching: {fileID: 8300000, guid: 713c4ec0f445fb845a1b6e9bb42667e1, type: 3}
 --- !u!114 &114879880959121818
 MonoBehaviour:

@@ -15,6 +15,8 @@ public class ScoreManager : MonoBehaviour {
     public int warlockDeathCount;
 
     public Image comboCoolDownImage;
+    public float comboScaledownRate;
+    public float comboScaleMaxScale;
 	public Text comboAmountText;
 	public TextMananger comboAmountTextString;
 	public Text scoreText; 
@@ -26,12 +28,16 @@ public class ScoreManager : MonoBehaviour {
 	{
 		DecreaseCombo();
 		SetScore();
-	}
+        if (comboCoolDownImage.transform.localScale.x > 1f) { comboCoolDownImage.transform.localScale -= new Vector3(comboScaledownRate, 0f, 0f); }
+        if (comboCoolDownImage.transform.localScale.y > 1f) { comboCoolDownImage.transform.localScale -= new Vector3(0f, comboScaledownRate, 0f); }
+    }
 
 	public void Start ()
 	{
 		ResetScore();
-	}
+        int baseComboWidth = comboCoolDownImage.mainTexture.width;
+        int baseComboHeight = comboCoolDownImage.mainTexture.height;
+    }
 
 	private void ResetScore()
 	{
@@ -57,7 +63,7 @@ public class ScoreManager : MonoBehaviour {
 				comboAmountText.color = comboColor[comboAmount];
 			}
 			if(comboAmountTextString.entry[1] != "1") {comboAmountTextString.entry[1] = (comboAmount+1).ToString();}
-			return;
+            return;
 		} 
 		
 		comboCoolDown += Time.deltaTime;
@@ -69,16 +75,20 @@ public class ScoreManager : MonoBehaviour {
 		}
 	}
 
-	public void SetCombo ()
-	{
-		comboCoolDown =0;
+    public void SetCombo()
+    {
+        comboCoolDown = 0;
 
-		if(comboAmount<=5)
-		{
-			comboAmount ++;
-			comboAmountTextString.entry[1] = (comboAmount+1).ToString();
-			comboCoolDownImage.color = comboColor[comboAmount];
-			comboAmountText.color = comboColor[comboAmount];
-		}
+        if (comboAmount <= 5)
+        {
+            comboAmount++;
+            comboAmountTextString.entry[1] = (comboAmount + 1).ToString();
+            comboCoolDownImage.color = comboColor[comboAmount];
+            comboAmountText.color = comboColor[comboAmount];
+        }
+        if (comboAmount > 0)
+        {
+            comboCoolDownImage.transform.localScale = new Vector3(comboScaleMaxScale, comboScaleMaxScale, 1f);
+        }
 	}
 }

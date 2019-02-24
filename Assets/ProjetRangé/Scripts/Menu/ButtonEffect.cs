@@ -9,8 +9,26 @@ public class ButtonEffect : MonoBehaviour {
 
 	public EventSystem eventSystem;
 	public InputField iF;
+    [Header("Menu Sound System References")]
+    private AudioSource[] cameraAudioSources;
+    private AudioSource MusicSource;
+    private AudioSource SfxSource;
+    public AudioClip buttonMoveSFX;
+    public AudioClip buttonConfirmSFX;
+    public AudioClip titleSFX;
+    private Scene activeScene;
+    private bool isTitleSFXPlayed = false;
 
-	public void DisplayUI (GameObject go)
+    private void Start()
+    {
+        activeScene = SceneManager.GetActiveScene();
+            cameraAudioSources = Camera.main.GetComponents<AudioSource>();
+            MusicSource = cameraAudioSources[0];
+            SfxSource = cameraAudioSources[1];
+        
+    }
+
+    public void DisplayUI (GameObject go)
 	{
 		go.SetActive(true);
 	}
@@ -23,12 +41,24 @@ public class ButtonEffect : MonoBehaviour {
 	public void SetNextButtonSelected (GameObject go)
 	{
 		eventSystem.SetSelectedGameObject(go);
+        SfxSource.PlayOneShot(buttonMoveSFX,1f);
 	}
 
 	public void LoadFirstScene()
 	{
-		SceneManager.LoadScene(3);
-	}
+        if (isTitleSFXPlayed == false)
+        {
+            MusicSource.Stop();
+            SfxSource.PlayOneShot(titleSFX, 1f);
+            isTitleSFXPlayed = true;
+            Invoke("LoadFirstScene", 1.2f);
+        }
+        else
+        {
+            SceneManager.LoadScene(3);
+        }
+    }
+
 	public void LoadLeaderBoardScene()
 	{
 		//TestPlease Dont toutch
@@ -39,17 +69,20 @@ public class ButtonEffect : MonoBehaviour {
 	}
 	public void LoadLeaderBoardSceneWithoutScore()
 	{
-		SceneManager.LoadScene(2);
+        SfxSource.PlayOneShot(buttonConfirmSFX, 1f);
+        SceneManager.LoadScene(2);
 	}
 
 	public void LoadMenu()
 	{
+        SfxSource.PlayOneShot(buttonConfirmSFX, 1f);
 		SceneManager.LoadScene(0);
 	}
 
 	public void Quit()
 	{
 		Application.Quit();
+        SfxSource.PlayOneShot(buttonMoveSFX, 1f);
 	}
 
 	public void SetDragonSpeed(float Speed)

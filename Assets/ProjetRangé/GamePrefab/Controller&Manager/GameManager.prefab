@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies: []
-  maxEnemyCount: 50
+  maxEnemyCount: 100
   eggs: []
   spawnersInMap: []
   activeSpawners: []
@@ -113,6 +113,7 @@ MonoBehaviour:
   restTimerFlavor: 'A brief respite:'
   waveTimerText: {fileID: 114446249414632664, guid: 8126c08c43fa5b34b8802d32f752283f,
     type: 2}
+  Player: {fileID: 1082402980589760, guid: e52e955854e182849a85bfbc65ca9d7a, type: 2}
 --- !u!114 &114991777532292108
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -128,7 +129,7 @@ MonoBehaviour:
     type: 2}
   mainCamera: {fileID: 20954020472290998, guid: 8c07c3166d2c527409cb8e607de56fca,
     type: 2}
-  player: {fileID: 114865201573251416, guid: e52e955854e182849a85bfbc65ca9d7a, type: 2}
+  player: {fileID: 0}
   playerRb: {fileID: 0}
   vignetteMan: {fileID: 114574732768770378}
   spawnMan: {fileID: 114882257413169298}
@@ -150,6 +151,9 @@ MonoBehaviour:
   waveCanvas: {fileID: 1050587436275554, guid: d895af0c19c250e4fbad2353e7f71da7, type: 2}
   timeMan: {fileID: 114489176683777286}
   paraMan: {fileID: 0}
+  tutorialCanvas: {fileID: 1252889100393728, guid: 0751d75abe75f444eac3d5c2e8eceb3c,
+    type: 2}
+  instancedTutoCanvas: {fileID: 0}
   tutorials:
   - {fileID: 0}
   - {fileID: 0}

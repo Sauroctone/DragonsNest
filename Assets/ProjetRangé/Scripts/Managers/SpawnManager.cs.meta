@@ -3,7 +3,9 @@ guid: df2c2601466d5614b8167a9908c587f7
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - waveTimerText: {instanceID: 0}
+  - Player: {fileID: 1082402980589760, guid: e52e955854e182849a85bfbc65ca9d7a, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

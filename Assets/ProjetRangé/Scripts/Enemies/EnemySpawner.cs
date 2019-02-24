@@ -149,18 +149,21 @@ public class EnemySpawner : LivingBeing
 
     IEnumerator ISpawnEnemy()
     {
-        if (spawnMan.enemies.Count < spawnMan.maxEnemyCount)
-            spawnMan.SpawnEnemy(enemyPrefab, spawnPosition.position);
+        if (spawnMan.waveState == WaveState.DURING_WAVE)
+        {
+            if (spawnMan.enemies.Count < spawnMan.maxEnemyCount)
+                spawnMan.SpawnEnemy(enemyPrefab, spawnPosition.position);
 
-        timeBeforeSpawn = baseTimeToSpawn - waveCountDecrement * spawnMan.currentWave;
-        timeBeforeSpawn -= survivedCountDecrement * wavesSurvived;
-        if (timeBeforeSpawn < minTimeToSpawn)
-            timeBeforeSpawn = minTimeToSpawn;
+            timeBeforeSpawn = baseTimeToSpawn - waveCountDecrement * spawnMan.currentWave;
+            timeBeforeSpawn -= survivedCountDecrement * wavesSurvived;
+            if (timeBeforeSpawn < minTimeToSpawn)
+                timeBeforeSpawn = minTimeToSpawn;
 
-        //Debug.Log("Time to spawn enemy is " + timeBeforeSpawn + " for " + this.gameObject.name);
+            //Debug.Log("Time to spawn enemy is " + timeBeforeSpawn + " for " + this.gameObject.name);
 
-        yield return new WaitForSeconds(timeBeforeSpawn);
-        spawnCor = StartCoroutine(ISpawnEnemy());
+            yield return new WaitForSeconds(timeBeforeSpawn);
+            spawnCor = StartCoroutine(ISpawnEnemy());
+        }
     }
 
     //Obsolete

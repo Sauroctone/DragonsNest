@@ -804,12 +804,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 44717024}
   m_Script: {fileID: 11500000, guid: 5f4f4dc3b4748db469c35305e27b8246, type: 3}
---- !u!114 &47007054 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114225908017078630, guid: c8e74562c4be10743a58a1af66c8e133,
-    type: 2}
-  m_PrefabInternal: {fileID: 128405572}
-  m_Script: {fileID: 11500000, guid: 1ee4423cd90ac8a49abb72d1a79060a4, type: 3}
 --- !u!1 &51130608
 GameObject:
   m_ObjectHideFlags: 0
@@ -1717,36 +1711,6 @@ Prefab:
     - target: {fileID: 4273134443208814, guid: c8e74562c4be10743a58a1af66c8e133, type: 2}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114879880959121818, guid: c8e74562c4be10743a58a1af66c8e133,
-        type: 2}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114350188464218448, guid: c8e74562c4be10743a58a1af66c8e133,
-        type: 2}
-      propertyPath: egg
-      value: 
-      objectReference: {fileID: 47007054}
-    - target: {fileID: 114225908017078630, guid: c8e74562c4be10743a58a1af66c8e133,
-        type: 2}
-      propertyPath: hatchingTimeMax
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 114879880959121818, guid: c8e74562c4be10743a58a1af66c8e133,
-        type: 2}
-      propertyPath: scaleEgg
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114225908017078630, guid: c8e74562c4be10743a58a1af66c8e133,
-        type: 2}
-      propertyPath: eggHatching
-      value: 
-      objectReference: {fileID: 8300000, guid: 2ac7bc3d21eca8d4195451a52fc55f3e, type: 3}
-    - target: {fileID: 114225908017078630, guid: c8e74562c4be10743a58a1af66c8e133,
-        type: 2}
-      propertyPath: eggAudioMaxCooldown
-      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8e74562c4be10743a58a1af66c8e133, type: 2}

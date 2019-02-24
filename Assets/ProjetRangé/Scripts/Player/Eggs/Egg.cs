@@ -24,6 +24,7 @@ public class Egg : LivingBeing {
     public float eggAudioCooldown;
     public AudioClip eggHatching;
     public GameObject Player;
+    public UiFollow uiFollow;
 
     public override void Start ()
     {
@@ -49,6 +50,7 @@ public class Egg : LivingBeing {
 	{
 		if (hatchingTime >= hatchingTimeMax)
 		{
+            uiFollow.ChangeColor();
             pickupCol.SetActive(true);
 			canBeADrone = true;
 		}

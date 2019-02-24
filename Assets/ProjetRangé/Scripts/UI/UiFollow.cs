@@ -15,13 +15,17 @@ public class UiFollow : MonoBehaviour {
 	public Material eggShader;
 	public Color eggLifeMaxColor, eggLowLifeColor, eggBAckgroundColor;	
 	public Material circleShader;
+	public Material warningShader;
+	public Texture2D warningSprite;
 	public Color circleColor, circleBAckgroundColor;	
+	public Animator animator;
 	
 
 	public Texture2D eggImage;
 	public Texture2D indicatorImage;
 
 	Color color;
+	public bool isAttacked;
 
 	private void Awake()
 	{
@@ -43,6 +47,10 @@ public class UiFollow : MonoBehaviour {
 		GUICreatorEgg();
 	}
 
+	public void ChangeColor()
+	{
+		circleShader.SetColor("_ColorTextFL",circleColor);
+	}
 	private void GUICreatorEgg ()
 	{
 		if(!DrawEggg()) DrawIndicator();
@@ -64,6 +72,7 @@ public class UiFollow : MonoBehaviour {
 		var tex = UsualFunction.MakeTex(50,50,Color.white);
 		eggShader.SetFloat("_FillAmount",egg.life/egg.maxLife);
 		circleShader.SetFloat("_FillAmount",egg.hatchingTime/egg.hatchingTimeMax);
+		
 		Graphics.DrawTexture(new Rect(screenPosition.x-20,screenPosition.y-60,40*scaleEgg,40*scaleEgg),tex,circleShader);
 		Graphics.DrawTexture(new Rect(screenPosition.x-12,screenPosition.y-52,25*scaleEgg,25*scaleEgg),tex,eggShader);
 		
@@ -86,12 +95,25 @@ public class UiFollow : MonoBehaviour {
 
 		}
 		
+		if(egg.life<egg.maxLife)
+		{
+			Warning(decalPlayer);
+		}
+
 		Graphics.DrawTexture(new Rect((decalPlayer.x+1)/2*Screen.width-10,(decalPlayer.y+1)/2*Screen.height-10,30,30),tex,circleShader);
 		Graphics.DrawTexture(new Rect((decalPlayer.x+1)/2*Screen.width-5,(decalPlayer.y+1)/2*Screen.height-5,20,20),tex,eggShader);
 
+	}
 
 
-		//	GUI.backgroundColor = Color.Lerp(egg.fullLifeCol, egg.lowLifeCol,1-(egg.life/egg.maxLife));
-		//	GUI.Box(new Rect((decalPlayer.x+1)/2*Screen.width-5,(decalPlayer.y+1)/2*Screen.height-5,20,20),"", indicatorStyle);
+	private void Warning(Vector3 decalPlayer)
+	{
+		var tex = UsualFunction.MakeTex(50,50,Color.white);
+
+		warningShader.SetTexture("_MainTexture",warningSprite);
+		
+		Graphics.DrawTexture(new Rect((decalPlayer.x+1)/2*Screen.width-20,(decalPlayer.y+1)/2*Screen.height-20,40,40),tex,circleShader);
+
+
 	}
 }

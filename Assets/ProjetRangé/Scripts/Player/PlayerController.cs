@@ -176,6 +176,8 @@ public class PlayerController : LivingBeing
     public float sfxDeathsCooldown;
     public AudioClip[] narratorSfxClips;
 
+    public GameObject placeholderFeedback;
+
     public void Awake()
     {
         InstantiateRefs();
@@ -605,16 +607,15 @@ public class PlayerController : LivingBeing
 
         SFXSource.PlayOneShot(DragonDeathClip, 1);
 
+        Instantiate(placeholderFeedback, transform.position, Quaternion.identity);
+
         if (babyDragonMan.babyDragons.Count > 0)
         {
-            //Instantiate(placeholderFeedback, babyDragonMan.babyDragons[0].transform.position, Quaternion.identity);
-            //Instantiate(placeholderFeedback, transform.position, Quaternion.identity);
-            //smokeScreen.Play();
             StartCoroutine(INewMother());
         }
         else
         {
-            Invoke("BackToMenu",2f);
+            StartCoroutine(IGameOver());
         }
     }
 
@@ -754,6 +755,16 @@ public class PlayerController : LivingBeing
             transform.localScale = Vector3.Lerp(new Vector3(.1f, .1f, .1f), Vector3.one, time / growTime);
             yield return null;
         }
+    }
+
+    IEnumerator IGameOver()
+    {
+        MakeInvincible(3f);
+        visuals.gameObject.SetActive(false);
+        rb.velocity = Vector3.zero;
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene(1);
+
     }
 
     IEnumerator ISelfDestruct()

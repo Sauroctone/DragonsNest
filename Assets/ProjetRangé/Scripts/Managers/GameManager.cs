@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour {
     public GameObject tutorialCanvas;
     public GameObject instancedTutoCanvas;
     public Image[] tutorials;
+
     int currentTutorial= -1;
     internal bool gotFirstBabyDragon;
     internal bool selfDestructed;
@@ -188,9 +189,3 @@ public class GameManager : MonoBehaviour {
         }
     }
 }
-
-    {
-        CreateInstances();
-        paraMan = ParameterManager.Instance;
-        scoreManager = UI.GetComponentInChildren<ScoreManager>();
-        if (currentTutorial >= tutorials.Length)

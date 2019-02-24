@@ -22,12 +22,10 @@ public class ButtonEffect : MonoBehaviour {
     private void Start()
     {
         activeScene = SceneManager.GetActiveScene();
-        if (activeScene.name == "Menu")
-        {
             cameraAudioSources = Camera.main.GetComponents<AudioSource>();
             MusicSource = cameraAudioSources[0];
             SfxSource = cameraAudioSources[1];
-        }
+        
     }
 
     public void DisplayUI (GameObject go)

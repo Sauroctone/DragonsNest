@@ -500,7 +500,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.6
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1501,9 +1501,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventSystem: {fileID: 1710692002}
   iF: {fileID: 1951902592}
-  buttonMoveSFX: {fileID: 0}
-  buttonConfirmSFX: {fileID: 0}
-  titleSFX: {fileID: 0}
+  buttonMoveSFX: {fileID: 8300000, guid: 0c13a4da929e08d4b9ecd4d8e366a646, type: 3}
+  buttonConfirmSFX: {fileID: 8300000, guid: 06110dc250bf8664ea56f4cb3569e1b9, type: 3}
+  titleSFX: {fileID: 8300000, guid: 4fa281d96417be14db8251118b7e6018, type: 3}
 --- !u!1 &991393500
 GameObject:
   m_ObjectHideFlags: 0
@@ -2329,7 +2329,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.5
-  m_Text: "You Win \n\nGold during your reign"
+  m_Text: "You Won \n\nGold during your reign"
 --- !u!222 &1597145654
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2684,7 +2684,7 @@ MonoBehaviour:
         m_MethodName: SetNextButtonSelected
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 383242156}
+          m_ObjectArgument: {fileID: 1951902591}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
